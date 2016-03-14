@@ -6,6 +6,7 @@
 #' @param id Column of \code{x} containing the individual ID.
 #' @param code Column of \code{x} containing ICD-10 codes.
 #' @param assign0 Apply a hierarchy of comorbities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.
+#' @param labels Return a dataset with labelled columns. Defaults to \code{TRUE}, and the ID column never gets labelled.
 #'
 #' @return A data frame with \code{id}, columns relative to each Charlson domain, weighted Charlson Score, and grouped Charlson Index, with one row per individual.
 #'
@@ -23,11 +24,11 @@
 #'
 #' charlson(fake_data, "id", "code")
 #'
-#' @import dplyr ArgumentCheck
+#' @import Hmisc dplyr ArgumentCheck
 #'
 #' @export
 
-charlson <- function(x, id, code, assign0 = TRUE){
+charlson <- function(x, id, code, assign0 = TRUE, labels = TRUE){
 
   Check <- ArgumentCheck::newArgCheck()
 
@@ -112,7 +113,27 @@ charlson <- function(x, id, code, assign0 = TRUE){
            aids = factor(aids, levels = 0:1, labels = c("No", "Yes"))) %>%
     select(id, ami, chf, pvd, cevd, dementia, copd, rheumd, pud, mld, diab, diabwc, hp, rend, canc, msld, metacanc, aids, score, index)
   cs[, idpar] <- cs[, "id"]
-  cs <- select(cs, -id) %>%
-    rename("Myocardial infarction" = ami, "Congestive heart failure" = chf, "Peripheral vascular disease" = pvd, "Cerebrovascular disease" = cevd, "Dementia" = dementia, "Chronic pulmonary disease" = copd, "Rheumatic disease" = rheumd, "Peptic ulcer disease" = pud, "Mild liver disease" = mld, "Diabetes without chronic complication" = diab, "Diabetes with chronic complication" = diabwc, "Hemiplegia or paraplegia" = hp, "Renal disease" = rend, "Any malignancy" = canc, "Moderate or severe liver disease" = msld, "Metastatic solid tumor" = metacanc, "AIDS/HIV" = aids, "Weighted Charlson Score" = score, "Grouped Charlson Index" = index)
+  cs <- select(cs, -id)
+  if (labels == TRUE) {
+    label(cs$ami) <- "Myocardial infarction"
+    label(cs$chf) <- "Congestive heart failure"
+    label(cs$pvd) <- "Peripheral vascular disease"
+    label(cs$cevd) <- "Cerebrovascular disease"
+    label(cs$dementia) <- "Dementia"
+    label(cs$copd) <- "Chronic pulmonary disease"
+    label(cs$rheumd) <- "Rheumatic disease"
+    label(cs$pud) <- "Peptic ulcer disease"
+    label(cs$mld) <- "Mild liver disease"
+    label(cs$diab) <- "Diabetes without chronic complication"
+    label(cs$diabwc) <- "Diabetes with chronic complication"
+    label(cs$hp) <- "Hemiplegia or paraplegia"
+    label(cs$rend) <- "Renal disease"
+    label(cs$canc) <- "Any malignancy"
+    label(cs$msld) <- "Moderate or severe liver disease"
+    label(cs$metacanc) <- "Metastatic solid tumor"
+    label(cs$aids) <- "AIDS/HIV"
+    label(cs$score) <- "Weighted Charlson Score"
+    label(cs$index) <- "Grouped Charlson Index"
+    }
   return(cs)
 }
