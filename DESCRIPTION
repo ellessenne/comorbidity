@@ -1,6 +1,6 @@
 Package: charlson
 Type: Package
-Version: 0.1.0
+Version: 0.1.5
 Title: Charlson Score Calculation
 Description: Charlson Score computation using the ICD-10 coding system.
 Authors@R: person("Alessandro", "Gasparini", email = "alessandro.gasparini@ki.se", role = c("aut", "cre"))
@@ -10,7 +10,6 @@ Depends:
     R (>= 3.2)
 Imports:
     dplyr,
-    Hmisc,
     ArgumentCheck
 Author: Alessandro Gasparini [aut, cre]
 Maintainer: Alessandro Gasparini <alessandro.gasparini@ki.se>

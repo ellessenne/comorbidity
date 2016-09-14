@@ -6,7 +6,8 @@
 #' @param id Column of \code{x} containing the individual ID.
 #' @param code Column of \code{x} containing ICD-10 codes.
 #' @param assign0 Apply a hierarchy of comorbities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.
-#' @param labels Return a dataset with labelled columns. Defaults to \code{TRUE}, and the ID column never gets labelled.
+#' @param labels Return a dataset with labelled columns. Defaults to \code{TRUE}. The ID column never gets labelled.
+#' @param factorise Return comorbidities as factors rather than numeric (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{TRUE}.
 #'
 #' @return A data frame with \code{id}, columns relative to each Charlson domain, weighted Charlson Score, and grouped Charlson Index, with one row per individual.
 #'
@@ -24,11 +25,11 @@
 #'
 #' charlson(fake_data, "id", "code")
 #'
-#' @import Hmisc dplyr ArgumentCheck
+#' @import dplyr ArgumentCheck
 #'
 #' @export
 
-charlson <- function(x, id, code, assign0 = TRUE, labels = TRUE){
+charlson <- function(x, id, code, assign0 = TRUE, labels = TRUE, factorise = TRUE){
 
   Check <- ArgumentCheck::newArgCheck()
 
@@ -57,6 +58,20 @@ charlson <- function(x, id, code, assign0 = TRUE, labels = TRUE){
   if (!(is.logical(assign0)))
     ArgumentCheck::addError(
       msg = "'assign0' not logical.",
+      argcheck = Check
+    )
+
+  # labels must be logical
+  if (!(is.logical(labels)))
+    ArgumentCheck::addError(
+      msg = "'labels' not logical.",
+      argcheck = Check
+    )
+
+  # factorise must be logical
+  if (!(is.logical(factorise)))
+    ArgumentCheck::addError(
+      msg = "'factorise' not logical.",
       argcheck = Check
     )
 
@@ -93,7 +108,9 @@ charlson <- function(x, id, code, assign0 = TRUE, labels = TRUE){
            wdiab = ifelse(assign0, replace(wdiab, diab == 1 & diabwc == 1, 0), wdiab),
            wcanc = ifelse(assign0, replace(wcanc, canc == 1 & metacanc == 1, 0), wcanc)) %>%
     mutate(score = ami * wami + chf * wchf + pvd * wpvd + cevd * wcevd + dementia * wdementia + copd * wcopd + rheumd * wrheumd + pud * wpud + mld * wmld + diab * wdiab + diabwc * wdiabwc + hp * whp + rend * wrend + canc * wcanc + msld * wmsld + metacanc * wmetacanc + aids * waids) %>%
-    mutate(index = cut(score, breaks = c(0, 1, 2, Inf), labels = c("0", "1", "2+"), right = FALSE)) %>%
+    mutate(index = cut(score, breaks = c(0, 1, 2, Inf), labels = c("0", "1", "2+"), right = FALSE))
+  if (factorise == TRUE) {
+    cs <- cs %>%
     mutate(ami = factor(ami, levels = 0:1, labels = c("No", "Yes")),
            chf = factor(chf, levels = 0:1, labels = c("No", "Yes")),
            pvd = factor(pvd, levels = 0:1, labels = c("No", "Yes")),
@@ -110,11 +127,13 @@ charlson <- function(x, id, code, assign0 = TRUE, labels = TRUE){
            canc = factor(canc, levels = 0:1, labels = c("No", "Yes")),
            msld = factor(msld, levels = 0:1, labels = c("No", "Yes")),
            metacanc = factor(metacanc, levels = 0:1, labels = c("No", "Yes")),
-           aids = factor(aids, levels = 0:1, labels = c("No", "Yes"))) %>%
+           aids = factor(aids, levels = 0:1, labels = c("No", "Yes")))
+  }
+  cs <- cs %>%
     select(id, ami, chf, pvd, cevd, dementia, copd, rheumd, pud, mld, diab, diabwc, hp, rend, canc, msld, metacanc, aids, score, index)
   cs[, idpar] <- cs[, "id"]
   cs <- select(cs, -id)
-  if (labels == TRUE) {
+  if (requireNamespace("Hmisc") & labels == TRUE) {
     label(cs$ami) <- "Myocardial infarction"
     label(cs$chf) <- "Congestive heart failure"
     label(cs$pvd) <- "Peripheral vascular disease"
@@ -135,5 +154,8 @@ charlson <- function(x, id, code, assign0 = TRUE, labels = TRUE){
     label(cs$score) <- "Weighted Charlson Score"
     label(cs$index) <- "Grouped Charlson Index"
     }
+  if (!requireNamespace("Hmisc") & labels == TRUE) {
+    warning("Impossible to label variables without the Hmisc package.")
+  }
   return(cs)
 }

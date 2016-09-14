@@ -4,7 +4,7 @@
 \alias{charlson}
 \title{Charlson Comorbidity Score.}
 \usage{
-charlson(x, id, code, assign0 = TRUE, labels = TRUE)
+charlson(x, id, code, assign0 = TRUE, labels = TRUE, factorise = TRUE)
 }
 \arguments{
 \item{x}{A data frame, with one column containing an individual ID and a column containing all ICD-10 codes.}
@@ -15,7 +15,9 @@ charlson(x, id, code, assign0 = TRUE, labels = TRUE)
 
 \item{assign0}{Apply a hierarchy of comorbities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.}
 
-\item{labels}{Return a dataset with labelled columns. Defaults to \code{TRUE}, and the ID column never gets labelled.}
+\item{labels}{Return a dataset with labelled columns. Defaults to \code{TRUE}. The ID column never gets labelled.}
+
+\item{factorise}{Return comorbidities as factors rather than numeric (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{TRUE}.}
 }
 \value{
 A data frame with \code{id}, columns relative to each Charlson domain, weighted Charlson Score, and grouped Charlson Index, with one row per individual.

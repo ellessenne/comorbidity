@@ -3,5 +3,4 @@
 export(charlson)
 export(sample_diag)
 import(ArgumentCheck)
-import(Hmisc)
 import(dplyr)
