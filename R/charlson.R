@@ -133,29 +133,29 @@ charlson <- function(x, id, code, assign0 = TRUE, labels = TRUE, factorise = TRU
     select(id, ami, chf, pvd, cevd, dementia, copd, rheumd, pud, mld, diab, diabwc, hp, rend, canc, msld, metacanc, aids, score, index)
   cs[, idpar] <- cs[, "id"]
   cs <- select(cs, -id)
-  if (requireNamespace("Hmisc") & labels == TRUE) {
-    label(cs$ami) <- "Myocardial infarction"
-    label(cs$chf) <- "Congestive heart failure"
-    label(cs$pvd) <- "Peripheral vascular disease"
-    label(cs$cevd) <- "Cerebrovascular disease"
-    label(cs$dementia) <- "Dementia"
-    label(cs$copd) <- "Chronic pulmonary disease"
-    label(cs$rheumd) <- "Rheumatic disease"
-    label(cs$pud) <- "Peptic ulcer disease"
-    label(cs$mld) <- "Mild liver disease"
-    label(cs$diab) <- "Diabetes without chronic complication"
-    label(cs$diabwc) <- "Diabetes with chronic complication"
-    label(cs$hp) <- "Hemiplegia or paraplegia"
-    label(cs$rend) <- "Renal disease"
-    label(cs$canc) <- "Any malignancy"
-    label(cs$msld) <- "Moderate or severe liver disease"
-    label(cs$metacanc) <- "Metastatic solid tumor"
-    label(cs$aids) <- "AIDS/HIV"
-    label(cs$score) <- "Weighted Charlson Score"
-    label(cs$index) <- "Grouped Charlson Index"
-    }
-  if (!requireNamespace("Hmisc") & labels == TRUE) {
-    warning("Impossible to label variables without the Hmisc package.")
+  if (requireNamespace("Hmisc", quietly = TRUE) & labels == TRUE) {
+    Hmisc::label(cs$ami) <- "Myocardial infarction"
+    Hmisc::label(cs$chf) <- "Congestive heart failure"
+    Hmisc::label(cs$pvd) <- "Peripheral vascular disease"
+    Hmisc::label(cs$cevd) <- "Cerebrovascular disease"
+    Hmisc::label(cs$dementia) <- "Dementia"
+    Hmisc::label(cs$copd) <- "Chronic pulmonary disease"
+    Hmisc::label(cs$rheumd) <- "Rheumatic disease"
+    Hmisc::label(cs$pud) <- "Peptic ulcer disease"
+    Hmisc::label(cs$mld) <- "Mild liver disease"
+    Hmisc::label(cs$diab) <- "Diabetes without chronic complication"
+    Hmisc::label(cs$diabwc) <- "Diabetes with chronic complication"
+    Hmisc::label(cs$hp) <- "Hemiplegia or paraplegia"
+    Hmisc::label(cs$rend) <- "Renal disease"
+    Hmisc::label(cs$canc) <- "Any malignancy"
+    Hmisc::label(cs$msld) <- "Moderate or severe liver disease"
+    Hmisc::label(cs$metacanc) <- "Metastatic solid tumor"
+    Hmisc::label(cs$aids) <- "AIDS/HIV"
+    Hmisc::label(cs$score) <- "Weighted Charlson Score"
+    Hmisc::label(cs$index) <- "Grouped Charlson Index"
+  }
+  if (!requireNamespace("Hmisc", quietly = TRUE) & labels == TRUE) {
+    warning("Impossible to label variables without the Hmisc package. Install Hmisc with install.packages(\"Hmisc\").")
   }
   return(cs)
 }
