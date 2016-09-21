@@ -11,13 +11,13 @@ charlson(x, id, code, assign0 = TRUE, labels = TRUE, factorise = TRUE)
 
 \item{id}{Column of \code{x} containing the individual ID.}
 
-\item{code}{Column of \code{x} containing ICD-10 codes.}
+\item{code}{Column of \code{x} containing ICD-10 codes. Codes must be in upper case with no puctuation in order to be properly recognised.}
 
 \item{assign0}{Apply a hierarchy of comorbities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.}
 
-\item{labels}{Return a dataset with labelled columns. Defaults to \code{TRUE}. The ID column never gets labelled.}
+\item{labels}{Return a dataset with labelled columns. Defaults to \code{TRUE}, and the ID column never gets labelled. The package \code{Hmisc} is required for labeling: if it is not available, a warning will be thrown and variables will not be labelled.}
 
-\item{factorise}{Return comorbidities as factors rather than numeric (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{TRUE}.}
+\item{factorise}{Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{TRUE}.}
 }
 \value{
 A data frame with \code{id}, columns relative to each Charlson domain, weighted Charlson Score, and grouped Charlson Index, with one row per individual.
@@ -26,7 +26,7 @@ A data frame with \code{id}, columns relative to each Charlson domain, weighted 
 \code{charlson} computes the weighted Charlson Score, using ICD-10 codes.
 }
 \details{
-This function is based on the ICD-10 Charlson Score definition proposed by Quan \emph{et al.} in 2005. Remember to strip puctuation from ICD-10 codes passed to this function, otherwise they will not be counted.
+This function is based on the ICD-10 Charlson Score definition proposed by Quan \emph{et al.} in 2005. ICD-10 codes must be in upper case and with no punctuation in order to be properly recognised; use the \code{stringr} package and \code{stringr::str_to_upper()} to turn codes into upper case, \code{stringr::str_replace_all(codes, "[:punct:]", "")} to strip all punctuation. If \code{stringr} is installed in the system, this is done automatically; otherwise, a warning is thrown.
 }
 \examples{
 fake_data <- data.frame(
