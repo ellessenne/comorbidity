@@ -40,6 +40,6 @@ charlson(fake_data, "id", "code")
 Alessandro Gasparini, \email{alessandro.gasparini@ki.se}
 }
 \references{
-Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. Coding Algorithms for Defining Comorbidities in ICD-9-CM and ICD-10 Administrative Data. Medical Care 2005;43:1130–9.
+Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. Coding Algorithms for Defining Comorbidities in ICD-9-CM and ICD-10 Administrative Data. Medical Care 2005; 43:1130-1139.
 }
 

@@ -16,7 +16,7 @@
 #'
 #' @author Alessandro Gasparini, \email{alessandro.gasparini@@ki.se}
 #'
-#' @references Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. Coding Algorithms for Defining Comorbidities in ICD-9-CM and ICD-10 Administrative Data. Medical Care 2005;43:1130–9.
+#' @references Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. Coding Algorithms for Defining Comorbidities in ICD-9-CM and ICD-10 Administrative Data. Medical Care 2005; 43:1130-1139.
 #'
 #' @examples
 #' fake_data <- data.frame(
@@ -85,6 +85,9 @@ charlson <- function(x, id, code, assign0 = TRUE, labels = TRUE, factorise = TRU
   } else {
     warning("Package 'stringr' not available. Check case and punctuation in ICD-10 codes.")
   }
+
+  # NULL-ify global variables to avoid CRAN's 'no visible binding for global variable' note
+  ami <- NULL; chf <- NULL; pvd <- NULL; cevd <- NULL; dementia <- NULL; copd <- NULL; rheumd <- NULL; pud <- NULL; mld <- NULL; msld <- NULL; diab <- NULL; diabwc <- NULL; hp <- NULL; rend <- NULL; canc <- NULL; metacanc <- NULL; aids <- NULL; score <- NULL;
 
   # compute the Charlson score
   cs <- x %>%

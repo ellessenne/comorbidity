@@ -12,6 +12,9 @@ Imports:
     dplyr,
     ArgumentCheck,
     lazyeval
+Suggests:
+    Hmisc,
+    stringr
 Author: Alessandro Gasparini [aut, cre]
 Maintainer: Alessandro Gasparini <alessandro.gasparini@ki.se>
 License: MIT + file LICENSE
