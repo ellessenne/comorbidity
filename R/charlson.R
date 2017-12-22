@@ -11,7 +11,29 @@
 #' @param tidy.codes Tidy ICD-10 codes? If `TRUE`, all codes are converted to upper case and all punctuation is stipped (REGEXPR: `[[:punct:]]`). Defaults to `TRUE`.
 #' @param parallel Run the computation in parallel? Requires the Defaults to `FALSE`.
 #' @param mc.cores The number of cores to use when running the computations in parallel. Defaults to all available cores.
-#' @return A data frame with `id`, columns relative to each Charlson domain, weighted Charlson Score, and grouped Charlson Index, with one row per individual.
+#' @return A data frame with `id`, columns relative to each Charlson domain, weighted Charlson Score, and grouped Charlson Index, with one row per individual. The following variables are included in the dataset:
+#' * The `id` variable as defined by the user;
+#' * `ami`, for acute myocardial infarction;
+#' * `chf`, for congestive heart failure;
+#' * `pvd`, for peripheral vascular disease;
+#' * `cevd`, for cerebrovascular disease;
+#' * `dementia`, for dementia;
+#' * `copd`, chronic obstructive pulmonary disease;
+#' * `rheumd`, for rheumatoid disease;
+#' * `pud`, for peptic ulcer disease;
+#' * `mld`, for mild liver disease;
+#' * `diab`, for diabetes without complications;
+#' * `diabwc`, for diabetes with complications;
+#' * `hp`, for hemiplegia or paraplegia;
+#' * `rend`, for renal disease;
+#' * `canc`, for cancer (any malignancy);
+#' * `msld`, for moderate or severe liver disease;
+#' * `metacanc`, for metastatic solid tumor;
+#' * `aids`, for AIDS/HIV;
+#' * `score`, for the weighted Charlson score;
+#' * `index`, for the grouped Charlson index.
+#' 
+#' Labels are presented to the user when using the RStudio viewer (e.g. via the [utils::View()] function) for convenience.
 #'
 #' @details
 #' This function is based on the ICD-10 Charlson Score definition proposed by Quan \emph{et al.} in 2005. ICD-10 codes must be in upper case and with no punctuation in order to be properly recognised; set `tidy.codes = TRUE` to properly tidy the codes automatically.
@@ -83,7 +105,7 @@ charlson <- function(x, id, code, assign0 = TRUE, factorise = FALSE, labelled = 
   }
   
   ### Label variables for RStudio viewer if requested
-  if (labelled) attr(cs, "variable.labels") <- c(NA, "Myocardial infarction", "Congestive heart failure", "Peripheral vascular disease", "Cerebrovascular disease", "Dementia", "Chronic obstructive pulmonary disease", "Rheumatoid disease", "Peptic ulcer disease", "Mild liver disease", "Diabetes without chronic complications", "Diabetes with chronic complications", "Hemiplegia or paraplegia", "Renal disease", "Cancer (any malignancy)", "Moderate or severe liver disease", "Metastatic solid tumor", "AIDS/HIV", "Weighted Charlson score", "Grouped Charlson index")
+  if (labelled) attr(cs, "variable.labels") <- c("ID", "Myocardial infarction", "Congestive heart failure", "Peripheral vascular disease", "Cerebrovascular disease", "Dementia", "Chronic obstructive pulmonary disease", "Rheumatoid disease", "Peptic ulcer disease", "Mild liver disease", "Diabetes without chronic complications", "Diabetes with chronic complications", "Hemiplegia or paraplegia", "Renal disease", "Cancer (any malignancy)", "Moderate or severe liver disease", "Metastatic solid tumor", "AIDS/HIV", "Weighted Charlson score", "Grouped Charlson index")
 
   ### Return a tidy data.frame
   return(cs)

@@ -29,7 +29,31 @@ charlson(x, id, code, assign0 = TRUE, factorise = FALSE, labelled = TRUE,
 \item{mc.cores}{The number of cores to use when running the computations in parallel. Defaults to all available cores.}
 }
 \value{
-A data frame with \code{id}, columns relative to each Charlson domain, weighted Charlson Score, and grouped Charlson Index, with one row per individual.
+A data frame with \code{id}, columns relative to each Charlson domain, weighted Charlson Score, and grouped Charlson Index, with one row per individual. The following variables are included in the dataset:
+\itemize{
+\item The \code{id} variable as defined by the user;
+\item \code{ami}, for acute myocardial infarction;
+\item \code{chf}, for congestive heart failure;
+\item \code{pvd}, for peripheral vascular disease;
+\item \code{cevd}, for cerebrovascular disease;
+\item \code{dementia}, for dementia;
+\item \code{copd}, chronic obstructive pulmonary disease;
+\item \code{rheumd}, for rheumatoid disease;
+\item \code{pud}, for peptic ulcer disease;
+\item \code{mld}, for mild liver disease;
+\item \code{diab}, for diabetes without complications;
+\item \code{diabwc}, for diabetes with complications;
+\item \code{hp}, for hemiplegia or paraplegia;
+\item \code{rend}, for renal disease;
+\item \code{canc}, for cancer (any malignancy);
+\item \code{msld}, for moderate or severe liver disease;
+\item \code{metacanc}, for metastatic solid tumor;
+\item \code{aids}, for AIDS/HIV;
+\item \code{score}, for the weighted Charlson score;
+\item \code{index}, for the grouped Charlson index.
+}
+
+Labels are presented to the user when using the RStudio viewer (e.g. via the \code{\link[utils:View]{utils::View()}} function) for convenience.
 }
 \description{
 Computes the weighted Charlson Score, using ICD-10 codes.
