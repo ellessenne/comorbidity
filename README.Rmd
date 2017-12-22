@@ -1,0 +1,60 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# charlson
+
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/charlson?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/charlson)
+[![Travis-CI Build Status](https://travis-ci.org/ellessenne/charlson.svg?branch=master)](https://travis-ci.org/ellessenne/charlson)
+[![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/charlson/master.svg)](https://codecov.io/github/ellessenne/charlson?branch=master)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/charlson)](https://cran.r-project.org/package=charlson)
+
+`charlson` is an R package for computing the Charlson comorbidity index using ICD-10 codes.
+
+## Installation
+
+You can install charlson from GitHub with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("ellessenne/charlson")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem.
+
+First, we simulate 150 pseudo-ICD-10 diagnostic codes for 10 individuals using the `sample_codes()` function:
+
+```{r simulate-data}
+# load charlson
+library(charlson)
+# set a seed for reproducibility
+set.seed(1)
+x <- data.frame(
+  id = sample(1:10, size = 150, replace = TRUE),
+  code = sample_diag(150),
+  stringsAsFactors = FALSE)
+head(x)
+```
+
+Then, we compute the Charlson score, index, and each comorbidity domain:
+
+```{r charlson}
+cs = charlson(x = x, id = "id", code = "code")
+head(cs)
+```
+
+## References
+
+The Charlson comorbidity index computed with this package follows the ICD-10 definition of Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al., _Coding algorithms for definingcComorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43:1130-1139.
