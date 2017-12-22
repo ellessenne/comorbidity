@@ -10,7 +10,7 @@ sample_diag(n = 1)
 \item{n}{Number of pseudo-ICD-10 codes to generate.}
 }
 \value{
-A vector of \code{n} pseudo-ICD-10 diagnoses.
+A vector of \code{n} pseudo-ICD-10 diagnostic codes.
 }
 \description{
 A simple function to simulate pseudo-ICD-10 diagnostic codes at random.

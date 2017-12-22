@@ -47,8 +47,7 @@ charlson <- function(x, id, code, assign0 = TRUE, factorise = FALSE, labelled = 
   # id, code must be in x
   checkmate::assert_subset(id, choices = names(x), add = arg_checks)
   checkmate::assert_subset(code, choices = names(x), add = arg_checks)
-  
-  ### Report if there are any errors
+  # Report if there are any errors
   if (!arg_checks$isEmpty())
     checkmate::reportAssertions(arg_checks)
   

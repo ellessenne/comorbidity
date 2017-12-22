@@ -4,7 +4,7 @@
 #'
 #' @param n Number of pseudo-ICD-10 codes to generate.
 #'
-#' @return A vector of `n` pseudo-ICD-10 diagnoses.
+#' @return A vector of `n` pseudo-ICD-10 diagnostic codes.
 #' @examples
 #' # Simulate 10 ICD-10 codes
 #' sample_diag(10)
@@ -20,5 +20,16 @@
 #' @export
 
 sample_diag <- function(n = 1){
-  return(paste0(sample(LETTERS, n, replace = TRUE), sample(0:9, n, replace = TRUE), sample(0:99, n, replace = TRUE)))
+  ### Check arguments
+  arg_checks = checkmate::makeAssertCollection()
+  # n must be a single numeric value
+  checkmate::assert_number(n, add = arg_checks)
+  # Report if there are any errors
+  if (!arg_checks$isEmpty())
+    checkmate::reportAssertions(arg_checks)
+  
+  ### Return random codes
+  return(paste0(sample(LETTERS, n, replace = TRUE), 
+                sample(0:9, n, replace = TRUE), 
+                sample(0:99, n, replace = TRUE)))
 }
