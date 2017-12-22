@@ -45,7 +45,7 @@ x <- data.frame(
   code = sample_diag(200),
   stringsAsFactors = FALSE)
 
-charlson(x = x, "id", "code")
+charlson(x = x, id = "id", code = "code")
 
 }
 \references{

@@ -26,7 +26,7 @@
 #'   code = sample_diag(200),
 #'   stringsAsFactors = FALSE)
 #'
-#' charlson(x = x, "id", "code")
+#' charlson(x = x, id = "id", code = "code")
 #'
 #' @export
 
@@ -38,10 +38,12 @@ charlson <- function(x, id, code, assign0 = TRUE, factorise = FALSE, labelled = 
   # id, code must be a single string value
   checkmate::assert_string(id, add = arg_checks)
   checkmate::assert_string(code, add = arg_checks)
-  # assign0, factorise, tidy, parallel must be a single boolean value
+  # assign0, factorise, labelled, tidy.codes, parallel must be a single boolean value
   checkmate::assert_logical(assign0, len = 1, add = arg_checks)
   checkmate::assert_logical(factorise, len = 1, add = arg_checks)
+  checkmate::assert_logical(labelled, len = 1, add = arg_checks)
   checkmate::assert_logical(tidy.codes, len = 1, add = arg_checks)
+  checkmate::assert_logical(parallel, len = 1, add = arg_checks)
   # mc.cores must be a single numeric value
   checkmate::assert_number(mc.cores, add = arg_checks)
   # id, code must be in x
