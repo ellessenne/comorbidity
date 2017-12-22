@@ -13,13 +13,18 @@ sample_diag(n = 1)
 A vector of \code{n} pseudo-ICD-10 diagnoses.
 }
 \description{
-A simple random generator for pseudo-ICD-10 diagnoses.
+A simple function to simulate pseudo-ICD-10 diagnostic codes at random.
 }
 \examples{
+# Simulate 10 ICD-10 codes
 sample_diag(10)
 
-}
-\author{
-Alessandro Gasparini, \email{alessandro.gasparini@ki.se}
-}
+# Simulate a tidy dataset with 15 individuals and 200 rows
+set.seed(1)
+x <- data.frame(
+  id = sample(1:15, size = 200, replace = TRUE),
+  code = sample_diag(200),
+  stringsAsFactors = FALSE)
+head(x)
 
+}

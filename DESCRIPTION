@@ -1,22 +1,22 @@
 Package: charlson
 Type: Package
-Version: 0.2.0
-Title: Charlson Score Calculation
+Version: 0.0.0.9000
+Title: Charlson Score Computation
 Description: Charlson Score computation using the ICD-10 coding system.
-Authors@R: person("Alessandro", "Gasparini", email = "alessandro.gasparini@ki.se", role = c("aut", "cre"))
+Authors@R: person("Alessandro", "Gasparini", email = "ag475@leicester.ac.uk", role = c("aut", "cre"))
 URL: https://github.com/ellessenne/charlson
 BugReports: https://github.com/ellessenne/charlson/issues
-Depends:
-    R (>= 3.2)
+License: GPL (>= 3)
 Imports:
-    dplyr,
-    ArgumentCheck,
-    lazyeval
+ checkmate,
+ parallel,
+ stats
 Suggests:
-    Hmisc,
-    stringr
-Author: Alessandro Gasparini [aut, cre]
-Maintainer: Alessandro Gasparini <alessandro.gasparini@ki.se>
-License: MIT + file LICENSE
-LazyData: yes
-RoxygenNote: 5.0.1
+ knitr,
+ testthat,
+ covr
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
+Encoding: UTF-8
+LazyData: true

@@ -4,10 +4,11 @@
 \alias{charlson}
 \title{Charlson Comorbidity Score.}
 \usage{
-charlson(x, id, code, assign0 = TRUE, labels = TRUE, factorise = TRUE)
+charlson(x, id, code, assign0 = TRUE, factorise = FALSE, labelled = TRUE,
+  tidy.codes = TRUE, parallel = FALSE, mc.cores = parallel::detectCores())
 }
 \arguments{
-\item{x}{A data frame, with one column containing an individual ID and a column containing all ICD-10 codes.}
+\item{x}{A tidy data frame with one column containing an individual ID and a column containing all ICD-10 codes.}
 
 \item{id}{Column of \code{x} containing the individual ID.}
 
@@ -15,31 +16,38 @@ charlson(x, id, code, assign0 = TRUE, labels = TRUE, factorise = TRUE)
 
 \item{assign0}{Apply a hierarchy of comorbities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.}
 
-\item{labels}{Return a dataset with labelled columns. Defaults to \code{TRUE}, and the ID column never gets labelled. The package \code{Hmisc} is required for labeling: if it is not available, a warning will be thrown and variables will not be labelled.}
+\item{factorise}{Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{FALSE}.}
 
-\item{factorise}{Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{TRUE}.}
+\item{labelled}{Attach labels to each comorbidity, compatible with the RStudio viewer via the \code{\link[utils:View]{utils::View()}} function. Defaults to \code{TRUE}.}
+
+\item{tidy.codes}{Tidy ICD-10 codes? If \code{TRUE}, all codes are converted to upper case and all punctuation is stipped (REGEXPR: \code{[[:punct:]]}). Defaults to \code{TRUE}.
+
+[[:punct:]: R:[:punct:}
+
+\item{parallel}{Run the computation in parallel? Requires the Defaults to \code{FALSE}.}
+
+\item{mc.cores}{The number of cores to use when running the computations in parallel. Defaults to all available cores.}
 }
 \value{
 A data frame with \code{id}, columns relative to each Charlson domain, weighted Charlson Score, and grouped Charlson Index, with one row per individual.
 }
 \description{
-\code{charlson} computes the weighted Charlson Score, using ICD-10 codes.
+Computes the weighted Charlson Score, using ICD-10 codes.
 }
 \details{
-This function is based on the ICD-10 Charlson Score definition proposed by Quan \emph{et al.} in 2005. ICD-10 codes must be in upper case and with no punctuation in order to be properly recognised; use the \code{stringr} package and \code{stringr::str_to_upper()} to turn codes into upper case, \code{stringr::str_replace_all(codes, "[:punct:]", "")} to strip all punctuation. If \code{stringr} is installed in the system, this is done automatically; otherwise, a warning is thrown.
+This function is based on the ICD-10 Charlson Score definition proposed by Quan \emph{et al.} in 2005. ICD-10 codes must be in upper case and with no punctuation in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically.
+To run the calculations in parallel set \code{parallel = TRUE}. This is based on \code{\link[parallel:mclapply]{parallel::mclapply()}} and works only on Unix systems; set the number of cores to use via the \code{mc.utils} argument, which defaults to using all the cores available.
 }
 \examples{
-fake_data <- data.frame(
- id = sample(1:5, size = 100, replace = TRUE),
- code = sample_diag(100))
+set.seed(1)
+x <- data.frame(
+  id = sample(1:15, size = 200, replace = TRUE),
+  code = sample_diag(200),
+  stringsAsFactors = FALSE)
 
-charlson(fake_data, "id", "code")
+charlson(x = x, "id", "code")
 
-}
-\author{
-Alessandro Gasparini, \email{alessandro.gasparini@ki.se}
 }
 \references{
 Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. Coding Algorithms for Defining Comorbidities in ICD-9-CM and ICD-10 Administrative Data. Medical Care 2005; 43:1130-1139.
 }
-

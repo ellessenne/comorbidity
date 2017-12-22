@@ -2,6 +2,3 @@
 
 export(charlson)
 export(sample_diag)
-import(ArgumentCheck)
-import(dplyr)
-import(lazyeval)
