@@ -1,3 +1,5 @@
+# charlson 0.0.2.9000
+
 # charlson 0.0.2
 
 * Running computations in parallel now should work on every platform
