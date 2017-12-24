@@ -57,4 +57,4 @@ head(cs)
 
 ## References
 
-The Charlson comorbidity index computed with this package follows the ICD-10 definition of Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al., _Coding algorithms for definingcComorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43:1130-1139.
+The Charlson comorbidity index computed with this package follows the ICD-10 definition of Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al., _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43:1130-1139.
