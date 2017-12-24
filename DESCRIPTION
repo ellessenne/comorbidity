@@ -1,6 +1,6 @@
 Package: charlson
 Type: Package
-Version: 0.0.1
+Version: 0.0.2
 Title: Charlson Score Computation
 Description: Charlson Score computation using the ICD-10 coding system.
 Authors@R: person("Alessandro", "Gasparini", email = "ag475@leicester.ac.uk", role = c("aut", "cre"))

@@ -9,7 +9,7 @@
 #' @param factorise Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to `FALSE`.
 #' @param labelled Attach labels to each comorbidity, compatible with the RStudio viewer via the [utils::View()] function. Defaults to `TRUE`.
 #' @param tidy.codes Tidy ICD-10 codes? If `TRUE`, all codes are converted to upper case and all punctuation is stipped (REGEXPR: `[[:punct:]]`). Defaults to `TRUE`.
-#' @param parallel Run the computation in parallel? Requires the Defaults to `FALSE`.
+#' @param parallel Run the computation in parallel? See the `Notes` section for more information. Defaults to `FALSE`.
 #' @param mc.cores The number of cores to use when running the computations in parallel. Defaults to all available cores.
 #' @return A data frame with `id`, columns relative to each Charlson domain, weighted Charlson Score, and grouped Charlson Index, with one row per individual. The following variables are included in the dataset:
 #' * The `id` variable as defined by the user;

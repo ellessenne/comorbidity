@@ -1,3 +1,9 @@
+# charlson 0.0.2
+
+* Running computations in parallel now should work on every platform
+* Improved code coverage
+* `charlson` is marginally faster
+
 # charlson 0.0.1
 
 * Rebooted `charlson` using only base R functions

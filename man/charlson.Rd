@@ -24,7 +24,7 @@ charlson(x, id, code, assign0 = TRUE, factorise = FALSE, labelled = TRUE,
 
 [[:punct:]: R:[:punct:}
 
-\item{parallel}{Run the computation in parallel? Requires the Defaults to \code{FALSE}.}
+\item{parallel}{Run the computation in parallel? See the \code{Notes} section for more information. Defaults to \code{FALSE}.}
 
 \item{mc.cores}{The number of cores to use when running the computations in parallel. Defaults to all available cores.}
 }
