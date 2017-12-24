@@ -60,7 +60,7 @@ Computes the weighted Charlson Score, using ICD-10 codes.
 }
 \details{
 This function is based on the ICD-10 Charlson Score definition proposed by Quan \emph{et al.} in 2005. ICD-10 codes must be in upper case and with no punctuation in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically.
-To run the calculations in parallel set \code{parallel = TRUE}. This is based on \code{\link[parallel:mclapply]{parallel::mclapply()}} and works only on Unix systems; set the number of cores to use via the \code{mc.utils} argument, which defaults to using all the cores available.
+To run the calculations in parallel set \code{parallel = TRUE}. This is based on \code{\link[parallel:parLapply]{parallel::parLapply()}}, and it is possible to set the number of cores to use via the \code{mc.cores} argument, which defaults to using all the cores available.
 }
 \examples{
 set.seed(1)

@@ -37,7 +37,7 @@
 #'
 #' @details
 #' This function is based on the ICD-10 Charlson Score definition proposed by Quan \emph{et al.} in 2005. ICD-10 codes must be in upper case and with no punctuation in order to be properly recognised; set `tidy.codes = TRUE` to properly tidy the codes automatically.
-#' To run the calculations in parallel set `parallel = TRUE`. This is based on [parallel::mclapply()] and works only on Unix systems; set the number of cores to use via the `mc.utils` argument, which defaults to using all the cores available.
+#' To run the calculations in parallel set `parallel = TRUE`. This is based on [parallel::parLapply()], and it is possible to set the number of cores to use via the `mc.cores` argument, which defaults to using all the cores available.
 #'
 #' @references Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. Coding Algorithms for Defining Comorbidities in ICD-9-CM and ICD-10 Administrative Data. Medical Care 2005; 43:1130-1139.
 #'
@@ -87,10 +87,12 @@ charlson <- function(x, id, code, assign0 = TRUE, factorise = FALSE, labelled = 
   # Split by id
   xByID <- split(x, f = x[[id]])
   # Compute using the appropriate algorithm and using parallel computing (if required)
-  cs <- if (parallel) {
-    parallel::mclapply(X = xByID, FUN = charlsonICD10, id = id, code = code, mc.cores = mc.cores)
+  if (parallel) {
+    cl <- parallel::makeCluster(mc.cores)
+    cs <- parallel::parLapply(cl = cl, X = xByID, fun = charlsonICD10, id = id, code = code)
+    parallel::stopCluster(cl)
   } else {
-    lapply(X = xByID, FUN = charlsonICD10, id = id, code = code)
+    cs = lapply(X = xByID, FUN = charlsonICD10, id = id, code = code)
   }
   # Combine results
   cs <- do.call(rbind.data.frame, c(cs, list(make.row.names = FALSE, stringsAsFactors = FALSE)))
