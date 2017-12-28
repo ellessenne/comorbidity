@@ -1,9 +1,12 @@
+# Quiets concerns of R CMD check regarding 'no visible binding for global variable ...'
+if (getRversion() >= "2.15.1")  utils::globalVariables(c("icd10_2009", "icd10_2011"))
+
 #' @title Simulate ICD-10 diagnostic codes
 #'
 #' @description A simple function to simulate ICD-10 diagnostic codes at random.
 #'
 #' @param n Number of ICD-10 codes to simulate.
-#' @param version The version of the ICD-10 coding scheme to use. Possible choices are `2009` and `2011`; defaults to `2011`. See [charlson::icd10_2009] and [charlson::icd10_2011] for further information on the different schemes.
+#' @param version The version of the ICD-10 coding scheme to use. Possible choices are `2009` and `2011`; defaults to `2011`. See [comorbidity::icd10_2009] and [comorbidity::icd10_2011] for further information on the different schemes.
 #'
 #' @return A vector of `n` ICD-10 diagnostic codes.
 #' @examples
@@ -31,11 +34,11 @@ sample_diag_icd10 <- function(n = 1, version = "2011") {
   if (!arg_checks$isEmpty()) {
     checkmate::reportAssertions(arg_checks)
   }
-
+  
   ### Sample codes
   switch(version,
     "2009" = {
-      data("icd10_2009", package = "charlson")
+      utils::data("icd10_2009", package = "comorbidity", envir = environment())
       sample(
         x = icd10_2009$Code.clean,
         size = n,
@@ -43,7 +46,7 @@ sample_diag_icd10 <- function(n = 1, version = "2011") {
       )
     },
     "2011" = {
-      data("icd10_2011", package = "charlson")
+      utils::data("icd10_2011", package = "comorbidity", envir = environment())
       sample(
         x = icd10_2011$Code.clean,
         size = n,
