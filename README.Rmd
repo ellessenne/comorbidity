@@ -12,38 +12,38 @@ knitr::opts_chunk$set(
 )
 ```
 
-# charlson
+# comorbidity
 
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/charlson?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/charlson)
-[![Travis-CI Build Status](https://travis-ci.org/ellessenne/charlson.svg?branch=master)](https://travis-ci.org/ellessenne/charlson)
-[![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/charlson/master.svg)](https://codecov.io/github/ellessenne/charlson?branch=master)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/charlson)](https://cran.r-project.org/package=charlson)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
+[![Travis-CI Build Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https://travis-ci.org/ellessenne/comorbidity)
+[![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
 
-`charlson` is an R package for computing the Charlson comorbidity index using ICD-10 codes.
+`comorbidity` is an R package for computing comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score, assuming ICD-10 diagnostic codes.
 
 ## Installation
 
-You can install charlson from GitHub with:
+You can install `comorbidity` from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("ellessenne/charlson")
+devtools::install_github("ellessenne/comorbidity")
 ```
 
 ## Example
 
 This is a basic example which shows you how to solve a common problem.
 
-First, we simulate 150 pseudo-ICD-10 diagnostic codes for 10 individuals using the `sample_codes()` function:
+First, we simulate 150 ICD-10 diagnostic codes for 10 individuals using the `sample_codes_icd10()` function:
 
 ```{r simulate-data}
-# load charlson
-library(charlson)
+# load the comorbidity package
+library(comorbidity)
 # set a seed for reproducibility
 set.seed(1)
 x <- data.frame(
   id = sample(1:10, size = 150, replace = TRUE),
-  code = sample_diag(150),
+  code = sample_diag_icd10(150),
   stringsAsFactors = FALSE)
 head(x)
 ```
@@ -51,10 +51,22 @@ head(x)
 Then, we compute the Charlson score, index, and each comorbidity domain:
 
 ```{r charlson}
-cs = charlson(x = x, id = "id", code = "code")
-head(cs)
+charlson = comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")
+head(charlson)
+```
+
+Analogously, using the Elixhauser score:
+
+```{r elixhauser}
+elixhauser = comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
+head(elixhauser)
 ```
 
 ## References
 
-The Charlson comorbidity index computed with this package follows the ICD-10 definition of Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al., _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43:1130-1139.
+This package is based on the ICD-10-based formulations of the Charlson score and Elixhauser score proposed by Quan _et al_. in 2005. Weights for the Charlson score are based on the original formulation by Charlson _et al_. in 1987, while weights for the Elixhauser score are based on work by van Walraven _et al_. Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_.
+ 
+* Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139.
+* Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
+* van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.
+* Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472:2878–2886.
