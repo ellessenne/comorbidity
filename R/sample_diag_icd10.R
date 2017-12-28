@@ -1,5 +1,5 @@
 # Quiets concerns of R CMD check regarding 'no visible binding for global variable ...'
-if (getRversion() >= "2.15.1")  utils::globalVariables(c("icd10_2009", "icd10_2011"))
+if (getRversion() >= "2.15.1") utils::globalVariables(c("icd10_2009", "icd10_2011"))
 
 #' @title Simulate ICD-10 diagnostic codes
 #'
@@ -34,7 +34,7 @@ sample_diag_icd10 <- function(n = 1, version = "2011") {
   if (!arg_checks$isEmpty()) {
     checkmate::reportAssertions(arg_checks)
   }
-  
+
   ### Sample codes
   switch(version,
     "2009" = {

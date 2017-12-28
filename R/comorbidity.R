@@ -12,8 +12,8 @@
 #' @param tidy.codes Tidy diagnostic codes? If `TRUE`, all codes are converted to upper case and all non-alphanumeric characters are removed (REGEXPR: \code{[^[:alnum:]]}). Defaults to `TRUE`.
 #' @param parallel Run the computation in parallel? See the `Notes` section for more information. Defaults to `FALSE`.
 #' @param mc.cores The number of cores to use when running the computations in parallel. Defaults to all available cores.
-#' @return A data frame with `id`, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual. 
-#' 
+#' @return A data frame with `id`, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
+#'
 #' For the Charlson score, the following variables are included in the dataset:
 #' * The `id` variable as defined by the user;
 #' * `ami`, for acute myocardial infarction;
@@ -69,19 +69,19 @@
 #' * `drug`, for drug abuse;
 #' * `psycho`, for psychoses;
 #' * `depre`, for depression.
-#' 
+#'
 #' Labels are presented to the user when using the RStudio viewer (e.g. via the [utils::View()] function) for convenience.
 #'
 #' @details
 #' This function is based on the ICD-10-based formulations of the Charlson score and Elixhauser score proposed by Quan _et al_. in 2005. Weights for the Charlson score are based on the original formulation by Charlson _et al_. in 1987, while weights for the Elixhauser score are based on work by van Walraven _et al_. Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_.
 #' ICD-10 codes must be in upper case and with no punctuation in order to be properly recognised; set `tidy.codes = TRUE` to properly tidy the codes automatically.
 #' To run the calculations in parallel set `parallel = TRUE`. This is based on [parallel::parLapply()], and it is possible to set the number of cores to use via the `mc.cores` argument, which defaults to using all the cores available.
-#' 
+#'
 #' @references Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139.
 #' @references Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
 #' @references van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.
 #' @references Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472:2878–2886.
-#' 
+#'
 #' @examples
 #' set.seed(1)
 #' x <- data.frame(

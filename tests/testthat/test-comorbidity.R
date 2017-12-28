@@ -303,7 +303,8 @@ test_that("if factorise = FALSE comorbidity does not return factors", {
   expect_false("factor" %in% class(cs$psycho))
   expect_false("factor" %in% class(cs$depre))
   expect_s3_class(cs$index, "factor")
-  expect_s3_class(cs$windex, "factor")})
+  expect_s3_class(cs$windex, "factor")
+})
 
 test_that("parallel computing works (specifying the number of clusters)", {
   x <- data.frame(
