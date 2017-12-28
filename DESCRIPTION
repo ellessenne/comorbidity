@@ -7,6 +7,8 @@ Authors@R: person("Alessandro", "Gasparini", email = "ag475@leicester.ac.uk", ro
 URL: https://github.com/ellessenne/charlson
 BugReports: https://github.com/ellessenne/charlson/issues
 License: GPL (>= 3)
+Depends: 
+ R (>= 2.10)
 Imports:
  checkmate,
  parallel,
