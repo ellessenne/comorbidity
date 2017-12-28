@@ -9,9 +9,9 @@
 #'   \item{ICD.title}{Code description, in plain English.}
 #'   \item{Status}{Additional information, if available.}
 #' }
-#' 
+#'
 #' @note The R code used to download and process the dataset from the CDC website is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
-#' 
+#'
 #' @source CDC Website: https://goo.gl/6e2mvb
 "icd10_2009"
 
@@ -26,8 +26,8 @@
 #'   \item{ICD.title}{Code description, in plain English.}
 #'   \item{Status}{Additional information, if available.}
 #' }
-#' 
+#'
 #' @note The R code used to download and process the dataset from the CDC website is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
-#'  
+#'
 #' @source CDC Website: https://goo.gl/rcTJJ2
 "icd10_2011"
