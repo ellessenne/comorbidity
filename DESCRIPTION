@@ -1,8 +1,9 @@
 Type: Package
-Package: charlson
+Package: comorbidity
 Version: 0.0.2.9000
-Title: Charlson Score Computation
-Description: Charlson Score computation using the ICD-10 coding system.
+Title: Comorbidity scores
+Description: This package computes comorbidity scores such as the weighted Charlson score and the
+ Elixhauser comorbidity score.
 Authors@R: person("Alessandro", "Gasparini", email = "ag475@leicester.ac.uk", role = c("aut", "cre"))
 URL: https://github.com/ellessenne/charlson
 BugReports: https://github.com/ellessenne/charlson/issues

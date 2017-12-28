@@ -1,4 +1,4 @@
 library(testthat)
-library(charlson)
+library(comorbidity)
 
-test_check("charlson")
+test_check("comorbidity")
