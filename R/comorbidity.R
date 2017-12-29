@@ -231,7 +231,7 @@ charlson_icd10 <- function(x, id, code) {
 elixhauser_icd10 <- function(x, id, code) {
   chf <- max(grepl("^I099|^I110|^I130|^I132|^I255|^I420|^I425|^I426|^I427|^I428|^I429|^I43|^I50|^P290", x[[code]]))
   carit <- max(grepl("^I441|^I442|^I443|^I456|^I459|^I47|^I48|^I49|^R000|^R001|^R008|^T821|^Z450|^Z950", x[[code]]))
-  valv <- max(grepl("^G45|^G46|^H340|^I60|^I61|^I62|^I63|^I64|^I65|^I66|^I67|^I68|^I69", x[[code]]))
+  valv <- max(grepl("^A520|^I05|^I06|^I07|^I08|^I091|^I098|^I34|^I35|^I36|^I37|^I38|^I39|^Q230|^Q231|^Q232|^Q233|^Z952|^Z953|^Z954", x[[code]]))
   pcd <- max(grepl("^I26|^I27|^I280|^I288|^I289", x[[code]]))
   pvd <- max(grepl("^I70|^I71|^I731|^I738|^I739|^I771|^I790|^I792|^K551|^K558|^K559|^Z958|^Z959", x[[code]]))
   hypunc <- max(grepl("^I10", x[[code]]))
