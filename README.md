@@ -24,81 +24,124 @@ You can install `comorbidity` from GitHub with:
 devtools::install_github("ellessenne/comorbidity")
 ```
 
-## Example
+## Simulating ICD-10 codes
 
-This is a basic example which shows you how to solve a common problem.
-
-First, we simulate 150 ICD-10 diagnostic codes for 10 individuals using
-the `sample_codes_icd10()` function:
+With `comorbidity` it is possible to simulate ICD-10 diagnostic codes in
+a straightforward way:
 
 ``` r
 # load the comorbidity package
 library(comorbidity)
 # set a seed for reproducibility
 set.seed(1)
+# simulate 50 codes for 5 individuals
 x <- data.frame(
-  id = sample(1:10, size = 150, replace = TRUE),
-  code = sample_diag_icd10(150),
+  id = sample(1:5, size = 50, replace = TRUE),
+  code = sample_diag_icd10(n = 50),
   stringsAsFactors = FALSE)
-head(x)
-#>   id code
-#> 1  3 P541
-#> 2  4 O088
-#> 3  6 I352
-#> 4 10 L910
-#> 5  3 M880
-#> 6  9  E10
+x <- x[order(x$id, x$code),]
+head(x, n = 15)
+#>    id code
+#> 38  1 C838
+#> 12  1  H30
+#> 34  1 I260
+#> 24  1 I469
+#> 10  1 K611
+#> 47  1 L949
+#> 27  1  V09
+#> 5   2 B677
+#> 19  2 C081
+#> 14  2 I446
+#> 28  2 K225
+#> 25  2  M41
+#> 1   2 M430
+#> 22  2 T635
+#> 2   2 U016
 ```
 
-Then, we compute the Charlson score, index, and each comorbidity
+It is also possible to simulate from two different versions of the
+ICD-10 coding system. The default is to simulate from the 2011 version:
+
+``` r
+set.seed(1)
+x1 <- data.frame(
+  id = sample(1:3, size = 30, replace = TRUE),
+  code = sample_diag_icd10(n = 30),
+  stringsAsFactors = FALSE)
+set.seed(1)
+x2 <- data.frame(
+  id = sample(1:3, size = 30, replace = TRUE),
+  code = sample_diag_icd10(n = 30, version = "2011"),
+  stringsAsFactors = FALSE)
+# should return TRUE
+all.equal(x1, x2)
+#> [1] TRUE
+```
+
+Alternatively, you could use the 2009 version:
+
+``` r
+set.seed(1)
+x1 <- data.frame(
+  id = sample(1:3, size = 30, replace = TRUE),
+  code = sample_diag_icd10(n = 30, version = "2009"),
+  stringsAsFactors = FALSE)
+set.seed(1)
+x2 <- data.frame(
+  id = sample(1:3, size = 30, replace = TRUE),
+  code = sample_diag_icd10(n = 30, version = "2011"),
+  stringsAsFactors = FALSE)
+# should not return TRUE
+all.equal(x1, x2)
+#> [1] "Component \"code\": 29 string mismatches"
+```
+
+## Computing comorbidity scores
+
+Say we have 3 individuals with a total of 30 diagnostic codes:
+
+``` r
+set.seed(1)
+x <- data.frame(
+  id = sample(1:3, size = 30, replace = TRUE),
+  code = sample_diag_icd10(n = 30),
+  stringsAsFactors = FALSE)
+```
+
+We could compute the Charlson score, index, and each comorbidity
 domain:
 
 ``` r
 charlson = comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")
-head(charlson)
+charlson
 #>   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend
-#> 1  1   0   0   0    0        0    0      0   0   0    0      1  0    1
-#> 2  2   0   0   0    0        0    0      0   1   0    0      0  0    0
-#> 3  3   0   0   0    0        0    0      0   0   0    0      1  0    0
-#> 4  4   0   0   0    0        0    0      0   0   0    0      0  1    0
-#> 5  5   0   0   0    0        0    0      0   0   1    0      0  0    0
-#> 6  6   0   0   0    0        0    0      0   0   0    0      0  0    1
+#> 1  1   0   0   0    0        0    0      0   0   1    0      0  0    0
+#> 2  2   0   0   0    0        0    0      0   0   0    0      0  0    1
+#> 3  3   0   0   0    0        0    0      0   0   0    0      0  0    0
 #>   canc msld metacanc aids score index wscore windex
-#> 1    1    0        0    0     3   3-4      6    >=5
-#> 2    1    0        0    0     2   1-2      3    3-4
-#> 3    1    0        0    0     2   1-2      4    3-4
-#> 4    0    0        0    0     1   1-2      2    1-2
-#> 5    1    0        0    0     2   1-2      3    3-4
-#> 6    0    0        0    0     1   1-2      2    1-2
+#> 1    0    0        0    0     1   1-2      1    1-2
+#> 2    1    0        0    0     2   1-2      4    3-4
+#> 3    0    0        0    0     0     0      0      0
 ```
 
-Analogously, using the Elixhauser
+Alternatively, we could compute the Elixhauser
 score:
 
 ``` r
 elixhauser = comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
-head(elixhauser)
+elixhauser
 #>   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy
-#> 1  1   0     0    0   0   0      0    0    0   0   0       0     1       0
+#> 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0
 #> 2  2   0     0    0   0   0      0    0    0   0   0       0     0       0
-#> 3  3   0     0    0   0   0      0    0    0   0   0       0     1       0
-#> 4  4   0     0    0   0   0      0    1    1   1   0       0     0       0
-#> 5  5   0     0    0   0   0      0    0    0   0   0       0     0       0
-#> 6  6   0     0    0   0   0      0    1    0   1   0       0     0       0
+#> 3  3   0     0    0   0   0      0    0    0   0   0       0     0       0
 #>   rf ld pud aids lymph metacanc solidtum rheumd coag obes wloss fed blane
-#> 1  1  0   0    0     0        0        1      0    0    0     0   0     0
-#> 2  0  0   0    0     0        0        1      0    0    0     0   0     0
-#> 3  0  0   0    0     0        0        1      0    0    0     0   0     0
-#> 4  0  0   0    0     0        0        0      0    0    0     0   0     0
-#> 5  0  1   0    0     0        0        1      0    0    0     0   0     0
-#> 6  1  0   0    0     0        0        0      0    0    0     0   0     0
+#> 1  0  1   0    0     0        0        0      0    0    0     0   0     0
+#> 2  1  0   0    0     0        0        1      0    0    0     0   0     0
+#> 3  0  0   0    0     0        0        0      0    0    0     0   0     0
 #>   dane alcohol drug psycho depre score index wscore windex
-#> 1    0       0    0      0     0     3   1-4      9    >=5
-#> 2    0       0    0      0     0     1   1-4      4    1-4
-#> 3    0       0    0      0     0     2   1-4      4    1-4
-#> 4    0       0    0      0     0     3   1-4     13    >=5
-#> 5    0       0    0      0     0     2   1-4     15    >=5
-#> 6    0       0    1      0     0     4   1-4      4    1-4
+#> 1    0       0    0      0     0     1   1-4     11    >=5
+#> 2    0       0    0      0     0     2   1-4      9    >=5
+#> 3    0       0    0      0     0     0     0      0      0
 ```
 
 ## References
