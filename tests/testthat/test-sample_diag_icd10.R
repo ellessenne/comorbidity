@@ -24,6 +24,18 @@ test_that("sample_diag_icd10 returns an error if version is not '2009' nor '2011
   )
 })
 
+test_that("sample_diag_icd10 returns an error if version is not a single string", {
+  expect_error(
+    sample_diag_icd10(version = c("2009", "2011"))
+  )
+  expect_error(
+    sample_diag_icd10(version = 2011)
+  )
+  expect_error(
+    sample_diag_icd10(version = TRUE)
+  )
+})
+
 test_that("sample_diag_icd10 returns a string vector", {
   expect_type(
     sample_diag_icd10(),
@@ -51,5 +63,16 @@ test_that("sample_diag_icd10 returns a vector of appropriate length", {
   expect_length(
     sample_diag_icd10(n = 1000),
     n = 1000
+  )
+})
+
+test_that("sample_diag_icd10 works fine with either versions", {
+  expect_type(
+    sample_diag_icd10(version = "2009"),
+    type = "character"
+  )
+  expect_type(
+    sample_diag_icd10(version = "2011"),
+    type = "character"
   )
 })
