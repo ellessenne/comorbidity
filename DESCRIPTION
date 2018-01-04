@@ -1,9 +1,9 @@
 Type: Package
 Package: comorbidity
 Version: 0.0.3
-Title: Comorbidity scores
-Description: This package computes comorbidity scores such as the weighted Charlson score and the
- Elixhauser comorbidity score.
+Title: Computing Comorbidity Scores
+Description: Computing comorbidity scores such as the weighted Charlson score and the
+ Elixhauser comorbidity score using ICD-10 codes.
 Authors@R: person("Alessandro", "Gasparini", email = "ag475@leicester.ac.uk", role = c("aut", "cre"))
 URL: https://github.com/ellessenne/charlson
 BugReports: https://github.com/ellessenne/charlson/issues
@@ -18,7 +18,6 @@ Suggests:
  knitr,
  testthat,
  covr
-VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Encoding: UTF-8
