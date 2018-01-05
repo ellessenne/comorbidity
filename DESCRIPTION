@@ -2,8 +2,8 @@ Type: Package
 Package: comorbidity
 Version: 0.0.3
 Title: Computing Comorbidity Scores
-Description: Computing comorbidity scores such as the weighted Charlson score and the
- Elixhauser comorbidity score using ICD-10 codes.
+Description: Computing comorbidity scores such as the weighted Charlson score (Charlson 1987, PMID: 3558716) and the
+ Elixhauser comorbidity score (Elixhauser 1998, PMID: 9431328) using ICD-10 codes (Quan 2005, PMID: 16224307).
 Authors@R: person("Alessandro", "Gasparini", email = "ag475@leicester.ac.uk", role = c("aut", "cre"))
 URL: https://github.com/ellessenne/charlson
 BugReports: https://github.com/ellessenne/charlson/issues
