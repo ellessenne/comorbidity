@@ -159,6 +159,9 @@ weighted scores is based on work by Menendez *et al*.
   - Charlson ME, Pompei P, Ales KL, et al. *A new method of classifying
     prognostic comorbidity in longitudinal studies: development and
     validation*. Journal of Chronic Diseases 1987; 40:373-383.
+  - Elixhauser A, Steiner C, Harris DR and Coffey RM. *Comorbidity
+    measures for use with administrative data*. Medical Care 1998;
+    36(1):8-27
   - van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. *A
     modification of the Elixhauser comorbidity measures into a point
     system for hospital death using administrative data*. Medical Care

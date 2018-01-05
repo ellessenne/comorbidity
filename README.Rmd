@@ -114,5 +114,6 @@ This package is based on the ICD-10-based formulations of the Charlson score and
  
 * Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139.
 * Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
+* Elixhauser A, Steiner C, Harris DR and Coffey RM. _Comorbidity measures for use with administrative data_. Medical Care 1998; 36(1):8-27
 * van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.
 * Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472:2878–2886.
