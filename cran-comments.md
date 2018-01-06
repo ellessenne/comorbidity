@@ -1,6 +1,6 @@
 This is a resubmission.
 
-I added references for the scores in the "Description" field of the DESCRIPTION file, including the PubMed ID as no DOI was provided. 
+I added DOIs for the scores in the "Description" field of the DESCRIPTION file.
 
 # Test environments
 * local macOS (High Sierra) install, R 3.4.3
@@ -16,13 +16,13 @@ There are no reverse dependencies
 
 # NOTE on win-builder
 * checking CRAN incoming feasibility ... NOTE
-  Possibly mis-spelled words in DESCRIPTION:
-    Charlson (5:64, 5:80)
-    Comorbidity (4:18)
-    Elixhauser (6:2, 6:32)
-    ICD (6:70)
-    PMID (5:95, 6:49, 6:95)
-    Quan (6:84)
-    comorbidity (5:24, 6:13)
+
+Possibly mis-spelled words in DESCRIPTION:
+  Charlson (5:64, 6:4)
+  Comorbidity (4:18)
+  Elixhauser (6:63, 7:22)
+  ICD (8:9)
+  Quan (8:23)
+  comorbidity (5:24, 7:3)
   
 The words above are ok.
