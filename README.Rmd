@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 
 # comorbidity
 
+`r Sys.Date()`
+
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
 [![Travis-CI Build Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https://travis-ci.org/ellessenne/comorbidity)
 [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master)
@@ -43,8 +45,9 @@ set.seed(1)
 x <- data.frame(
   id = sample(1:5, size = 50, replace = TRUE),
   code = sample_diag_icd10(n = 50),
-  stringsAsFactors = FALSE)
-x <- x[order(x$id, x$code),]
+  stringsAsFactors = FALSE
+)
+x <- x[order(x$id, x$code), ]
 head(x, n = 15)
 ```
 
@@ -55,12 +58,14 @@ set.seed(1)
 x1 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
   code = sample_diag_icd10(n = 30),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 set.seed(1)
 x2 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
   code = sample_diag_icd10(n = 30, version = "2011"),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 # should return TRUE
 all.equal(x1, x2)
 ```
@@ -72,12 +77,14 @@ set.seed(1)
 x1 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
   code = sample_diag_icd10(n = 30, version = "2009"),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 set.seed(1)
 x2 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
   code = sample_diag_icd10(n = 30, version = "2011"),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 # should not return TRUE
 all.equal(x1, x2)
 ```
@@ -91,20 +98,21 @@ set.seed(1)
 x <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
   code = sample_diag_icd10(n = 30),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 ```
 
 We could compute the Charlson score, index, and each comorbidity domain:
 
 ```{r charlson}
-charlson = comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")
+charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")
 charlson
 ```
 
 Alternatively, we could compute the Elixhauser score:
 
 ```{r elixhauser}
-elixhauser = comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
+elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
 elixhauser
 ```
 
@@ -112,8 +120,8 @@ elixhauser
 
 This package is based on the ICD-10-based formulations of the Charlson score and Elixhauser score proposed by Quan _et al_. in 2005. Weights for the Charlson score are based on the original formulation by Charlson _et al_. in 1987, while weights for the Elixhauser score are based on work by van Walraven _et al_. Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_.
  
-* Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139.
-* Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
-* Elixhauser A, Steiner C, Harris DR and Coffey RM. _Comorbidity measures for use with administrative data_. Medical Care 1998; 36(1):8-27
-* van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.
-* Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472:2878–2886.
+* Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139. DOI: [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
+* Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383. DOI: [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681(87)90171-8)
+* Elixhauser A, Steiner C, Harris DR and Coffey RM. _Comorbidity measures for use with administrative data_. Medical Care 1998; 36(1):8-27. DOI: [10.1097/00005650-199801000-00004 ](https://doi.org/10.1097/00005650-199801000-00004 )
+* van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.  DOI: [10.1097/mlr.0b013e31819432e5](https://doi.org/10.1097/mlr.0b013e31819432e5)
+* Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472:2878–2886.  DOI: [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)

@@ -3,6 +3,8 @@
 
 # comorbidity
 
+2018-01-06
+
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
 [![Travis-CI Build
@@ -38,8 +40,9 @@ set.seed(1)
 x <- data.frame(
   id = sample(1:5, size = 50, replace = TRUE),
   code = sample_diag_icd10(n = 50),
-  stringsAsFactors = FALSE)
-x <- x[order(x$id, x$code),]
+  stringsAsFactors = FALSE
+)
+x <- x[order(x$id, x$code), ]
 head(x, n = 15)
 #>    id code
 #> 38  1 C838
@@ -67,12 +70,14 @@ set.seed(1)
 x1 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
   code = sample_diag_icd10(n = 30),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 set.seed(1)
 x2 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
   code = sample_diag_icd10(n = 30, version = "2011"),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 # should return TRUE
 all.equal(x1, x2)
 #> [1] TRUE
@@ -85,12 +90,14 @@ set.seed(1)
 x1 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
   code = sample_diag_icd10(n = 30, version = "2009"),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 set.seed(1)
 x2 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
   code = sample_diag_icd10(n = 30, version = "2011"),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 # should not return TRUE
 all.equal(x1, x2)
 #> [1] "Component \"code\": 29 string mismatches"
@@ -105,14 +112,15 @@ set.seed(1)
 x <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
   code = sample_diag_icd10(n = 30),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 ```
 
 We could compute the Charlson score, index, and each comorbidity
 domain:
 
 ``` r
-charlson = comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")
+charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")
 charlson
 #>   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend
 #> 1  1   0   0   0    0        0    0      0   0   1    0      0  0    0
@@ -128,7 +136,7 @@ Alternatively, we could compute the Elixhauser
 score:
 
 ``` r
-elixhauser = comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
+elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
 elixhauser
 #>   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy
 #> 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0
@@ -156,17 +164,23 @@ weighted scores is based on work by Menendez *et al*.
   - Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et
     al. *Coding algorithms for defining comorbidities in ICD-9-CM and
     ICD-10 administrative data*. Medical Care 2005; 43(11):1130-1139.
+    DOI:
+    [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
   - Charlson ME, Pompei P, Ales KL, et al. *A new method of classifying
     prognostic comorbidity in longitudinal studies: development and
-    validation*. Journal of Chronic Diseases 1987; 40:373-383.
+    validation*. Journal of Chronic Diseases 1987; 40:373-383. DOI:
+    [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681\(87\)90171-8)
   - Elixhauser A, Steiner C, Harris DR and Coffey RM. *Comorbidity
     measures for use with administrative data*. Medical Care 1998;
-    36(1):8-27
+    36(1):8-27. DOI:
+    [10.1097/00005650-199801000-00004](https://doi.org/10.1097/00005650-199801000-00004)
   - van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. *A
     modification of the Elixhauser comorbidity measures into a point
     system for hospital death using administrative data*. Medical Care
-    2009; 47(6):626-633.
+    2009; 47(6):626-633. DOI:
+    [10.1097/mlr.0b013e31819432e5](https://doi.org/10.1097/mlr.0b013e31819432e5)
   - Menendez ME, Neuhaus V, van Dijk CN, Ring D. *The Elixhauser
     comorbidity method outperforms the Charlson index in predicting
     inpatient death after orthopaedic surgery*. Clinical Orthopaedics
-    and Related Research 2014; 472:2878–2886.
+    and Related Research 2014; 472:2878–2886. DOI:
+    [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)
