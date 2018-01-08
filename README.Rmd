@@ -25,7 +25,13 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install `comorbidity` from GitHub with:
+`comorbidity` is on CRAN. You can install it as usual with:
+
+```{r cran-installation, eval = FALSE}
+install.packages("comorbidity")
+```
+
+Alternatively, you can install the development version from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")

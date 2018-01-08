@@ -3,7 +3,7 @@
 
 # comorbidity
 
-2018-01-06
+2018-01-08
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -19,7 +19,13 @@ assuming ICD-10 diagnostic codes.
 
 ## Installation
 
-You can install `comorbidity` from GitHub with:
+`comorbidity` is on CRAN. You can install it as usual with:
+
+``` r
+install.packages("comorbidity")
+```
+
+Alternatively, you can install the development version from GitHub with:
 
 ``` r
 # install.packages("devtools")
