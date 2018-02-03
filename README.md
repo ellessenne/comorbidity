@@ -3,7 +3,7 @@
 
 # comorbidity
 
-2018-01-08
+2018-02-03
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -12,6 +12,7 @@ Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https:/
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
 
 `comorbidity` is an R package for computing comorbidity scores such as
 the weighted Charlson score and the Elixhauser comorbidity score,
