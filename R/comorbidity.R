@@ -105,8 +105,8 @@ comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, l
   # id, code must be a single string value
   checkmate::assert_string(id, add = arg_checks)
   checkmate::assert_string(code, add = arg_checks)
-  # score must be charlson_icd10, elixhauser_icd10
-  checkmate::assert_choice(score, choices = c("charlson_icd10", "elixhauser_icd10"), add = arg_checks)
+  # score must be charlson_icd9, charlson_icd10, elixhauser_icd10
+  checkmate::assert_choice(score, choices = c("charlson_icd9", "charlson_icd10", "elixhauser_icd10"), add = arg_checks)
   # assign0, factorise, labelled, tidy.codes, parallel must be a single boolean value
   checkmate::assert_logical(assign0, len = 1, add = arg_checks)
   checkmate::assert_logical(factorise, len = 1, add = arg_checks)
@@ -136,6 +136,7 @@ comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, l
   xByID <- split(x, f = x[[id]])
   # Compute using the appropriate algorithm and using parallel computing (if required)
   algorithm <- switch(score,
+    "charlson_icd9" = charlson_icd9,
     "charlson_icd10" = charlson_icd10,
     "elixhauser_icd10" = elixhauser_icd10
   )
@@ -150,11 +151,23 @@ comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, l
   cs <- do.call(rbind.data.frame, c(cs, list(make.row.names = FALSE, stringsAsFactors = FALSE)))
   # Compute Charlson score and Charlson index
   switch(score,
+    "charlson_icd9" = {
+      cs$score <- with(cs, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0, 0, 1) + diab * ifelse(diabwc == 1 & assign0, 0, 1) + diabwc + hp + rend + canc * ifelse(metacanc == 1 & assign0, 0, 1) + msld + metacanc + aids)
+      cs$index <- with(cs, cut(score, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
+      cs$wscore <- with(cs, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0, 0, 1) + diab * ifelse(diabwc == 1 & assign0, 0, 1) + diabwc * 2 + hp * 2 + rend * 2 + canc * ifelse(metacanc == 1 & assign0, 0, 2) + msld * 3 + metacanc * 6 + aids * 6)
+      cs$windex <- with(cs, cut(wscore, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
+    },
     "charlson_icd10" = {
       cs$score <- with(cs, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0, 0, 1) + diab * ifelse(diabwc == 1 & assign0, 0, 1) + diabwc + hp + rend + canc * ifelse(metacanc == 1 & assign0, 0, 1) + msld + metacanc + aids)
       cs$index <- with(cs, cut(score, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
       cs$wscore <- with(cs, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0, 0, 1) + diab * ifelse(diabwc == 1 & assign0, 0, 1) + diabwc * 2 + hp * 2 + rend * 2 + canc * ifelse(metacanc == 1 & assign0, 0, 2) + msld * 3 + metacanc * 6 + aids * 6)
       cs$windex <- with(cs, cut(wscore, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
+    },
+    "elixhauser_icd9" = {
+      cs$score <- with(cs, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
+      cs$index <- with(cs, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
+      cs$wscore <- with(cs, chf * 7 + carit * 5 + valv * (-1) + pcd * 4 + pvd * 2 + ifelse(hypc == 1 & assign0, 0, 0) + hypc * 0 + para * 7 + ond * 6 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * 0 + hypothy * 0 + rf * 5 + ld * 11 + pud * 0 + aids * 0 + lymph * 9 + metacanc * 12 + solidtum * ifelse(metacanc == 1 & assign0, 0, 4) + rheumd * 0 + coag * 3 + obes * (-4) + wloss * 6 + fed * 5 + blane * (-2) + dane * (-2) + alcohol * 0 + drug * (-7) + psycho * 0 + depre * (-3))
+      cs$windex <- with(cs, cut(wscore, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
     },
     "elixhauser_icd10" = {
       cs$score <- with(cs, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
@@ -183,6 +196,48 @@ comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, l
 
   ### Return a tidy data.frame
   return(cs)
+}
+
+#' @keywords internal
+charlson_icd9 <- function(x, id, code) {
+  ami <- max(grepl("^410|^412", x[[code]]))
+  chf <- max(grepl("39891|40201|40211|40291|40401|40403|40411|40413|40491|40493|^4254|^4255|^4256|^4257|^4258|^4259|^428", x[[code]]))
+  pvd <- max(grepl("^0930|^4373|^440|^441|^443[1-9]|^4471|^5571|^5579|^V434", x[[code]]))
+  cevd <- max(grepl("36234|^430|^431|^432|^433|^434|^435|^436|^437|^438", x[[code]]))
+  dementia <- max(grepl("^290|^2941|^3312", x[[code]]))
+  copd <- max(grepl("^4168|^4169|^490|^491|^492|^493|^494|^495|^496|^500|^501|^502|^503|^504|^505|^5064|^5081|^5088", x[[code]]))
+  rheumd <- max(grepl("^4465|^7100|^7101|^7102|^7103|^7104|^7140|^7141|^7142|^7148|^725", x[[code]]))
+  pud <- max(grepl("^531|^532|^533|^534", x[[code]]))
+  mld <- max(grepl("07022|07023|07032|07033|07044|07054|^0706|^0709|^570|^571|^5733|^5734|^5738|^5739|^V427", x[[code]]))
+  diab <- max(grepl("^2500|^2501|^2502|^2503|^2508|^2509", x[[code]]))
+  diabwc <- max(grepl("^2504|^2505|^2506|^2507", x[[code]]))
+  hp <- max(grepl("^3341|^342|^343|^3440|^3441|^3442|^3443|^3444|^3445|^3446|^3449", x[[code]]))
+  rend <- max(grepl("40301|40311|40391|40402|40403|40412|40413|40492|40493|^582|^5830|^5831|^5832|^5834|^5836|^5837|^585|^586|^5880|^V420|^V451|^V56", x[[code]]))
+  canc <- max(grepl("^140|^141|^142|^143|^144|^145|^146|^147|^148|^149|^150|^151|^152|^153|^154|^155|^156|^157|^158|^159|^160|^161|^162|^163|^164|^165|^170|^171|^172|^174|^175|^176|^179|^180|^181|^182|^183|^184|^185|^186|^187|^188|^189|^190|^191|^192|^193|^194|^195|^200|^201|^202|^203|^204|^205|^206|^207|^208|^2386", x[[code]]))
+  msld <- max(grepl("^4560|^4561|^4562|^5722|^5723|^5724|^5728", x[[code]]))
+  metacanc <- max(grepl("^196|^197|^198|^199", x[[code]]))
+  aids <- max(grepl("^042|^043|^044", x[[code]]))
+  out <- list()
+  out[[id]] <- unique(x[[id]])
+  out$ami <- ami
+  out$chf <- chf
+  out$pvd <- pvd
+  out$cevd <- cevd
+  out$dementia <- dementia
+  out$copd <- copd
+  out$rheumd <- rheumd
+  out$pud <- pud
+  out$mld <- mld
+  out$diab <- diab
+  out$diabwc <- diabwc
+  out$hp <- hp
+  out$rend <- rend
+  out$canc <- canc
+  out$msld <- msld
+  out$metacanc <- metacanc
+  out$aids <- aids
+  out <- data.frame(out)
+  return(out)
 }
 
 #' @keywords internal
@@ -223,6 +278,76 @@ charlson_icd10 <- function(x, id, code) {
   out$msld <- msld
   out$metacanc <- metacanc
   out$aids <- aids
+  out <- data.frame(out)
+  return(out)
+}
+
+#' @keywords internal
+elixhauser_icd9 <- function(x, id, code) {
+  chf <- max(grepl("39891|40201|40211|40291|40401|40403|40411|40413|40491|40493|^4254|^4255|^4257|^4258|^4259|^428", x[[code]]))
+  carit <- max(grepl("^4260|42613|^4267|^4269|42610|42612|^4270|^4271|^4272|^4273|^4274|^4276|^4278|^4279|^7850|99601|99604|^V450|^V533", x[[code]]))
+  valv <- max(grepl("^0932|^394|^395|^396|^397|^424|^7463|^7464|^7465|^7466|^V422|^V433", x[[code]]))
+  pcd <- max(grepl("^4150|^4151|^416|^4170|^4178|^4179", x[[code]]))
+  pvd <- max(grepl("^0930|^4373|^440|^441|^4431|^4432|^4438|^4439|^4471|^5571|^5579|^V434", x[[code]]))
+  hypunc <- max(grepl("^401", x[[code]]))
+  hypc <- max(grepl("^402|^403|^404|^405", x[[code]]))
+  para <- max(grepl("^3341|^342|^343|^3440|^3441|^3442|^3443|^3444|^3445|^3446|^3449", x[[code]]))
+  ond <- max(grepl("^3319|^3320|^3321|^3334|^3335|33392|^334|^335|^3362|^340|^341|^345|^3481|^3483|^7803|^7843", x[[code]]))
+  cpd <- max(grepl("^4168|^4169|^490|^491|^492|^493|^494|^495|^496|^500|^501|^502|^503|^504|^505|^5064|^5081|^5088", x[[code]]))
+  diabunc <- max(grepl("^2500|^2501|^2502|^2503", x[[code]]))
+  diabc <- max(grepl("^2504|^2505|^2506|^2507|^2508|^2509", x[[code]]))
+  hypothy <- max(grepl("^2409|^243|^244|^2461|^2468", x[[code]]))
+  rf <- max(grepl("40301|40311|40391|40402|40403|40412|40413|40492|40493|^585|^586|^5880|^V420|^V451|^V56", x[[code]]))
+  ld <- max(grepl("07022|07023|07032|07033|07044|07054|^0706|^0709|^4560|^4561|^4562|^570|^571|^5722|^5723|^5724|^5728|^5733|^5734|^5738|^5739|^V427", x[[code]]))
+  pud <- max(grepl("^5317|^5319|^5327|^5329|^5337|^5339|^5347|^5349", x[[code]]))
+  aids <- max(grepl("^042|^043|^044", x[[code]]))
+  lymph <- max(grepl("^200|^201|^202|^2030|^2386", x[[code]]))
+  metacanc <- max(grepl("^196|^197|^198|^199", x[[code]]))
+  solidtum <- max(grepl("^140|^141|^142|^143|^144|^145|^146|^147|^148|^149|^150|^151|^152|^153|^154|^155|^156|^157|^158|^159|^160|^161|^162|^163|^164|^165|^166|^167|^168|^169|^170|^171|^172|^174|^175|^176|^177|^178|^179|^180|^181|^182|^183|^184|^185|^186|^187|^188|^189|^190|^191|^192|^193|^194|^195", x[[code]]))
+  rheumd <- max(grepl("^446|^7010|^7100|^7101|^7102|^7103|^7104|^7108|^7109|^7112|^714|^7193|^720|^725|^7285|72889|72930", x[[code]]))
+  coag <- max(grepl("^286|^2871|^2873|^2874|^2875", x[[code]]))
+  obes <- max(grepl("^2780", x[[code]]))
+  wloss <- max(grepl("^260|^261|^262|^263|^7832|^7994", x[[code]]))
+  fed <- max(grepl("^2536|^276", x[[code]]))
+  blane <- max(grepl("^2800", x[[code]]))
+  dane <- max(grepl("^2801|^2808|^2809|^281", x[[code]]))
+  alcohol <- max(grepl("^2652|^2911|^2912|^2913|^2915|^2918|^2919|^3030|^3039|^3050|^3575|^4255|^5353|^5710|^5711|^5712|^5713|^980|^V113", x[[code]]))
+  drug <- max(grepl("^292|^304|^3052|^3053|^3054|^3055|^3056|^3057|^3058|^3059|^V6542", x[[code]]))
+  psycho <- max(grepl("^2938|^295|29604|29614|29644|29654|^297|^298", x[[code]]))
+  depre <- max(grepl("^2962|^2963|^2965|^3004|^309|^311", x[[code]]))
+  out <- list()
+  out[[id]] <- unique(x[[id]])
+  out$chf <- chf
+  out$carit <- carit
+  out$valv <- valv
+  out$pcd <- pcd
+  out$pvd <- pvd
+  out$hypunc <- hypunc
+  out$hypc <- hypc
+  out$para <- para
+  out$ond <- ond
+  out$cpd <- cpd
+  out$diabunc <- diabunc
+  out$diabc <- diabc
+  out$hypothy <- hypothy
+  out$rf <- rf
+  out$ld <- ld
+  out$pud <- pud
+  out$aids <- aids
+  out$lymph <- lymph
+  out$metacanc <- metacanc
+  out$solidtum <- solidtum
+  out$rheumd <- rheumd
+  out$coag <- coag
+  out$obes <- obes
+  out$wloss <- wloss
+  out$fed <- fed
+  out$blane <- blane
+  out$dane <- dane
+  out$alcohol <- alcohol
+  out$drug <- drug
+  out$psycho <- psycho
+  out$depre <- depre
   out <- data.frame(out)
   return(out)
 }
