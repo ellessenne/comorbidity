@@ -1,3 +1,6 @@
+# comorbidity 0.0.4
+* Added support for the ICD-9 version of Charlson and Elixhauser scores
+
 # comorbidity 0.0.3.9000
 
 # comorbidity 0.0.3
