@@ -15,7 +15,7 @@ comorbidity(x, id, code, score, assign0 = TRUE, factorise = FALSE,
 
 \item{code}{Column of \code{x} containing diagnostic codes. Codes must be in upper case with no puctuation in order to be properly recognised.}
 
-\item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score based on ICD-10 codes (\code{charlson_icd10}) and the Elixhauser comorbidity score based on ICD-10 codes (\code{elixhauser_icd10}). Defaults to \code{charlson_icd10}.}
+\item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score based on ICD-10 codes (\code{charlson_icd10}) or ICD-9 codes (\code{charlson_icd9}), and the Elixhauser comorbidity score based on ICD-10 codes (\code{elixhauser_icd10}) or ICD-9 codes (\code{elixhauser_icd9}). Defaults to \code{charlson_icd10}.}
 
 \item{assign0}{Apply a hierarchy of comorbities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.}
 
@@ -98,8 +98,8 @@ Labels are presented to the user when using the RStudio viewer (e.g. via the \co
 Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score.
 }
 \details{
-This function is based on the ICD-10-based formulations of the Charlson score and Elixhauser score proposed by Quan \emph{et al}. in 2005. Weights for the Charlson score are based on the original formulation by Charlson \emph{et al}. in 1987, while weights for the Elixhauser score are based on work by van Walraven \emph{et al}. Finally, the categorisation of scores and weighted scores is based on work by Menendez \emph{et al}.
-ICD-10 codes must be in upper case and with no punctuation in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically.
+The ICD-10 coding for the Charlson and Elixhauser scores is based on work by Quan \emph{et al}. (2005); ICD-9 coding for the Charlson score is based on the same paper by Quan \emph{et al}., while the Elixhauser score is according to AHRQ (Moore \emph{et al}., 2017). Weights for the Charlson score are based on the original formulation by Charlson \emph{et al}. in 1987, while weights for the Elixhauser score are based on work by van Walraven \emph{et al}. Finally, the categorisation of scores and weighted scores is based on work by Menendez \emph{et al}.
+ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.
 To run the calculations in parallel set \code{parallel = TRUE}. This is based on \code{\link[parallel:parLapply]{parallel::parLapply()}}, and it is possible to set the number of cores to use via the \code{mc.cores} argument, which defaults to using all the cores available.
 }
 \examples{
@@ -120,6 +120,8 @@ comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
 Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.
 
 Charlson ME, Pompei P, Ales KL, et al. \emph{A new method of classifying prognostic comorbidity in longitudinal studies: development and validation}. Journal of Chronic Diseases 1987; 40:373-383.
+
+Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. \emph{Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index}. Medical Care 2017; 55(7):698-705.
 
 van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. \emph{A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data}. Medical Care 2009; 47(6):626-633.
 
