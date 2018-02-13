@@ -5,4 +5,6 @@ test_that("loading data works", {
   expect_s3_class(object = icd10_2009, class = "data.frame")
   data("icd10_2011", package = "comorbidity")
   expect_s3_class(object = icd10_2011, class = "data.frame")
+  data("icd9_2015", package = "comorbidity")
+  expect_s3_class(object = icd9_2015, class = "data.frame")
 })

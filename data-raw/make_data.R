@@ -51,3 +51,20 @@ icd10_2011 <- icd10_2011[, c(2, 4, 3, 1)]
 
 # Save data in R format
 devtools::use_data(icd10_2011, overwrite = TRUE)
+
+### Dataset #3: ICD-9 codes, 2014 version
+# Download dataset
+download.file(url = "https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/Downloads/ICD-9-CM-v32-master-descriptions.zip", destfile = "data-raw/ICD-9-CM-v32-master-descriptions.zip")
+
+# Unzip files
+unzip("data-raw/ICD-9-CM-v32-master-descriptions.zip", exdir = "data-raw/")
+
+# Read ICD-9 diagnostic codes
+icd9_2015 <- readxl::read_excel("data-raw/CMS32_DESC_LONG_SHORT_DX.xlsx", skip = 1, col_names = c("Code", "Long_description", "Short_description"))
+
+# Save data in R format
+devtools::use_data(icd9_2015, overwrite = TRUE)
+
+### Remove unnecessary files
+lf <- list.files(path = "data-raw", full.names = TRUE, pattern = ".xls|.txt|.zip")
+invisible(file.remove(lf))

@@ -3,7 +3,7 @@
 \docType{data}
 \name{icd10_2011}
 \alias{icd10_2011}
-\title{ICD-10 Codes, 2011 Version}
+\title{ICD-10 Diagnostic Codes, 2011 Version}
 \format{A data frame with 10,856 rows and 4 variables:
 \describe{
 \item{Code}{ICD-10 diagnostic code}
