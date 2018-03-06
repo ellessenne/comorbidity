@@ -1,27 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+comorbidity
+===========
 
-# comorbidity
+2018-03-06
 
-2018-02-27
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity) [![Travis-CI Build Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https://travis-ci.org/ellessenne/comorbidity) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
-[![Travis-CI Build
-Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https://travis-ci.org/ellessenne/comorbidity)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![PRs
-Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+`comorbidity` is an R package for computing comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score; both ICD-10 and ICD-9 coding systems are supported.
 
-`comorbidity` is an R package for computing comorbidity scores such as
-the weighted Charlson score and the Elixhauser comorbidity score; both
-ICD-10 and ICD-9 coding systems are supported.
-
-## Installation
+Installation
+------------
 
 `comorbidity` is on CRAN. You can install it as usual with:
 
@@ -36,10 +25,10 @@ Alternatively, you can install the development version from GitHub with:
 devtools::install_github("ellessenne/comorbidity")
 ```
 
-## Simulating ICD-10 codes
+Simulating ICD-10 codes
+-----------------------
 
-With `comorbidity` it is possible to simulate ICD-10 diagnostic codes in
-a straightforward way:
+With `comorbidity` it is possible to simulate ICD-10 diagnostic codes in a straightforward way:
 
 ``` r
 # load the comorbidity package
@@ -72,9 +61,7 @@ head(x, n = 15)
 #> 2   2 U016
 ```
 
-It is also possible to simulate from two different versions of the
-ICD-10 coding system. The default is to simulate ICD-10 codes from the
-2011 version:
+It is also possible to simulate from two different versions of the ICD-10 coding system. The default is to simulate ICD-10 codes from the 2011 version:
 
 ``` r
 set.seed(1)
@@ -114,7 +101,8 @@ all.equal(x1, x2)
 #> [1] "Component \"code\": 29 string mismatches"
 ```
 
-## Simulating ICD-9 codes
+Simulating ICD-9 codes
+----------------------
 
 ICD-9 codes can be easily simulated too:
 
@@ -145,7 +133,8 @@ head(x9, n = 15)
 #> 19  2 67450
 ```
 
-## Computing comorbidity scores
+Computing comorbidity scores
+----------------------------
 
 Say we have 3 individuals with a total of 30 ICD-10 diagnostic codes:
 
@@ -158,8 +147,7 @@ x <- data.frame(
 )
 ```
 
-We could compute the Charlson score, index, and each comorbidity
-domain:
+We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
 charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")
@@ -174,8 +162,7 @@ charlson
 #> 3     0     0      0      0
 ```
 
-Alternatively, we could compute the Elixhauser
-score:
+Alternatively, we could compute the Elixhauser score:
 
 ``` r
 elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
@@ -194,8 +181,7 @@ elixhauser
 #> 3      0      0
 ```
 
-Conversely, say we have 5 individuals with a total of 100 ICD-9
-diagnostic codes:
+Conversely, say we have 5 individuals with a total of 100 ICD-9 diagnostic codes:
 
 ``` r
 set.seed(3)
@@ -208,8 +194,7 @@ x <- data.frame(
 
 The Charlson and Elixhauser comorbidity codes can be easily computed:
 
-We could compute the Charlson score, index, and each comorbidity
-domain:
+We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
 charlson9 <- comorbidity(x = x9, id = "id", code = "code", score = "charlson_icd9")
@@ -224,8 +209,7 @@ charlson9
 #> 3     1   1-2      2    1-2
 ```
 
-Alternatively, we could compute the Elixhauser
-score:
+Alternatively, we could compute the Elixhauser score:
 
 ``` r
 elixhauser9 <- comorbidity(x = x9, id = "id", code = "code", score = "elixhauser_icd9")
@@ -244,43 +228,14 @@ elixhauser9
 #> 3      9    >=5
 ```
 
-## References
+References
+----------
 
-This package is based on the ICD-10-based formulations of the Charlson
-score and Elixhauser score proposed by Quan *et al*. in 2005. The ICD-9
-formulation of the Charlson score is also from Quan *et al*. The
-ICD-9-based Elixhauser score is according to the AHRQ formulation (Moore
-*et al*., 2017). Weights for the Charlson score are based on the
-original formulation by Charlson *et al*. in 1987, while weights for the
-Elixhauser score are based on work by van Walraven *et al*. Finally, the
-categorisation of scores and weighted scores is based on work by
-Menendez *et al*.
+This package is based on the ICD-10-based formulations of the Charlson score and Elixhauser score proposed by Quan *et al*. in 2005. The ICD-9 formulation of the Charlson score is also from Quan *et al*. The ICD-9-based Elixhauser score is according to the AHRQ formulation (Moore *et al*., 2017). Weights for the Charlson score are based on the original formulation by Charlson *et al*. in 1987, while weights for the Elixhauser score are based on work by van Walraven *et al*. Finally, the categorisation of scores and weighted scores is based on work by Menendez *et al*.
 
-  - Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et
-    al. *Coding algorithms for defining comorbidities in ICD-9-CM and
-    ICD-10 administrative data*. Medical Care 2005; 43(11):1130-1139.
-    DOI:
-    [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
-  - Charlson ME, Pompei P, Ales KL, et al. *A new method of classifying
-    prognostic comorbidity in longitudinal studies: development and
-    validation*. Journal of Chronic Diseases 1987; 40:373-383. DOI:
-    [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681\(87\)90171-8)
-  - Moore BJ, White S, Washington R, Coenen N, and Elixhauser A.
-    *Identifying increased risk of readmission and in-hospital mortality
-    using hospital administrative data: the AHRQ Elixhauser comorbidity
-    index*. Medical Care 2017; 55(7):698-705. DOI:
-    [10.1097/MLR.0000000000000735](https://doi.org/10.1097/MLR.0000000000000735)
-  - Elixhauser A, Steiner C, Harris DR and Coffey RM. *Comorbidity
-    measures for use with administrative data*. Medical Care 1998;
-    36(1):8-27. DOI:
-    [10.1097/00005650-199801000-00004](https://doi.org/10.1097/00005650-199801000-00004)
-  - van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. *A
-    modification of the Elixhauser comorbidity measures into a point
-    system for hospital death using administrative data*. Medical Care
-    2009; 47(6):626-633. DOI:
-    [10.1097/mlr.0b013e31819432e5](https://doi.org/10.1097/mlr.0b013e31819432e5)
-  - Menendez ME, Neuhaus V, van Dijk CN, Ring D. *The Elixhauser
-    comorbidity method outperforms the Charlson index in predicting
-    inpatient death after orthopaedic surgery*. Clinical Orthopaedics
-    and Related Research 2014; 472:2878–2886. DOI:
-    [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)
+-   Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. *Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data*. Medical Care 2005; 43(11):1130-1139. DOI: [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
+-   Charlson ME, Pompei P, Ales KL, et al. *A new method of classifying prognostic comorbidity in longitudinal studies: development and validation*. Journal of Chronic Diseases 1987; 40:373-383. DOI: [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681(87)90171-8)
+-   Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. *Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index*. Medical Care 2017; 55(7):698-705. DOI: [10.1097/MLR.0000000000000735](https://doi.org/10.1097/MLR.0000000000000735)
+-   Elixhauser A, Steiner C, Harris DR and Coffey RM. *Comorbidity measures for use with administrative data*. Medical Care 1998; 36(1):8-27. DOI: [10.1097/00005650-199801000-00004](https://doi.org/10.1097/00005650-199801000-00004)
+-   van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. *A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data*. Medical Care 2009; 47(6):626-633. DOI: [10.1097/mlr.0b013e31819432e5](https://doi.org/10.1097/mlr.0b013e31819432e5)
+-   Menendez ME, Neuhaus V, van Dijk CN, Ring D. *The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery*. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886. DOI: [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)

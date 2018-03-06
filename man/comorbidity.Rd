@@ -13,17 +13,17 @@ comorbidity(x, id, code, score, assign0 = TRUE, factorise = FALSE,
 
 \item{id}{Column of \code{x} containing the individual ID.}
 
-\item{code}{Column of \code{x} containing diagnostic codes. Codes must be in upper case with no puctuation in order to be properly recognised.}
+\item{code}{Column of \code{x} containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.}
 
 \item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score based on ICD-10 codes (\code{charlson_icd10}) or ICD-9 codes (\code{charlson_icd9}), and the Elixhauser comorbidity score based on ICD-10 codes (\code{elixhauser_icd10}) or ICD-9 codes (\code{elixhauser_icd9}). Defaults to \code{charlson_icd10}.}
 
-\item{assign0}{Apply a hierarchy of comorbities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.}
+\item{assign0}{Apply a hierarchy of comorbidities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.}
 
 \item{factorise}{Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{FALSE}.}
 
 \item{labelled}{Attach labels to each comorbidity, compatible with the RStudio viewer via the \code{\link[utils:View]{utils::View()}} function. Defaults to \code{TRUE}.}
 
-\item{tidy.codes}{Tidy diagnostic codes? If \code{TRUE}, all codes are converted to upper case and all non-alphanumeric characters are removed (REGEXPR: \code{[^[:alnum:]]}). Defaults to \code{TRUE}.}
+\item{tidy.codes}{Tidy diagnostic codes? If \code{TRUE}, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}. Defaults to \code{TRUE}.}
 
 \item{parallel}{Run the computation in parallel? See the \code{Notes} section for more information. Defaults to \code{FALSE}.}
 
@@ -50,7 +50,7 @@ For the Charlson score, the following variables are included in the dataset:
 \item \code{rend}, for renal disease;
 \item \code{canc}, for cancer (any malignancy);
 \item \code{msld}, for moderate or severe liver disease;
-\item \code{metacanc}, for metastatic solid tumor;
+\item \code{metacanc}, for metastatic solid tumour;
 \item \code{aids}, for AIDS/HIV;
 \item \code{score}, for the weighted Charlson score;
 \item \code{index}, for the grouped Charlson index.
@@ -60,7 +60,7 @@ Conversely, for the Elixhauser score the dataset contains the following variable
 \itemize{
 \item The \code{id} variable as defined by the user;
 \item \code{chf}, for congestive heart failure;
-\item \code{carit}, for cardiac arrhytmias;
+\item \code{carit}, for cardiac arrhythmias;
 \item \code{valv}, for valvular disease;
 \item \code{pcd}, for pulmonary circulation disorders;
 \item \code{pvd}, for peripheral vascular disorders;
@@ -78,14 +78,14 @@ Conversely, for the Elixhauser score the dataset contains the following variable
 \item \code{aids}, for AIDS/HIV;
 \item \code{lymph}, for lymphoma;
 \item \code{metacanc}, for metastatic cancer;
-\item \code{solidtum}, for solid tumor, without metastasis;
-\item \code{rheumd}, for rheumatoid artritis/collaged vascular disease;
-\item \code{coag}, for coagulopaty;
+\item \code{solidtum}, for solid tumour, without metastasis;
+\item \code{rheumd}, for rheumatoid arthritis/collaged vascular disease;
+\item \code{coag}, for coagulopathy;
 \item \code{obes}, for obesity;
 \item \code{wloss}, for weight loss;
 \item \code{fed}, for fluid and electrolyte disorders;
-\item \code{blane}, for blood loss anemia;
-\item \code{dane}, for deficiency anemia;
+\item \code{blane}, for blood loss anaemia;
+\item \code{dane}, for deficiency anaemia;
 \item \code{alcohol}, for alcohol abuse;
 \item \code{drug}, for drug abuse;
 \item \code{psycho}, for psychoses;
@@ -117,7 +117,7 @@ comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
 
 }
 \references{
-Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.
+Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.
 
 Charlson ME, Pompei P, Ales KL, et al. \emph{A new method of classifying prognostic comorbidity in longitudinal studies: development and validation}. Journal of Chronic Diseases 1987; 40:373-383.
 
@@ -125,5 +125,5 @@ Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. \emph{Identifying i
 
 van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. \emph{A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data}. Medical Care 2009; 47(6):626-633.
 
-Menendez ME, Neuhaus V, van Dijk CN, Ring D. \emph{The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery}. Clinical Orthopaedics and Related Research 2014; 472:2878–2886.
+Menendez ME, Neuhaus V, van Dijk CN, Ring D. \emph{The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery}. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886.
 }

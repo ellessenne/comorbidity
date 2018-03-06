@@ -4,12 +4,12 @@
 #'
 #' @param x A tidy data frame with one column containing an individual ID and a column containing all diagnostic codes.
 #' @param id Column of `x` containing the individual ID.
-#' @param code Column of `x` containing diagnostic codes. Codes must be in upper case with no puctuation in order to be properly recognised.
+#' @param code Column of `x` containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.
 #' @param score The comorbidity score to compute. Possible choices are the weighted Charlson score based on ICD-10 codes (`charlson_icd10`) or ICD-9 codes (`charlson_icd9`), and the Elixhauser comorbidity score based on ICD-10 codes (`elixhauser_icd10`) or ICD-9 codes (`elixhauser_icd9`). Defaults to `charlson_icd10`.
-#' @param assign0 Apply a hierarchy of comorbities. If `TRUE`, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.
+#' @param assign0 Apply a hierarchy of comorbidities. If `TRUE`, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.
 #' @param factorise Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to `FALSE`.
 #' @param labelled Attach labels to each comorbidity, compatible with the RStudio viewer via the [utils::View()] function. Defaults to `TRUE`.
-#' @param tidy.codes Tidy diagnostic codes? If `TRUE`, all codes are converted to upper case and all non-alphanumeric characters are removed (REGEXPR: \code{[^[:alnum:]]}). Defaults to `TRUE`.
+#' @param tidy.codes Tidy diagnostic codes? If `TRUE`, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}. Defaults to `TRUE`.
 #' @param parallel Run the computation in parallel? See the `Notes` section for more information. Defaults to `FALSE`.
 #' @param mc.cores The number of cores to use when running the computations in parallel. Defaults to all available cores.
 #' @return A data frame with `id`, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
@@ -31,7 +31,7 @@
 #' * `rend`, for renal disease;
 #' * `canc`, for cancer (any malignancy);
 #' * `msld`, for moderate or severe liver disease;
-#' * `metacanc`, for metastatic solid tumor;
+#' * `metacanc`, for metastatic solid tumour;
 #' * `aids`, for AIDS/HIV;
 #' * `score`, for the weighted Charlson score;
 #' * `index`, for the grouped Charlson index.
@@ -39,7 +39,7 @@
 #' Conversely, for the Elixhauser score the dataset contains the following variables:
 #' * The `id` variable as defined by the user;
 #' * `chf`, for congestive heart failure;
-#' * `carit`, for cardiac arrhytmias;
+#' * `carit`, for cardiac arrhythmias;
 #' * `valv`, for valvular disease;
 #' * `pcd`, for pulmonary circulation disorders;
 #' * `pvd`, for peripheral vascular disorders;
@@ -57,14 +57,14 @@
 #' * `aids`, for AIDS/HIV;
 #' * `lymph`, for lymphoma;
 #' * `metacanc`, for metastatic cancer;
-#' * `solidtum`, for solid tumor, without metastasis;
-#' * `rheumd`, for rheumatoid artritis/collaged vascular disease;
-#' * `coag`, for coagulopaty;
+#' * `solidtum`, for solid tumour, without metastasis;
+#' * `rheumd`, for rheumatoid arthritis/collaged vascular disease;
+#' * `coag`, for coagulopathy;
 #' * `obes`, for obesity;
 #' * `wloss`, for weight loss;
 #' * `fed`, for fluid and electrolyte disorders;
-#' * `blane`, for blood loss anemia;
-#' * `dane`, for deficiency anemia;
+#' * `blane`, for blood loss anaemia;
+#' * `dane`, for deficiency anaemia;
 #' * `alcohol`, for alcohol abuse;
 #' * `drug`, for drug abuse;
 #' * `psycho`, for psychoses;
@@ -77,11 +77,11 @@
 #' ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set `tidy.codes = TRUE` to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.
 #' To run the calculations in parallel set `parallel = TRUE`. This is based on [parallel::parLapply()], and it is possible to set the number of cores to use via the `mc.cores` argument, which defaults to using all the cores available.
 #'
-#' @references Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139.
+#' @references Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139.
 #' @references Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
 #' @references Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. _Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index_. Medical Care 2017; 55(7):698-705.
 #' @references van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.
-#' @references Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472:2878–2886.
+#' @references Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886.
 #'
 #' @examples
 #' set.seed(1)
@@ -187,9 +187,9 @@ comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, l
   ### Label variables for RStudio viewer if requested
   if (labelled) {
     attr(cs, "variable.labels") <- if (score %in% c("charlson_icd9", "charlson_icd10")) {
-      c("ID", "Myocardial infarction", "Congestive heart failure", "Peripheral vascular disease", "Cerebrovascular disease", "Dementia", "Chronic obstructive pulmonary disease", "Rheumatoid disease", "Peptic ulcer disease", "Mild liver disease", "Diabetes without chronic complications", "Diabetes with chronic complications", "Hemiplegia or paraplegia", "Renal disease", "Cancer (any malignancy)", "Moderate or severe liver disease", "Metastatic solid tumor", "AIDS/HIV", "Charlson score", "Charlson index", "Weighted Charlson score", "Weighted Charlson index")
+      c("ID", "Myocardial infarction", "Congestive heart failure", "Peripheral vascular disease", "Cerebrovascular disease", "Dementia", "Chronic obstructive pulmonary disease", "Rheumatoid disease", "Peptic ulcer disease", "Mild liver disease", "Diabetes without chronic complications", "Diabetes with chronic complications", "Hemiplegia or paraplegia", "Renal disease", "Cancer (any malignancy)", "Moderate or severe liver disease", "Metastatic solid tumour", "AIDS/HIV", "Charlson score", "Charlson index", "Weighted Charlson score", "Weighted Charlson index")
     } else if (score %in% c("elixhauser_icd9", "elixhauser_icd10")) {
-      c("ID", "Congestive heart failure", "Cardiac arrhytmias", "Valvular disease", "Pulmonary circulation disorders", "Peripheral vascular disorders", "Hypertension, uncomplicated", "Hypertension, complicated", "Paralysis", "Other neurological disorders", "Chronic pulmonary disease", "Diabetes, uncomplicated", "Diabetes, complicated", "Hypothyroidism", "Renal failure", "Liver disease", "Peptic ulcer disease excluding bleeding", "AIDS/HIV", "Lymphoma", "Metastatic cancer", "Solid tumor without metastasis", "Rheumatoid artritis/collaged vascular disease", "Coagulopaty", "Obesity", "Weight loss", "Fluid and electrolyte disorders", "Blood loss anemia", "Deficiency anemia", "Alcohol abuse", "Drug abuse", "Psychoses", "Depression", "Elixhauser score", "Elixhauser index", "Weighted Elixhauser score", "Weighted Elixhauser index")
+      c("ID", "Congestive heart failure", "Cardiac arrhythmias", "Valvular disease", "Pulmonary circulation disorders", "Peripheral vascular disorders", "Hypertension, uncomplicated", "Hypertension, complicated", "Paralysis", "Other neurological disorders", "Chronic pulmonary disease", "Diabetes, uncomplicated", "Diabetes, complicated", "Hypothyroidism", "Renal failure", "Liver disease", "Peptic ulcer disease excluding bleeding", "AIDS/HIV", "Lymphoma", "Metastatic cancer", "Solid tumour without metastasis", "Rheumatoid artritis/collaged vascular disease", "Coagulopathy", "Obesity", "Weight loss", "Fluid and electrolyte disorders", "Blood loss anaemia", "Deficiency anaemia", "Alcohol abuse", "Drug abuse", "Psychoses", "Depression", "Elixhauser score", "Elixhauser index", "Weighted Elixhauser score", "Weighted Elixhauser index")
     }
   }
 
