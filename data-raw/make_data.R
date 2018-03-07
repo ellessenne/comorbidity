@@ -25,6 +25,12 @@ icd10_2009$Code.clean <- stringr::str_replace_all(string = icd10_2009$Code, patt
 # Re-order the columns
 icd10_2009 <- icd10_2009[, c(2, 4, 3, 1)]
 
+# Convert all character columns to ASCII format
+icd10_2009$Code <- iconv(icd10_2009$Code, from = "UTF-8", to = "ASCII")
+icd10_2009$Code.clean <- iconv(icd10_2009$Code.clean, from = "UTF-8", to = "ASCII")
+icd10_2009$ICD.title <- iconv(icd10_2009$ICD.title, from = "UTF-8", to = "ASCII")
+icd10_2009$Status <- iconv(icd10_2009$Status, from = "UTF-8", to = "ASCII")
+
 # Save data in R format
 devtools::use_data(icd10_2009, overwrite = TRUE)
 
@@ -49,10 +55,16 @@ icd10_2011$Code.clean <- stringr::str_replace_all(string = icd10_2011$Code, patt
 # Re-order the columns
 icd10_2011 <- icd10_2011[, c(2, 4, 3, 1)]
 
+# Convert all character columns to ASCII format
+icd10_2011$Code <- iconv(icd10_2011$Code, from = "UTF-8", to = "ASCII")
+icd10_2011$Code.clean <- iconv(icd10_2011$Code.clean, from = "UTF-8", to = "ASCII")
+icd10_2011$ICD.title <- iconv(icd10_2011$ICD.title, from = "UTF-8", to = "ASCII")
+icd10_2011$Status <- iconv(icd10_2011$Status, from = "UTF-8", to = "ASCII")
+
 # Save data in R format
 devtools::use_data(icd10_2011, overwrite = TRUE)
 
-### Dataset #3: ICD-9 codes, 2014 version
+### Dataset #3: ICD-9 codes, 2015 version
 # Download dataset
 download.file(url = "https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/Downloads/ICD-9-CM-v32-master-descriptions.zip", destfile = "data-raw/ICD-9-CM-v32-master-descriptions.zip")
 
@@ -61,6 +73,11 @@ unzip("data-raw/ICD-9-CM-v32-master-descriptions.zip", exdir = "data-raw/")
 
 # Read ICD-9 diagnostic codes
 icd9_2015 <- readxl::read_excel("data-raw/CMS32_DESC_LONG_SHORT_DX.xlsx", skip = 1, col_names = c("Code", "Long_description", "Short_description"))
+
+# Convert all character columns to ASCII format
+icd9_2015$Code <- iconv(icd9_2015$Code, from = "UTF-8", to = "ASCII")
+icd9_2015$Long_description <- iconv(icd9_2015$Long_description, from = "UTF-8", to = "ASCII")
+icd9_2015$Short_description <- iconv(icd9_2015$Short_description, from = "UTF-8", to = "ASCII")
 
 # Save data in R format
 devtools::use_data(icd9_2015, overwrite = TRUE)
