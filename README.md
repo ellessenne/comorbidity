@@ -3,7 +3,7 @@
 comorbidity
 ===========
 
-2018-03-06
+2018-03-07
 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity) [![Travis-CI Build Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https://travis-ci.org/ellessenne/comorbidity) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
@@ -233,7 +233,7 @@ References
 
 This package is based on the ICD-10-based formulations of the Charlson score and Elixhauser score proposed by Quan *et al*. in 2005. The ICD-9 formulation of the Charlson score is also from Quan *et al*. The ICD-9-based Elixhauser score is according to the AHRQ formulation (Moore *et al*., 2017). Weights for the Charlson score are based on the original formulation by Charlson *et al*. in 1987, while weights for the Elixhauser score are based on work by van Walraven *et al*. Finally, the categorisation of scores and weighted scores is based on work by Menendez *et al*.
 
--   Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi J-C, et al. *Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data*. Medical Care 2005; 43(11):1130-1139. DOI: [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
+-   Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. *Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data*. Medical Care 2005; 43(11):1130-1139. DOI: [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
 -   Charlson ME, Pompei P, Ales KL, et al. *A new method of classifying prognostic comorbidity in longitudinal studies: development and validation*. Journal of Chronic Diseases 1987; 40:373-383. DOI: [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681(87)90171-8)
 -   Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. *Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index*. Medical Care 2017; 55(7):698-705. DOI: [10.1097/MLR.0000000000000735](https://doi.org/10.1097/MLR.0000000000000735)
 -   Elixhauser A, Steiner C, Harris DR and Coffey RM. *Comorbidity measures for use with administrative data*. Medical Care 1998; 36(1):8-27. DOI: [10.1097/00005650-199801000-00004](https://doi.org/10.1097/00005650-199801000-00004)

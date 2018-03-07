@@ -10,6 +10,7 @@ Authors@R: c(
   person(given = "Alessandro", family = "Gasparini", role = c("aut", "cre"), email = "ag475@leicester.ac.uk"),
   person(given = "Hojjat", family = "Salmasian", role = "ctb", email = "hsalmasian@bwh.harvard.edu", comment = "ICD-9 scores")
   )
+Maintainer: Alessandro Gasparini <ag475@leicester.ac.uk>
 URL: https://github.com/ellessenne/comorbidity
 BugReports: https://github.com/ellessenne/comorbidity/issues
 License: GPL (>= 3)
@@ -18,11 +19,13 @@ Imports:
  checkmate,
  parallel
 Suggests:
+ covr,
  knitr,
- testthat,
- covr
+ rmarkdown,
+ testthat
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
+VignetteBuilder: knitr
