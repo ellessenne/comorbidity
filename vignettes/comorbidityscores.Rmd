@@ -270,14 +270,18 @@ library(comorbidity)
 We can utilise the built-in `sample_diag()` function to simulate ICD diagnostic codes. Both ICD-9 and ICD-10 codes are supported:
 
 ```{r simulate-data}
-data9 <- data.frame(id = sample(1:10, size = 250, replace = TRUE),
-                    code = sample_diag(n = 250, version = "ICD9_2015"),
-                    stringsAsFactors = FALSE)
-data9 <- data9[order(data9$id),]
-data10 <- data.frame(id = sample(1:10, size = 250, replace = TRUE),
-                    code = sample_diag(n = 250, version = "ICD10_2011"),
-                    stringsAsFactors = FALSE)
-data10 <- data10[order(data10$id),]
+data9 <- data.frame(
+  id = sample(1:10, size = 250, replace = TRUE),
+  code = sample_diag(n = 250, version = "ICD9_2015"),
+  stringsAsFactors = FALSE
+)
+data9 <- data9[order(data9$id), ]
+data10 <- data.frame(
+  id = sample(1:10, size = 250, replace = TRUE),
+  code = sample_diag(n = 250, version = "ICD10_2011"),
+  stringsAsFactors = FALSE
+)
+data10 <- data10[order(data10$id), ]
 ```
 
 Then, we can go ahead and compute various comorbidity scores and indeces supported by `comorbidity`. The Charlson score based on ICD-9-CM data is computed as:
