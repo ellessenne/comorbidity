@@ -9,5 +9,5 @@
 ^TODO\.md$
 ^data-raw$
 ^.*pdf$
-^paper\.md$
-^paper\.bib$
+^inst/JOSS$
+^LICENSE\.md$
