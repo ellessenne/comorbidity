@@ -14,7 +14,7 @@ authors:
 affiliations:
 - name: Biostatistics Research Group, Department of Health Sciences, University of Leicester
   index: 1
-date: 9 March 2018
+date: 12 March 2018
 bibliography: paper.bib
 ---
 
