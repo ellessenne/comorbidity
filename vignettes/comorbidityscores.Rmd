@@ -282,7 +282,7 @@ data10 <- data.frame(
 data10 <- data10[order(data10$id), ]
 ```
 
-Then, we can go ahead and compute various comorbidity scores and indeces supported by `comorbidity`. The Charlson score based on ICD-9-CM data is computed as:
+Then, we can go ahead and compute various comorbidity scores and indices supported by `comorbidity`. The Charlson score based on ICD-9-CM data is computed as:
 
 ```{r charlson-9}
 charlson9 <- comorbidity(x = data9, id = "id", code = "code", score = "charlson_icd9")
