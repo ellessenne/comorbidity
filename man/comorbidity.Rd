@@ -52,8 +52,10 @@ For the Charlson score, the following variables are included in the dataset:
 \item \code{msld}, for moderate or severe liver disease;
 \item \code{metacanc}, for metastatic solid tumour;
 \item \code{aids}, for AIDS/HIV;
-\item \code{score}, for the weighted Charlson score;
-\item \code{index}, for the grouped Charlson index.
+\item \code{score}, for the non-weighted version of the Charlson score;
+\item \code{index}, for the non-weighted version of the grouped Charlson index;
+\item \code{wscore}, for the weighted version of the Charlson score;
+\item \code{windex}, for the weighted version of the grouped Charlson index.
 }
 
 Conversely, for the Elixhauser score the dataset contains the following variables:
@@ -89,7 +91,11 @@ Conversely, for the Elixhauser score the dataset contains the following variable
 \item \code{alcohol}, for alcohol abuse;
 \item \code{drug}, for drug abuse;
 \item \code{psycho}, for psychoses;
-\item \code{depre}, for depression.
+\item \code{depre}, for depression;
+\item \code{score}, for the non-weighted version of the Elixhauser score;
+\item \code{index}, for the non-weighted version of the grouped Elixhauser index;
+\item \code{wscore}, for the weighted version of the Elixhauser score;
+\item \code{windex}, for the weighted version of the grouped Elixhauser index.
 }
 
 Labels are presented to the user when using the RStudio viewer (e.g. via the \code{\link[utils:View]{utils::View()}} function) for convenience.

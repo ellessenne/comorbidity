@@ -33,8 +33,10 @@
 #' * `msld`, for moderate or severe liver disease;
 #' * `metacanc`, for metastatic solid tumour;
 #' * `aids`, for AIDS/HIV;
-#' * `score`, for the weighted Charlson score;
-#' * `index`, for the grouped Charlson index.
+#' * `score`, for the non-weighted version of the Charlson score;
+#' * `index`, for the non-weighted version of the grouped Charlson index;
+#' * `wscore`, for the weighted version of the Charlson score;
+#' * `windex`, for the weighted version of the grouped Charlson index.
 #'
 #' Conversely, for the Elixhauser score the dataset contains the following variables:
 #' * The `id` variable as defined by the user;
@@ -68,7 +70,11 @@
 #' * `alcohol`, for alcohol abuse;
 #' * `drug`, for drug abuse;
 #' * `psycho`, for psychoses;
-#' * `depre`, for depression.
+#' * `depre`, for depression;
+#' * `score`, for the non-weighted version of the Elixhauser score;
+#' * `index`, for the non-weighted version of the grouped Elixhauser index;
+#' * `wscore`, for the weighted version of the Elixhauser score;
+#' * `windex`, for the weighted version of the grouped Elixhauser index.
 #'
 #' Labels are presented to the user when using the RStudio viewer (e.g. via the [utils::View()] function) for convenience.
 #'

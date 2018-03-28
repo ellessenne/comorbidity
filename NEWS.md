@@ -1,5 +1,7 @@
 # comorbidity 0.1.0-9000
 
+* Documented variables that were missing among those returned by `comorbidity()` (@corinne-riddell, #5).
+
 # comorbidity 0.1.0
 
 * Added support for the ICD-9-CM version of Charlson and Elixhauser scores
