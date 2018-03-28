@@ -44,7 +44,7 @@ devtools::install_github("ellessenne/comorbidity")
 
 ## Simulating ICD-10 codes
 
-With `comorbidity` it is possible to simulate ICD-10 diagnostic codes in a straightforward way:
+The `comorbidity` packages includes a function named `sample_diag()` that allows simulating ICD diagnostic codes in a straightforward way. For instance, we could simulate ICD-10 codes:
 
 ```{r simulate-data}
 # load the comorbidity package
@@ -58,7 +58,7 @@ x <- data.frame(
   stringsAsFactors = FALSE
 )
 x <- x[order(x$id, x$code), ]
-head(x, n = 15)
+print(head(x, n = 15), row.names = FALSE)
 ```
 
 It is also possible to simulate from two different versions of the ICD-10 coding system. The default is to simulate ICD-10 codes from the 2011 version:
@@ -111,10 +111,12 @@ x9 <- data.frame(
   stringsAsFactors = FALSE
 )
 x9 <- x9[order(x9$id, x9$code), ]
-head(x9, n = 15)
+print(head(x9, n = 15), row.names = FALSE)
 ```
 
 ## Computing comorbidity scores
+
+The main function of the `comorbidity` package is named `comorbidity()`, and it can be used to compute any supported comorbidity score; scores can be specified by setting the `score` argument, which is required. 
 
 Say we have 3 individuals with a total of 30 ICD-10 diagnostic codes:
 
@@ -157,17 +159,16 @@ The Charlson and Elixhauser comorbidity codes can be easily computed:
 We could compute the Charlson score, index, and each comorbidity domain:
 
 ```{r charlson-9}
-charlson9 <- comorbidity(x = x9, id = "id", code = "code", score = "charlson_icd9")
+charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson_icd9")
 charlson9
 ```
 
 Alternatively, we could compute the Elixhauser score:
 
 ```{r elixhauser-9}
-elixhauser9 <- comorbidity(x = x9, id = "id", code = "code", score = "elixhauser_icd9")
+elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd9")
 elixhauser9
 ```
-
 
 ## References
 

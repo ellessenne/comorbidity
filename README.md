@@ -3,7 +3,7 @@
 comorbidity
 ===========
 
-2018-03-07
+2018-03-28
 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity) [![Travis-CI Build Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https://travis-ci.org/ellessenne/comorbidity) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
@@ -28,7 +28,7 @@ devtools::install_github("ellessenne/comorbidity")
 Simulating ICD-10 codes
 -----------------------
 
-With `comorbidity` it is possible to simulate ICD-10 diagnostic codes in a straightforward way:
+The `comorbidity` packages includes a function named `sample_diag()` that allows simulating ICD diagnostic codes in a straightforward way. For instance, we could simulate ICD-10 codes:
 
 ``` r
 # load the comorbidity package
@@ -42,23 +42,23 @@ x <- data.frame(
   stringsAsFactors = FALSE
 )
 x <- x[order(x$id, x$code), ]
-head(x, n = 15)
-#>    id code
-#> 38  1 C838
-#> 12  1  H30
-#> 34  1 I260
-#> 24  1 I469
-#> 10  1 K611
-#> 47  1 L949
-#> 27  1  V09
-#> 5   2 B677
-#> 19  2 C081
-#> 14  2 I446
-#> 28  2 K225
-#> 25  2  M41
-#> 1   2 M430
-#> 22  2 T635
-#> 2   2 U016
+print(head(x, n = 15), row.names = FALSE)
+#>  id code
+#>   1 C838
+#>   1  H30
+#>   1 I260
+#>   1 I469
+#>   1 K611
+#>   1 L949
+#>   1  V09
+#>   2 B677
+#>   2 C081
+#>   2 I446
+#>   2 K225
+#>   2  M41
+#>   2 M430
+#>   2 T635
+#>   2 U016
 ```
 
 It is also possible to simulate from two different versions of the ICD-10 coding system. The default is to simulate ICD-10 codes from the 2011 version:
@@ -114,27 +114,29 @@ x9 <- data.frame(
   stringsAsFactors = FALSE
 )
 x9 <- x9[order(x9$id, x9$code), ]
-head(x9, n = 15)
-#>    id  code
-#> 1   1 01161
-#> 14  1  2535
-#> 12  1 37854
-#> 18  1 46451
-#> 30  1 83664
-#> 27  1 94433
-#> 20  1  9711
-#> 7   1 E8038
-#> 4   1 E8498
-#> 24  1  V092
-#> 21  2 01092
-#> 22  2 01301
-#> 10  2  2337
-#> 25  2 37033
-#> 19  2 67450
+print(head(x9, n = 15), row.names = FALSE)
+#>  id  code
+#>   1 01161
+#>   1  2535
+#>   1 37854
+#>   1 46451
+#>   1 83664
+#>   1 94433
+#>   1  9711
+#>   1 E8038
+#>   1 E8498
+#>   1  V092
+#>   2 01092
+#>   2 01301
+#>   2  2337
+#>   2 37033
+#>   2 67450
 ```
 
 Computing comorbidity scores
 ----------------------------
+
+The main function of the `comorbidity` package is named `comorbidity()`, and it can be used to compute any supported comorbidity score; scores can be specified by setting the `score` argument, which is required.
 
 Say we have 3 individuals with a total of 30 ICD-10 diagnostic codes:
 
@@ -176,8 +178,8 @@ elixhauser
 #> 2        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4
 #> 3        0        0      0    0    0     0   0     0    0       0    0      0     0     0     0
 #>   wscore windex
-#> 1     11    >=5
-#> 2      9    >=5
+#> 1      4    1-4
+#> 2     13    >=5
 #> 3      0      0
 ```
 
@@ -197,35 +199,45 @@ The Charlson and Elixhauser comorbidity codes can be easily computed:
 We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
-charlson9 <- comorbidity(x = x9, id = "id", code = "code", score = "charlson_icd9")
+charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson_icd9")
 charlson9
 #>   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
-#> 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    0    0        0    0
-#> 2  2   0   0   0    0        0    0      0   0   0    0      0  0    0    0    0        0    0
-#> 3  3   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
+#> 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
+#> 2  2   0   0   0    0        0    0      0   0   0    0      1  0    0    1    1        0    0
+#> 3  3   0   0   0    0        0    0      0   0   0    1      0  0    0    1    0        0    0
+#> 4  4   1   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
+#> 5  5   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
 #>   score index wscore windex
-#> 1     0     0      0      0
-#> 2     0     0      0      0
-#> 3     1   1-2      2    1-2
+#> 1     1   1-2      2    1-2
+#> 2     3   3-4      7    >=5
+#> 3     2   1-2      3    3-4
+#> 4     2   1-2      3    3-4
+#> 5     1   1-2      2    1-2
 ```
 
 Alternatively, we could compute the Elixhauser score:
 
 ``` r
-elixhauser9 <- comorbidity(x = x9, id = "id", code = "code", score = "elixhauser_icd9")
+elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd9")
 elixhauser9
 #>   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph
 #> 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0
-#> 2  2   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0
-#> 3  3   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     1
+#> 2  2   0     0    0   0   0      0    0    0   0   0       0     1       0  0  1   0    0     1
+#> 3  3   0     0    0   0   0      0    0    0   0   0       0     1       0  0  0   0    0     1
+#> 4  4   0     0    0   0   0      0    1    0   0   0       0     0       0  0  0   0    0     0
+#> 5  5   0     0    0   1   0      0    0    0   0   0       0     0       0  0  0   0    0     0
 #>   metacanc solidtum rheumd coag obes wloss fed blane dane alcohol drug psycho depre score index
-#> 1        0        0      0    0    0     0   0     0    0       0    0      0     0     0     0
-#> 2        0        0      0    0    0     0   0     0    0       0    0      0     0     0     0
-#> 3        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4
+#> 1        0        1      0    0    0     0   0     0    0       0    0      0     0     1   1-4
+#> 2        0        1      0    0    0     0   0     0    0       0    1      0     0     5   >=5
+#> 3        0        0      0    0    0     0   0     0    0       1    0      0     0     3   1-4
+#> 4        0        1      0    0    0     0   0     0    0       0    0      0     1     3   1-4
+#> 5        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4
 #>   wscore windex
-#> 1      0      0
-#> 2      0      0
-#> 3      9    >=5
+#> 1      7    >=5
+#> 2      7    >=5
+#> 3      2    1-4
+#> 4      1    1-4
+#> 5     13    >=5
 ```
 
 References
