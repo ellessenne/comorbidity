@@ -11,3 +11,5 @@
 ^.*pdf$
 ^inst/JOSS$
 ^LICENSE\.md$
+^CONDUCT\.md$
+^CONTRIBUTING\.md$
