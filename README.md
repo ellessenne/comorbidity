@@ -3,9 +3,9 @@
 comorbidity
 ===========
 
-2018-03-29
+2018-03-30
 
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity) [![Travis-CI Build Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https://travis-ci.org/ellessenne/comorbidity) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity) [![Zenodo DOI](https://zenodo.org/badge/68221970.svg)](https://zenodo.org/badge/latestdoi/68221970) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity) [![Travis-CI Build Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https://travis-ci.org/ellessenne/comorbidity) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity) [![JOSS DOI](http://joss.theoj.org/papers/10.21105/joss.00648/status.svg)](https://doi.org/10.21105/joss.00648) [![Zenodo DOI](https://zenodo.org/badge/68221970.svg)](https://zenodo.org/badge/latestdoi/68221970) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 `comorbidity` is an R package for computing comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score; both ICD-10 and ICD-9 coding systems are supported.
 
@@ -238,6 +238,34 @@ elixhauser9
 #> 3      2    1-4
 #> 4      1    1-4
 #> 5     13    >=5
+```
+
+Citation
+--------
+
+If you find `comorbidity` useful, please cite it in your publications:
+
+``` r
+citation("comorbidity")
+#> 
+#> To cite the comorbidity package in publications, please use:
+#> 
+#>   Gasparini, (2018). comorbidity: An R package for computing comorbidity scores. Journal
+#>   of Open Source Software, 3(23), 648, https://doi.org/10.21105/joss.00648
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Article{,
+#>     author = {Alessandro Gasparini},
+#>     title = {comorbidity: An R package for computing comorbidity scores},
+#>     journal = {Journal of Open Source Software},
+#>     year = {2018},
+#>     volume = {3},
+#>     issue = {23},
+#>     pages = {648},
+#>     doi = {10.21105/joss.00648},
+#>     url = {https://doi.org/10.21105/joss.00648},
+#>   }
 ```
 
 References

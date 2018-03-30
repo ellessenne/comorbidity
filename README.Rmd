@@ -23,6 +23,7 @@ options(width = 100)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![CRAN_Logs_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![CRAN_Logs_Badge_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![JOSS DOI](http://joss.theoj.org/papers/10.21105/joss.00648/status.svg)](https://doi.org/10.21105/joss.00648)
 [![Zenodo DOI](https://zenodo.org/badge/68221970.svg)](https://zenodo.org/badge/latestdoi/68221970)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
@@ -169,6 +170,15 @@ Alternatively, we could compute the Elixhauser score:
 ```{r elixhauser-9}
 elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd9")
 elixhauser9
+```
+
+
+## Citation
+
+If you find `comorbidity` useful, please cite it in your publications:
+
+```{r citation}
+citation("comorbidity")
 ```
 
 ## References

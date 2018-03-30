@@ -1,0 +1,14 @@
+citHeader("To cite the comorbidity package in publications, please use:")
+
+citEntry(entry = "article",
+  author = "Alessandro Gasparini",
+  title = "comorbidity: An R package for computing comorbidity scores",
+  journal = "Journal of Open Source Software",
+  year = "2018",
+  volume = "3",
+  issue = "23",
+  pages = "648",
+  doi = "10.21105/joss.00648",
+  url = "https://doi.org/10.21105/joss.00648",
+  textVersion = "Gasparini, (2018). comorbidity: An R package for computing comorbidity scores. Journal of Open Source Software, 3(23), 648, https://doi.org/10.21105/joss.00648"
+)
