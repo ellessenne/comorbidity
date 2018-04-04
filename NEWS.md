@@ -1,3 +1,5 @@
+# comorbidity 0.1.1-9000
+
 # comorbidity 0.1.1
 
 * Documented variables that were missing among those returned by `comorbidity()` (@corinne-riddell, #5);
