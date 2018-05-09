@@ -4,6 +4,7 @@ library(readxl)
 library(stringr)
 library(devtools)
 
+########################################################################################################################
 ### Dataset #1: ICD-10 codes, 2009 version
 # Download dataset
 download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10/allvalid2009(detailed%20titles%20headings).xls", destfile = "data-raw/allvalid2009.xls")
@@ -34,6 +35,7 @@ icd10_2009[["Status"]] <- iconv(icd10_2009[["Status"]], from = "UTF-8", to = "AS
 # Save data in R format
 devtools::use_data(icd10_2009, overwrite = TRUE)
 
+########################################################################################################################
 ### Dataset #2: ICD-10 codes, 2011 version
 # Download dataset
 download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10/allvalid2011 (detailed%20titles%20headings).xls", destfile = "data-raw/allvalid2011.xls")
@@ -64,6 +66,7 @@ icd10_2011[["Status"]] <- iconv(icd10_2011[["Status"]], from = "UTF-8", to = "AS
 # Save data in R format
 devtools::use_data(icd10_2011, overwrite = TRUE)
 
+########################################################################################################################
 ### Dataset #3: ICD-9 codes, 2015 version
 # Download dataset
 download.file(url = "https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/Downloads/ICD-9-CM-v32-master-descriptions.zip", destfile = "data-raw/ICD-9-CM-v32-master-descriptions.zip")
@@ -82,6 +85,7 @@ icd9_2015[["Short_description"]] <- iconv(icd9_2015[["Short_description"]], from
 # Save data in R format
 devtools::use_data(icd9_2015, overwrite = TRUE)
 
+########################################################################################################################
 ### Dataset #4 ICD-10-CM codes, 2018 version
 download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2018/2018-ICD-10-CM-Codes-File.zip", destfile = "data-raw/2018-ICD-10-CM-Codes-File.zip")
 
@@ -101,6 +105,24 @@ icd10cm_2018[["Description"]] <- iconv(icd10cm_2018[["Description"]], from = "UT
 # Save data in R format
 devtools::use_data(icd10cm_2018, overwrite = TRUE)
 
+########################################################################################################################
+### Dataset #5 ICD-10-CM codes, 2017 version
+download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2017/icd10cm_codes_2017.txt", destfile = "data-raw/icd10cm_codes_2017.txt")
+
+# Read files
+icd10cm_2017 <- readr::read_tsv(file = "data-raw/icd10cm_codes_2017.txt", col_names = FALSE)
+icd10cm_2017[["Code"]] <- substr(icd10cm_2017[[1]], 1, 7)
+icd10cm_2017[["Description"]] <- substr(icd10cm_2017[[1]], 9, 400)
+icd10cm_2017[[1]] <- NULL
+
+# Convert all character columns to ASCII format
+icd10cm_2017[["Code"]] <- iconv(icd10cm_2017[["Code"]], from = "UTF-8", to = "ASCII")
+icd10cm_2017[["Description"]] <- iconv(icd10cm_2017[["Description"]], from = "UTF-8", to = "ASCII")
+
+# Save data in R format
+devtools::use_data(icd10cm_2017, overwrite = TRUE)
+
+########################################################################################################################
 ### Remove unnecessary files
 lf <- list.files(path = "data-raw", full.names = TRUE, pattern = ".xls|.txt|.zip|.pdf")
 invisible(file.remove(lf))
