@@ -1,6 +1,7 @@
 # comorbidity 0.1.2-9000
 
-* Fixed a bug in the regex for the ICD10 Charlson score.
+* Fixed a bug in the regex for the ICD10 Charlson score;
+* Fixed a bug in the regex for the ICD10 Elixhauser score.
 
 # comorbidity 0.1.2
 
