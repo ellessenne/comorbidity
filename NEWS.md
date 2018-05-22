@@ -1,5 +1,7 @@
 # comorbidity 0.1.2-9000
 
+* Fixed a bug in the regex for the ICD10 Charlson score.
+
 # comorbidity 0.1.2
 
 * Added ICD10-CM data (version 2017 and 2018).
