@@ -1,4 +1,4 @@
-# comorbidity 0.1.1-9000
+# comorbidity 0.1.2
 
 * Added ICD10-CM data (version 2017 and 2018).
 
