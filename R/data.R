@@ -73,3 +73,43 @@
 #'
 #' @note The R code used to download and process the dataset from the CDC website is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
 "icd10cm_2017"
+
+#' @title Adult same-day discharges, 2010
+#'
+#' @description A dataset containing adult same-day discharges from 2010.
+#'
+#' @format A data frame with 2,210 rows and 15 variables:
+#' \describe{
+#'   \item{ageu}{Units for age}
+#'   \item{age}{Age}
+#'   \item{sex}{Sex}
+#'   \item{race}{Race}
+#'   \item{month}{Discharge month}
+#'   \item{status}{Discharge status}
+#'   \item{region}{Region}
+#'   \item{atype}{Type of admission}
+#'   \item{dx1}{Diagnosis 1, ICD9-CM}
+#'   \item{dx2}{Diagnosis 2, ICD9-CM}
+#'   \item{dx3}{Diagnosis 3, ICD9-CM, imported incorrectly}
+#'   \item{dx3corr}{Diagnosis 3, ICD9-CM, corrected}
+#'   \item{pr1}{Procedure 1}
+#'   \item{wgt}{Frequency weight}
+#'   \item{recid}{Order of record (raw data)}
+#' }
+#'
+#' @note The R code used to download and process the dataset from Stata is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
+"nhds2010"
+
+#' @title Australian mortality data, 2010
+#'
+#' @description A dataset containing australian mortality data, obtained from Stata version 15.
+#'
+#' @format A data frame with 3,322 rows and 3 variables:
+#' \describe{
+#'   \item{cause}{ICD-10 code representing cause of death}
+#'   \item{sex}{Gender}
+#'   \item{deaths}{Number of deaths}
+#' }
+#'
+#' @note The R code used to download and process the dataset from Stata is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
+"australia10"

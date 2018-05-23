@@ -1,5 +1,8 @@
-# comorbidity 0.1.2-9000
+# comorbidity 0.1.3
 
+* Added `nhds2010` and `australia10` datasets, imported from Stata version 15.
+
+Bug fix:
 * Fixed a bug in the regex for the ICD10 Charlson score;
 * Fixed a bug in the regex for the ICD10 Elixhauser score.
 

@@ -3,6 +3,7 @@
 library(readxl)
 library(stringr)
 library(devtools)
+library(haven)
 
 ########################################################################################################################
 ### Dataset #1: ICD-10 codes, 2009 version
@@ -121,6 +122,24 @@ icd10cm_2017[["Description"]] <- iconv(icd10cm_2017[["Description"]], from = "UT
 
 # Save data in R format
 devtools::use_data(icd10cm_2017, overwrite = TRUE)
+
+########################################################################################################################
+### Dataset #6: Adult same-day discharges, 2010 (from Stata)
+nhds2010 <- haven::read_dta("https://www.stata-press.com/data/r15/nhds2010.dta")
+attr(nhds2010, "spec") <- NULL
+nhds2010 <- labelled::remove_labels(nhds2010, user_na_to_na = TRUE)
+
+# Save data in R format
+devtools::use_data(nhds2010, overwrite = TRUE)
+
+########################################################################################################################
+### Dataset #7: Australian mortality data, 2010 (from Stata)
+australia10 <- haven::read_dta("https://www.stata-press.com/data/r15/australia10.dta")
+attr(australia10, "spec") <- NULL
+australia10 <- labelled::remove_labels(australia10, user_na_to_na = TRUE)
+
+# Save data in R format
+devtools::use_data(australia10, overwrite = TRUE)
 
 ########################################################################################################################
 ### Remove unnecessary files
