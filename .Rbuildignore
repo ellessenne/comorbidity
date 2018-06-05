@@ -13,3 +13,4 @@
 ^LICENSE\.md$
 ^CONDUCT\.md$
 ^CONTRIBUTING\.md$
+^.*psd$

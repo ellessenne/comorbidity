@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-comorbidity
-===========
+comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
+=========================================================================
 
-2018-03-30
+2018-06-05
 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity) [![Travis-CI Build Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https://travis-ci.org/ellessenne/comorbidity) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity) [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity) [![JOSS DOI](http://joss.theoj.org/papers/10.21105/joss.00648/status.svg)](https://doi.org/10.21105/joss.00648) [![Zenodo DOI](https://zenodo.org/badge/68221970.svg)](https://zenodo.org/badge/latestdoi/68221970) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
@@ -279,3 +279,8 @@ This package is based on the ICD-10-based formulations of the Charlson score and
 -   Elixhauser A, Steiner C, Harris DR and Coffey RM. *Comorbidity measures for use with administrative data*. Medical Care 1998; 36(1):8-27. DOI: [10.1097/00005650-199801000-00004](https://doi.org/10.1097/00005650-199801000-00004)
 -   van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. *A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data*. Medical Care 2009; 47(6):626-633. DOI: [10.1097/mlr.0b013e31819432e5](https://doi.org/10.1097/mlr.0b013e31819432e5)
 -   Menendez ME, Neuhaus V, van Dijk CN, Ring D. *The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery*. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886. DOI: [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)
+
+Copyright
+---------
+
+The icon for the hex sticker was made by [Freepik](http://www.freepik.com) from [Flaticon](https://www.flaticon.com) and is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).

@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 options(width = 100)
 ```
 
-# comorbidity
+# comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
 `r Sys.Date()`
 
@@ -191,3 +191,8 @@ This package is based on the ICD-10-based formulations of the Charlson score and
 * Elixhauser A, Steiner C, Harris DR and Coffey RM. _Comorbidity measures for use with administrative data_. Medical Care 1998; 36(1):8-27. DOI: [10.1097/00005650-199801000-00004 ](https://doi.org/10.1097/00005650-199801000-00004 )
 * van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.  DOI: [10.1097/mlr.0b013e31819432e5](https://doi.org/10.1097/mlr.0b013e31819432e5)
 * Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886. DOI: [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)
+
+## Copyright
+
+The icon for the hex sticker was made by [Freepik](http://www.freepik.com) from [Flaticon](https://www.flaticon.com) and is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+
