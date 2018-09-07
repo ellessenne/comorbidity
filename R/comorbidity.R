@@ -126,37 +126,21 @@ comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, l
   checkmate::assert_subset(id, choices = names(x), add = arg_checks)
   checkmate::assert_subset(code, choices = names(x), add = arg_checks)
   # Report if there are any errors
-  if (!arg_checks$isEmpty()) {
-    checkmate::reportAssertions(arg_checks)
-  }
+  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
-  ### Message when non-[[:alnum:]] characters are found in x[[code]]
-  nonalnum <- gsub(pattern = "[[:alnum:]]", x = x[[code]], replacement = "")
-  nonalnum <- strsplit(x = nonalnum, split = "")
-  nonalnum <- unlist(nonalnum)
-  if (length(nonalnum) > 0) {
-    nonalnum <- unique(nonalnum)
-    nonalnum <- paste(nonalnum, collapse = "")
-    message("The following non-alphanumeric characters have been found: ", nonalnum)
-  }
+  ### Tidy codes if required
+  if (tidy.codes) x <- .tidy(x = x, code = code)
 
-  ### Tidy ICD-10 codes if required
-  if (tidy.codes) {
-    x[[code]] <- toupper(x[[code]])
-    x[[code]] <- gsub(pattern = "[^[:alnum:]]", x = x[[code]], replacement = "")
-  } else {
-    message("Codes have not been automatically tidied.\nPlease make sure they are all in UPPER CASE and remove non-alphanumeric characters.")
-  }
 
   ### Compute comorbidity score by id
   # Split by id
   xByID <- split(x, f = x[[id]])
   # Compute using the appropriate algorithm and using parallel computing (if required)
   algorithm <- switch(score,
-    "charlson_icd9" = charlson_icd9,
-    "charlson_icd10" = charlson_icd10,
-    "elixhauser_icd9" = elixhauser_icd9,
-    "elixhauser_icd10" = elixhauser_icd10
+    "charlson_icd9" = .charlson_icd9,
+    "charlson_icd10" = .charlson_icd10,
+    "elixhauser_icd9" = .elixhauser_icd9,
+    "elixhauser_icd10" = .elixhauser_icd10
   )
   if (parallel) {
     cl <- parallel::makeCluster(mc.cores)
@@ -180,24 +164,14 @@ comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, l
     cs$windex <- with(cs, cut(wscore, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   }
 
-  ### Factorise comorbidities if requested
-  if (factorise == TRUE) {
-    cols <- if (score %in% c("charlson_icd9", "charlson_icd10")) {
-      c("ami", "chf", "pvd", "cevd", "dementia", "copd", "rheumd", "pud", "mld", "diab", "diabwc", "hp", "rend", "canc", "msld", "metacanc", "aids")
-    } else if (score %in% c("elixhauser_icd9", "elixhauser_icd10")) {
-      c("chf", "carit", "valv", "pcd", "pvd", "hypunc", "hypc", "para", "ond", "cpd", "diabunc", "diabc", "hypothy", "rf", "ld", "pud", "aids", "lymph", "metacanc", "solidtum", "rheumd", "coag", "obes", "wloss", "fed", "blane", "dane", "alcohol", "drug", "psycho", "depre")
     }
-    cs[cols] <- lapply(cs[cols], factor, levels = 0:1, labels = c("No", "Yes"))
   }
 
+  ### Factorise comorbidities if requested
+  if (factorise) cs <- .factorise(x = cs, score = score)
+
   ### Label variables for RStudio viewer if requested
-  if (labelled) {
-    attr(cs, "variable.labels") <- if (score %in% c("charlson_icd9", "charlson_icd10")) {
-      c("ID", "Myocardial infarction", "Congestive heart failure", "Peripheral vascular disease", "Cerebrovascular disease", "Dementia", "Chronic obstructive pulmonary disease", "Rheumatoid disease", "Peptic ulcer disease", "Mild liver disease", "Diabetes without chronic complications", "Diabetes with chronic complications", "Hemiplegia or paraplegia", "Renal disease", "Cancer (any malignancy)", "Moderate or severe liver disease", "Metastatic solid tumour", "AIDS/HIV", "Charlson score", "Charlson index", "Weighted Charlson score", "Weighted Charlson index")
-    } else if (score %in% c("elixhauser_icd9", "elixhauser_icd10")) {
-      c("ID", "Congestive heart failure", "Cardiac arrhythmias", "Valvular disease", "Pulmonary circulation disorders", "Peripheral vascular disorders", "Hypertension, uncomplicated", "Hypertension, complicated", "Paralysis", "Other neurological disorders", "Chronic pulmonary disease", "Diabetes, uncomplicated", "Diabetes, complicated", "Hypothyroidism", "Renal failure", "Liver disease", "Peptic ulcer disease excluding bleeding", "AIDS/HIV", "Lymphoma", "Metastatic cancer", "Solid tumour without metastasis", "Rheumatoid artritis/collaged vascular disease", "Coagulopathy", "Obesity", "Weight loss", "Fluid and electrolyte disorders", "Blood loss anaemia", "Deficiency anaemia", "Alcohol abuse", "Drug abuse", "Psychoses", "Depression", "Elixhauser score", "Elixhauser index", "Weighted Elixhauser score", "Weighted Elixhauser index")
-    }
-  }
+  if (labelled) cs <- .labelled(x = cs, score = score)
 
   ### Return a tidy data.frame
   return(cs)

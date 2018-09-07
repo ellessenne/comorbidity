@@ -118,17 +118,6 @@ test_that("charlson checks for its arguments properly", {
   )
 })
 
-test_that("comorbidity messages when tidy.codes is set to FALSE", {
-  x <- data.frame(
-    id = sample(1:5, size = 50, replace = TRUE),
-    code = sample_diag(50),
-    stringsAsFactors = FALSE
-  )
-  expect_message(
-    comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10", tidy.codes = FALSE)
-  )
-})
-
 test_that("comorbidity returns a data.frame", {
   x <- data.frame(
     id = sample(1:5, size = 50, replace = TRUE),
@@ -498,22 +487,4 @@ test_that("running computations in parallel vs serial returns the same results",
   cs_serial <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd9", parallel = FALSE)
   cs_parallel <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd9", parallel = TRUE, mc.cores = 2)
   expect_equal(cs_serial, cs_parallel)
-})
-
-test_that("comorbidity sends a message when non-alphanumeric characters are found", {
-  x <- data.frame(
-    id = sample(1:50, size = 10 * 50, replace = TRUE),
-    code = sample_diag(10 * 50),
-    stringsAsFactors = FALSE
-  )
-  x$code[1] <- paste0(x$code[1], ".")
-  expect_message(comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10"))
-  x$code[1] <- paste0(x$code[1], "-")
-  expect_message(comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10"))
-  x$code[1] <- paste0(x$code[1], ",")
-  expect_message(comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10"))
-  x$code[1] <- paste0(x$code[1], " ")
-  expect_message(comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10"))
-  x$code[1] <- paste0(x$code[1], "@")
-  expect_message(comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10"))
 })
