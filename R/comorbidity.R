@@ -131,6 +131,9 @@ comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, l
   ### Tidy codes if required
   if (tidy.codes) x <- .tidy(x = x, code = code)
 
+  ### Filter codes for speed
+  all_ids <- unique(x[[id]])
+  x <- .filter_codes(x, id = id, code = code, score = score)
 
   ### Compute comorbidity score by id
   # Split by id
@@ -164,7 +167,71 @@ comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, l
     cs$windex <- with(cs, cut(wscore, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   }
 
+  ### Add back individuals with no relevant codes (if any)
+  if (!all(all_ids %in% unique(cs[[id]]))) {
+    cs_0 <- list()
+    cs_0[[id]] <- all_ids[!(all_ids %in% unique(x[[id]]))]
+    if (grepl("charlson", score)) {
+      cs_0[["ami"]] <- 0
+      cs_0[["chf"]] <- 0
+      cs_0[["pvd"]] <- 0
+      cs_0[["cevd"]] <- 0
+      cs_0[["dementia"]] <- 0
+      cs_0[["copd"]] <- 0
+      cs_0[["rheumd"]] <- 0
+      cs_0[["pud"]] <- 0
+      cs_0[["mld"]] <- 0
+      cs_0[["diab"]] <- 0
+      cs_0[["diabwc"]] <- 0
+      cs_0[["hp"]] <- 0
+      cs_0[["rend"]] <- 0
+      cs_0[["canc"]] <- 0
+      cs_0[["msld"]] <- 0
+      cs_0[["metacanc"]] <- 0
+      cs_0[["aids"]] <- 0
+      cs_0[["score"]] <- 0
+      cs_0[["index"]] <- factor("0", levels = c("0", "1-2", "3-4", ">=5"))
+      cs_0[["wscore"]] <- 0
+      cs_0[["windex"]] <- factor("0", levels = c("0", "1-2", "3-4", ">=5"))
+    } else {
+      cs_0[["chf"]] <- 0
+      cs_0[["carit"]] <- 0
+      cs_0[["valv"]] <- 0
+      cs_0[["pcd"]] <- 0
+      cs_0[["pvd"]] <- 0
+      cs_0[["hypunc"]] <- 0
+      cs_0[["hypc"]] <- 0
+      cs_0[["para"]] <- 0
+      cs_0[["ond"]] <- 0
+      cs_0[["cpd"]] <- 0
+      cs_0[["diabunc"]] <- 0
+      cs_0[["diabc"]] <- 0
+      cs_0[["hypothy"]] <- 0
+      cs_0[["rf"]] <- 0
+      cs_0[["ld"]] <- 0
+      cs_0[["pud"]] <- 0
+      cs_0[["aids"]] <- 0
+      cs_0[["lymph"]] <- 0
+      cs_0[["metacanc"]] <- 0
+      cs_0[["solidtum"]] <- 0
+      cs_0[["rheumd"]] <- 0
+      cs_0[["coag"]] <- 0
+      cs_0[["obes"]] <- 0
+      cs_0[["wloss"]] <- 0
+      cs_0[["fed"]] <- 0
+      cs_0[["blane"]] <- 0
+      cs_0[["dane"]] <- 0
+      cs_0[["alcohol"]] <- 0
+      cs_0[["drug"]] <- 0
+      cs_0[["psycho"]] <- 0
+      cs_0[["depre"]] <- 0
+      cs_0[["score"]] <- 0
+      cs_0[["index"]] <- factor("0", levels = c("<0", "0", "1-4", ">=5"))
+      cs_0[["wscore"]] <- 0
+      cs_0[["windex"]] <- factor("0", levels = c("<0", "0", "1-4", ">=5"))
     }
+    cs_0 <- data.frame(cs_0, stringsAsFactors = FALSE, row.names = NULL)
+    cs <- dplyr::bind_rows(cs, cs_0)
   }
 
   ### Factorise comorbidities if requested
