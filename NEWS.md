@@ -1,5 +1,8 @@
 # comorbidity 0.1.3-9000
 
+* `comorbidity` should be faster now, as the input dataset is preprocessed to remove duplicates and non-relevant codes.
+* Lots of internal housekeeping.
+
 # comorbidity 0.1.3
 
 * Added `nhds2010` and `australia10` datasets, imported from Stata version 15.
