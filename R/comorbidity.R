@@ -5,7 +5,8 @@
 #' @param x A tidy data frame with one column containing an individual ID and a column containing all diagnostic codes.
 #' @param id Column of `x` containing the individual ID.
 #' @param code Column of `x` containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.
-#' @param score The comorbidity score to compute. Possible choices are the weighted Charlson score based on ICD-10 codes (`charlson_icd10`) or ICD-9 codes (`charlson_icd9`), and the Elixhauser comorbidity score based on ICD-10 codes (`elixhauser_icd10`) or ICD-9 codes (`elixhauser_icd9`). Defaults to `charlson_icd10`.
+#' @param score The comorbidity score to compute. Possible choices are the weighted Charlson score (`charlson`) and the weighted Elixhauser score (`elixhauser`). Values are case-insensitive.
+#' @param icd The version of ICD coding to use. Possible choices are ICD-9-CM (`icd9`) or ICD-10 (`icd10`). Defaults to `icd10`, and values are case-insensitive.
 #' @param assign0 Apply a hierarchy of comorbidities. If `TRUE`, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.
 #' @param factorise Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to `FALSE`.
 #' @param labelled Attach labels to each comorbidity, compatible with the RStudio viewer via the [utils::View()] function. Defaults to `TRUE`.
@@ -97,23 +98,29 @@
 #'   stringsAsFactors = FALSE)
 #'
 #' # Charlson score based on ICD-10 diagnostic codes:
-#' comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")
+#' comorbidity(x = x, id = "id", code = "code", score = "charlson")
 #'
 #' # Elixhauser score based on ICD-10 diagnostic codes:
-#' comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
+#' comorbidity(x = x, id = "id", code = "code", score = "elixhauser")
 #'
 #' @export
 
-comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE, parallel = FALSE, mc.cores = parallel::detectCores()) {
+comorbidity <- function(x, id, code, score, icd = "icd10", assign0 = TRUE, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE, parallel = FALSE, mc.cores = parallel::detectCores()) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame
   checkmate::assert_data_frame(x, add = arg_checks)
-  # id, code must be a single string value
+  # id, code, score, icd must be a single string value
   checkmate::assert_string(id, add = arg_checks)
   checkmate::assert_string(code, add = arg_checks)
-  # score must be charlson_icd9, charlson_icd10, elixhauser_icd10
-  checkmate::assert_choice(score, choices = c("charlson_icd9", "charlson_icd10", "elixhauser_icd9", "elixhauser_icd10"), add = arg_checks)
+  checkmate::assert_string(score, add = arg_checks)
+  checkmate::assert_string(icd, add = arg_checks)
+  # score must be charlson, elixhauser; case insensitive
+  score <- tolower(score)
+  checkmate::assert_choice(score, choices = c("charlson", "elixhauser"), add = arg_checks)
+  # icd must be icd9, icd10; case insensitive
+  icd <- tolower(icd)
+  checkmate::assert_choice(icd, choices = c("icd9", "icd10"), add = arg_checks)
   # assign0, factorise, labelled, tidy.codes, parallel must be a single boolean value
   checkmate::assert_logical(assign0, len = 1, add = arg_checks)
   checkmate::assert_logical(factorise, len = 1, add = arg_checks)
@@ -131,48 +138,31 @@ comorbidity <- function(x, id, code, score, assign0 = TRUE, factorise = FALSE, l
   ### Tidy codes if required
   if (tidy.codes) x <- .tidy(x = x, code = code)
 
+  ### Split by ID
+  x <- unstack(x, form = as.formula(paste(code, id, sep = "~")))
 
-  ### Compute comorbidity score by id
-  # Split by id
-  xByID <- split(x, f = x[[id]])
-  # Compute using the appropriate algorithm and using parallel computing (if required)
-  algorithm <- switch(score,
-    "charlson_icd9" = .charlson_icd9,
-    "charlson_icd10" = .charlson_icd10,
-    "elixhauser_icd9" = .elixhauser_icd9,
-    "elixhauser_icd10" = .elixhauser_icd10
-  )
-  if (parallel) {
-    cl <- parallel::makeCluster(mc.cores)
-    cs <- parallel::parLapply(cl = cl, X = xByID, fun = algorithm, id = id, code = code)
-    parallel::stopCluster(cl)
+  ### Run scoring algorithm
+  x <- .score(x, id = id, score = score, icd = icd, parallel = parallel, mc.cores = mc.cores)
+
+  ### Compute Charlson score and Charlson index
+  if (score == "charlson") {
+    x$score <- with(x, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0, 0, 1) + diab * ifelse(diabwc == 1 & assign0, 0, 1) + diabwc + hp + rend + canc * ifelse(metacanc == 1 & assign0, 0, 1) + msld + metacanc + aids)
+    x$index <- with(x, cut(score, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
+    x$wscore <- with(x, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0, 0, 1) + diab * ifelse(diabwc == 1 & assign0, 0, 1) + diabwc * 2 + hp * 2 + rend * 2 + canc * ifelse(metacanc == 1 & assign0, 0, 2) + msld * 3 + metacanc * 6 + aids * 6)
+    x$windex <- with(x, cut(wscore, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
   } else {
-    cs <- lapply(X = xByID, FUN = algorithm, id = id, code = code)
-  }
-  # Combine results
-  cs <- do.call(rbind.data.frame, c(cs, list(make.row.names = FALSE, stringsAsFactors = FALSE)))
-  # Compute Charlson score and Charlson index
-  if (score %in% c("charlson_icd9", "charlson_icd10")) {
-    cs$score <- with(cs, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0, 0, 1) + diab * ifelse(diabwc == 1 & assign0, 0, 1) + diabwc + hp + rend + canc * ifelse(metacanc == 1 & assign0, 0, 1) + msld + metacanc + aids)
-    cs$index <- with(cs, cut(score, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
-    cs$wscore <- with(cs, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0, 0, 1) + diab * ifelse(diabwc == 1 & assign0, 0, 1) + diabwc * 2 + hp * 2 + rend * 2 + canc * ifelse(metacanc == 1 & assign0, 0, 2) + msld * 3 + metacanc * 6 + aids * 6)
-    cs$windex <- with(cs, cut(wscore, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
-  } else if (score %in% c("elixhauser_icd9", "elixhauser_icd10")) {
-    cs$score <- with(cs, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
-    cs$index <- with(cs, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-    cs$wscore <- with(cs, chf * 3 + carit * 5 + valv * 0 + pcd * 6 + pvd * 3 + hypunc * ifelse(hypc == 1 & assign0, 0, -1) + hypc * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0, 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
-    cs$windex <- with(cs, cut(wscore, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-  }
-
-    }
+    x$score <- with(x, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
+    x$index <- with(x, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
+    x$wscore <- with(x, chf * 3 + carit * 5 + valv * 0 + pcd * 6 + pvd * 3 + hypunc * ifelse(hypc == 1 & assign0, 0, -1) + hypc * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0, 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
+    x$windex <- with(x, cut(wscore, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   }
 
   ### Factorise comorbidities if requested
-  if (factorise) cs <- .factorise(x = cs, score = score)
+  if (factorise) x <- .factorise(x = x, score = score)
 
   ### Label variables for RStudio viewer if requested
-  if (labelled) cs <- .labelled(x = cs, score = score)
+  if (labelled) x <- .labelled(x = x, score = score)
 
   ### Return a tidy data.frame
-  return(cs)
+  return(x)
 }
