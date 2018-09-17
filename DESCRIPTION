@@ -1,7 +1,7 @@
 Type: Package
 Package: comorbidity
-Version: 0.1.3-9000
-Date: 2018-09-14
+Version: 0.2.0
+Date: 2018-09-17
 Title: Computing Comorbidity Scores
 Description: Computing comorbidity scores such as the weighted Charlson score
   (Charlson, 1987 <doi:10.1016/0021-9681(87)90171-8>) and the Elixhauser

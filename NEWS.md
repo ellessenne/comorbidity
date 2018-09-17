@@ -1,7 +1,11 @@
-# comorbidity 0.1.3-9000
+# comorbidity 0.2.0
 
-* `comorbidity` should be faster now, as the input dataset is preprocessed to remove duplicates and non-relevant codes.
+* `comorbidity` is faster now!
 * Lots of internal housekeeping.
+
+### BREAKING CHANGES
+
+The `score` argument from `comorbidity` has been splitted into `score` and `icd`. For instance, the command `comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")` has to be modified as `r comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10")`. The default value of `icd` is `icd10`, for ICD-10 codes, and possible values are `icd10` and `icd9`.
 
 # comorbidity 0.1.3
 
