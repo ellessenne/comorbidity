@@ -21,6 +21,6 @@ icd10_2011
 A dataset containing the 2011 version of the ICD-10 codes.
 }
 \note{
-The R code used to download and process the dataset from the CDC website is available \href{https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R}{here}.
+The R code used to download and process the dataset from the CDC website is available \href{https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R}{here}.
 }
 \keyword{datasets}

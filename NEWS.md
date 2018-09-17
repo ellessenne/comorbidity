@@ -2,6 +2,7 @@
 
 * `comorbidity` is faster now!
 * Lots of internal housekeeping.
+* Fixed broken GitHub links to the R script used to generate the datasets bundled with `comorbidity`.
 
 ### BREAKING CHANGES
 

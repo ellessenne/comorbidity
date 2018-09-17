@@ -29,6 +29,6 @@ nhds2010
 A dataset containing adult same-day discharges from 2010.
 }
 \note{
-The R code used to download and process the dataset from Stata is available \href{https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R}{here}.
+The R code used to download and process the dataset from Stata is available \href{https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R}{here}.
 }
 \keyword{datasets}

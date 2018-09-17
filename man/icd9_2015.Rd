@@ -20,6 +20,6 @@ icd9_2015
 A dataset containing the version of the ICD-9 codes effective October 1, 2014.
 }
 \note{
-The R code used to download and process the dataset from the CMS.gov website is available \href{https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R}{here}.
+The R code used to download and process the dataset from the CMS.gov website is available \href{https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R}{here}.
 }
 \keyword{datasets}

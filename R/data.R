@@ -10,7 +10,7 @@
 #'   \item{Status}{Additional information, if available.}
 #' }
 #'
-#' @note The R code used to download and process the dataset from the CDC website is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
+#' @note The R code used to download and process the dataset from the CDC website is available [here](https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R).
 #'
 #' @source CDC Website: https://goo.gl/6e2mvb
 "icd10_2009"
@@ -27,7 +27,7 @@
 #'   \item{Status}{Additional information, if available.}
 #' }
 #'
-#' @note The R code used to download and process the dataset from the CDC website is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
+#' @note The R code used to download and process the dataset from the CDC website is available [here](https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R).
 #'
 #' @source CDC Website: https://goo.gl/rcTJJ2
 "icd10_2011"
@@ -43,7 +43,7 @@
 #'   \item{Short_description}{Short description of each code}
 #' }
 #'
-#' @note The R code used to download and process the dataset from the CMS.gov website is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
+#' @note The R code used to download and process the dataset from the CMS.gov website is available [here](https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R).
 #'
 #' @source CMS.gov Website: https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
 "icd9_2015"
@@ -58,7 +58,7 @@
 #'   \item{Description}{Description of each code}
 #' }
 #'
-#' @note The R code used to download and process the dataset from the CDC website is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
+#' @note The R code used to download and process the dataset from the CDC website is available [here](https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R).
 "icd10cm_2018"
 
 #' @title ICD-10-CM Diagnostic Codes, 2017 Version
@@ -71,7 +71,7 @@
 #'   \item{Description}{Description of each code}
 #' }
 #'
-#' @note The R code used to download and process the dataset from the CDC website is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
+#' @note The R code used to download and process the dataset from the CDC website is available [here](https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R).
 "icd10cm_2017"
 
 #' @title Adult same-day discharges, 2010
@@ -97,7 +97,7 @@
 #'   \item{recid}{Order of record (raw data)}
 #' }
 #'
-#' @note The R code used to download and process the dataset from Stata is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
+#' @note The R code used to download and process the dataset from Stata is available [here](https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R).
 "nhds2010"
 
 #' @title Australian mortality data, 2010
@@ -111,5 +111,5 @@
 #'   \item{deaths}{Number of deaths}
 #' }
 #'
-#' @note The R code used to download and process the dataset from Stata is available [here](https://github.com/ellessenne/charlson/blob/master/data-raw/make_data.R).
+#' @note The R code used to download and process the dataset from Stata is available [here](https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R).
 "australia10"
