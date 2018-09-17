@@ -108,7 +108,7 @@ Computes comorbidity scores such as the weighted Charlson score and the Elixhaus
 \details{
 The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan \emph{et al}. (2005). Weights for the Charlson score are based on the original formulation by Charlson \emph{et al}. in 1987, while weights for the Elixhauser score are based on work by Moore \emph{et al}. and van Walraven \emph{et al}. Finally, the categorisation of scores and weighted scores is based on work by Menendez \emph{et al}.
 ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.
-To run the calculations in parallel set \code{parallel = TRUE}. This is based on \code{\link[parallel:parLapply]{parallel::parLapply()}}, and it is possible to set the number of cores to use via the \code{mc.cores} argument, which defaults to using all the cores available.
+To run the calculations in parallel set \code{parallel = TRUE}. This is based on \code{\link[parallel:parSapply]{parallel::parSapply()}}, and it is possible to set the number of cores to use via the \code{mc.cores} argument, which defaults to using all the cores available.
 }
 \examples{
 set.seed(1)

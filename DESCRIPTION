@@ -27,7 +27,9 @@ Depends: R (>= 2.10)
 Imports:
  checkmate,
  parallel,
- stringi
+ stats,
+ stringi,
+ utils
 Suggests:
  covr,
  knitr,

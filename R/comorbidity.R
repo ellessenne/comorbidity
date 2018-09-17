@@ -82,7 +82,7 @@
 #' @details
 #' The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan _et al_. (2005). Weights for the Charlson score are based on the original formulation by Charlson _et al_. in 1987, while weights for the Elixhauser score are based on work by Moore _et al_. and van Walraven _et al_. Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_.
 #' ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set `tidy.codes = TRUE` to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.
-#' To run the calculations in parallel set `parallel = TRUE`. This is based on [parallel::parLapply()], and it is possible to set the number of cores to use via the `mc.cores` argument, which defaults to using all the cores available.
+#' To run the calculations in parallel set `parallel = TRUE`. This is based on [parallel::parSapply()], and it is possible to set the number of cores to use via the `mc.cores` argument, which defaults to using all the cores available.
 #'
 #' @references Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139.
 #' @references Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
