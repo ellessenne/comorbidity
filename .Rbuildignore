@@ -14,3 +14,5 @@
 ^CONDUCT\.md$
 ^CONTRIBUTING\.md$
 ^.*psd$
+^.*png$
+^timing\.R$
