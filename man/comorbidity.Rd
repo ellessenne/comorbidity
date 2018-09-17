@@ -4,9 +4,9 @@
 \alias{comorbidity}
 \title{Compute comorbidity scores.}
 \usage{
-comorbidity(x, id, code, score, assign0 = TRUE, factorise = FALSE,
-  labelled = TRUE, tidy.codes = TRUE, parallel = FALSE,
-  mc.cores = parallel::detectCores())
+comorbidity(x, id, code, score, icd = "icd10", assign0 = TRUE,
+  factorise = FALSE, labelled = TRUE, tidy.codes = TRUE,
+  parallel = FALSE, mc.cores = parallel::detectCores())
 }
 \arguments{
 \item{x}{A tidy data frame with one column containing an individual ID and a column containing all diagnostic codes.}
@@ -15,7 +15,9 @@ comorbidity(x, id, code, score, assign0 = TRUE, factorise = FALSE,
 
 \item{code}{Column of \code{x} containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.}
 
-\item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score based on ICD-10 codes (\code{charlson_icd10}) or ICD-9 codes (\code{charlson_icd9}), and the Elixhauser comorbidity score based on ICD-10 codes (\code{elixhauser_icd10}) or ICD-9 codes (\code{elixhauser_icd9}). Defaults to \code{charlson_icd10}.}
+\item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score (\code{charlson}) and the weighted Elixhauser score (\code{elixhauser}). Values are case-insensitive.}
+
+\item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}) or ICD-10 (\code{icd10}). Defaults to \code{icd10}, and values are case-insensitive.}
 
 \item{assign0}{Apply a hierarchy of comorbidities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.}
 
@@ -116,10 +118,10 @@ x <- data.frame(
   stringsAsFactors = FALSE)
 
 # Charlson score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")
+comorbidity(x = x, id = "id", code = "code", score = "charlson")
 
 # Elixhauser score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
+comorbidity(x = x, id = "id", code = "code", score = "elixhauser")
 
 }
 \references{

@@ -139,7 +139,7 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0 = TRUE, facto
   if (tidy.codes) x <- .tidy(x = x, code = code)
 
   ### Split by ID
-  x <- unstack(x, form = as.formula(paste(code, id, sep = "~")))
+  x <- utils::unstack(x, form = stats::as.formula(paste(code, id, sep = "~")))
 
   ### Run scoring algorithm
   x <- .score(x, id = id, score = score, icd = icd, parallel = parallel, mc.cores = mc.cores)
