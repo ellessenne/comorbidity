@@ -10,7 +10,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "README-"
 )
-options(width = 100)
+options(width = 80)
 ```
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
@@ -134,14 +134,21 @@ x <- data.frame(
 We could compute the Charlson score, index, and each comorbidity domain:
 
 ```{r charlson}
-charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")
+charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10")
 charlson
+```
+
+The default is to assume ICD-10 codes:
+
+```{r charlson-2}
+charlson.default <- comorbidity(x = x, id = "id", code = "code", score = "charlson")
+all.equal(charlson, charlson.default)
 ```
 
 Alternatively, we could compute the Elixhauser score:
 
 ```{r elixhauser}
-elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10")
+elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd10")
 elixhauser
 ```
 
@@ -161,14 +168,14 @@ The Charlson and Elixhauser comorbidity codes can be easily computed:
 We could compute the Charlson score, index, and each comorbidity domain:
 
 ```{r charlson-9}
-charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson_icd9")
+charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd9")
 charlson9
 ```
 
 Alternatively, we could compute the Elixhauser score:
 
 ```{r elixhauser-9}
-elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd9")
+elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd9")
 elixhauser9
 ```
 
@@ -195,4 +202,3 @@ This package is based on the ICD-10-based formulations of the Charlson score and
 ## Copyright
 
 The icon for the hex sticker was made by [Freepik](http://www.freepik.com) from [Flaticon](https://www.flaticon.com) and is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
-
