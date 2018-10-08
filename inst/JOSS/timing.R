@@ -4,8 +4,8 @@ library(microbenchmark)
 
 # Define scenarios
 scenarios <- tidyr::crossing(
-  n = 10 ^ (1:5),
-  nc = 10 ^ (2:6)
+  n = 10^(1:5),
+  nc = 10^(2:6)
 ) %>%
   filter(nc >= n)
 
@@ -53,13 +53,13 @@ plot <- results %>%
     y_max = max(ratio)
   ) %>%
   ungroup() %>%
-  mutate(n = factor(as.character(scales::comma(n)), levels = as.character(scales::comma(10 ^ (1:5))))) %>%
+  mutate(n = factor(as.character(scales::comma(n)), levels = as.character(scales::comma(10^(1:5))))) %>%
   ggplot(aes(x = nc, y = y_mean, ymin = y_min, ymax = y_max, group = n, colour = n)) +
   geom_hline(yintercept = 1, colour = "grey", linetype = "dashed") +
   geom_line(position = position_dodge(width = 1 / 5)) +
   geom_point(position = position_dodge(width = 1 / 5)) +
   geom_errorbar(position = position_dodge(width = 1 / 5), width = 1 / 5) +
-  scale_x_log10(breaks = 10 ^ (2:6), labels = scales::comma) +
+  scale_x_log10(breaks = 10^(2:6), labels = scales::comma) +
   ggthemes::scale_color_colorblind() +
   labs(y = "Ratio of time (sequential vs parallel)", x = "# of diagnostic codes", color = "# of individuals") +
   theme_bw() +
