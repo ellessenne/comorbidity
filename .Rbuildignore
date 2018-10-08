@@ -14,4 +14,4 @@
 ^CONDUCT\.md$
 ^CONTRIBUTING\.md$
 ^.*psd$
-^timing\.R$
+^inst/Timing$
