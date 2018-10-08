@@ -1,7 +1,7 @@
 # comorbidity 0.2.0
 
-* `comorbidity` is faster now!
-* Lots of internal housekeeping.
+* `comorbidity` is faster, with a conservative estimated speed-up of >60%;
+* Lots of internal housekeeping;
 * Fixed broken GitHub links to the R script used to generate the datasets bundled with `comorbidity`.
 
 ### BREAKING CHANGES

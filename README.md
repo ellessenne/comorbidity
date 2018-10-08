@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2018-09-17
+2018-10-08
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -278,8 +278,6 @@ If you find `comorbidity` useful, please cite it in your publications:
 
 ``` r
 citation("comorbidity")
-#> Warning: 'DESCRIPTION' file has an 'Encoding' field and re-encoding is not
-#> possible
 #> 
 #> To cite the comorbidity package in publications, please use:
 #> 
