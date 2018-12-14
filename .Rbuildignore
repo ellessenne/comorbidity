@@ -15,3 +15,4 @@
 ^CONTRIBUTING\.md$
 ^.*psd$
 ^inst/Timing$
+^inst/Sticker$
