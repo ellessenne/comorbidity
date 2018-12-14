@@ -26,7 +26,7 @@ set.seed(1)
 x <- data.frame(
   id = sample(1:15, size = 200, replace = TRUE),
   code = sample_diag(n = 200),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 head(x)
-
 }

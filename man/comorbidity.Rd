@@ -115,14 +115,14 @@ set.seed(1)
 x <- data.frame(
   id = sample(1:15, size = 200, replace = TRUE),
   code = sample_diag(200),
-  stringsAsFactors = FALSE)
+  stringsAsFactors = FALSE
+)
 
 # Charlson score based on ICD-10 diagnostic codes:
 comorbidity(x = x, id = "id", code = "code", score = "charlson")
 
 # Elixhauser score based on ICD-10 diagnostic codes:
 comorbidity(x = x, id = "id", code = "code", score = "elixhauser")
-
 }
 \references{
 Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.

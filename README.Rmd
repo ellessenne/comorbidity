@@ -201,4 +201,4 @@ This package is based on the ICD-10-based formulations of the Charlson score and
 
 ## Copyright
 
-The icon for the hex sticker was made by [Freepik](http://www.freepik.com) from [Flaticon](https://www.flaticon.com) and is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+The icon for the hex sticker was made by [monkik](https://www.flaticon.com/authors/monkik) from [www.flaticon.com](https://www.flaticon.com), and is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0).

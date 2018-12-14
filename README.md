@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2018-10-08
+2018-12-14
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -313,11 +313,11 @@ categorisation of scores and weighted scores is based on work by
 Menendez *et al*.
 
   - Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et
-    al. *Coding algorithms for defining comorbidities in ICD-9-CM and
+    al. *Coding algorithms for defining comorbidities in ICD-9-CM and
     ICD-10 administrative data*. Medical Care 2005; 43(11):1130-1139.
     DOI:
     [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
-  - Charlson ME, Pompei P, Ales KL, et al. *A new method of classifying
+  - Charlson ME, Pompei P, Ales KL, et al. *A new method of classifying
     prognostic comorbidity in longitudinal studies: development and
     validation*. Journal of Chronic Diseases 1987; 40:373-383. DOI:
     [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681\(87\)90171-8)
@@ -344,6 +344,6 @@ Menendez *et al*.
 ## Copyright
 
 The icon for the hex sticker was made by
-[Freepik](http://www.freepik.com) from
-[Flaticon](https://www.flaticon.com) and is licensed by [CC 3.0
-BY](http://creativecommons.org/licenses/by/3.0/).
+[monkik](https://www.flaticon.com/authors/monkik) from
+[www.flaticon.com](https://www.flaticon.com), and is licensed by
+[Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0).

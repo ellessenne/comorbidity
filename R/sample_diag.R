@@ -12,15 +12,15 @@ if (getRversion() >= "2.15.1") utils::globalVariables(c("icd10_2009", "icd10_201
 #' @examples
 #' # Simulate 10 ICD-10 codes
 #' sample_diag(10)
-#'
+#' 
 #' # Simulate a tidy dataset with 15 individuals and 200 rows
 #' set.seed(1)
 #' x <- data.frame(
 #'   id = sample(1:15, size = 200, replace = TRUE),
 #'   code = sample_diag(n = 200),
-#'   stringsAsFactors = FALSE)
+#'   stringsAsFactors = FALSE
+#' )
 #' head(x)
-#'
 #' @export
 
 sample_diag <- function(n = 1, version = "ICD10_2011") {
