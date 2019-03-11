@@ -190,8 +190,17 @@ citation("comorbidity")
 
 ## References
 
-This package is based on the ICD-10-based formulations of the Charlson score and Elixhauser score proposed by Quan _et al_. in 2005. The ICD-9 formulation of the Charlson score is also from Quan _et al_. The ICD-9-based Elixhauser score is according to the AHRQ formulation (Moore _et al_., 2017). Weights for the Charlson score are based on the original formulation by Charlson _et al_. in 1987, while weights for the Elixhauser score are based on work by van Walraven _et al_. Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_.
- 
+This package is based on the ICD-10-based formulations of the Charlson score and Elixhauser score proposed by Quan _et al_. in 2005. 
+The ICD-9 formulation of the Charlson score is also from Quan _et al_. 
+The ICD-9-based Elixhauser score is according to the AHRQ formulation (Moore _et al_., 2017). 
+Weights for the Charlson score are based on the original formulation by Charlson _et al_. in 1987, while weights for the Elixhauser score are based on work by van Walraven _et al_. 
+Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_.
+Further details on each algorithm are included in the package vignette, which you can access by typing the following in the R console:
+
+```{r vignette, eval = FALSE}
+vignette("comorbidityscores", package = "comorbidity")
+```
+
 * Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139. DOI: [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
 * Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383. DOI: [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681(87)90171-8)
 * Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. _Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index_. Medical Care 2017; 55(7):698-705. DOI: [10.1097/MLR.0000000000000735](https://doi.org/10.1097/MLR.0000000000000735)

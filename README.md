@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2018-12-14
+2019-03-11
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -310,7 +310,13 @@ ICD-9-based Elixhauser score is according to the AHRQ formulation (Moore
 original formulation by Charlson *et al*. in 1987, while weights for the
 Elixhauser score are based on work by van Walraven *et al*. Finally, the
 categorisation of scores and weighted scores is based on work by
-Menendez *et al*.
+Menendez *et al*. Further details on each algorithm are included in the
+package vignette, which you can access by typing the following in the R
+console:
+
+``` r
+vignette("comorbidityscores", package = "comorbidity")
+```
 
   - Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et
     al. *Coding algorithms for defining comorbidities in ICD-9-CM and
