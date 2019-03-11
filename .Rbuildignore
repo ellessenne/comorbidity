@@ -1,3 +1,5 @@
+^Meta$
+^doc$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^appveyor\.yml$
@@ -16,3 +18,4 @@
 ^.*psd$
 ^inst/Timing$
 ^inst/Sticker$
+^pdfs/$

@@ -1,4 +1,10 @@
-# comorbidity 0.2.0-9000
+# comorbidity 0.2.1
+
+* Fixed bug in weighting algorithm of Elixhauser comorbidity score;
+* The `assign0` argument of `comorbidity` now defaults to `FALSE`;
+* Improved documentation for the `comorbidity` function:
+    - `assign0` now explains in details what hierarchy of comorbidities is applied;
+    - added reference to package vignette where comorbidity scores and weighting algorithms are explained in more detail.
 
 # comorbidity 0.2.0
 

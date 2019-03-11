@@ -4,7 +4,7 @@
 \alias{comorbidity}
 \title{Compute comorbidity scores.}
 \usage{
-comorbidity(x, id, code, score, icd = "icd10", assign0 = TRUE,
+comorbidity(x, id, code, score, icd = "icd10", assign0 = FALSE,
   factorise = FALSE, labelled = TRUE, tidy.codes = TRUE,
   parallel = FALSE, mc.cores = parallel::detectCores())
 }
@@ -19,7 +19,15 @@ comorbidity(x, id, code, score, icd = "icd10", assign0 = TRUE,
 
 \item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}) or ICD-10 (\code{icd10}). Defaults to \code{icd10}, and values are case-insensitive.}
 
-\item{assign0}{Apply a hierarchy of comorbidities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient.}
+\item{assign0}{Apply a hierarchy of comorbidities. Defaults to \code{FALSE}. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:
+\itemize{
+\item "Mild liver disease" (\code{mld}) and "Moderate/severe liver disease" (\code{msld}) for the Charlson score;
+\item "Diabetes" (\code{diab}) and "Diabetes with complications" (\code{diabwc}) for the Charlson score;
+\item "Cancer" (\code{canc}) and "Metastatic solid tumour" (\code{metacanc}) for the Charlson score;
+\item "Hypertension, uncomplicated" (\code{hypunc}) and "Hypertension, complicated" (\code{hypc}) for the Elixhauser score;
+\item "Diabetes, uncomplicated" (\code{diabunc}) and "Diabetes, complicated" (\code{diabc}) for the Elixhauser score;
+\item "Solid tumour" (\code{solidtum}) and "Metastatic cancer" (\code{metacanc}) for the Elixhauser score.
+}}
 
 \item{factorise}{Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{FALSE}.}
 
@@ -106,7 +114,7 @@ Labels are presented to the user when using the RStudio viewer (e.g. via the \co
 Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score.
 }
 \details{
-The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan \emph{et al}. (2005). Weights for the Charlson score are based on the original formulation by Charlson \emph{et al}. in 1987, while weights for the Elixhauser score are based on work by Moore \emph{et al}. and van Walraven \emph{et al}. Finally, the categorisation of scores and weighted scores is based on work by Menendez \emph{et al}.
+The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan \emph{et al}. (2005). Weights for the Charlson score are based on the original formulation by Charlson \emph{et al}. in 1987, while weights for the Elixhauser score are based on work by Moore \emph{et al}. and van Walraven \emph{et al}. Finally, the categorisation of scores and weighted scores is based on work by Menendez \emph{et al}. See \code{vignette("comorbidityscores", package = "comorbidity")} for further details on the comorbidity scores and the weighting algorithm.
 ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.
 To run the calculations in parallel set \code{parallel = TRUE}. This is based on \code{\link[parallel:parSapply]{parallel::parSapply()}}, and it is possible to set the number of cores to use via the \code{mc.cores} argument, which defaults to using all the cores available.
 }
