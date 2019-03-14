@@ -179,6 +179,7 @@ elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser"
 elixhauser9
 ```
 
+The weighted Elixhauser score is computed using both the AHRQ and the van Walraven algorithm (`wscore_ahrq` and `wscore_vw`).
 
 ## Citation
 

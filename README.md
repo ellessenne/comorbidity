@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2019-03-11
+2019-03-14
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -206,10 +206,14 @@ elixhauser
 #> 1  1   0    0     0        0        0      0    0    0     0   0     0    0
 #> 2  0   0    0     0        0        1      0    0    0     0   0     0    0
 #> 3  0   0    0     0        0        0      0    0    0     0   0     0    0
-#>   alcohol drug psycho depre score index wscore windex
-#> 1       0    0      0     0     1   1-4      4    1-4
-#> 2       0    0      0     0     2   1-4     13    >=5
-#> 3       0    0      0     0     0     0      0      0
+#>   alcohol drug psycho depre score index wscore_ahrq wscore_vw windex_ahrq
+#> 1       0    0      0     0     1   1-4           4        11         1-4
+#> 2       0    0      0     0     2   1-4          13         9         >=5
+#> 3       0    0      0     0     0     0           0         0           0
+#>   windex_vw
+#> 1       >=5
+#> 2       >=5
+#> 3         0
 ```
 
 Conversely, say we have 5 individuals with a total of 100 ICD-9
@@ -264,13 +268,22 @@ elixhauser9
 #> 3  0   0    0     1        0        0      0    0    0     0   0     0    0
 #> 4  0   0    0     0        0        1      0    0    0     0   0     0    0
 #> 5  0   0    0     0        0        1      0    0    0     0   0     0    0
-#>   alcohol drug psycho depre score index wscore windex
-#> 1       0    0      0     0     1   1-4      7    >=5
-#> 2       0    1      0     0     5   >=5      7    >=5
-#> 3       1    0      0     0     3   1-4      2    1-4
-#> 4       0    0      0     1     3   1-4      1    1-4
-#> 5       0    0      0     0     2   1-4     13    >=5
+#>   alcohol drug psycho depre score index wscore_ahrq wscore_vw windex_ahrq
+#> 1       0    0      0     0     1   1-4           7         4         >=5
+#> 2       0    1      0     0     5   >=5           7        17         >=5
+#> 3       1    0      0     0     3   1-4           2         9         1-4
+#> 4       0    0      0     1     3   1-4           1         1         1-4
+#> 5       0    0      0     0     2   1-4          13         8         >=5
+#>   windex_vw
+#> 1       1-4
+#> 2       >=5
+#> 3       >=5
+#> 4       1-4
+#> 5       >=5
 ```
+
+The weighted Elixhauser score is computed using both the AHRQ and the
+van Walraven algorithm (`wscore_ahrq` and `wscore_vw`).
 
 ## Citation
 
