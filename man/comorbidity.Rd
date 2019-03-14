@@ -104,8 +104,10 @@ Conversely, for the Elixhauser score the dataset contains the following variable
 \item \code{depre}, for depression;
 \item \code{score}, for the non-weighted version of the Elixhauser score;
 \item \code{index}, for the non-weighted version of the grouped Elixhauser index;
-\item \code{wscore}, for the weighted version of the Elixhauser score;
-\item \code{windex}, for the weighted version of the grouped Elixhauser index.
+\item \code{wscore_ahrq}, for the weighted version of the Elixhauser score using the AHRQ algorithm (Moore \emph{et al}., 2017);
+\item \code{wscore_vw}, for the weighted version of the Elixhauser score using the algorithm in van Walraven \emph{et al}. (2009);
+\item \code{windex_ahrq}, for the weighted version of the grouped Elixhauser index using the AHRQ algorithm (Moore \emph{et al}., 2017);
+\item \code{windex_vw}, for the weighted version of the grouped Elixhauser index using the algorithm in van Walraven \emph{et al}. (2009).
 }
 
 Labels are presented to the user when using the RStudio viewer (e.g. via the \code{\link[utils:View]{utils::View()}} function) for convenience.

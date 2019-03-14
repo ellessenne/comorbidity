@@ -261,7 +261,8 @@ test_that("if factorise = TRUE comorbidity returns factors", {
   expect_s3_class(cs$psycho, "factor")
   expect_s3_class(cs$depre, "factor")
   expect_s3_class(cs$index, "factor")
-  expect_s3_class(cs$windex, "factor")
+  expect_s3_class(cs$windex_ahrq, "factor")
+  expect_s3_class(cs$windex_vw, "factor")
   x <- data.frame(
     id = sample(1:5, size = 10 * 5, replace = TRUE),
     code = sample_diag(10 * 5, version = "ICD9_2015"),
@@ -320,7 +321,8 @@ test_that("if factorise = TRUE comorbidity returns factors", {
   expect_s3_class(cs$psycho, "factor")
   expect_s3_class(cs$depre, "factor")
   expect_s3_class(cs$index, "factor")
-  expect_s3_class(cs$windex, "factor")
+  expect_s3_class(cs$windex_ahrq, "factor")
+  expect_s3_class(cs$windex_vw, "factor")
 })
 
 test_that("if factorise = FALSE comorbidity does not return factors", {
@@ -382,7 +384,8 @@ test_that("if factorise = FALSE comorbidity does not return factors", {
   expect_false("factor" %in% class(cs$psycho))
   expect_false("factor" %in% class(cs$depre))
   expect_s3_class(cs$index, "factor")
-  expect_s3_class(cs$windex, "factor")
+  expect_s3_class(cs$windex_ahrq, "factor")
+  expect_s3_class(cs$windex_vw, "factor")
   x <- data.frame(
     id = sample(1:5, size = 10 * 5, replace = TRUE),
     code = sample_diag(10 * 5, version = "ICD9_2015"),
@@ -441,7 +444,8 @@ test_that("if factorise = FALSE comorbidity does not return factors", {
   expect_false("factor" %in% class(cs$psycho))
   expect_false("factor" %in% class(cs$depre))
   expect_s3_class(cs$index, "factor")
-  expect_s3_class(cs$windex, "factor")
+  expect_s3_class(cs$windex_ahrq, "factor")
+  expect_s3_class(cs$windex_vw, "factor")
 })
 
 test_that("parallel computing works (specifying the number of clusters)", {

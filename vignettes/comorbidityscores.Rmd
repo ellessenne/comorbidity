@@ -29,7 +29,7 @@ The Charlson comorbidity index was first developed by Charlson _et al_. in 1987 
 
 The Charlson comorbidity index includes the following comorbid conditions: acute myocardial infarction, congestive heart failure, peripheral vascular disease, cerebrovascular disease, dementia, chronic obstructive pulmonary disease [COPD], rheumatoid disease, peptic ulcer disease, mild and moderate/severe liver disease, diabetes mellitus with and without complications, hemiplegia/paraplegia, renal disease, cancer (any malignancy) and metastatic solid tumour, AIDS/HIV.
 
-Many variations of the Charlson comorbidity index have been presented, as outlined by Sharabiani _et al_. in their systematic review. `comorbidity` computes the Quan _et al_. version of the Charlson score for both ICD-9-CM and ICD-10 coding systems, as outlined in their paper from 2005; in the next subsections, we present the different ICD codes utilised by `comorbidity`. Categorisation of scores and weighted scores is based on work by Menendez _et al_.
+Many variations of the Charlson comorbidity index have been presented, as outlined by Sharabiani _et al_. in their systematic review. `comorbidity` computes the Quan _et al_. version of the Charlson score for both ICD-9-CM and ICD-10 coding systems, as outlined in their paper from 2005; in the next subsections, we present the different ICD codes utilised by `comorbidity`. Categorisation of scores and weighted scores are based on work by Menendez _et al_.
 
 ## ICD-9-CM codes
 
@@ -61,11 +61,11 @@ The ICD-9-CM codes used by `comorbidity` to compute the Charlson comorbidity ind
 
 * Renal disease: 403.01, 403.11, 403.91, 404.02, 404.03, 404.12, 404.13, 404.92, 404.93, 582.x, 583.0 - 583.7, 585.x, 586.x, 588.0, V42.0, V45.1, V56.x
 
-* Any malignancy, including lymphoma and leukemia, except malignant neoplasm of skin: 140.x - 172.x, 174.x - 195.8, 200.x - 208.x, 238.6
+* Any malignancy, including lymphoma and leukaemia, except malignant neoplasm of skin: 140.x - 172.x, 174.x - 195.8, 200.x - 208.x, 238.6
 
 * Moderate or severe liver disease: 456.0 - 456.2, 572.2- 572.8
 
-* Metastatic solid tumor: 196.x - 199.x
+* Metastatic solid tumour: 196.x - 199.x
 
 * AIDS/HIV: 042.x - 044.x
 
@@ -119,7 +119,11 @@ The Elixhauser comorbidity index, analogously as the Charlson comorbidity index,
 * the list of specific ICD diagnosis codes that are used to identify different categories of comorbidity have been modified and updated from ICD-9-CM to work with ICD-10 coding (Quan _et al_., 2005);
 * weighting algorithms were developed, based on the association between comorbidity and death, in order to produce an overall score for the Elixhauser index (van Walraven _et al_., 2009; Moore _et al_., 2016).
 
-`comorbidity` is using the coding definition of Quan _et al_. (2005) for both ICD-9-CM and ICD-10 coding systems. The weighting is based on work by Moore _et al_. (2016); however, as the AHRQ Elixhauser comorbidity score only includes 29 comorbidites and not 31 (as in the Quan _et al_. version), we included weights from van Walraven _et al_. for the missing comorbidities. The actual codes and weights utilised by `comorbidity` are introduced in the next subsections. Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_.
+`comorbidity` is using the coding definition of Quan _et al_. (2005) for both ICD-9-CM and ICD-10 coding systems; the actual codes and weights utilised by `comorbidity` are introduced in the next subsections.
+However, there is no consensus regarding the weighting algorithm, with several competing definitions.
+`comorbidity` implements (and returns) both the AHRQ version of the Elixhauser index (Moore _et al_., 2017) and the van Walraven _et al._ (2009) version.
+The AHRQ Elixhauser comorbidity score only includes 29 comorbidities; the missing comorbidities are therefore assigned a weight of zero. 
+Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_.
 
 ## ICD-9-CM codes
 
@@ -163,7 +167,7 @@ The ICD-9-CM codes used by `comorbidity` to compute the Elixhauser comorbidity i
 
 * Metastatic cancer: 196.x - 199.x
 
-* Solid tumor without metastasis: 140.x - 172.x, 174.x - 195.x
+* Solid tumour without metastasis: 140.x - 172.x, 174.x - 195.x
 
 * Rheumatoid arthritis/collagen vascular diseases: 446.x, 701.0, 710.0 - 710.4,  710.8, 710.9, 711.2,  714.x, 719.3, 720.x,  725.x, 728.5, 728.89, 729.30
 
@@ -175,9 +179,9 @@ The ICD-9-CM codes used by `comorbidity` to compute the Elixhauser comorbidity i
 
 * Fluid and electrolyte disorders: 253.6, 276.x
 
-* Blood loss anemia: 280.0
+* Blood loss anaemia: 280.0
 
-* Deficiency anemia: 280.1 - 280.9, 281.x
+* Deficiency anaemia: 280.1 - 280.9, 281.x
 
 * Alcohol abuse: 265.2, 291.1 - 291.3, 291.5 - 291.9, 303.0, 303.9,  305.0, 357.5, 425.5,  535.3, 571.0 - 571.3, 980.x, V11.3
 
@@ -229,7 +233,7 @@ The ICD-10 codes used by `comorbidity` to compute the Elixhauser comorbidity ind
 
 * Metastatic cancer: C77.x - C80.x
 
-* Solid tumor without metastasis: C00.x - C26.x, C30.x - C34.x, C37.x - C41.x, C43.x, C45.x - C58.x, C60.x - C76.x, C97.x
+* Solid tumour without metastasis: C00.x - C26.x, C30.x - C34.x, C37.x - C41.x, C43.x, C45.x - C58.x, C60.x - C76.x, C97.x
 
 * Rheumatoid arthritis/collagen vascular diseases: L94.0, L94.1, L94.3, M05.x, M06.x, M08.x, M12.0, M12.3, M30.x, M31.0 - M31.3, M32.x - M35.x, M45.x, M46.1, M46.8, M46.9
 
@@ -241,9 +245,9 @@ The ICD-10 codes used by `comorbidity` to compute the Elixhauser comorbidity ind
 
 * Fluid and electrolyte disorders: E22.2, E86.x, E87.x
 
-* Blood loss anemia: D50.0
+* Blood loss anaemia: D50.0
 
-* Deficiency anemia: D50.8, D50.9, D51.x - D53.x
+* Deficiency anaemia: D50.8, D50.9, D51.x - D53.x
 
 * Alcohol abuse: F10, E52, G62.1, I42.6, K29.2, K70.0, K70.3, K70.9, T51.x, Z50.2, Z71.4, Z72.1
 
@@ -255,7 +259,42 @@ The ICD-10 codes used by `comorbidity` to compute the Elixhauser comorbidity ind
 
 ## Weights
 
-The weights for the Elixhauser comorbidity index are based on work by Moore _et al_. (2016): congestive heart failure (9), valvular disease (0), pulmonary circulation disorders (6), peripheral vascular disorders (3), hypertension (-1), paralysis (5), neurodegenerative disorders (5), chronic pulmonary disease (3), uncomplicated diabetes (0), complicated diabetes (-3), hypothyroidism (0), renal failure (6), liver disease (4), peptic ulcer disease with no bleeding (0), AIDS/HIV (0), lymphoma (6), metastatic cancer (14), solid tumour without metastasis (7), rheumatoid arthritis or collagen vascular diseases (0), coagulopathy (11), obesity (-5), weight loss (9), fluid and electrolyte disorders (11), blood loss anemia (-3), deficiency anemia (-2), alcohol abuse (-1), drug abuse (-7), psychosis (-5), depression (-5). The AHRQ version of the Elixhauser index does not include cardiac arrhythmias as a comorbidity; therefore, we utilised the weight from the paper by van Walraven _et al_. (5) for that specific domain. 
+The weights for the Elixhauser comorbidity index are included in the following table, depending on the algorithm used for the weighting process:
+
+                                  Comorbidity Domain     AHRQ Algorithm    van Walraven Algorithm
+------------------------------------------------------  ----------------  ------------------------
+Congestive heart failure                                      9                         7
+Cardiac arrhythmias                                          (0)                        5
+Valvular disease                                              0                        -1
+Pulmonary circulation disorders                               6                         4
+Peripheral vascular disorders                                 3                         2
+Hypertension (combined uncomplicated and complicated)        -1                         0
+Paralysis                                                     5                         7
+Other neurological disorders                                  5                         6
+Chronic pulmonary disease                                     3                         3
+Diabetes, uncomplicated                                       0                         0
+Diabetes, complicated                                        -3                         0
+Hypothyroidism                                                4                         0
+Renal failure                                                 6                         5
+Liver disease                                                 4                         11
+Peptic ulcer disease, excluding bleeding                      0                         0
+AIDS/HIV                                                      0                         0
+Lymphoma                                                      6                         9
+Metastatic cancer                                            14                        12
+Solid tumour without metastasis                               7                         4
+Rheumatoid arthritis/collagen vascular diseases               0                         0
+Coagulopathy                                                 11                         3
+Obesity                                                      -5                        -4
+Weight loss                                                   9                         6
+Fluid and electrolyte disorders                              11                         5
+Blood loss anaemia                                           -3                        -2
+Deficiency anaemia                                           -2                        -2
+Alcohol abuse                                                -1                         0
+Drug abuse                                                   -7                        -7
+Psychoses                                                    -5                         0
+Depression                                                   -5                        -3
+
+The AHRQ algorithm does not include cardiac arrhythmias, hence a weight of 0 is assigned.
 
 # Examples
 

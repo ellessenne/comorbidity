@@ -80,8 +80,10 @@
 #' * `depre`, for depression;
 #' * `score`, for the non-weighted version of the Elixhauser score;
 #' * `index`, for the non-weighted version of the grouped Elixhauser index;
-#' * `wscore`, for the weighted version of the Elixhauser score;
-#' * `windex`, for the weighted version of the grouped Elixhauser index.
+#' * `wscore_ahrq`, for the weighted version of the Elixhauser score using the AHRQ algorithm (Moore _et al_., 2017);
+#' * `wscore_vw`, for the weighted version of the Elixhauser score using the algorithm in van Walraven _et al_. (2009);
+#' * `windex_ahrq`, for the weighted version of the grouped Elixhauser index using the AHRQ algorithm (Moore _et al_., 2017);
+#' * `windex_vw`, for the weighted version of the grouped Elixhauser index using the algorithm in van Walraven _et al_. (2009).
 #'
 #' Labels are presented to the user when using the RStudio viewer (e.g. via the [utils::View()] function) for convenience.
 #'
@@ -159,8 +161,10 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0 = FALSE, fact
   } else {
     x$score <- with(x, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
     x$index <- with(x, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-    x$wscore <- with(x, chf * 9 + carit * 5 + valv * 0 + pcd * 6 + pvd * 3 + hypunc * ifelse(hypc == 1 & assign0, 0, -1) + hypc * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0, 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
-    x$windex <- with(x, cut(wscore, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
+    x$wscore_ahrq <- with(x, chf * 9 + carit * 0 + valv * 0 + pcd * 6 + pvd * 3 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0, 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
+    x$wscore_vw <- with(x, chf * 7 + carit * 5 + valv * (-1) + pcd * 4 + pvd * 2 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * 0 + para * 7 + ond * 6 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * 0 + hypothy * 0 + rf * 5 + ld * 11 + pud * 0 + aids * 0 + lymph * 9 + metacanc * 12 + solidtum * ifelse(metacanc == 1 & assign0, 0, 4) + rheumd * 0 + coag * 3 + obes * (-4) + wloss * 6 + fed * 5 + blane * (-2) + dane * (-2) + alcohol * 0 + drug * (-7) + psycho * 0 + depre * (-3))
+    x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
+    x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   }
 
   ### Factorise comorbidities if requested
