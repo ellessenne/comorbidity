@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2019-03-14
+2019-03-22
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -167,8 +167,7 @@ x <- data.frame(
 )
 ```
 
-We could compute the Charlson score, index, and each comorbidity
-domain:
+We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
 charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10")
@@ -183,8 +182,7 @@ charlson
 #> 3    0        0    0     0     0      0      0
 ```
 
-The default is to assume ICD-10
-codes:
+The default is to assume ICD-10 codes:
 
 ``` r
 charlson.default <- comorbidity(x = x, id = "id", code = "code", score = "charlson")
@@ -192,8 +190,7 @@ all.equal(charlson, charlson.default)
 #> [1] TRUE
 ```
 
-Alternatively, we could compute the Elixhauser
-score:
+Alternatively, we could compute the Elixhauser score:
 
 ``` r
 elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd10")
@@ -230,8 +227,7 @@ x <- data.frame(
 
 The Charlson and Elixhauser comorbidity codes can be easily computed:
 
-We could compute the Charlson score, index, and each comorbidity
-domain:
+We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
 charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd9")
@@ -250,8 +246,7 @@ charlson9
 #> 5    0        0    0     1   1-2      2    1-2
 ```
 
-Alternatively, we could compute the Elixhauser
-score:
+Alternatively, we could compute the Elixhauser score:
 
 ``` r
 elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd9")

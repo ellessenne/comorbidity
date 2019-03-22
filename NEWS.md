@@ -1,4 +1,10 @@
-# comorbidity 0.2.1-9000
+# comorbidity 0.3.0
+
+### BREAKING CHANGES
+
+`comorbidity` now returns two Elixhauser scores, one computed using the algorithm of val Walraven _et al_. (2009) and a second one computed using the AHRQ algorithm (Moore _et al_., 2017). Thanks to Yumiko Abe-Jones for feedback and the discussion regarding weighted Elixhauser scores.
+
+More information can be found on the package vignette: `vignette("comorbidityscores", package = "comorbidity")`.
 
 # comorbidity 0.2.1
 
