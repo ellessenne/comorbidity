@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2019-03-22
+2019-03-27
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -59,22 +59,22 @@ x <- data.frame(
 )
 x <- x[order(x$id, x$code), ]
 print(head(x, n = 15), row.names = FALSE)
-#>  id code
-#>   1 C838
-#>   1  H30
-#>   1 I260
-#>   1 I469
-#>   1 K611
-#>   1 L949
-#>   1  V09
-#>   2 B677
-#>   2 C081
-#>   2 I446
-#>   2 K225
-#>   2  M41
-#>   2 M430
-#>   2 T635
-#>   2 U016
+##  id code
+##   1 C838
+##   1  H30
+##   1 I260
+##   1 I469
+##   1 K611
+##   1 L949
+##   1  V09
+##   2 B677
+##   2 C081
+##   2 I446
+##   2 K225
+##   2  M41
+##   2 M430
+##   2 T635
+##   2 U016
 ```
 
 It is also possible to simulate from two different versions of the
@@ -96,7 +96,7 @@ x2 <- data.frame(
 )
 # should return TRUE
 all.equal(x1, x2)
-#> [1] TRUE
+## [1] TRUE
 ```
 
 Alternatively, you could use the 2009 version:
@@ -116,7 +116,7 @@ x2 <- data.frame(
 )
 # should not return TRUE
 all.equal(x1, x2)
-#> [1] "Component \"code\": 29 string mismatches"
+## [1] "Component \"code\": 29 string mismatches"
 ```
 
 ## Simulating ICD-9 codes
@@ -132,22 +132,22 @@ x9 <- data.frame(
 )
 x9 <- x9[order(x9$id, x9$code), ]
 print(head(x9, n = 15), row.names = FALSE)
-#>  id  code
-#>   1 01161
-#>   1  2535
-#>   1 37854
-#>   1 46451
-#>   1 83664
-#>   1 94433
-#>   1  9711
-#>   1 E8038
-#>   1 E8498
-#>   1  V092
-#>   2 01092
-#>   2 01301
-#>   2  2337
-#>   2 37033
-#>   2 67450
+##  id  code
+##   1 01161
+##   1  2535
+##   1 37854
+##   1 46451
+##   1 83664
+##   1 94433
+##   1  9711
+##   1 E8038
+##   1 E8498
+##   1  V092
+##   2 01092
+##   2 01301
+##   2  2337
+##   2 37033
+##   2 67450
 ```
 
 ## Computing comorbidity scores
@@ -170,47 +170,45 @@ x <- data.frame(
 We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
-charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10")
+charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = FALSE)
 charlson
-#>   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc
-#> 1  1   0   0   0    0        0    0      0   0   1    0      0  0    0    0
-#> 2  2   0   0   0    0        0    0      0   0   0    0      0  0    1    1
-#> 3  3   0   0   0    0        0    0      0   0   0    0      0  0    0    0
-#>   msld metacanc aids score index wscore windex
-#> 1    0        0    0     1   1-2      1    1-2
-#> 2    0        0    0     2   1-2      4    3-4
-#> 3    0        0    0     0     0      0      0
+##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
+## 1  1   0   0   0    0        0    0      0   0   1    0      0  0    0    0    0        0    0
+## 2  2   0   0   0    0        0    0      0   0   0    0      0  0    1    1    0        0    0
+## 3  3   0   0   0    0        0    0      0   0   0    0      0  0    0    0    0        0    0
+##   score index wscore windex
+## 1     1   1-2      1    1-2
+## 2     2   1-2      4    3-4
+## 3     0     0      0      0
 ```
 
-The default is to assume ICD-10 codes:
+We set the `assign0` argument to `FALSE` to not apply a hierarchy of
+comorbidity codes, as described in `?comorbidity::comorbidity`. The
+default is to assume ICD-10 codes are passed to `comorbidity`:
 
 ``` r
-charlson.default <- comorbidity(x = x, id = "id", code = "code", score = "charlson")
+charlson.default <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
 all.equal(charlson, charlson.default)
-#> [1] TRUE
+## [1] TRUE
 ```
 
 Alternatively, we could compute the Elixhauser score:
 
 ``` r
-elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd10")
+elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd10", assign0 = FALSE)
 elixhauser
-#>   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf
-#> 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0
-#> 2  2   0     0    0   0   0      0    0    0   0   0       0     0       0  1
-#> 3  3   0     0    0   0   0      0    0    0   0   0       0     0       0  0
-#>   ld pud aids lymph metacanc solidtum rheumd coag obes wloss fed blane dane
-#> 1  1   0    0     0        0        0      0    0    0     0   0     0    0
-#> 2  0   0    0     0        0        1      0    0    0     0   0     0    0
-#> 3  0   0    0     0        0        0      0    0    0     0   0     0    0
-#>   alcohol drug psycho depre score index wscore_ahrq wscore_vw windex_ahrq
-#> 1       0    0      0     0     1   1-4           4        11         1-4
-#> 2       0    0      0     0     2   1-4          13         9         >=5
-#> 3       0    0      0     0     0     0           0         0           0
-#>   windex_vw
-#> 1       >=5
-#> 2       >=5
-#> 3         0
+##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph
+## 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  1   0    0     0
+## 2  2   0     0    0   0   0      0    0    0   0   0       0     0       0  1  0   0    0     0
+## 3  3   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0
+##   metacanc solidtum rheumd coag obes wloss fed blane dane alcohol drug psycho depre score index
+## 1        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4
+## 2        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4
+## 3        0        0      0    0    0     0   0     0    0       0    0      0     0     0     0
+##   wscore_ahrq wscore_vw windex_ahrq windex_vw
+## 1           4        11         1-4       >=5
+## 2          13         9         >=5       >=5
+## 3           0         0           0         0
 ```
 
 Conversely, say we have 5 individuals with a total of 100 ICD-9
@@ -230,51 +228,45 @@ The Charlson and Elixhauser comorbidity codes can be easily computed:
 We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
-charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd9")
+charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = FALSE)
 charlson9
-#>   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc
-#> 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1
-#> 2  2   0   0   0    0        0    0      0   0   0    0      1  0    0    1
-#> 3  3   0   0   0    0        0    0      0   0   0    1      0  0    0    1
-#> 4  4   1   0   0    0        0    0      0   0   0    0      0  0    0    1
-#> 5  5   0   0   0    0        0    0      0   0   0    0      0  0    0    1
-#>   msld metacanc aids score index wscore windex
-#> 1    0        0    0     1   1-2      2    1-2
-#> 2    1        0    0     3   3-4      7    >=5
-#> 3    0        0    0     2   1-2      3    3-4
-#> 4    0        0    0     2   1-2      3    3-4
-#> 5    0        0    0     1   1-2      2    1-2
+##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
+## 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
+## 2  2   0   0   0    0        0    0      0   0   0    0      1  0    0    1    1        0    0
+## 3  3   0   0   0    0        0    0      0   0   0    1      0  0    0    1    0        0    0
+## 4  4   1   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
+## 5  5   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
+##   score index wscore windex
+## 1     1   1-2      2    1-2
+## 2     3   3-4      7    >=5
+## 3     2   1-2      3    3-4
+## 4     2   1-2      3    3-4
+## 5     1   1-2      2    1-2
 ```
 
 Alternatively, we could compute the Elixhauser score:
 
 ``` r
-elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd9")
+elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd9", assign0 = FALSE)
 elixhauser9
-#>   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf
-#> 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0
-#> 2  2   0     0    0   0   0      0    0    0   0   0       0     1       0  0
-#> 3  3   0     0    0   0   0      0    0    0   0   0       0     1       0  0
-#> 4  4   0     0    0   0   0      0    1    0   0   0       0     0       0  0
-#> 5  5   0     0    0   1   0      0    0    0   0   0       0     0       0  0
-#>   ld pud aids lymph metacanc solidtum rheumd coag obes wloss fed blane dane
-#> 1  0   0    0     0        0        1      0    0    0     0   0     0    0
-#> 2  1   0    0     1        0        1      0    0    0     0   0     0    0
-#> 3  0   0    0     1        0        0      0    0    0     0   0     0    0
-#> 4  0   0    0     0        0        1      0    0    0     0   0     0    0
-#> 5  0   0    0     0        0        1      0    0    0     0   0     0    0
-#>   alcohol drug psycho depre score index wscore_ahrq wscore_vw windex_ahrq
-#> 1       0    0      0     0     1   1-4           7         4         >=5
-#> 2       0    1      0     0     5   >=5           7        17         >=5
-#> 3       1    0      0     0     3   1-4           2         9         1-4
-#> 4       0    0      0     1     3   1-4           1         1         1-4
-#> 5       0    0      0     0     2   1-4          13         8         >=5
-#>   windex_vw
-#> 1       1-4
-#> 2       >=5
-#> 3       >=5
-#> 4       1-4
-#> 5       >=5
+##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph
+## 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0
+## 2  2   0     0    0   0   0      0    0    0   0   0       0     1       0  0  1   0    0     1
+## 3  3   0     0    0   0   0      0    0    0   0   0       0     1       0  0  0   0    0     1
+## 4  4   0     0    0   0   0      0    1    0   0   0       0     0       0  0  0   0    0     0
+## 5  5   0     0    0   1   0      0    0    0   0   0       0     0       0  0  0   0    0     0
+##   metacanc solidtum rheumd coag obes wloss fed blane dane alcohol drug psycho depre score index
+## 1        0        1      0    0    0     0   0     0    0       0    0      0     0     1   1-4
+## 2        0        1      0    0    0     0   0     0    0       0    1      0     0     5   >=5
+## 3        0        0      0    0    0     0   0     0    0       1    0      0     0     3   1-4
+## 4        0        1      0    0    0     0   0     0    0       0    0      0     1     3   1-4
+## 5        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4
+##   wscore_ahrq wscore_vw windex_ahrq windex_vw
+## 1           7         4         >=5       1-4
+## 2           7        17         >=5       >=5
+## 3           2         9         1-4       >=5
+## 4           1         1         1-4       1-4
+## 5          13         8         >=5       >=5
 ```
 
 The weighted Elixhauser score is computed using both the AHRQ and the
@@ -286,26 +278,25 @@ If you find `comorbidity` useful, please cite it in your publications:
 
 ``` r
 citation("comorbidity")
-#> 
-#> To cite the comorbidity package in publications, please use:
-#> 
-#>   Gasparini, (2018). comorbidity: An R package for computing
-#>   comorbidity scores. Journal of Open Source Software, 3(23), 648,
-#>   https://doi.org/10.21105/joss.00648
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Article{,
-#>     author = {Alessandro Gasparini},
-#>     title = {comorbidity: An R package for computing comorbidity scores},
-#>     journal = {Journal of Open Source Software},
-#>     year = {2018},
-#>     volume = {3},
-#>     issue = {23},
-#>     pages = {648},
-#>     doi = {10.21105/joss.00648},
-#>     url = {https://doi.org/10.21105/joss.00648},
-#>   }
+## 
+## To cite the comorbidity package in publications, please use:
+## 
+##   Gasparini, (2018). comorbidity: An R package for computing comorbidity scores. Journal
+##   of Open Source Software, 3(23), 648, https://doi.org/10.21105/joss.00648
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Article{,
+##     author = {Alessandro Gasparini},
+##     title = {comorbidity: An R package for computing comorbidity scores},
+##     journal = {Journal of Open Source Software},
+##     year = {2018},
+##     volume = {3},
+##     issue = {23},
+##     pages = {648},
+##     doi = {10.21105/joss.00648},
+##     url = {https://doi.org/10.21105/joss.00648},
+##   }
 ```
 
 ## References
