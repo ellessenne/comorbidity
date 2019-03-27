@@ -138,13 +138,13 @@ test_that("comorbidity returns a data.frame", {
     code = sample_diag(50, version = "ICD9_2015"),
     stringsAsFactors = FALSE
   )
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson")
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
   expect_s3_class(cs, "data.frame")
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser")
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
   expect_s3_class(cs, "data.frame")
-  cs <- comorbidity(x = x9, id = "id", code = "code", score = "charlson")
+  cs <- comorbidity(x = x9, id = "id", code = "code", score = "charlson", assign0 = FALSE)
   expect_s3_class(cs, "data.frame")
-  cs <- comorbidity(x = x9, id = "id", code = "code", score = "elixhauser")
+  cs <- comorbidity(x = x9, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
   expect_s3_class(cs, "data.frame")
 })
 
@@ -154,14 +154,14 @@ test_that("comorbidity returns a data.frame with the correct number of rows", {
     code = sample_diag(10 * 5),
     stringsAsFactors = FALSE
   )
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson")
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
   expect_equal(nrow(cs), 5)
   x <- data.frame(
     id = sample(1:50, size = 10 * 50, replace = TRUE),
     code = sample_diag(10 * 50, version = "ICD9_2015"),
     stringsAsFactors = FALSE
   )
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson")
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
   expect_equal(nrow(cs), 50)
 })
 
@@ -171,9 +171,9 @@ test_that("if labelled = TRUE, comorbidity returns variable labels", {
     code = sample_diag(10 * 5),
     stringsAsFactors = FALSE
   )
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", labelled = TRUE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", labelled = TRUE, assign0 = FALSE)
   expect_false(is.null(attr(cs, "variable.labels")))
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", labelled = TRUE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", labelled = TRUE, assign0 = FALSE)
   expect_false(is.null(attr(cs, "variable.labels")))
 })
 
@@ -183,22 +183,22 @@ test_that("if labelled = FALSE, comorbidity does not return variable labels", {
     code = sample_diag(10 * 5),
     stringsAsFactors = FALSE
   )
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", labelled = FALSE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", labelled = FALSE, assign0 = FALSE)
   expect_true(is.null(attr(cs, "variable.labels")))
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", labelled = FALSE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", labelled = FALSE, assign0 = FALSE)
   expect_true(is.null(attr(cs, "variable.labels")))
   x9 <- data.frame(
     id = sample(1:5, size = 10 * 5, replace = TRUE),
     code = sample_diag(10 * 5, version = "ICD9_2015"),
     stringsAsFactors = FALSE
   )
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", labelled = FALSE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", labelled = FALSE, assign0 = FALSE)
   expect_true(is.null(attr(cs, "variable.labels")))
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", labelled = FALSE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", labelled = FALSE, assign0 = FALSE)
   expect_true(is.null(attr(cs, "variable.labels")))
-  cs <- comorbidity(x = x9, id = "id", code = "code", score = "charlson", labelled = FALSE)
+  cs <- comorbidity(x = x9, id = "id", code = "code", score = "charlson", labelled = FALSE, assign0 = FALSE)
   expect_true(is.null(attr(cs, "variable.labels")))
-  cs <- comorbidity(x = x9, id = "id", code = "code", score = "elixhauser", labelled = FALSE)
+  cs <- comorbidity(x = x9, id = "id", code = "code", score = "elixhauser", labelled = FALSE, assign0 = FALSE)
   expect_true(is.null(attr(cs, "variable.labels")))
 })
 
@@ -208,7 +208,7 @@ test_that("if factorise = TRUE comorbidity returns factors", {
     code = sample_diag(10 * 5),
     stringsAsFactors = FALSE
   )
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", factorise = TRUE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", factorise = TRUE, assign0 = FALSE)
   expect_s3_class(cs$ami, "factor")
   expect_s3_class(cs$chf, "factor")
   expect_s3_class(cs$pvd, "factor")
@@ -228,7 +228,7 @@ test_that("if factorise = TRUE comorbidity returns factors", {
   expect_s3_class(cs$aids, "factor")
   expect_s3_class(cs$index, "factor")
   expect_s3_class(cs$windex, "factor")
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", factorise = TRUE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", factorise = TRUE, assign0 = FALSE)
   expect_s3_class(cs$chf, "factor")
   expect_s3_class(cs$carit, "factor")
   expect_s3_class(cs$valv, "factor")
@@ -268,7 +268,7 @@ test_that("if factorise = TRUE comorbidity returns factors", {
     code = sample_diag(10 * 5, version = "ICD9_2015"),
     stringsAsFactors = FALSE
   )
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", factorise = TRUE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "charlson", factorise = TRUE, assign0 = FALSE)
   expect_s3_class(cs$ami, "factor")
   expect_s3_class(cs$chf, "factor")
   expect_s3_class(cs$pvd, "factor")
@@ -288,7 +288,7 @@ test_that("if factorise = TRUE comorbidity returns factors", {
   expect_s3_class(cs$aids, "factor")
   expect_s3_class(cs$index, "factor")
   expect_s3_class(cs$windex, "factor")
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", factorise = TRUE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", factorise = TRUE, assign0 = FALSE)
   expect_s3_class(cs$chf, "factor")
   expect_s3_class(cs$carit, "factor")
   expect_s3_class(cs$valv, "factor")
@@ -331,7 +331,7 @@ test_that("if factorise = FALSE comorbidity does not return factors", {
     code = sample_diag(10 * 5),
     stringsAsFactors = FALSE
   )
-  cs <- comorbidity(x = x, id = "id", score = "charlson", code = "code", factorise = FALSE)
+  cs <- comorbidity(x = x, id = "id", score = "charlson", code = "code", factorise = FALSE, assign0 = FALSE)
   expect_false("factor" %in% class(cs$ami))
   expect_false("factor" %in% class(cs$chf))
   expect_false("factor" %in% class(cs$pvd))
@@ -351,7 +351,7 @@ test_that("if factorise = FALSE comorbidity does not return factors", {
   expect_false("factor" %in% class(cs$aids))
   expect_s3_class(cs$index, "factor")
   expect_s3_class(cs$windex, "factor")
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", factorise = FALSE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", factorise = FALSE, assign0 = FALSE)
   expect_false("factor" %in% class(cs$chf))
   expect_false("factor" %in% class(cs$carit))
   expect_false("factor" %in% class(cs$valv))
@@ -391,7 +391,7 @@ test_that("if factorise = FALSE comorbidity does not return factors", {
     code = sample_diag(10 * 5, version = "ICD9_2015"),
     stringsAsFactors = FALSE
   )
-  cs <- comorbidity(x = x, id = "id", score = "charlson", code = "code", factorise = FALSE)
+  cs <- comorbidity(x = x, id = "id", score = "charlson", code = "code", factorise = FALSE, assign0 = FALSE)
   expect_false("factor" %in% class(cs$ami))
   expect_false("factor" %in% class(cs$chf))
   expect_false("factor" %in% class(cs$pvd))
@@ -411,7 +411,7 @@ test_that("if factorise = FALSE comorbidity does not return factors", {
   expect_false("factor" %in% class(cs$aids))
   expect_s3_class(cs$index, "factor")
   expect_s3_class(cs$windex, "factor")
-  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", factorise = FALSE)
+  cs <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", factorise = FALSE, assign0 = FALSE)
   expect_false("factor" %in% class(cs$chf))
   expect_false("factor" %in% class(cs$carit))
   expect_false("factor" %in% class(cs$valv))
@@ -454,10 +454,10 @@ test_that("parallel computing works (specifying the number of clusters)", {
     code = sample_diag(10 * 50),
     stringsAsFactors = FALSE
   )
-  cs1 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", parallel = TRUE, mc.cores = 1)
-  cs2 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", parallel = TRUE, mc.cores = 2)
-  cs3 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", parallel = TRUE, mc.cores = 1)
-  cs4 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", parallel = TRUE, mc.cores = 2)
+  cs1 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE, parallel = TRUE, mc.cores = 1)
+  cs2 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE, parallel = TRUE, mc.cores = 2)
+  cs3 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE, parallel = TRUE, mc.cores = 1)
+  cs4 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE, parallel = TRUE, mc.cores = 2)
   expect_equal(nrow(cs1), 50)
   expect_equal(nrow(cs2), 50)
   expect_equal(nrow(cs3), 50)
@@ -467,10 +467,10 @@ test_that("parallel computing works (specifying the number of clusters)", {
     code = sample_diag(10 * 50, version = "ICD9_2015"),
     stringsAsFactors = FALSE
   )
-  cs1 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", parallel = TRUE, mc.cores = 1)
-  cs2 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", parallel = TRUE, mc.cores = 2)
-  cs3 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", parallel = TRUE, mc.cores = 1)
-  cs4 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", parallel = TRUE, mc.cores = 2)
+  cs1 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE, parallel = TRUE, mc.cores = 1)
+  cs2 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE, parallel = TRUE, mc.cores = 2)
+  cs3 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE, parallel = TRUE, mc.cores = 1)
+  cs4 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE, parallel = TRUE, mc.cores = 2)
   expect_equal(nrow(cs1), 50)
   expect_equal(nrow(cs2), 50)
   expect_equal(nrow(cs3), 50)
@@ -483,21 +483,21 @@ test_that("running computations in parallel vs serial returns the same results",
     code = sample_diag(10 * 50),
     stringsAsFactors = FALSE
   )
-  cs_serial <- comorbidity(x = x, id = "id", code = "code", score = "charlson", parallel = FALSE)
-  cs_parallel <- comorbidity(x = x, id = "id", code = "code", score = "charlson", parallel = TRUE, mc.cores = 2)
+  cs_serial <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE, parallel = FALSE)
+  cs_parallel <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE, parallel = TRUE, mc.cores = 2)
   expect_equal(cs_serial, cs_parallel)
-  cs_serial <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", parallel = FALSE)
-  cs_parallel <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", parallel = TRUE, mc.cores = 2)
+  cs_serial <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE, parallel = FALSE)
+  cs_parallel <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE, parallel = TRUE, mc.cores = 2)
   expect_equal(cs_serial, cs_parallel)
   x <- data.frame(
     id = sample(1:50, size = 10 * 50, replace = TRUE),
     code = sample_diag(10 * 50, version = "ICD9_2015"),
     stringsAsFactors = FALSE
   )
-  cs_serial <- comorbidity(x = x, id = "id", code = "code", score = "charlson", parallel = FALSE)
-  cs_parallel <- comorbidity(x = x, id = "id", code = "code", score = "charlson", parallel = TRUE, mc.cores = 2)
+  cs_serial <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE, parallel = FALSE)
+  cs_parallel <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE, parallel = TRUE, mc.cores = 2)
   expect_equal(cs_serial, cs_parallel)
-  cs_serial <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", parallel = FALSE)
-  cs_parallel <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", parallel = TRUE, mc.cores = 2)
+  cs_serial <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE, parallel = FALSE)
+  cs_parallel <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE, parallel = TRUE, mc.cores = 2)
   expect_equal(cs_serial, cs_parallel)
 })

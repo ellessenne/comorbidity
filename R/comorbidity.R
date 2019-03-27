@@ -7,7 +7,7 @@
 #' @param code Column of `x` containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.
 #' @param score The comorbidity score to compute. Possible choices are the weighted Charlson score (`charlson`) and the weighted Elixhauser score (`elixhauser`). Values are case-insensitive.
 #' @param icd The version of ICD coding to use. Possible choices are ICD-9-CM (`icd9`) or ICD-10 (`icd10`). Defaults to `icd10`, and values are case-insensitive.
-#' @param assign0 Apply a hierarchy of comorbidities. Defaults to `FALSE`. If `TRUE`, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:
+#' @param assign0 Apply a hierarchy of comorbidities. If `TRUE`, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:
 #' * "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`) for the Charlson score;
 #' * "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`) for the Charlson score;
 #' * "Cancer" (`canc`) and "Metastatic solid tumour" (`metacanc`) for the Charlson score;
@@ -107,13 +107,13 @@
 #' )
 #' 
 #' # Charlson score based on ICD-10 diagnostic codes:
-#' comorbidity(x = x, id = "id", code = "code", score = "charlson")
+#' comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
 #' 
 #' # Elixhauser score based on ICD-10 diagnostic codes:
-#' comorbidity(x = x, id = "id", code = "code", score = "elixhauser")
+#' comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
 #' @export
 
-comorbidity <- function(x, id, code, score, icd = "icd10", assign0 = FALSE, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE, parallel = FALSE, mc.cores = parallel::detectCores()) {
+comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE, parallel = FALSE, mc.cores = parallel::detectCores()) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame

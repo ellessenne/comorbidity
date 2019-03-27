@@ -4,7 +4,7 @@
 \alias{comorbidity}
 \title{Compute comorbidity scores.}
 \usage{
-comorbidity(x, id, code, score, icd = "icd10", assign0 = FALSE,
+comorbidity(x, id, code, score, icd = "icd10", assign0,
   factorise = FALSE, labelled = TRUE, tidy.codes = TRUE,
   parallel = FALSE, mc.cores = parallel::detectCores())
 }
@@ -19,7 +19,7 @@ comorbidity(x, id, code, score, icd = "icd10", assign0 = FALSE,
 
 \item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}) or ICD-10 (\code{icd10}). Defaults to \code{icd10}, and values are case-insensitive.}
 
-\item{assign0}{Apply a hierarchy of comorbidities. Defaults to \code{FALSE}. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:
+\item{assign0}{Apply a hierarchy of comorbidities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:
 \itemize{
 \item "Mild liver disease" (\code{mld}) and "Moderate/severe liver disease" (\code{msld}) for the Charlson score;
 \item "Diabetes" (\code{diab}) and "Diabetes with complications" (\code{diabwc}) for the Charlson score;
@@ -129,10 +129,10 @@ x <- data.frame(
 )
 
 # Charlson score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", score = "charlson")
+comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
 
 # Elixhauser score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", score = "elixhauser")
+comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
 }
 \references{
 Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.

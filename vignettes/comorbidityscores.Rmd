@@ -324,28 +324,28 @@ data10 <- data10[order(data10$id), ]
 Then, we can go ahead and compute various comorbidity scores and indices supported by `comorbidity`. The Charlson score based on ICD-9-CM data is computed as:
 
 ```{r charlson-9}
-charlson9 <- comorbidity(x = data9, id = "id", code = "code", score = "charlson", icd = "icd9")
+charlson9 <- comorbidity(x = data9, id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = FALSE)
 str(charlson9)
 ```
 
 The Charlson score based on ICD-10 data:
 
 ```{r charlson-10}
-charlson10 <- comorbidity(x = data10, id = "id", code = "code", score = "charlson", icd = "icd10")
+charlson10 <- comorbidity(x = data10, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = FALSE)
 str(charlson10)
 ```
 
 The Elixhauser score based on ICD-9-CM data:
 
 ```{r elixhauser-9}
-elixhauser9 <- comorbidity(x = data9, id = "id", code = "code", score = "elixhauser", icd = "icd9")
+elixhauser9 <- comorbidity(x = data9, id = "id", code = "code", score = "elixhauser", icd = "icd9", assign0 = FALSE)
 str(elixhauser9)
 ```
 
 Finally, the Elixhauser score based on ICD-10 data:
 
 ```{r elixhauser-10}
-elixhauser10 <- comorbidity(x = data10, id = "id", code = "code", score = "elixhauser", icd = "icd10")
+elixhauser10 <- comorbidity(x = data10, id = "id", code = "code", score = "elixhauser", icd = "icd10", assign0 = FALSE)
 str(elixhauser10)
 ```
 

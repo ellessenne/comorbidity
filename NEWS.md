@@ -1,4 +1,8 @@
-# comorbidity 0.3.0.9000
+# comorbidity 0.4.0
+
+### BREAKING CHANGES
+
+Modified the behaviour of the `assign0` argument after further discussion with [Anders Alexandersson](https://github.com/aalexandersson) in Issue #9: now there is no default, forcing the user to decide whether to apply a hierarchy of comorbidity codes or not. This will make the algorithm more transparent to the end user, allowing an informed choice. See `?comorbidity::comorbidity` and `vignette("comorbidityscores", package = "comorbidity")` for further details on the hierarchy being applied.
 
 # comorbidity 0.3.0
 
