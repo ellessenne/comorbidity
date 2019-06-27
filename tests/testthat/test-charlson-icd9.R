@@ -146,8 +146,8 @@ test_that("Charlson, pvd, 4431-4439", {
   expect_equal(object = cs$pvd, expected = 1)
   expect_equal(object = cs$score, expected = 1)
 })
-test_that("Charlson, pvd, 471", {
-  cs <- comorbidity(x = data.frame(id = "ID1", code = "471"), id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = FALSE)
+test_that("Charlson, pvd, 4471", {
+  cs <- comorbidity(x = data.frame(id = "ID1", code = "4471"), id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = FALSE)
   expect_equal(object = cs$pvd, expected = 1)
   expect_equal(object = cs$score, expected = 1)
 })
