@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2019-03-27
+2019-06-27
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -60,21 +60,21 @@ x <- data.frame(
 x <- x[order(x$id, x$code), ]
 print(head(x, n = 15), row.names = FALSE)
 ##  id code
-##   1 C838
-##   1  H30
-##   1 I260
-##   1 I469
-##   1 K611
-##   1 L949
-##   1  V09
-##   2 B677
-##   2 C081
-##   2 I446
-##   2 K225
-##   2  M41
-##   2 M430
-##   2 T635
-##   2 U016
+##   1  B02
+##   1 B582
+##   1 I749
+##   1 J450
+##   1 L893
+##   1 Q113
+##   1  Q26
+##   1 Q978
+##   1 T224
+##   1 V101
+##   1 V244
+##   1  V46
+##   2 A665
+##   2 C843
+##   2 D838
 ```
 
 It is also possible to simulate from two different versions of the
@@ -116,7 +116,7 @@ x2 <- data.frame(
 )
 # should not return TRUE
 all.equal(x1, x2)
-## [1] "Component \"code\": 29 string mismatches"
+## [1] "Component \"code\": 30 string mismatches"
 ```
 
 ## Simulating ICD-9 codes
@@ -133,21 +133,21 @@ x9 <- data.frame(
 x9 <- x9[order(x9$id, x9$code), ]
 print(head(x9, n = 15), row.names = FALSE)
 ##  id  code
-##   1 01161
-##   1  2535
-##   1 37854
-##   1 46451
-##   1 83664
-##   1 94433
-##   1  9711
-##   1 E8038
-##   1 E8498
-##   1  V092
-##   2 01092
-##   2 01301
-##   2  2337
-##   2 37033
-##   2 67450
+##   1 01130
+##   1 01780
+##   1 30151
+##   1  3073
+##   1 36907
+##   1 37845
+##   1 64212
+##   1 66704
+##   1 72633
+##   1  9689
+##   1  V289
+##   2  0502
+##   2 09169
+##   2 20046
+##   2 25082
 ```
 
 ## Computing comorbidity scores
@@ -173,12 +173,12 @@ We could compute the Charlson score, index, and each comorbidity domain:
 charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = FALSE)
 charlson
 ##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
-## 1  1   0   0   0    0        0    0      0   0   1    0      0  0    0    0    0        0    0
-## 2  2   0   0   0    0        0    0      0   0   0    0      0  0    1    1    0        0    0
+## 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    1
+## 2  2   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
 ## 3  3   0   0   0    0        0    0      0   0   0    0      0  0    0    0    0        0    0
 ##   score index wscore windex
-## 1     1   1-2      1    1-2
-## 2     2   1-2      4    3-4
+## 1     2   1-2      8    >=5
+## 2     1   1-2      2    1-2
 ## 3     0     0      0      0
 ```
 
@@ -198,17 +198,17 @@ Alternatively, we could compute the Elixhauser score:
 elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd10", assign0 = FALSE)
 elixhauser
 ##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph
-## 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  1   0    0     0
-## 2  2   0     0    0   0   0      0    0    0   0   0       0     0       0  1  0   0    0     0
-## 3  3   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0
+## 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    1     0
+## 2  2   0     0    1   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0
+## 3  3   0     0    0   0   0      0    0    0   1   0       0     0       0  0  0   0    0     0
 ##   metacanc solidtum rheumd coag obes wloss fed blane dane alcohol drug psycho depre score index
-## 1        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4
+## 1        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4
 ## 2        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4
-## 3        0        0      0    0    0     0   0     0    0       0    0      0     0     0     0
+## 3        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4
 ##   wscore_ahrq wscore_vw windex_ahrq windex_vw
-## 1           4        11         1-4       >=5
-## 2          13         9         >=5       >=5
-## 3           0         0           0         0
+## 1           7         4         >=5       1-4
+## 2           7         3         >=5       1-4
+## 3           5         6         >=5       >=5
 ```
 
 Conversely, say we have 5 individuals with a total of 100 ICD-9
@@ -231,16 +231,16 @@ We could compute the Charlson score, index, and each comorbidity domain:
 charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = FALSE)
 charlson9
 ##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
-## 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
-## 2  2   0   0   0    0        0    0      0   0   0    0      1  0    0    1    1        0    0
-## 3  3   0   0   0    0        0    0      0   0   0    1      0  0    0    1    0        0    0
-## 4  4   1   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
+## 1  1   0   0   1    0        0    0      0   0   0    0      0  0    0    1    0        0    0
+## 2  2   0   0   0    1        0    0      0   0   0    0      0  0    0    0    0        0    0
+## 3  3   0   0   0    0        0    0      0   1   0    0      0  0    0    0    0        0    0
+## 4  4   0   0   1    1        0    0      0   0   0    0      0  0    0    1    0        0    0
 ## 5  5   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
 ##   score index wscore windex
-## 1     1   1-2      2    1-2
-## 2     3   3-4      7    >=5
-## 3     2   1-2      3    3-4
-## 4     2   1-2      3    3-4
+## 1     2   1-2      3    3-4
+## 2     1   1-2      1    1-2
+## 3     1   1-2      1    1-2
+## 4     3   3-4      4    3-4
 ## 5     1   1-2      2    1-2
 ```
 
@@ -250,23 +250,23 @@ Alternatively, we could compute the Elixhauser score:
 elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd9", assign0 = FALSE)
 elixhauser9
 ##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph
-## 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0
-## 2  2   0     0    0   0   0      0    0    0   0   0       0     1       0  0  1   0    0     1
-## 3  3   0     0    0   0   0      0    0    0   0   0       0     1       0  0  0   0    0     1
-## 4  4   0     0    0   0   0      0    1    0   0   0       0     0       0  0  0   0    0     0
-## 5  5   0     0    0   1   0      0    0    0   0   0       0     0       0  0  0   0    0     0
+## 1  1   0     0    0   0   1      0    0    0   0   0       0     0       0  0  0   0    0     0
+## 2  2   0     0    0   0   0      0    0    0   1   0       0     0       0  0  0   0    0     0
+## 3  3   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0
+## 4  4   0     0    0   1   1      0    0    0   0   0       0     0       0  0  0   0    0     0
+## 5  5   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0
 ##   metacanc solidtum rheumd coag obes wloss fed blane dane alcohol drug psycho depre score index
-## 1        0        1      0    0    0     0   0     0    0       0    0      0     0     1   1-4
-## 2        0        1      0    0    0     0   0     0    0       0    1      0     0     5   >=5
-## 3        0        0      0    0    0     0   0     0    0       1    0      0     0     3   1-4
-## 4        0        1      0    0    0     0   0     0    0       0    0      0     1     3   1-4
-## 5        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4
+## 1        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4
+## 2        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4
+## 3        0        0      0    0    0     0   0     0    0       0    0      1     0     1   1-4
+## 4        0        0      0    0    0     0   0     0    0       0    0      0     0     2   1-4
+## 5        0        0      1    0    0     0   0     0    0       0    0      0     0     1   1-4
 ##   wscore_ahrq wscore_vw windex_ahrq windex_vw
-## 1           7         4         >=5       1-4
-## 2           7        17         >=5       >=5
-## 3           2         9         1-4       >=5
-## 4           1         1         1-4       1-4
-## 5          13         8         >=5       >=5
+## 1           3         2         1-4       1-4
+## 2           5         6         >=5       >=5
+## 3          -5         0          <0         0
+## 4           9         6         >=5       >=5
+## 5           0         0           0         0
 ```
 
 The weighted Elixhauser score is computed using both the AHRQ and the
