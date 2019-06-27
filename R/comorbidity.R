@@ -105,10 +105,10 @@
 #'   code = sample_diag(200),
 #'   stringsAsFactors = FALSE
 #' )
-#' 
+#'
 #' # Charlson score based on ICD-10 diagnostic codes:
 #' comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
-#' 
+#'
 #' # Elixhauser score based on ICD-10 diagnostic codes:
 #' comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
 #' @export
