@@ -3,6 +3,7 @@
 library(readxl)
 library(stringr)
 library(devtools)
+library(usethis)
 library(haven)
 
 ########################################################################################################################
@@ -34,7 +35,7 @@ icd10_2009[["ICD.title"]] <- iconv(icd10_2009[["ICD.title"]], from = "UTF-8", to
 icd10_2009[["Status"]] <- iconv(icd10_2009[["Status"]], from = "UTF-8", to = "ASCII")
 
 # Save data in R format
-devtools::use_data(icd10_2009, overwrite = TRUE)
+usethis::use_data(icd10_2009, overwrite = TRUE)
 
 ########################################################################################################################
 ### Dataset #2: ICD-10 codes, 2011 version
@@ -65,7 +66,7 @@ icd10_2011[["ICD.title"]] <- iconv(icd10_2011[["ICD.title"]], from = "UTF-8", to
 icd10_2011[["Status"]] <- iconv(icd10_2011[["Status"]], from = "UTF-8", to = "ASCII")
 
 # Save data in R format
-devtools::use_data(icd10_2011, overwrite = TRUE)
+usethis::use_data(icd10_2011, overwrite = TRUE)
 
 ########################################################################################################################
 ### Dataset #3: ICD-9 codes, 2015 version
@@ -84,7 +85,7 @@ icd9_2015[["Long_description"]] <- iconv(icd9_2015[["Long_description"]], from =
 icd9_2015[["Short_description"]] <- iconv(icd9_2015[["Short_description"]], from = "UTF-8", to = "ASCII")
 
 # Save data in R format
-devtools::use_data(icd9_2015, overwrite = TRUE)
+usethis::use_data(icd9_2015, overwrite = TRUE)
 
 ########################################################################################################################
 ### Dataset #4 ICD-10-CM codes, 2018 version
@@ -104,7 +105,7 @@ icd10cm_2018[["Code"]] <- iconv(icd10cm_2018[["Code"]], from = "UTF-8", to = "AS
 icd10cm_2018[["Description"]] <- iconv(icd10cm_2018[["Description"]], from = "UTF-8", to = "ASCII")
 
 # Save data in R format
-devtools::use_data(icd10cm_2018, overwrite = TRUE)
+usethis::use_data(icd10cm_2018, overwrite = TRUE)
 
 ########################################################################################################################
 ### Dataset #5 ICD-10-CM codes, 2017 version
@@ -121,7 +122,7 @@ icd10cm_2017[["Code"]] <- iconv(icd10cm_2017[["Code"]], from = "UTF-8", to = "AS
 icd10cm_2017[["Description"]] <- iconv(icd10cm_2017[["Description"]], from = "UTF-8", to = "ASCII")
 
 # Save data in R format
-devtools::use_data(icd10cm_2017, overwrite = TRUE)
+usethis::use_data(icd10cm_2017, overwrite = TRUE)
 
 ########################################################################################################################
 ### Dataset #6: Adult same-day discharges, 2010 (from Stata)
@@ -130,7 +131,7 @@ attr(nhds2010, "spec") <- NULL
 nhds2010 <- labelled::remove_labels(nhds2010, user_na_to_na = TRUE)
 
 # Save data in R format
-devtools::use_data(nhds2010, overwrite = TRUE)
+usethis::use_data(nhds2010, overwrite = TRUE)
 
 ########################################################################################################################
 ### Dataset #7: Australian mortality data, 2010 (from Stata)
@@ -139,7 +140,7 @@ attr(australia10, "spec") <- NULL
 australia10 <- labelled::remove_labels(australia10, user_na_to_na = TRUE)
 
 # Save data in R format
-devtools::use_data(australia10, overwrite = TRUE)
+usethis::use_data(australia10, overwrite = TRUE)
 
 ########################################################################################################################
 ### Remove unnecessary files
@@ -262,4 +263,4 @@ lofregex[["elixhauser"]][["icd10"]][["psycho"]] <- "^F20|^F22|^F23|^F24|^F25|^F2
 lofregex[["elixhauser"]][["icd10"]][["depre"]] <- "^F204|^F313|^F314|^F315|^F32|^F33|^F341|^F412|^F432"
 
 # Export data as internal
-devtools::use_data(lofregex, internal = TRUE, overwrite = TRUE)
+usethis::use_data(lofregex, internal = TRUE, overwrite = TRUE)
