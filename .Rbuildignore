@@ -20,3 +20,5 @@
 ^inst/Timing$
 ^inst/Sticker$
 ^pdfs$
+testing.R
+
