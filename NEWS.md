@@ -1,5 +1,7 @@
 # comorbidity 0.4.1-9000
 
+* Fixed typo in vignette regarding weighting algorithm for the AHRQ Elixhauser comorbidity score (#14, thanks to @cornflakegrl).
+
 # comorbidity 0.4.1
 
 * Fixed bug in regex patterns (#10, thanks to @francisco003 for reporting it and @salmasian for the pull request).
