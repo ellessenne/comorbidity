@@ -274,7 +274,7 @@ Other neurological disorders                                  5                 
 Chronic pulmonary disease                                     3                         3
 Diabetes, uncomplicated                                       0                         0
 Diabetes, complicated                                        -3                         0
-Hypothyroidism                                                4                         0
+Hypothyroidism                                                0                         0
 Renal failure                                                 6                         5
 Liver disease                                                 4                         11
 Peptic ulcer disease, excluding bleeding                      0                         0
