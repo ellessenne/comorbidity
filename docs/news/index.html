@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -31,7 +31,7 @@
 
 
 <meta property="og:title" content="Changelog" />
-
+<meta name="robots" content="noindex" />
 
 
 <!-- mathjax -->
@@ -43,6 +43,16 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-55201181-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-55201181-3');
+</script>
 
   </head>
 
@@ -93,12 +103,7 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/ellessenne/comorbidity">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -112,7 +117,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/ellessenne/comorbidity/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      
     </div>
 
     <div id="comorbidity-041-9000" class="section level1">
@@ -120,7 +125,8 @@
 <a href="#comorbidity-041-9000" class="anchor"></a>comorbidity 0.4.1-9000<small> Unreleased </small>
 </h1>
 <ul>
-<li>Fixed typo in vignette regarding weighting algorithm for the AHRQ Elixhauser comorbidity score (<a href='https://github.com/ellessenne/comorbidity/issues/14'>#14</a>, thanks to <a href='https://github.com/cornflakegrl'>@cornflakegrl</a>).</li>
+<li><p>Fixed typo in vignette regarding weighting algorithm for the AHRQ Elixhauser comorbidity score (#14, thanks to <a href='https://github.com/cornflakegrl'>@cornflakegrl</a>);</p></li>
+<li><p>Added <code>pkgdown</code> website: <a href="https://ellessenne.github.io/comorbidity" class="uri">https://ellessenne.github.io/comorbidity</a>.</p></li>
 </ul>
 </div>
     <div id="comorbidity-041" class="section level1">
@@ -128,7 +134,7 @@
 <a href="#comorbidity-041" class="anchor"></a>comorbidity 0.4.1<small> 2019-06-27 </small>
 </h1>
 <ul>
-<li>Fixed bug in regex patterns (<a href='https://github.com/ellessenne/comorbidity/issues/10'>#10</a>, thanks to <a href='https://github.com/francisco003'>@francisco003</a> for reporting it and <a href='https://github.com/salmasian'>@salmasian</a> for the pull request).</li>
+<li>Fixed bug in regex patterns (#10, thanks to <a href='https://github.com/francisco003'>@francisco003</a> for reporting it and <a href='https://github.com/salmasian'>@salmasian</a> for the pull request).</li>
 </ul>
 </div>
     <div id="comorbidity-040" class="section level1">
@@ -138,7 +144,7 @@
 <div id="breaking-changes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#breaking-changes" class="anchor"></a>BREAKING CHANGES</h3>
-<p>Modified the behaviour of the <code>assign0</code> argument after further discussion with <a href="https://github.com/aalexandersson">Anders Alexandersson</a> in Issue <a href='https://github.com/ellessenne/comorbidity/issues/9'>#9</a>: now there is no default, forcing the user to decide whether to apply a hierarchy of comorbidity codes or not. This will make the algorithm more transparent to the end user, allowing an informed choice. See <code><a href="../reference/comorbidity.html">?comorbidity::comorbidity</a></code> and <code><a href="../articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the hierarchy being applied.</p>
+<p>Modified the behaviour of the <code>assign0</code> argument after further discussion with <a href="https://github.com/aalexandersson">Anders Alexandersson</a> in Issue #9: now there is no default, forcing the user to decide whether to apply a hierarchy of comorbidity codes or not. This will make the algorithm more transparent to the end user, allowing an informed choice. See <code><a href="../reference/comorbidity.html">?comorbidity::comorbidity</a></code> and <code><a href="../articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the hierarchy being applied.</p>
 </div>
 </div>
     <div id="comorbidity-030" class="section level1">
@@ -210,7 +216,7 @@
 <a href="#comorbidity-011" class="anchor"></a>comorbidity 0.1.1<small> 2018-03-30 </small>
 </h1>
 <ul>
-<li>Documented variables that were missing among those returned by <code><a href="../reference/comorbidity.html">comorbidity()</a></code> (<a href='https://github.com/corinne-riddell'>@corinne-riddell</a>, <a href='https://github.com/ellessenne/comorbidity/issues/5'>#5</a>);</li>
+<li>Documented variables that were missing among those returned by <code><a href="../reference/comorbidity.html">comorbidity()</a></code> (<a href='https://github.com/corinne-riddell'>@corinne-riddell</a>, #5);</li>
 <li>Added CITATION file: <code><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation("comorbidity")</a></code> now returns a properly formatted entry.</li>
 </ul>
 </div>
