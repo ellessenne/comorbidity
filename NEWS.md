@@ -1,6 +1,8 @@
 # comorbidity 0.4.1-9000
 
-* Fixed typo in vignette regarding weighting algorithm for the AHRQ Elixhauser comorbidity score (#14, thanks to @cornflakegrl).
+* Fixed typo in vignette regarding weighting algorithm for the AHRQ Elixhauser comorbidity score (#14, thanks to @cornflakegrl);
+
+* Added `pkgdown` website: https://ellessenne.github.io/comorbidity.
 
 # comorbidity 0.4.1
 

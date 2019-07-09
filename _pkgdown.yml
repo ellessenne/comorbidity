@@ -1,0 +1,8 @@
+url: https://ellessenne.github.io/comorbidity
+template:
+  params:
+    bootswatch: cosmo
+    noindex: true
+    ganalytics: UA-55201181-3
+development:
+  mode: auto

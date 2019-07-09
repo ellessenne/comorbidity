@@ -21,4 +21,5 @@
 ^inst/Sticker$
 ^pdfs$
 testing.R
-
+_pkgdown.yml
+^docs$
