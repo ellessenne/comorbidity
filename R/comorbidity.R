@@ -114,6 +114,7 @@
 #' @export
 
 comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE, parallel = FALSE, mc.cores = parallel::detectCores()) {
+
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame
@@ -146,11 +147,36 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
   ### Tidy codes if required
   if (tidy.codes) x <- .tidy(x = x, code = code)
 
-  ### Split by ID
-  x <- utils::unstack(x, form = stats::as.formula(paste(code, id, sep = "~")))
+  ### Extract regex for internal use
+  regex <- lofregex[[score]][[icd]]
 
-  ### Run scoring algorithm
-  x <- .score(x, id = id, score = score, icd = icd, parallel = parallel, mc.cores = mc.cores)
+  ### Turn x into a DT
+  data.table::setDT(x)
+
+  ### The following is to deal with the "no visible global function definition for ..." NOTEs
+  . <- NULL
+  L1 <- NULL
+  `:=` <- NULL
+
+  ### Get list of unique codes used in dataset that match comorbidities
+  loc <- sapply(regex, grep, unique(x[[code]]), value = TRUE)
+  loc <- data.table::melt(loc, value.name = code)
+
+  ### Merge list with original data.table (data.frame)
+  x <- unique(merge(x, loc, all.x = TRUE, allow.cartesian = TRUE)[, code := NULL])
+
+  ### Spread wide
+  x <- data.table::dcast.data.table(x[, .(id, L1, value = 1L)], id ~ L1, fill = 0)
+  x[["NA"]] <- NULL
+
+  ### Add missing columns
+  for (col in names(regex)) {
+    if (is.null(x[[col]])) x[[col]] <- 0
+  }
+  data.table::setcolorder(x, c("id", names(regex)))
+
+  ### Turn internal DT into a DF
+  data.table::setDF(x)
 
   ### Compute Charlson score and Charlson index
   if (score == "charlson") {
