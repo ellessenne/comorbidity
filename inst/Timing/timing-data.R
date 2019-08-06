@@ -4,32 +4,23 @@
 library(tidyverse)
 library(devtools)
 
-# Number of replicates
-reps <- 100
-
 # Defining data-generating mechanisms
+set.seed(20190806)
 dgms <- tidyr::crossing(
-  n = c(100, 1000, 5000, 10000, 50000, 100000, 500000, 1000000),
-  nc = c(1000, 10000, 100000, 1000000, 5000000, 10000000)
-) %>%
-  dplyr::filter(nc > n) %>%
-  dplyr::arrange(n, nc)
-
-# Random seed
-set.seed(960653427)
+  n_ids = stats::runif(n = 100, min = 1000, max = 1000000) %>% ceiling(),
+  n_codes = seq(from = 10, to = 50, by = 10)) %>% 
+  dplyr::mutate(ss = n_ids * n_codes)
 
 # Simulate data
-pb <- txtProgressBar(min = 0, max = reps * nrow(dgms), style = 3)
+pb <- txtProgressBar(min = 0, max = nrow(dgms), style = 3)
 for (i in 1:nrow(dgms)) {
-  for (j in 1:reps) {
-    tmp <- data.frame(
-      id = sample(1:dgms$n[i], size = dgms$nc[i], replace = TRUE),
-      code = comorbidity::sample_diag(dgms$nc[i]),
-      stringsAsFactors = FALSE
-    )
-    saveRDS(tmp, file = paste0("/scratch/cvdanalysis/ag475/comorbidity-data/data-", i, "-", j, ".RDS"))
-    setTxtProgressBar(pb = pb, value = (i - 1) * reps + j)
-  }
+  tmp <- data.frame(
+    id = sample(1:dgms$n_ids[i], size = dgms$n_ids[i] * dgms$n_codes[i], replace = TRUE),
+    code = comorbidity::sample_diag(dgms$n_ids[i] * dgms$n_codes[i]),
+    stringsAsFactors = FALSE
+  )
+  saveRDS(tmp, file = paste0("/scratch/cvdanalysis/ag475/comorbidity-data/data-", i, ".RDS"))
+  setTxtProgressBar(pb = pb, value = i)
 }
 close(pb)
 rm(tmp, pb)
