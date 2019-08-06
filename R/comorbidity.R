@@ -110,7 +110,7 @@
 #' comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
 #' @export
 
-comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE, parallel = FALSE, mc.cores = parallel::detectCores()) {
+comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE) {
 
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
@@ -132,9 +132,6 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
   checkmate::assert_logical(factorise, len = 1, add = arg_checks)
   checkmate::assert_logical(labelled, len = 1, add = arg_checks)
   checkmate::assert_logical(tidy.codes, len = 1, add = arg_checks)
-  checkmate::assert_logical(parallel, len = 1, add = arg_checks)
-  # mc.cores must be a single numeric value
-  checkmate::assert_number(mc.cores, add = arg_checks)
   # id, code must be in x
   checkmate::assert_subset(id, choices = names(x), add = arg_checks)
   checkmate::assert_subset(code, choices = names(x), add = arg_checks)

@@ -5,8 +5,7 @@
 \title{Compute comorbidity scores.}
 \usage{
 comorbidity(x, id, code, score, icd = "icd10", assign0,
-  factorise = FALSE, labelled = TRUE, tidy.codes = TRUE,
-  parallel = FALSE, mc.cores = parallel::detectCores())
+  factorise = FALSE, labelled = TRUE, tidy.codes = TRUE)
 }
 \arguments{
 \item{x}{A tidy data frame with one column containing an individual ID and a column containing all diagnostic codes.}
