@@ -16,7 +16,12 @@ Authors@R: c(
          family = "Salmasian", 
          role = "ctb", 
          email = "hsalmasian@bwh.harvard.edu", 
-         comment = "ICD-9-CM scores")
+         comment = "ICD-9-CM scores"),
+  person(given = "Jonathan", 
+         family = "Williman", 
+         role = "ctb", 
+         email = "jonathan.williman@otago.ac.nz", 
+         comment = c(ORCID = "0000-0001-5080-4435"))
   )
 Maintainer: Alessandro Gasparini <ag475@leicester.ac.uk>
 URL: https://ellessenne.github.io/comorbidity
