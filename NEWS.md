@@ -1,4 +1,6 @@
-# comorbidity 0.4.1-9000
+# comorbidity 0.5.0
+
+* `comorbidity` is now 10+ times faster, thanks to [Jonathan Williman](https://github.com/jwilliman) contributing code based on the `data.table` package;
 
 * Fixed typo in vignette regarding weighting algorithm for the AHRQ Elixhauser comorbidity score (#14, thanks to @cornflakegrl);
 
