@@ -30,9 +30,9 @@ License: GPL (>= 3)
 Depends: R (>= 2.10)
 Imports:
  checkmate,
- parallel,
+ data.table,
+ reshape2,
  stats,
- stringi,
  utils
 Suggests:
  covr,

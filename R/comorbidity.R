@@ -17,8 +17,6 @@
 #' @param factorise Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to `FALSE`.
 #' @param labelled Attach labels to each comorbidity, compatible with the RStudio viewer via the [utils::View()] function. Defaults to `TRUE`.
 #' @param tidy.codes Tidy diagnostic codes? If `TRUE`, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}. Defaults to `TRUE`.
-#' @param parallel Run the computation in parallel? See the `Notes` section for more information. Defaults to `FALSE`.
-#' @param mc.cores The number of cores to use when running the computations in parallel. Defaults to all available cores.
 #' @return A data frame with `id`, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
 #'
 #' For the Charlson score, the following variables are included in the dataset:
@@ -90,7 +88,6 @@
 #' @details
 #' The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan _et al_. (2005). Weights for the Charlson score are based on the original formulation by Charlson _et al_. in 1987, while weights for the Elixhauser score are based on work by Moore _et al_. and van Walraven _et al_. Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_. See `vignette("comorbidityscores", package = "comorbidity")` for further details on the comorbidity scores and the weighting algorithm.
 #' ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set `tidy.codes = TRUE` to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.
-#' To run the calculations in parallel set `parallel = TRUE`. This is based on [parallel::parSapply()], and it is possible to set the number of cores to use via the `mc.cores` argument, which defaults to using all the cores available.
 #'
 #' @references Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139.
 #' @references Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
@@ -113,7 +110,8 @@
 #' comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
 #' @export
 
-comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE, parallel = FALSE, mc.cores = parallel::detectCores()) {
+comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE) {
+
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame
@@ -134,9 +132,6 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
   checkmate::assert_logical(factorise, len = 1, add = arg_checks)
   checkmate::assert_logical(labelled, len = 1, add = arg_checks)
   checkmate::assert_logical(tidy.codes, len = 1, add = arg_checks)
-  checkmate::assert_logical(parallel, len = 1, add = arg_checks)
-  # mc.cores must be a single numeric value
-  checkmate::assert_number(mc.cores, add = arg_checks)
   # id, code must be in x
   checkmate::assert_subset(id, choices = names(x), add = arg_checks)
   checkmate::assert_subset(code, choices = names(x), add = arg_checks)
@@ -146,11 +141,36 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
   ### Tidy codes if required
   if (tidy.codes) x <- .tidy(x = x, code = code)
 
-  ### Split by ID
-  x <- utils::unstack(x, form = stats::as.formula(paste(code, id, sep = "~")))
+  ### Extract regex for internal use
+  regex <- lofregex[[score]][[icd]]
 
-  ### Run scoring algorithm
-  x <- .score(x, id = id, score = score, icd = icd, parallel = parallel, mc.cores = mc.cores)
+  ### Turn x into a DT
+  data.table::setDT(x)
+
+  ### The following is to deal with the "no visible global function definition for ..." NOTEs
+  . <- NULL
+  L1 <- NULL
+  `:=` <- NULL
+
+  ### Get list of unique codes used in dataset that match comorbidities
+  loc <- sapply(regex, grep, unique(x[[code]]), value = TRUE)
+  loc <- data.table::melt(loc, value.name = code)
+
+  ### Merge list with original data.table (data.frame)
+  x <- unique(merge(x, loc, all.x = TRUE, allow.cartesian = TRUE)[, code := NULL])
+
+  ### Spread wide
+  x <- data.table::dcast.data.table(x[, .(id, L1, value = 1L)], id ~ L1, fill = 0)
+  x[["NA"]] <- NULL
+
+  ### Add missing columns
+  for (col in names(regex)) {
+    if (is.null(x[[col]])) x[[col]] <- 0
+  }
+  data.table::setcolorder(x, c("id", names(regex)))
+
+  ### Turn internal DT into a DF
+  data.table::setDF(x)
 
   ### Compute Charlson score and Charlson index
   if (score == "charlson") {

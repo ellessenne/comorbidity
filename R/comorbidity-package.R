@@ -8,5 +8,7 @@
 #' @name comorbidity-package
 #' @docType package
 #' @author Alessandro Gasparini (ag475@@leicester.ac.uk)
-#' @import checkmate parallel
 NULL
+
+#' @keywords internal
+.datatable.aware <- TRUE

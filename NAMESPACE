@@ -2,5 +2,3 @@
 
 export(comorbidity)
 export(sample_diag)
-import(checkmate)
-import(parallel)
