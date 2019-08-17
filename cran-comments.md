@@ -1,5 +1,5 @@
 # Test environments
-* local macOS Mojave 10.14.5, R 3.6.0
+* local macOS Mojave 10.14.6, R 3.6.1
 * ubuntu (via travis-ci), R-oldrel, R-release, and R-devel
 * windows (via appveyor)
 * win-builder (R-oldrel, R-release, R-devel)
