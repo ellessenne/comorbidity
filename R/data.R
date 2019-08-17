@@ -102,7 +102,7 @@
 
 #' @title Australian mortality data, 2010
 #'
-#' @description A dataset containing australian mortality data, obtained from Stata version 15.
+#' @description A dataset containing Australian mortality data, obtained from Stata version 15.
 #'
 #' @format A data frame with 3,322 rows and 3 variables:
 #' \describe{

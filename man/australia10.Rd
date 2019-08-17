@@ -14,7 +14,7 @@
 australia10
 }
 \description{
-A dataset containing australian mortality data, obtained from Stata version 15.
+A dataset containing Australian mortality data, obtained from Stata version 15.
 }
 \note{
 The R code used to download and process the dataset from Stata is available \href{https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R}{here}.
