@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">comorbidity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -131,8 +131,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>comorbidity</span>(<span class='no'>x</span>, <span class='no'>id</span>, <span class='no'>code</span>, <span class='no'>score</span>, <span class='kw'>icd</span> <span class='kw'>=</span> <span class='st'>"icd10"</span>, <span class='no'>assign0</span>,
-  <span class='kw'>factorise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>labelled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tidy.codes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/parallel/topics/detectCores'>detectCores</a></span>())</pre>
+  <span class='kw'>factorise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>labelled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tidy.codes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -179,14 +178,6 @@
     <tr>
       <th>tidy.codes</th>
       <td><p>Tidy diagnostic codes? If <code>TRUE</code>, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression <code>[^[:alnum:]]</code>. Defaults to <code>TRUE</code>.</p></td>
-    </tr>
-    <tr>
-      <th>parallel</th>
-      <td><p>Run the computation in parallel? See the <code>Notes</code> section for more information. Defaults to <code>FALSE</code>.</p></td>
-    </tr>
-    <tr>
-      <th>mc.cores</th>
-      <td><p>The number of cores to use when running the computations in parallel. Defaults to all available cores.</p></td>
     </tr>
     </table>
     
@@ -264,8 +255,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan <em>et al</em>. (2005). Weights for the Charlson score are based on the original formulation by Charlson <em>et al</em>. in 1987, while weights for the Elixhauser score are based on work by Moore <em>et al</em>. and van Walraven <em>et al</em>. Finally, the categorisation of scores and weighted scores is based on work by Menendez <em>et al</em>. See <code><a href='../articles/comorbidityscores.html'>vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the comorbidity scores and the weighting algorithm.
-ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set <code>tidy.codes = TRUE</code> to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.
-To run the calculations in parallel set <code>parallel = TRUE</code>. This is based on <code><a href='https://www.rdocumentation.org/packages/parallel/topics/clusterApply'>parallel::parSapply()</a></code>, and it is possible to set the number of cores to use via the <code>mc.cores</code> argument, which defaults to using all the cores available.</p>
+ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set <code>tidy.codes = TRUE</code> to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
