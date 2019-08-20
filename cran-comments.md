@@ -3,6 +3,7 @@
 * ubuntu (via travis-ci), R-oldrel, R-release, and R-devel
 * windows (via appveyor)
 * win-builder (R-oldrel, R-release, R-devel)
+* r-hub (using rhub::check_for_cran())
 
 # R CMD check results on local macOS
 0 errors | 0 warnings | 0 notes
