@@ -1,5 +1,7 @@
 # comorbidity 0.5.0-9000
 
+* The `melt` generic in `data.table` has been deprecated, now calling the generic from `reshape2`.
+
 # comorbidity 0.5.0
 
 * `comorbidity` is now 10+ times faster, thanks to [Jonathan Williman](https://github.com/jwilliman) contributing code based on the `data.table` package;

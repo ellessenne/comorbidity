@@ -154,7 +154,7 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
 
   ### Get list of unique codes used in dataset that match comorbidities
   loc <- sapply(regex, grep, unique(x[[code]]), value = TRUE)
-  loc <- data.table::melt(loc, value.name = code)
+  loc <- reshape2::melt(loc, value.name = code)
 
   ### Merge list with original data.table (data.frame)
   x <- unique(merge(x, loc, all.x = TRUE, allow.cartesian = TRUE)[, code := NULL])
