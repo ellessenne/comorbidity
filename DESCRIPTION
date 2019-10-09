@@ -10,7 +10,7 @@ Authors@R: c(
   person(given = "Alessandro", 
          family = "Gasparini", 
          role = c("aut", "cre"), 
-         email = "ag475@leicester.ac.uk",
+         email = "alessandro.gasparini@ki.se",
          comment = c(ORCID = "0000-0002-8319-7624")),
   person(given = "Hojjat", 
          family = "Salmasian", 
@@ -23,7 +23,7 @@ Authors@R: c(
          email = "jonathan.williman@otago.ac.nz", 
          comment = c(ORCID = "0000-0001-5080-4435"))
   )
-Maintainer: Alessandro Gasparini <ag475@leicester.ac.uk>
+Maintainer: Alessandro Gasparini <alessandro.gasparini@ki.se>
 URL: https://ellessenne.github.io/comorbidity
 BugReports: https://github.com/ellessenne/comorbidity/issues
 License: GPL (>= 3)

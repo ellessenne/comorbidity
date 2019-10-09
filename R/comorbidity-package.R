@@ -7,7 +7,7 @@
 #'
 #' @name comorbidity-package
 #' @docType package
-#' @author Alessandro Gasparini (ag475@@leicester.ac.uk)
+#' @author Alessandro Gasparini (alessandro.gasparini@@ki.se)
 NULL
 
 #' @keywords internal
