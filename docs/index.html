@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Computing Comorbidity Scores • comorbidity</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Computing Comorbidity Scores">
 <meta property="og:description" content="Computing comorbidity scores such as the weighted Charlson score
   (Charlson, 1987 &lt;doi:10.1016/0021-9681(87)90171-8&gt;) and the Elixhauser
@@ -28,7 +29,7 @@
 </script>
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -40,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">comorbidity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -48,7 +49,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -80,45 +81,41 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="comorbidity" class="section level1">
+      </header><div class="row">
+  <div class="contents col-md-9">
+<div id="comorbidity-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#comorbidity" class="anchor"></a>comorbidity <img src="reference/figures/hex.png" width="150" align="right">
+<a href="#comorbidity-" class="anchor"></a>comorbidity <img src="reference/figures/hex.png" width="150" align="right">
 </h1></div>
-<p>2019-08-20</p>
+<p>2019-10-14</p>
 <p><a href="https://ci.appveyor.com/project/ellessenne/comorbidity"><img src="https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://travis-ci.org/ellessenne/comorbidity"><img src="https://travis-ci.org/ellessenne/comorbidity.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://codecov.io/github/ellessenne/comorbidity?branch=master"><img src="https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg" alt="Coverage Status"></a> <a href="https://cran.r-project.org/package=comorbidity"><img src="http://www.r-pkg.org/badges/version/comorbidity" alt="CRAN_Status_Badge"></a> <a href="https://cran.r-project.org/package=comorbidity"><img src="http://cranlogs.r-pkg.org/badges/comorbidity" alt="CRAN_Logs_Badge"></a> <a href="https://cran.r-project.org/package=comorbidity"><img src="http://cranlogs.r-pkg.org/badges/grand-total/comorbidity" alt="CRAN_Logs_Badge_Total"></a> <a href="https://doi.org/10.21105/joss.00648"><img src="http://joss.theoj.org/papers/10.21105/joss.00648/status.svg" alt="JOSS DOI"></a> <a href="https://zenodo.org/badge/latestdoi/68221970"><img src="https://zenodo.org/badge/68221970.svg" alt="Zenodo DOI"></a> <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a></p>
 <p><code>comorbidity</code> is an R package for computing comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score; both ICD-10 and ICD-9 coding systems are supported.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p><code>comorbidity</code> is on CRAN. You can install it as usual with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"comorbidity"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"comorbidity"</span>)</span></code></pre></div>
 <p>Alternatively, you can install the development version from GitHub with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"ellessenne/comorbidity"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"ellessenne/comorbidity"</span>)</span></code></pre></div>
 </div>
 <div id="simulating-icd-10-codes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#simulating-icd-10-codes" class="anchor"></a>Simulating ICD-10 codes</h2>
 <p>The <code>comorbidity</code> packages includes a function named <code><a href="reference/sample_diag.html">sample_diag()</a></code> that allows simulating ICD diagnostic codes in a straightforward way. For instance, we could simulate ICD-10 codes:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># load the comorbidity package</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(comorbidity)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(comorbidity)</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="co"># set a seed for reproducibility</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">1</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1</span>)</span>
 <span id="cb3-5"><a href="#cb3-5"></a><span class="co"># simulate 50 ICD-10 codes for 5 individuals</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</span>
-<span id="cb3-7"><a href="#cb3-7"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">size =</span> <span class="dv">50</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb3-6"><a href="#cb3-6"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">size =</span> <span class="dv">50</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
 <span id="cb3-8"><a href="#cb3-8"></a>  <span class="dt">code =</span> <span class="kw"><a href="reference/sample_diag.html">sample_diag</a></span>(<span class="dt">n =</span> <span class="dv">50</span>),</span>
 <span id="cb3-9"><a href="#cb3-9"></a>  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></span>
 <span id="cb3-10"><a href="#cb3-10"></a>)</span>
-<span id="cb3-11"><a href="#cb3-11"></a>x &lt;-<span class="st"> </span>x[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(x<span class="op">$</span>id, x<span class="op">$</span>code), ]</span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(x, <span class="dt">n =</span> <span class="dv">15</span>), <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb3-11"><a href="#cb3-11"></a>x &lt;-<span class="st"> </span>x[<span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(x<span class="op">$</span>id, x<span class="op">$</span>code), ]</span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(x, <span class="dt">n =</span> <span class="dv">15</span>), <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb3-13"><a href="#cb3-13"></a><span class="co">##  id code</span></span>
 <span id="cb3-14"><a href="#cb3-14"></a><span class="co">##   1  B02</span></span>
 <span id="cb3-15"><a href="#cb3-15"></a><span class="co">##   1 B582</span></span>
@@ -136,50 +133,50 @@
 <span id="cb3-27"><a href="#cb3-27"></a><span class="co">##   2 C843</span></span>
 <span id="cb3-28"><a href="#cb3-28"></a><span class="co">##   2 D838</span></span></code></pre></div>
 <p>It is also possible to simulate from two different versions of the ICD-10 coding system. The default is to simulate ICD-10 codes from the 2011 version:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">1</span>)</span>
-<span id="cb4-2"><a href="#cb4-2"></a>x1 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>x1 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="dt">code =</span> <span class="kw"><a href="reference/sample_diag.html">sample_diag</a></span>(<span class="dt">n =</span> <span class="dv">30</span>),</span>
 <span id="cb4-5"><a href="#cb4-5"></a>  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a>)</span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">1</span>)</span>
-<span id="cb4-8"><a href="#cb4-8"></a>x2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</span>
-<span id="cb4-9"><a href="#cb4-9"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>x2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
 <span id="cb4-10"><a href="#cb4-10"></a>  <span class="dt">code =</span> <span class="kw"><a href="reference/sample_diag.html">sample_diag</a></span>(<span class="dt">n =</span> <span class="dv">30</span>, <span class="dt">version =</span> <span class="st">"ICD10_2011"</span>),</span>
 <span id="cb4-11"><a href="#cb4-11"></a>  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a>)</span>
 <span id="cb4-13"><a href="#cb4-13"></a><span class="co"># should return TRUE</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(x1, x2)</span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="kw"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(x1, x2)</span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
 <p>Alternatively, you could use the 2009 version:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">1</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>x1 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>x1 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
 <span id="cb5-4"><a href="#cb5-4"></a>  <span class="dt">code =</span> <span class="kw"><a href="reference/sample_diag.html">sample_diag</a></span>(<span class="dt">n =</span> <span class="dv">30</span>, <span class="dt">version =</span> <span class="st">"ICD10_2009"</span>),</span>
 <span id="cb5-5"><a href="#cb5-5"></a>  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></span>
 <span id="cb5-6"><a href="#cb5-6"></a>)</span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">1</span>)</span>
-<span id="cb5-8"><a href="#cb5-8"></a>x2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</span>
-<span id="cb5-9"><a href="#cb5-9"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1</span>)</span>
+<span id="cb5-8"><a href="#cb5-8"></a>x2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
 <span id="cb5-10"><a href="#cb5-10"></a>  <span class="dt">code =</span> <span class="kw"><a href="reference/sample_diag.html">sample_diag</a></span>(<span class="dt">n =</span> <span class="dv">30</span>, <span class="dt">version =</span> <span class="st">"ICD10_2011"</span>),</span>
 <span id="cb5-11"><a href="#cb5-11"></a>  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></span>
 <span id="cb5-12"><a href="#cb5-12"></a>)</span>
 <span id="cb5-13"><a href="#cb5-13"></a><span class="co"># should not return TRUE</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(x1, x2)</span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="kw"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(x1, x2)</span>
 <span id="cb5-15"><a href="#cb5-15"></a><span class="co">## [1] "Component \"code\": 30 string mismatches"</span></span></code></pre></div>
 </div>
 <div id="simulating-icd-9-codes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#simulating-icd-9-codes" class="anchor"></a>Simulating ICD-9 codes</h2>
 <p>ICD-9 codes can be easily simulated too:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">2</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>x9 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">2</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>x9 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
 <span id="cb6-4"><a href="#cb6-4"></a>  <span class="dt">code =</span> <span class="kw"><a href="reference/sample_diag.html">sample_diag</a></span>(<span class="dt">n =</span> <span class="dv">30</span>, <span class="dt">version =</span> <span class="st">"ICD9_2015"</span>),</span>
 <span id="cb6-5"><a href="#cb6-5"></a>  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></span>
 <span id="cb6-6"><a href="#cb6-6"></a>)</span>
-<span id="cb6-7"><a href="#cb6-7"></a>x9 &lt;-<span class="st"> </span>x9[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(x9<span class="op">$</span>id, x9<span class="op">$</span>code), ]</span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(x9, <span class="dt">n =</span> <span class="dv">15</span>), <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a>x9 &lt;-<span class="st"> </span>x9[<span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(x9<span class="op">$</span>id, x9<span class="op">$</span>code), ]</span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(x9, <span class="dt">n =</span> <span class="dv">15</span>), <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb6-9"><a href="#cb6-9"></a><span class="co">##  id  code</span></span>
 <span id="cb6-10"><a href="#cb6-10"></a><span class="co">##   1 01130</span></span>
 <span id="cb6-11"><a href="#cb6-11"></a><span class="co">##   1 01780</span></span>
@@ -202,93 +199,118 @@
 <a href="#computing-comorbidity-scores" class="anchor"></a>Computing comorbidity scores</h2>
 <p>The main function of the <code>comorbidity</code> package is named <code><a href="reference/comorbidity.html">comorbidity()</a></code>, and it can be used to compute any supported comorbidity score; scores can be specified by setting the <code>score</code> argument, which is required.</p>
 <p>Say we have 3 individuals with a total of 30 ICD-10 diagnostic codes:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">1</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">size =</span> <span class="dv">30</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
 <span id="cb7-4"><a href="#cb7-4"></a>  <span class="dt">code =</span> <span class="kw"><a href="reference/sample_diag.html">sample_diag</a></span>(<span class="dt">n =</span> <span class="dv">30</span>),</span>
 <span id="cb7-5"><a href="#cb7-5"></a>  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></span>
 <span id="cb7-6"><a href="#cb7-6"></a>)</span></code></pre></div>
 <p>We could compute the Charlson score, index, and each comorbidity domain:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>charlson &lt;-<span class="st"> </span><span class="kw"><a href="reference/comorbidity.html">comorbidity</a></span>(<span class="dt">x =</span> x, <span class="dt">id =</span> <span class="st">"id"</span>, <span class="dt">code =</span> <span class="st">"code"</span>, <span class="dt">score =</span> <span class="st">"charlson"</span>, <span class="dt">icd =</span> <span class="st">"icd10"</span>, <span class="dt">assign0 =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a>charlson</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co">##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">## 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    1</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co">## 2  2   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">## 3  3   0   0   0    0        0    0      0   0   0    0      0  0    0    0    0        0    0</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co">##   score index wscore windex</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co">## 1     2   1-2      8    &gt;=5</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="co">## 2     1   1-2      2    1-2</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="co">## 3     0     0      0      0</span></span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">## Warning in data.table::melt(loc, value.name = code): The melt generic in data.table has been passed</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">## a list and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">## deprecated, and this redirection is now deprecated as well. To continue using melt methods from</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">## reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">## reshape2::melt(loc). In the next version, this warning will become an error.</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>charlson</span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">## 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    1</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">## 2  2   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">## 3  3   0   0   0    0        0    0      0   0   0    0      0  0    0    0    0        0    0</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">##   score index wscore windex</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">## 1     2   1-2      8    &gt;=5</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">## 2     1   1-2      2    1-2</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">## 3     0     0      0      0</span></span></code></pre></div>
 <p>We set the <code>assign0</code> argument to <code>FALSE</code> to not apply a hierarchy of comorbidity codes, as described in <code><a href="reference/comorbidity.html">?comorbidity::comorbidity</a></code>. The default is to assume ICD-10 codes are passed to <code>comorbidity</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>charlson.default &lt;-<span class="st"> </span><span class="kw"><a href="reference/comorbidity.html">comorbidity</a></span>(<span class="dt">x =</span> x, <span class="dt">id =</span> <span class="st">"id"</span>, <span class="dt">code =</span> <span class="st">"code"</span>, <span class="dt">score =</span> <span class="st">"charlson"</span>, <span class="dt">assign0 =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(charlson, charlson.default)</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co">## Warning in data.table::melt(loc, value.name = code): The melt generic in data.table has been passed</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co">## a list and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">## deprecated, and this redirection is now deprecated as well. To continue using melt methods from</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">## reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">## reshape2::melt(loc). In the next version, this warning will become an error.</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="kw"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(charlson, charlson.default)</span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
 <p>Alternatively, we could compute the Elixhauser score:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>elixhauser &lt;-<span class="st"> </span><span class="kw"><a href="reference/comorbidity.html">comorbidity</a></span>(<span class="dt">x =</span> x, <span class="dt">id =</span> <span class="st">"id"</span>, <span class="dt">code =</span> <span class="st">"code"</span>, <span class="dt">score =</span> <span class="st">"elixhauser"</span>, <span class="dt">icd =</span> <span class="st">"icd10"</span>, <span class="dt">assign0 =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a>elixhauser</span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">## 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    1     0</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">## 2  2   0     0    1   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">## 3  3   0     0    0   0   0      0    0    0   1   0       0     0       0  0  0   0    0     0</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">##   metacanc solidtum rheumd coag obes wloss fed blane dane alcohol drug psycho depre score index</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">## 1        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">## 2        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="co">## 3        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">##   wscore_ahrq wscore_vw windex_ahrq windex_vw</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="co">## 1           7         4         &gt;=5       1-4</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="co">## 2           7         3         &gt;=5       1-4</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="co">## 3           5         6         &gt;=5       &gt;=5</span></span></code></pre></div>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">## Warning in data.table::melt(loc, value.name = code): The melt generic in data.table has been passed</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">## a list and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">## deprecated, and this redirection is now deprecated as well. To continue using melt methods from</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">## reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">## reshape2::melt(loc). In the next version, this warning will become an error.</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>elixhauser</span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co">## 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    1     0</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co">## 2  2   0     0    1   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co">## 3  3   0     0    0   0   0      0    0    0   1   0       0     0       0  0  0   0    0     0</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="co">##   metacanc solidtum rheumd coag obes wloss fed blane dane alcohol drug psycho depre score index</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="co">## 1        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="co">## 2        0        1      0    0    0     0   0     0    0       0    0      0     0     2   1-4</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="co">## 3        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="co">##   wscore_ahrq wscore_vw windex_ahrq windex_vw</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="co">## 1           7         4         &gt;=5       1-4</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a><span class="co">## 2           7         3         &gt;=5       1-4</span></span>
+<span id="cb10-19"><a href="#cb10-19"></a><span class="co">## 3           5         6         &gt;=5       &gt;=5</span></span></code></pre></div>
 <p>Conversely, say we have 5 individuals with a total of 100 ICD-9 diagnostic codes:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed</a></span>(<span class="dv">3</span>)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">3</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="dt">id =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),</span>
 <span id="cb11-4"><a href="#cb11-4"></a>  <span class="dt">code =</span> <span class="kw"><a href="reference/sample_diag.html">sample_diag</a></span>(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">version =</span> <span class="st">"ICD9_2015"</span>),</span>
 <span id="cb11-5"><a href="#cb11-5"></a>  <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></span>
 <span id="cb11-6"><a href="#cb11-6"></a>)</span></code></pre></div>
 <p>The Charlson and Elixhauser comorbidity codes can be easily computed:</p>
 <p>We could compute the Charlson score, index, and each comorbidity domain:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>charlson9 &lt;-<span class="st"> </span><span class="kw"><a href="reference/comorbidity.html">comorbidity</a></span>(<span class="dt">x =</span> x, <span class="dt">id =</span> <span class="st">"id"</span>, <span class="dt">code =</span> <span class="st">"code"</span>, <span class="dt">score =</span> <span class="st">"charlson"</span>, <span class="dt">icd =</span> <span class="st">"icd9"</span>, <span class="dt">assign0 =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb12-2"><a href="#cb12-2"></a>charlson9</span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co">##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="co">## 1  1   0   0   1    0        0    0      0   0   0    0      0  0    0    1    0        0    0</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="co">## 2  2   0   0   0    1        0    0      0   0   0    0      0  0    0    0    0        0    0</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="co">## 3  3   0   0   0    0        0    0      0   1   0    0      0  0    0    0    0        0    0</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="co">## 4  4   0   0   1    1        0    0      0   0   0    0      0  0    0    1    0        0    0</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="co">## 5  5   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="co">##   score index wscore windex</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="co">## 1     2   1-2      3    3-4</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="co">## 2     1   1-2      1    1-2</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="co">## 3     1   1-2      1    1-2</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a><span class="co">## 4     3   3-4      4    3-4</span></span>
-<span id="cb12-14"><a href="#cb12-14"></a><span class="co">## 5     1   1-2      2    1-2</span></span></code></pre></div>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="co">## Warning in data.table::melt(loc, value.name = code): The melt generic in data.table has been passed</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="co">## a list and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co">## deprecated, and this redirection is now deprecated as well. To continue using melt methods from</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co">## reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="co">## reshape2::melt(loc). In the next version, this warning will become an error.</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>charlson9</span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co">##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co">## 1  1   0   0   1    0        0    0      0   0   0    0      0  0    0    1    0        0    0</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">## 2  2   0   0   0    1        0    0      0   0   0    0      0  0    0    0    0        0    0</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">## 3  3   0   0   0    0        0    0      0   1   0    0      0  0    0    0    0        0    0</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="co">## 4  4   0   0   1    1        0    0      0   0   0    0      0  0    0    1    0        0    0</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">## 5  5   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co">##   score index wscore windex</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="co">## 1     2   1-2      3    3-4</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co">## 2     1   1-2      1    1-2</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a><span class="co">## 3     1   1-2      1    1-2</span></span>
+<span id="cb12-18"><a href="#cb12-18"></a><span class="co">## 4     3   3-4      4    3-4</span></span>
+<span id="cb12-19"><a href="#cb12-19"></a><span class="co">## 5     1   1-2      2    1-2</span></span></code></pre></div>
 <p>Alternatively, we could compute the Elixhauser score:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>elixhauser9 &lt;-<span class="st"> </span><span class="kw"><a href="reference/comorbidity.html">comorbidity</a></span>(<span class="dt">x =</span> x, <span class="dt">id =</span> <span class="st">"id"</span>, <span class="dt">code =</span> <span class="st">"code"</span>, <span class="dt">score =</span> <span class="st">"elixhauser"</span>, <span class="dt">icd =</span> <span class="st">"icd9"</span>, <span class="dt">assign0 =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>elixhauser9</span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co">##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="co">## 1  1   0     0    0   0   1      0    0    0   0   0       0     0       0  0  0   0    0     0</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co">## 2  2   0     0    0   0   0      0    0    0   1   0       0     0       0  0  0   0    0     0</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">## 3  3   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">## 4  4   0     0    0   1   1      0    0    0   0   0       0     0       0  0  0   0    0     0</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="co">## 5  5   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a><span class="co">##   metacanc solidtum rheumd coag obes wloss fed blane dane alcohol drug psycho depre score index</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="co">## 1        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a><span class="co">## 2        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4</span></span>
-<span id="cb13-12"><a href="#cb13-12"></a><span class="co">## 3        0        0      0    0    0     0   0     0    0       0    0      1     0     1   1-4</span></span>
-<span id="cb13-13"><a href="#cb13-13"></a><span class="co">## 4        0        0      0    0    0     0   0     0    0       0    0      0     0     2   1-4</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a><span class="co">## 5        0        0      1    0    0     0   0     0    0       0    0      0     0     1   1-4</span></span>
-<span id="cb13-15"><a href="#cb13-15"></a><span class="co">##   wscore_ahrq wscore_vw windex_ahrq windex_vw</span></span>
-<span id="cb13-16"><a href="#cb13-16"></a><span class="co">## 1           3         2         1-4       1-4</span></span>
-<span id="cb13-17"><a href="#cb13-17"></a><span class="co">## 2           5         6         &gt;=5       &gt;=5</span></span>
-<span id="cb13-18"><a href="#cb13-18"></a><span class="co">## 3          -5         0          &lt;0         0</span></span>
-<span id="cb13-19"><a href="#cb13-19"></a><span class="co">## 4           9         6         &gt;=5       &gt;=5</span></span>
-<span id="cb13-20"><a href="#cb13-20"></a><span class="co">## 5           0         0           0         0</span></span></code></pre></div>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">## Warning in data.table::melt(loc, value.name = code): The melt generic in data.table has been passed</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="co">## a list and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co">## deprecated, and this redirection is now deprecated as well. To continue using melt methods from</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">## reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co">## reshape2::melt(loc). In the next version, this warning will become an error.</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>elixhauser9</span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="co">##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="co">## 1  1   0     0    0   0   1      0    0    0   0   0       0     0       0  0  0   0    0     0</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co">## 2  2   0     0    0   0   0      0    0    0   1   0       0     0       0  0  0   0    0     0</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="co">## 3  3   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a><span class="co">## 4  4   0     0    0   1   1      0    0    0   0   0       0     0       0  0  0   0    0     0</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a><span class="co">## 5  5   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    0     0</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a><span class="co">##   metacanc solidtum rheumd coag obes wloss fed blane dane alcohol drug psycho depre score index</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a><span class="co">## 1        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4</span></span>
+<span id="cb13-16"><a href="#cb13-16"></a><span class="co">## 2        0        0      0    0    0     0   0     0    0       0    0      0     0     1   1-4</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="co">## 3        0        0      0    0    0     0   0     0    0       0    0      1     0     1   1-4</span></span>
+<span id="cb13-18"><a href="#cb13-18"></a><span class="co">## 4        0        0      0    0    0     0   0     0    0       0    0      0     0     2   1-4</span></span>
+<span id="cb13-19"><a href="#cb13-19"></a><span class="co">## 5        0        0      1    0    0     0   0     0    0       0    0      0     0     1   1-4</span></span>
+<span id="cb13-20"><a href="#cb13-20"></a><span class="co">##   wscore_ahrq wscore_vw windex_ahrq windex_vw</span></span>
+<span id="cb13-21"><a href="#cb13-21"></a><span class="co">## 1           3         2         1-4       1-4</span></span>
+<span id="cb13-22"><a href="#cb13-22"></a><span class="co">## 2           5         6         &gt;=5       &gt;=5</span></span>
+<span id="cb13-23"><a href="#cb13-23"></a><span class="co">## 3          -5         0          &lt;0         0</span></span>
+<span id="cb13-24"><a href="#cb13-24"></a><span class="co">## 4           9         6         &gt;=5       &gt;=5</span></span>
+<span id="cb13-25"><a href="#cb13-25"></a><span class="co">## 5           0         0           0         0</span></span></code></pre></div>
 <p>The weighted Elixhauser score is computed using both the AHRQ and the van Walraven algorithm (<code>wscore_ahrq</code> and <code>wscore_vw</code>).</p>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>If you find <code>comorbidity</code> useful, please cite it in your publications:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation</a></span>(<span class="st">"comorbidity"</span>)</span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"comorbidity"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2"></a><span class="co">## </span></span>
 <span id="cb14-3"><a href="#cb14-3"></a><span class="co">## To cite the comorbidity package in publications, please use:</span></span>
 <span id="cb14-4"><a href="#cb14-4"></a><span class="co">## </span></span>
@@ -313,7 +335,7 @@
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
 <p>This package is based on the ICD-10-based formulations of the Charlson score and Elixhauser score proposed by Quan <em>et al</em>. in 2005. The ICD-9 formulation of the Charlson score is also from Quan <em>et al</em>. The ICD-9-based Elixhauser score is according to the AHRQ formulation (Moore <em>et al</em>., 2017). Weights for the Charlson score are based on the original formulation by Charlson <em>et al</em>. in 1987, while weights for the Elixhauser score are based on work by van Walraven <em>et al</em>. Finally, the categorisation of scores and weighted scores is based on work by Menendez <em>et al</em>. Further details on each algorithm are included in the package vignette, which you can access by typing the following in the R console:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="st">"comorbidityscores"</span>, <span class="dt">package =</span> <span class="st">"comorbidity"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"comorbidityscores"</span>, <span class="dt">package =</span> <span class="st">"comorbidity"</span>)</span></code></pre></div>
 <ul>
 <li>Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. <em>Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data</em>. Medical Care 2005; 43(11):1130-1139. DOI: <a href="https://doi.org/10.1097/01.mlr.0000182534.19832.83">10.1097/01.mlr.0000182534.19832.83</a>
 </li>
@@ -354,6 +376,12 @@
 <li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
+<div class="community">
+<h2>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+</ul>
+</div>
 <div class="citation">
 <h2>Citation</h2>
 <ul class="list-unstyled">
@@ -363,13 +391,12 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Alessandro Gasparini <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-8319-7624" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li>Alessandro Gasparini <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-8319-7624" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
-      </div>
-
+  </div>
 </div>
 
 
@@ -378,12 +405,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

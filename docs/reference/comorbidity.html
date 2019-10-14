@@ -8,21 +8,25 @@
 
 <title>Compute comorbidity scores. — comorbidity • comorbidity</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +34,11 @@
 
 
 
-<meta property="og:title" content="Compute comorbidity scores. — comorbidity" />
 
+<meta property="og:title" content="Compute comorbidity scores. — comorbidity" />
 <meta property="og:description" content="Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score." />
 <meta name="twitter:card" content="summary" />
+
 <meta name="robots" content="noindex" />
 
 
@@ -57,6 +62,7 @@
   gtag('config', 'UA-55201181-3');
 </script>
 
+
   </head>
 
   <body>
@@ -73,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">comorbidity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0.9000</span>
       </span>
     </div>
 
@@ -81,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -104,7 +110,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -114,6 +119,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -125,14 +131,12 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>comorbidity</span>(<span class='no'>x</span>, <span class='no'>id</span>, <span class='no'>code</span>, <span class='no'>score</span>, <span class='kw'>icd</span> <span class='kw'>=</span> <span class='st'>"icd10"</span>, <span class='no'>assign0</span>,
   <span class='kw'>factorise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>labelled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tidy.codes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -173,14 +177,14 @@
     </tr>
     <tr>
       <th>labelled</th>
-      <td><p>Attach labels to each comorbidity, compatible with the RStudio viewer via the <code><a href='https://www.rdocumentation.org/packages/utils/topics/View'>utils::View()</a></code> function. Defaults to <code>TRUE</code>.</p></td>
+      <td><p>Attach labels to each comorbidity, compatible with the RStudio viewer via the <code><a href='https://rdrr.io/r/utils/View.html'>utils::View()</a></code> function. Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>tidy.codes</th>
       <td><p>Tidy diagnostic codes? If <code>TRUE</code>, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression <code>[^[:alnum:]]</code>. Defaults to <code>TRUE</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame with <code>id</code>, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.</p>
@@ -250,13 +254,11 @@
 <li><p><code>windex_vw</code>, for the weighted version of the grouped Elixhauser index using the algorithm in van Walraven <em>et al</em>. (2009).</p></li>
 </ul>
 
-<p>Labels are presented to the user when using the RStudio viewer (e.g. via the <code><a href='https://www.rdocumentation.org/packages/utils/topics/View'>utils::View()</a></code> function) for convenience.</p>
-    
+<p>Labels are presented to the user when using the RStudio viewer (e.g. via the <code><a href='https://rdrr.io/r/utils/View.html'>utils::View()</a></code> function) for convenience.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan <em>et al</em>. (2005). Weights for the Charlson score are based on the original formulation by Charlson <em>et al</em>. in 1987, while weights for the Elixhauser score are based on work by Moore <em>et al</em>. and van Walraven <em>et al</em>. Finally, the categorisation of scores and weighted scores is based on work by Menendez <em>et al</em>. See <code><a href='../articles/comorbidityscores.html'>vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the comorbidity scores and the weighting algorithm.
 ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set <code>tidy.codes = TRUE</code> to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. <em>Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data</em>. Medical Care 2005; 43(11):1130-1139.</p>
@@ -264,12 +266,11 @@ ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters on
 <p>Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. <em>Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index</em>. Medical Care 2017; 55(7):698-705.</p>
 <p>van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. <em>A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data</em>. Medical Care 2009; 47(6):626-633.</p>
 <p>Menendez ME, Neuhaus V, van Dijk CN, Ring D. <em>The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery</em>. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>15</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>15</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
   <span class='kw'>code</span> <span class='kw'>=</span> <span class='fu'><a href='sample_diag.html'>sample_diag</a></span>(<span class='fl'>200</span>),
   <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
@@ -377,18 +378,15 @@ ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters on
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -396,13 +394,16 @@ ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters on
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
