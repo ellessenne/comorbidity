@@ -38,8 +38,8 @@ install.packages("comorbidity")
 Alternatively, you can install the development version from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("ellessenne/comorbidity")
+# install.packages("remotes")
+remotes::install_github("ellessenne/comorbidity")
 ```
 
 ## Simulating ICD-10 codes
