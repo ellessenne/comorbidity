@@ -152,7 +152,9 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
   loc <- reshape2::melt(loc, value.name = code)
 
   ### Merge list with original data.table (data.frame)
-  x <- unique(merge(x, loc, all.x = TRUE, allow.cartesian = TRUE)[, code := NULL])
+  x <- merge(x, loc, all.x = TRUE, allow.cartesian = TRUE)
+  x[[code]] <- NULL
+  x <- unique(x)
 
   ### Spread wide
   xin <- x[, c(id, "L1"), with = FALSE]
