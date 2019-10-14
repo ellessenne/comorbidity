@@ -1,6 +1,8 @@
 # comorbidity 0.5.0-9000
 
-* The `melt` generic in `data.table` has been deprecated, now calling the generic from `reshape2`.
+* The `melt` generic in `data.table` has been deprecated, now calling the generic from `reshape2`;
+
+* Fixed bugs introduced by switching to `data.table` in `comorbidity` 0.5.0: column names `id` and `code` were expecting these specific names, now fixed and behaves as expected.
 
 # comorbidity 0.5.0
 
