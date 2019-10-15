@@ -151,7 +151,7 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
   loc <- sapply(regex, grep, unique(x[[code]]), value = TRUE)
   loc <- utils::stack(loc)
   names(loc)[1] <- code
-  
+
   ### Merge list with original data.table (data.frame)
   x <- merge(x, loc, all.x = TRUE, allow.cartesian = TRUE)
   x[[code]] <- NULL
