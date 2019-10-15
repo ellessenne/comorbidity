@@ -31,7 +31,6 @@ Depends: R (>= 2.10)
 Imports:
  checkmate,
  data.table,
- reshape2,
  stats,
  utils
 Suggests:

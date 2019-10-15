@@ -149,17 +149,18 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
 
   ### Get list of unique codes used in dataset that match comorbidities
   loc <- sapply(regex, grep, unique(x[[code]]), value = TRUE)
-  loc <- reshape2::melt(loc, value.name = code)
-
+  loc <- utils::stack(loc)
+  names(loc)[1] <- code
+  
   ### Merge list with original data.table (data.frame)
   x <- merge(x, loc, all.x = TRUE, allow.cartesian = TRUE)
   x[[code]] <- NULL
   x <- unique(x)
 
   ### Spread wide
-  xin <- x[, c(id, "L1"), with = FALSE]
+  xin <- x[, c(id, "ind"), with = FALSE]
   xin[, value := 1L]
-  x <- data.table::dcast.data.table(xin, stats::as.formula(paste(id, "~ L1")), fill = 0)
+  x <- data.table::dcast.data.table(xin, stats::as.formula(paste(id, "~ ind")), fill = 0)
   x[["NA"]] <- NULL
 
   ### Add missing columns
