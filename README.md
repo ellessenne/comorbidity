@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2019-10-14
+2019-10-15
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -171,11 +171,6 @@ We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
 charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = FALSE)
-## Warning in data.table::melt(loc, value.name = code): The melt generic in data.table has been passed
-## a list and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is
-## deprecated, and this redirection is now deprecated as well. To continue using melt methods from
-## reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like
-## reshape2::melt(loc). In the next version, this warning will become an error.
 charlson
 ##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
 ## 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    1
@@ -193,11 +188,6 @@ default is to assume ICD-10 codes are passed to `comorbidity`:
 
 ``` r
 charlson.default <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
-## Warning in data.table::melt(loc, value.name = code): The melt generic in data.table has been passed
-## a list and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is
-## deprecated, and this redirection is now deprecated as well. To continue using melt methods from
-## reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like
-## reshape2::melt(loc). In the next version, this warning will become an error.
 all.equal(charlson, charlson.default)
 ## [1] TRUE
 ```
@@ -206,11 +196,6 @@ Alternatively, we could compute the Elixhauser score:
 
 ``` r
 elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd10", assign0 = FALSE)
-## Warning in data.table::melt(loc, value.name = code): The melt generic in data.table has been passed
-## a list and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is
-## deprecated, and this redirection is now deprecated as well. To continue using melt methods from
-## reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like
-## reshape2::melt(loc). In the next version, this warning will become an error.
 elixhauser
 ##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph
 ## 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    1     0
@@ -244,11 +229,6 @@ We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
 charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = FALSE)
-## Warning in data.table::melt(loc, value.name = code): The melt generic in data.table has been passed
-## a list and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is
-## deprecated, and this redirection is now deprecated as well. To continue using melt methods from
-## reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like
-## reshape2::melt(loc). In the next version, this warning will become an error.
 charlson9
 ##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
 ## 1  1   0   0   1    0        0    0      0   0   0    0      0  0    0    1    0        0    0
@@ -268,11 +248,6 @@ Alternatively, we could compute the Elixhauser score:
 
 ``` r
 elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd9", assign0 = FALSE)
-## Warning in data.table::melt(loc, value.name = code): The melt generic in data.table has been passed
-## a list and will attempt to redirect to the relevant reshape2 method; please note that reshape2 is
-## deprecated, and this redirection is now deprecated as well. To continue using melt methods from
-## reshape2 while both libraries are attached, e.g. melt.list, you can prepend the namespace like
-## reshape2::melt(loc). In the next version, this warning will become an error.
 elixhauser9
 ##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph
 ## 1  1   0     0    0   0   1      0    0    0   0   0       0     0       0  0  0   0    0     0

@@ -85,7 +85,7 @@
       <h1>Comorbidity scores</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2019-10-14</h4>
+            <h4 class="date">2019-10-15</h4>
       
       
       <div class="hidden name"><code>comorbidityscores.Rmd</code></div>
@@ -430,27 +430,27 @@
 <span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(charlson9)</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; 'data.frame':    10 obs. of  22 variables:</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;  $ id      : int  1 2 3 4 5 6 7 8 9 10</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;  $ ami     : int  0 0 1 0 0 0 0 0 0 0</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;  $ ami     : int  0 0 0 0 1 0 0 0 0 0</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;  $ chf     : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt;  $ pvd     : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt;  $ cevd    : int  0 0 0 0 0 1 0 0 0 0</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt;  $ pvd     : int  0 0 0 0 1 0 0 0 0 0</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt;  $ cevd    : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt;  $ dementia: num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;  $ copd    : int  0 0 0 0 0 0 0 0 1 0</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;  $ copd    : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;  $ rheumd  : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;  $ pud     : int  0 0 0 0 0 0 0 0 1 0</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;  $ mld     : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;  $ pud     : int  0 0 0 0 0 1 0 0 0 0</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;  $ mld     : int  0 0 0 1 1 0 0 0 0 0</span></span>
 <span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;  $ diab    : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;  $ diabwc  : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;  $ hp      : int  0 0 1 0 0 0 0 0 0 0</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;  $ hp      : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;  $ rend    : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt;  $ canc    : int  1 1 1 0 1 1 0 1 1 1</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt;  $ canc    : int  0 0 1 1 1 1 1 1 1 1</span></span>
 <span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt;  $ msld    : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt;  $ metacanc: num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt;  $ aids    : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;  $ score   : num  1 1 3 0 1 2 0 1 3 1</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt;  $ index   : Factor w/ 4 levels "0","1-2","3-4",..: 2 2 3 1 2 2 1 2 3 2</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt;  $ wscore  : num  2 2 5 0 2 3 0 2 4 2</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt;  $ windex  : Factor w/ 4 levels "0","1-2","3-4",..: 2 2 4 1 2 3 1 2 3 2</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;  $ score   : num  0 0 1 2 4 2 1 1 1 1</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt;  $ index   : Factor w/ 4 levels "0","1-2","3-4",..: 1 1 2 2 3 2 2 2 2 2</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt;  $ wscore  : num  0 0 2 3 5 3 2 2 2 2</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt;  $ windex  : Factor w/ 4 levels "0","1-2","3-4",..: 1 1 2 3 4 3 2 2 2 2</span></span>
 <span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt;  - attr(*, "variable.labels")= chr  "ID" "Myocardial infarction" "Congestive heart failure" "Peripheral vascular disease" ...</span></span></code></pre></div>
 <p>The Charlson score based on ICD-10 data:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>charlson10 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comorbidity.html">comorbidity</a></span>(<span class="dt">x =</span> data10, <span class="dt">id =</span> <span class="st">"id"</span>, <span class="dt">code =</span> <span class="st">"code"</span>, <span class="dt">score =</span> <span class="st">"charlson"</span>, <span class="dt">icd =</span> <span class="st">"icd10"</span>, <span class="dt">assign0 =</span> <span class="ot">FALSE</span>)</span>
@@ -458,26 +458,26 @@
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; 'data.frame':    10 obs. of  22 variables:</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;  $ id      : int  1 2 3 4 5 6 7 8 9 10</span></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt;  $ ami     : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;  $ chf     : int  0 0 0 0 0 0 0 1 0 0</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;  $ pvd     : int  1 0 0 0 0 1 0 0 1 0</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;  $ cevd    : int  0 0 1 0 1 0 0 0 0 0</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;  $ chf     : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;  $ pvd     : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;  $ cevd    : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt;  $ dementia: num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  $ copd    : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  $ copd    : int  0 0 0 0 1 0 0 0 0 0</span></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  $ rheumd  : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  $ pud     : int  1 0 0 0 0 0 0 1 0 0</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;  $ mld     : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  $ pud     : int  0 0 0 0 0 0 0 0 0 1</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;  $ mld     : int  0 1 1 0 0 0 0 1 0 0</span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  $ diab    : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;  $ diabwc  : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt;  $ hp      : int  0 0 0 0 1 0 0 0 0 0</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;  $ diabwc  : int  0 0 0 0 0 0 1 0 0 0</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt;  $ hp      : int  0 0 0 0 0 1 0 0 0 0</span></span>
 <span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;  $ rend    : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt;  $ canc    : int  0 0 0 1 1 1 0 1 0 1</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt;  $ canc    : int  1 0 0 0 1 1 0 1 1 1</span></span>
 <span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt;  $ msld    : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt;  $ metacanc: num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt;  $ aids    : int  0 0 1 1 0 0 0 0 0 0</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt;  $ score   : num  2 0 2 2 3 2 0 3 1 1</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt;  $ index   : Factor w/ 4 levels "0","1-2","3-4",..: 2 1 2 2 3 2 1 3 2 2</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt;  $ wscore  : num  2 0 7 8 5 3 0 4 1 2</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt;  $ windex  : Factor w/ 4 levels "0","1-2","3-4",..: 2 1 4 4 4 3 1 3 2 2</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt;  $ metacanc: int  0 0 0 0 1 0 0 1 0 0</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt;  $ aids    : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt;  $ score   : num  1 1 1 0 3 2 1 3 1 2</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt;  $ index   : Factor w/ 4 levels "0","1-2","3-4",..: 2 2 2 1 3 2 2 3 2 2</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt;  $ wscore  : num  2 1 1 0 9 4 2 9 2 3</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt;  $ windex  : Factor w/ 4 levels "0","1-2","3-4",..: 2 2 2 1 4 3 2 4 2 3</span></span>
 <span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt;  - attr(*, "variable.labels")= chr  "ID" "Myocardial infarction" "Congestive heart failure" "Peripheral vascular disease" ...</span></span></code></pre></div>
 <p>The Elixhauser score based on ICD-9-CM data:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>elixhauser9 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comorbidity.html">comorbidity</a></span>(<span class="dt">x =</span> data9, <span class="dt">id =</span> <span class="st">"id"</span>, <span class="dt">code =</span> <span class="st">"code"</span>, <span class="dt">score =</span> <span class="st">"elixhauser"</span>, <span class="dt">icd =</span> <span class="st">"icd9"</span>, <span class="dt">assign0 =</span> <span class="ot">FALSE</span>)</span>
@@ -485,85 +485,85 @@
 <span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; 'data.frame':    10 obs. of  38 variables:</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt;  $ id         : int  1 2 3 4 5 6 7 8 9 10</span></span>
 <span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt;  $ chf        : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;  $ carit      : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt;  $ valv       : int  0 0 1 0 0 0 1 0 0 0</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;  $ carit      : int  0 1 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt;  $ valv       : int  0 0 0 0 1 0 0 0 0 0</span></span>
 <span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt;  $ pcd        : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt;  $ pvd        : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;  $ hypunc     : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt;  $ pvd        : int  0 0 0 0 1 0 0 0 0 0</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;  $ hypunc     : int  0 1 0 0 0 0 0 0 0 0</span></span>
 <span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;  $ hypc       : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  $ para       : int  0 0 1 0 0 0 0 0 0 0</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  $ ond        : int  1 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  $ cpd        : int  0 0 0 0 0 0 0 0 1 0</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  $ para       : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  $ ond        : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  $ cpd        : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;  $ diabunc    : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;  $ diabc      : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  $ hypothy    : int  0 1 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  $ hypothy    : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  $ rf         : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  $ ld         : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  $ ld         : int  0 0 0 1 1 0 0 0 0 0</span></span>
 <span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  $ pud        : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt;  $ aids       : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt;  $ lymph      : int  1 0 1 0 1 1 0 0 0 0</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt;  $ lymph      : int  0 0 0 0 0 0 0 1 0 1</span></span>
 <span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt;  $ metacanc   : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt;  $ solidtum   : int  1 1 0 0 0 0 0 1 0 1</span></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt;  $ rheumd     : int  0 1 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt;  $ coag       : int  0 0 0 0 0 0 1 0 0 0</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt;  $ solidtum   : int  0 0 0 1 1 1 1 0 1 1</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt;  $ rheumd     : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt;  $ coag       : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt;  $ obes       : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt;  $ wloss      : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt;  $ fed        : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt;  $ fed        : int  0 0 0 0 0 0 0 1 0 0</span></span>
 <span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt;  $ blane      : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt;  $ dane       : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#&gt;  $ alcohol    : int  0 0 1 0 0 0 0 0 0 0</span></span>
-<span id="cb5-33"><a href="#cb5-33"></a><span class="co">#&gt;  $ drug       : int  0 0 0 1 0 0 1 0 0 0</span></span>
-<span id="cb5-34"><a href="#cb5-34"></a><span class="co">#&gt;  $ psycho     : int  0 0 0 1 0 0 0 0 0 0</span></span>
-<span id="cb5-35"><a href="#cb5-35"></a><span class="co">#&gt;  $ depre      : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb5-36"><a href="#cb5-36"></a><span class="co">#&gt;  $ score      : num  3 3 4 2 1 1 3 1 1 1</span></span>
-<span id="cb5-37"><a href="#cb5-37"></a><span class="co">#&gt;  $ index      : Factor w/ 4 levels "&lt;0","0","1-4",..: 3 3 3 3 3 3 3 3 3 3</span></span>
-<span id="cb5-38"><a href="#cb5-38"></a><span class="co">#&gt;  $ wscore_ahrq: num  18 7 10 -12 6 6 4 7 3 7</span></span>
-<span id="cb5-39"><a href="#cb5-39"></a><span class="co">#&gt;  $ wscore_vw  : num  19 4 15 -7 9 9 -5 4 3 4</span></span>
-<span id="cb5-40"><a href="#cb5-40"></a><span class="co">#&gt;  $ windex_ahrq: Factor w/ 4 levels "&lt;0","0","1-4",..: 4 4 4 1 4 4 3 4 3 4</span></span>
-<span id="cb5-41"><a href="#cb5-41"></a><span class="co">#&gt;  $ windex_vw  : Factor w/ 4 levels "&lt;0","0","1-4",..: 4 3 4 1 4 4 1 3 3 3</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt;  $ dane       : int  1 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#&gt;  $ alcohol    : int  0 1 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="co">#&gt;  $ drug       : int  0 0 0 1 0 0 0 0 0 0</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="co">#&gt;  $ psycho     : int  1 0 0 0 1 1 0 0 0 0</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a><span class="co">#&gt;  $ depre      : int  1 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a><span class="co">#&gt;  $ score      : num  3 3 0 3 5 2 1 2 1 2</span></span>
+<span id="cb5-37"><a href="#cb5-37"></a><span class="co">#&gt;  $ index      : Factor w/ 4 levels "&lt;0","0","1-4",..: 3 3 2 3 4 3 3 3 3 3</span></span>
+<span id="cb5-38"><a href="#cb5-38"></a><span class="co">#&gt;  $ wscore_ahrq: num  -12 -2 0 4 9 2 7 17 7 13</span></span>
+<span id="cb5-39"><a href="#cb5-39"></a><span class="co">#&gt;  $ wscore_vw  : num  -5 5 0 8 16 4 4 14 4 13</span></span>
+<span id="cb5-40"><a href="#cb5-40"></a><span class="co">#&gt;  $ windex_ahrq: Factor w/ 4 levels "&lt;0","0","1-4",..: 1 1 2 3 4 3 4 4 4 4</span></span>
+<span id="cb5-41"><a href="#cb5-41"></a><span class="co">#&gt;  $ windex_vw  : Factor w/ 4 levels "&lt;0","0","1-4",..: 1 4 2 4 4 3 3 4 3 4</span></span>
 <span id="cb5-42"><a href="#cb5-42"></a><span class="co">#&gt;  - attr(*, "variable.labels")= chr  "ID" "Congestive heart failure" "Cardiac arrhythmias" "Valvular disease" ...</span></span></code></pre></div>
 <p>Finally, the Elixhauser score based on ICD-10 data:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>elixhauser10 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comorbidity.html">comorbidity</a></span>(<span class="dt">x =</span> data10, <span class="dt">id =</span> <span class="st">"id"</span>, <span class="dt">code =</span> <span class="st">"code"</span>, <span class="dt">score =</span> <span class="st">"elixhauser"</span>, <span class="dt">icd =</span> <span class="st">"icd10"</span>, <span class="dt">assign0 =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(elixhauser10)</span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; 'data.frame':    10 obs. of  38 variables:</span></span>
 <span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;  $ id         : int  1 2 3 4 5 6 7 8 9 10</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;  $ chf        : int  0 0 0 0 0 0 0 1 0 0</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;  $ carit      : int  0 0 0 0 0 0 1 0 0 0</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;  $ valv       : int  1 0 1 1 0 0 0 0 0 0</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;  $ chf        : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;  $ carit      : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;  $ valv       : int  0 0 0 0 0 0 0 0 0 1</span></span>
 <span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt;  $ pcd        : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;  $ pvd        : int  1 0 0 0 0 1 0 0 1 0</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;  $ pvd        : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;  $ hypunc     : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;  $ hypc       : int  0 0 0 0 0 0 0 1 0 0</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;  $ para       : int  0 0 0 0 1 0 0 0 0 0</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  $ ond        : int  1 0 1 0 0 0 0 0 0 0</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;  $ cpd        : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;  $ hypc       : int  0 0 0 0 0 0 1 0 0 0</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;  $ para       : int  0 0 0 0 0 1 0 0 0 0</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  $ ond        : int  1 0 0 0 0 0 1 0 0 0</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;  $ cpd        : int  0 0 0 0 1 0 0 0 0 0</span></span>
 <span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;  $ diabunc    : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;  $ diabc      : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt;  $ hypothy    : int  1 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;  $ diabc      : int  0 0 0 0 0 0 1 0 0 0</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt;  $ hypothy    : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt;  $ rf         : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;  $ ld         : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt;  $ ld         : int  0 1 1 0 0 0 1 1 0 0</span></span>
 <span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt;  $ pud        : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt;  $ aids       : int  0 0 1 1 0 0 0 0 0 0</span></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt;  $ lymph      : int  0 0 0 1 0 1 0 0 0 0</span></span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt;  $ metacanc   : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt;  $ solidtum   : int  0 0 0 0 1 1 0 1 0 1</span></span>
-<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt;  $ rheumd     : int  0 0 1 0 0 0 1 0 0 0</span></span>
-<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt;  $ coag       : int  0 0 0 1 0 0 0 0 0 0</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt;  $ aids       : num  0 0 0 0 0 0 0 0 0 0</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt;  $ lymph      : int  0 0 0 0 0 0 0 0 0 1</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt;  $ metacanc   : int  0 0 0 0 1 0 0 1 0 0</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt;  $ solidtum   : int  1 0 0 0 1 1 0 1 0 0</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt;  $ rheumd     : int  0 1 0 0 0 0 1 0 0 0</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt;  $ coag       : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt;  $ obes       : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb6-28"><a href="#cb6-28"></a><span class="co">#&gt;  $ wloss      : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt;  $ fed        : int  0 0 0 0 0 0 0 1 0 0</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt;  $ fed        : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt;  $ blane      : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt;  $ dane       : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt;  $ alcohol    : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-33"><a href="#cb6-33"></a><span class="co">#&gt;  $ drug       : int  1 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-34"><a href="#cb6-34"></a><span class="co">#&gt;  $ psycho     : int  0 1 0 0 0 0 0 0 0 0</span></span>
+<span id="cb6-33"><a href="#cb6-33"></a><span class="co">#&gt;  $ drug       : int  0 0 0 0 0 0 0 0 1 0</span></span>
+<span id="cb6-34"><a href="#cb6-34"></a><span class="co">#&gt;  $ psycho     : num  0 0 0 0 0 0 0 0 0 0</span></span>
 <span id="cb6-35"><a href="#cb6-35"></a><span class="co">#&gt;  $ depre      : num  0 0 0 0 0 0 0 0 0 0</span></span>
-<span id="cb6-36"><a href="#cb6-36"></a><span class="co">#&gt;  $ score      : num  5 1 4 4 2 3 2 4 1 1</span></span>
-<span id="cb6-37"><a href="#cb6-37"></a><span class="co">#&gt;  $ index      : Factor w/ 4 levels "&lt;0","0","1-4",..: 4 3 3 3 3 3 3 3 3 3</span></span>
-<span id="cb6-38"><a href="#cb6-38"></a><span class="co">#&gt;  $ wscore_ahrq: num  1 -5 5 17 12 16 0 26 3 7</span></span>
-<span id="cb6-39"><a href="#cb6-39"></a><span class="co">#&gt;  $ wscore_vw  : num  0 0 5 11 11 15 5 16 2 4</span></span>
-<span id="cb6-40"><a href="#cb6-40"></a><span class="co">#&gt;  $ windex_ahrq: Factor w/ 4 levels "&lt;0","0","1-4",..: 3 1 4 4 4 4 2 4 3 4</span></span>
-<span id="cb6-41"><a href="#cb6-41"></a><span class="co">#&gt;  $ windex_vw  : Factor w/ 4 levels "&lt;0","0","1-4",..: 2 2 4 4 4 4 4 4 3 3</span></span>
+<span id="cb6-36"><a href="#cb6-36"></a><span class="co">#&gt;  $ score      : num  2 2 1 0 3 2 5 3 1 2</span></span>
+<span id="cb6-37"><a href="#cb6-37"></a><span class="co">#&gt;  $ index      : Factor w/ 4 levels "&lt;0","0","1-4",..: 3 3 3 2 3 3 4 3 3 3</span></span>
+<span id="cb6-38"><a href="#cb6-38"></a><span class="co">#&gt;  $ wscore_ahrq: num  12 4 4 0 24 12 5 25 -7 6</span></span>
+<span id="cb6-39"><a href="#cb6-39"></a><span class="co">#&gt;  $ wscore_vw  : num  10 11 11 0 19 11 17 27 -7 8</span></span>
+<span id="cb6-40"><a href="#cb6-40"></a><span class="co">#&gt;  $ windex_ahrq: Factor w/ 4 levels "&lt;0","0","1-4",..: 4 3 3 2 4 4 4 4 1 4</span></span>
+<span id="cb6-41"><a href="#cb6-41"></a><span class="co">#&gt;  $ windex_vw  : Factor w/ 4 levels "&lt;0","0","1-4",..: 4 4 4 2 4 4 4 4 1 4</span></span>
 <span id="cb6-42"><a href="#cb6-42"></a><span class="co">#&gt;  - attr(*, "variable.labels")= chr  "ID" "Congestive heart failure" "Cardiac arrhythmias" "Valvular disease" ...</span></span></code></pre></div>
 </div>
 <div id="references" class="section level1">
