@@ -1,3 +1,5 @@
+# comorbidity 0.5.1-9000
+
 # comorbidity 0.5.1
 
 * The `melt` generic in `data.table` has been deprecated; the dependency on `reshape2` has now been removed;
