@@ -477,3 +477,84 @@ test_that("comorbidity scores are 0 or 1", {
     expect_true(object = all(charlson9 >= 0 & charlson9 <= 1))
   }
 })
+
+test_that("duplicate codes are not counted twice (or more)", {
+  for (i in seq(100)) {
+    x <- data.frame(
+      id = sample(1:20, size = 300, replace = TRUE),
+      code = sample_diag(300),
+      stringsAsFactors = FALSE
+    )
+    x2 <- rbind(x, x)
+    x3 <- rbind(x, x, x)
+    x4 <- rbind(x, x, x, x)
+    cx <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+    cx2 <- comorbidity(x = x2, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+    cx3 <- comorbidity(x = x3, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+    cx4 <- comorbidity(x = x4, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+    ex <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
+    ex2 <- comorbidity(x = x2, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
+    ex3 <- comorbidity(x = x3, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
+    ex4 <- comorbidity(x = x4, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
+    expect_equal(object = cx, expected = cx2)
+    expect_equal(object = cx, expected = cx3)
+    expect_equal(object = cx, expected = cx4)
+    expect_equal(object = cx2, expected = cx3)
+    expect_equal(object = cx2, expected = cx4)
+    expect_equal(object = cx3, expected = cx4)
+    expect_true(object = all(cx[2:18] >= 0 & cx[2:18] <= 1))
+    expect_true(object = all(cx2[2:18] >= 0 & cx2[2:18] <= 1))
+    expect_true(object = all(cx3[2:18] >= 0 & cx3[2:18] <= 1))
+    expect_true(object = all(cx4[2:18] >= 0 & cx4[2:18] <= 1))
+    expect_equal(object = ex, expected = ex2)
+    expect_equal(object = ex, expected = ex3)
+    expect_equal(object = ex, expected = ex4)
+    expect_equal(object = ex2, expected = ex3)
+    expect_equal(object = ex2, expected = ex4)
+    expect_equal(object = ex3, expected = ex4)
+    expect_true(object = all(ex[2:32] >= 0 & ex[2:32] <= 1))
+    expect_true(object = all(ex2[2:32] >= 0 & ex2[2:32] <= 1))
+    expect_true(object = all(ex3[2:32] >= 0 & ex3[2:32] <= 1))
+    expect_true(object = all(ex4[2:32] >= 0 & ex4[2:32] <= 1))
+  }
+
+  for (i in seq(100)) {
+    x <- data.frame(
+      id = sample(1:20, size = 300, replace = TRUE),
+      code = sample_diag(300),
+      version = "ICD9_2015",
+      stringsAsFactors = FALSE
+    )
+    x2 <- rbind(x, x)
+    x3 <- rbind(x, x, x)
+    x4 <- rbind(x, x, x, x)
+    cx <- comorbidity(x = x, id = "id", code = "code", icd = "icd9", score = "charlson", assign0 = FALSE)
+    cx2 <- comorbidity(x = x2, id = "id", code = "code", icd = "icd9", score = "charlson", assign0 = FALSE)
+    cx3 <- comorbidity(x = x3, id = "id", code = "code", icd = "icd9", score = "charlson", assign0 = FALSE)
+    cx4 <- comorbidity(x = x4, id = "id", code = "code", icd = "icd9", score = "charlson", assign0 = FALSE)
+    ex <- comorbidity(x = x, id = "id", code = "code", icd = "icd9", score = "elixhauser", assign0 = FALSE)
+    ex2 <- comorbidity(x = x2, id = "id", code = "code", icd = "icd9", score = "elixhauser", assign0 = FALSE)
+    ex3 <- comorbidity(x = x3, id = "id", code = "code", icd = "icd9", score = "elixhauser", assign0 = FALSE)
+    ex4 <- comorbidity(x = x4, id = "id", code = "code", icd = "icd9", score = "elixhauser", assign0 = FALSE)
+    expect_equal(object = cx, expected = cx2)
+    expect_equal(object = cx, expected = cx3)
+    expect_equal(object = cx, expected = cx4)
+    expect_equal(object = cx2, expected = cx3)
+    expect_equal(object = cx2, expected = cx4)
+    expect_equal(object = cx3, expected = cx4)
+    expect_true(object = all(cx[2:18] >= 0 & cx[2:18] <= 1))
+    expect_true(object = all(cx2[2:18] >= 0 & cx2[2:18] <= 1))
+    expect_true(object = all(cx3[2:18] >= 0 & cx3[2:18] <= 1))
+    expect_true(object = all(cx4[2:18] >= 0 & cx4[2:18] <= 1))
+    expect_equal(object = ex, expected = ex2)
+    expect_equal(object = ex, expected = ex3)
+    expect_equal(object = ex, expected = ex4)
+    expect_equal(object = ex2, expected = ex3)
+    expect_equal(object = ex2, expected = ex4)
+    expect_equal(object = ex3, expected = ex4)
+    expect_true(object = all(ex[2:32] >= 0 & ex[2:32] <= 1))
+    expect_true(object = all(ex2[2:32] >= 0 & ex2[2:32] <= 1))
+    expect_true(object = all(ex3[2:32] >= 0 & ex3[2:32] <= 1))
+    expect_true(object = all(ex4[2:32] >= 0 & ex4[2:32] <= 1))
+  }
+})
