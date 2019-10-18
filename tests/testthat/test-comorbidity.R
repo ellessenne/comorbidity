@@ -447,3 +447,33 @@ test_that("if factorise = FALSE comorbidity does not return factors", {
   expect_s3_class(cs$windex_ahrq, "factor")
   expect_s3_class(cs$windex_vw, "factor")
 })
+
+test_that("comorbidity scores are 0 or 1", {
+  dat <- expand.grid(
+    record_id = 8,
+    diagnosis_icd_2 = c("G92", "J984, M419", "A0472", "A419", "D696", "E11621", "E119", "E669", "E875", "G40909", "G8220", "G904", "I10", "I248", "I2720", "I5030", "I5033", "I82411", "I824Y1", "J45909", "J9621", "K5900", "K592", "L89310", "L89620", "L89890", "L97529", "M21372", "M419", "N179", "N319", "N390", "Q056", "Q058", "R440", "R578", "T426X5A", "T428X5A", "T83510A", "Z6835", "Z713", "Z781", "Z7982", "Z853", "Z981")
+  )
+  elixhauser10 <- comorbidity(x = dat, id = "record_id", code = "diagnosis_icd_2", score = "elixhauser", icd = "icd10", assign0 = T, factorise = F, labelled = F, tidy.codes = F)[, 2:32]
+  expect_true(object = all(elixhauser10 >= 0 & elixhauser10 <= 1))
+
+  for (i in seq(100)) {
+    x <- data.frame(
+      id = sample(1:5, size = 50, replace = TRUE),
+      code = sample_diag(50),
+      stringsAsFactors = FALSE
+    )
+    elixhauser10 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd10", assign0 = FALSE)[, 2:32]
+    expect_true(object = all(elixhauser10 >= 0 & elixhauser10 <= 1))
+    charlson10 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = FALSE)[, 2:18]
+    expect_true(object = all(charlson10 >= 0 & charlson10 <= 1))
+    x <- data.frame(
+      id = sample(1:5, size = 50, replace = TRUE),
+      code = sample_diag(50, version = "ICD9_2015"),
+      stringsAsFactors = FALSE
+    )
+    elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd9", assign0 = FALSE)[, 2:32]
+    expect_true(object = all(elixhauser9 >= 0 & elixhauser9 <= 1))
+    charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = FALSE)[, 2:18]
+    expect_true(object = all(charlson9 >= 0 & charlson9 <= 1))
+  }
+})
