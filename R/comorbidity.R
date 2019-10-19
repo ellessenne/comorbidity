@@ -111,7 +111,6 @@
 #' @export
 
 comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE) {
-
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame
@@ -143,6 +142,9 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
 
   ### Extract regex for internal use
   regex <- lofregex[[score]][[icd]]
+
+  ### Subset only 'id' and 'code' columns
+  x <- x[, c(id, code)]
 
   ### Turn x into a DT
   data.table::setDT(x)

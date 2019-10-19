@@ -558,3 +558,55 @@ test_that("duplicate codes are not counted twice (or more)", {
     expect_true(object = all(ex4[2:32] >= 0 & ex4[2:32] <= 1))
   }
 })
+
+test_that("input dataset with additional columns", {
+  x <- data.frame(
+    id = sample(1:20, size = 3000, replace = TRUE),
+    code = sample_diag(3000),
+    stringsAsFactors = FALSE
+  )
+  x2 <- x
+  x2$noise <- rnorm(n = nrow(x2))
+  c <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+  c2 <- comorbidity(x = x2, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+  expect_equal(object = c2, expected = c)
+  e <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
+  e2 <- comorbidity(x = x2, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
+  expect_equal(object = e2, expected = e)
+
+  x <- data.frame(
+    id = sample(1:20, size = 3000, replace = TRUE),
+    code = sample_diag(3000),
+    version = "ICD9_2015",
+    stringsAsFactors = FALSE
+  )
+  x2 <- x
+  x2$noise <- rnorm(n = nrow(x2))
+  c <- comorbidity(x = x, id = "id", code = "code", icd = "icd9", score = "charlson", assign0 = FALSE)
+  c2 <- comorbidity(x = x2, id = "id", code = "code", icd = "icd9", score = "charlson", assign0 = FALSE)
+  expect_equal(object = c2, expected = c)
+  e <- comorbidity(x = x, id = "id", code = "code", icd = "icd9", score = "elixhauser", assign0 = FALSE)
+  e2 <- comorbidity(x = x2, id = "id", code = "code", icd = "icd9", score = "elixhauser", assign0 = FALSE)
+  expect_equal(object = e2, expected = e)
+})
+
+test_that("all comorbidities", {
+  data("icd10_2011", package = "comorbidity")
+  icd10_2011$id <- 1
+  c <- comorbidity(x = icd10_2011, id = "id", code = "Code", icd = "icd10", score = "charlson", assign0 = T)
+  e <- comorbidity(x = icd10_2011, id = "id", code = "Code", icd = "icd10", score = "elixhauser", assign0 = T)
+  expect_true(object = all(c[2:18] == 1))
+  expect_true(object = all(e[2:32] == 1))
+  data("icd10_2009", package = "comorbidity")
+  icd10_2009$id <- 1
+  c <- comorbidity(x = icd10_2009, id = "id", code = "Code", icd = "icd10", score = "charlson", assign0 = T)
+  e <- comorbidity(x = icd10_2009, id = "id", code = "Code", icd = "icd10", score = "elixhauser", assign0 = T)
+  expect_true(object = all(c[2:18] == 1))
+  expect_true(object = all(e[2:32] == 1))
+  data("icd9_2015", package = "comorbidity")
+  icd9_2015$id <- 1
+  c <- comorbidity(x = icd9_2015, id = "id", code = "Code", icd = "icd9", score = "charlson", assign0 = T)
+  e <- comorbidity(x = icd9_2015, id = "id", code = "Code", icd = "icd9", score = "elixhauser", assign0 = T)
+  expect_true(object = all(c[2:18] == 1))
+  expect_true(object = all(e[2:32] == 1))
+})
