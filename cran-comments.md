@@ -19,11 +19,8 @@ There are no reverse dependencies
 
 # NOTE on various platforms:
   * checking CRAN incoming feasibility ... NOTE
-  Maintainer: 'Alessandro Gasparini <alessandro.gasparini@ki.se>'
-  
-  New maintainer:
-    Alessandro Gasparini <alessandro.gasparini@ki.se>
-  Old maintainer(s):
-    Alessandro Gasparini <ag475@leicester.ac.uk>
-  
-I updated my e-mail address to a new one.
+  Maintainer: ‘Alessandro Gasparini <alessandro.gasparini@ki.se>’
+
+  Days since last update: 4  
+
+I apologise for submitting an update so soon after the previous one, but some changes in one of the dependencies (data.table) lead to a quite serious bug that was not caught while testing the previous release.
