@@ -610,3 +610,17 @@ test_that("all comorbidities", {
   expect_true(object = all(c[2:18] == 1))
   expect_true(object = all(e[2:32] == 1))
 })
+
+test_that("break output checks", {
+  x <- data.frame(
+    id = sample(1:20, size = 300, replace = TRUE),
+    code = sample_diag(300),
+    stringsAsFactors = FALSE
+  )
+  cx <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+  cx[2:18] <- cx[2:18] + rnorm(n = nrow(cx))
+  expect_error(.check_output(x = cx, id = "id", score = "charlson"), regexp = "unexpected state")
+  ex <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
+  ex[2:32] <- ex[2:32] + rnorm(n = nrow(ex))
+  expect_error(.check_output(x = ex, id = "id", score = "elixhauser"), regexp = "unexpected state")
+})

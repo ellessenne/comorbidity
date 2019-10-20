@@ -189,6 +189,9 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
     x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   }
 
+  ### Check output for possible unknown-state errors
+  .check_output(x = x, id = id, score = score)
+
   ### Factorise comorbidities if requested
   if (factorise) x <- .factorise(x = x, score = score)
 
