@@ -456,7 +456,7 @@ test_that("comorbidity scores are 0 or 1", {
   elixhauser10 <- comorbidity(x = dat, id = "record_id", code = "diagnosis_icd_2", score = "elixhauser", icd = "icd10", assign0 = T, factorise = F, labelled = F, tidy.codes = F)[, 2:32]
   expect_true(object = all(elixhauser10 >= 0 & elixhauser10 <= 1))
 
-  for (i in seq(100)) {
+  for (i in seq(50)) {
     x <- data.frame(
       id = sample(1:5, size = 50, replace = TRUE),
       code = sample_diag(50),
@@ -479,10 +479,10 @@ test_that("comorbidity scores are 0 or 1", {
 })
 
 test_that("duplicate codes are not counted twice (or more)", {
-  for (i in seq(100)) {
+  for (i in seq(50)) {
     x <- data.frame(
-      id = sample(1:20, size = 300, replace = TRUE),
-      code = sample_diag(300),
+      id = sample(1:20, size = 100, replace = TRUE),
+      code = sample_diag(100),
       stringsAsFactors = FALSE
     )
     x2 <- rbind(x, x)
@@ -518,10 +518,10 @@ test_that("duplicate codes are not counted twice (or more)", {
     expect_true(object = all(ex4[2:32] >= 0 & ex4[2:32] <= 1))
   }
 
-  for (i in seq(100)) {
+  for (i in seq(50)) {
     x <- data.frame(
-      id = sample(1:20, size = 300, replace = TRUE),
-      code = sample_diag(300),
+      id = sample(1:20, size = 50, replace = TRUE),
+      code = sample_diag(50),
       version = "ICD9_2015",
       stringsAsFactors = FALSE
     )
@@ -561,8 +561,8 @@ test_that("duplicate codes are not counted twice (or more)", {
 
 test_that("input dataset with additional columns", {
   x <- data.frame(
-    id = sample(1:20, size = 3000, replace = TRUE),
-    code = sample_diag(3000),
+    id = sample(1:20, size = 50, replace = TRUE),
+    code = sample_diag(50),
     stringsAsFactors = FALSE
   )
   x2 <- x
@@ -575,8 +575,8 @@ test_that("input dataset with additional columns", {
   expect_equal(object = e2, expected = e)
 
   x <- data.frame(
-    id = sample(1:20, size = 3000, replace = TRUE),
-    code = sample_diag(3000),
+    id = sample(1:20, size = 50, replace = TRUE),
+    code = sample_diag(50),
     version = "ICD9_2015",
     stringsAsFactors = FALSE
   )
@@ -613,8 +613,8 @@ test_that("all comorbidities", {
 
 test_that("break output checks", {
   x <- data.frame(
-    id = sample(1:20, size = 300, replace = TRUE),
-    code = sample_diag(300),
+    id = sample(1:20, size = 50, replace = TRUE),
+    code = sample_diag(50),
     stringsAsFactors = FALSE
   )
   cx <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)

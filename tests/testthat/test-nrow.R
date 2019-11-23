@@ -1,8 +1,8 @@
 context("'comorbidity' returns a df with the proper (expected) number of rows")
 
 test_that("comorbidity works no matter what the name of the id variable is", {
-  for (i in seq(100)) {
-    n <- sample(x = seq(100), size = 1)
+  for (i in seq(50)) {
+    n <- sample(x = seq(50), size = 1)
     x <- data.frame(
       id = rep(seq(n), each = 10),
       code = sample_diag(n * 10),
