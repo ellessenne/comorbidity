@@ -1,5 +1,7 @@
 # comorbidity (development version)
 
+* `comorbidity` now accepts `data.table` objects as input.
+
 # comorbidity 0.5.2
 
 * Fixed another bug introduced by the switch to `data.table` that only occurred when the input dataset had extra columns other than `id` and `code`.

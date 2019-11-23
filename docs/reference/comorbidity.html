@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">comorbidity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -134,15 +134,24 @@
     <p>Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>comorbidity</span>(<span class='no'>x</span>, <span class='no'>id</span>, <span class='no'>code</span>, <span class='no'>score</span>, <span class='kw'>icd</span> <span class='kw'>=</span> <span class='st'>"icd10"</span>, <span class='no'>assign0</span>,
-  <span class='kw'>factorise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>labelled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tidy.codes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>comorbidity</span>(
+  <span class='no'>x</span>,
+  <span class='no'>id</span>,
+  <span class='no'>code</span>,
+  <span class='no'>score</span>,
+  <span class='kw'>icd</span> <span class='kw'>=</span> <span class='st'>"icd10"</span>,
+  <span class='no'>assign0</span>,
+  <span class='kw'>factorise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>labelled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>tidy.codes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A tidy data frame with one column containing an individual ID and a column containing all diagnostic codes.</p></td>
+      <td><p>A tidy <code>data.frame</code> (or a <code>data.table</code>; <code>tibble</code>s are supported too) with one column containing an individual ID and a column containing all diagnostic codes. Extra columns other than ID and codes are discarded.</p></td>
     </tr>
     <tr>
       <th>id</th>
