@@ -2,7 +2,7 @@
 #'
 #' @description Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score.
 #'
-#' @param x A tidy data frame with one column containing an individual ID and a column containing all diagnostic codes.
+#' @param x A tidy `data.frame` (or a `data.table`; `tibble`s are supported too) with one column containing an individual ID and a column containing all diagnostic codes. Extra columns other than ID and codes are discarded.
 #' @param id Column of `x` containing the individual ID.
 #' @param code Column of `x` containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.
 #' @param score The comorbidity score to compute. Possible choices are the weighted Charlson score (`charlson`) and the weighted Elixhauser score (`elixhauser`). Values are case-insensitive.
@@ -113,8 +113,8 @@
 comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
-  # x must be a data.frame
-  checkmate::assert_data_frame(x, add = arg_checks)
+  # x must be a data.frame (or a data.table)
+  checkmate::assert_true(all(class(x) %in% c("data.frame", "data.table", "tbl", "tbl_df")), add = arg_checks)
   # id, code, score, icd must be a single string value
   checkmate::assert_string(id, add = arg_checks)
   checkmate::assert_string(code, add = arg_checks)
@@ -144,7 +144,11 @@ comorbidity <- function(x, id, code, score, icd = "icd10", assign0, factorise = 
   regex <- lofregex[[score]][[icd]]
 
   ### Subset only 'id' and 'code' columns
-  x <- x[, c(id, code)]
+  if (data.table::is.data.table(x)) {
+    x <- x[, c(id, code), with = FALSE]
+  } else {
+    x <- x[, c(id, code)]
+  }
 
   ### Turn x into a DT
   data.table::setDT(x)

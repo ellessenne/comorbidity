@@ -4,11 +4,20 @@
 \alias{comorbidity}
 \title{Compute comorbidity scores.}
 \usage{
-comorbidity(x, id, code, score, icd = "icd10", assign0,
-  factorise = FALSE, labelled = TRUE, tidy.codes = TRUE)
+comorbidity(
+  x,
+  id,
+  code,
+  score,
+  icd = "icd10",
+  assign0,
+  factorise = FALSE,
+  labelled = TRUE,
+  tidy.codes = TRUE
+)
 }
 \arguments{
-\item{x}{A tidy data frame with one column containing an individual ID and a column containing all diagnostic codes.}
+\item{x}{A tidy \code{data.frame} (or a \code{data.table}; \code{tibble}s are supported too) with one column containing an individual ID and a column containing all diagnostic codes. Extra columns other than ID and codes are discarded.}
 
 \item{id}{Column of \code{x} containing the individual ID.}
 

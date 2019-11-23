@@ -624,3 +624,24 @@ test_that("break output checks", {
   ex[2:32] <- ex[2:32] + rnorm(n = nrow(ex))
   expect_error(.check_output(x = ex, id = "id", score = "elixhauser"), regexp = "unexpected state")
 })
+
+test_that("works ok with data.table", {
+  library(data.table)
+  x <- data.frame(
+    id = sample(1:20, size = 50, replace = TRUE),
+    code = sample_diag(50),
+    stringsAsFactors = FALSE
+  )
+  c <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+  c.dt <- comorbidity(x = data.table::setDT(x), id = "id", code = "code", score = "charlson", assign0 = FALSE)
+  expect_equal(object = c.dt, expected = c)
+  x <- data.frame(
+    id = sample(1:20, size = 50, replace = TRUE),
+    code = sample_diag(50),
+    stringsAsFactors = FALSE
+  )
+  x$noise <- stats::rnorm(n = nrow(x))
+  c <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+  c.dt <- comorbidity(x = data.table::setDT(x), id = "id", code = "code", score = "charlson", assign0 = FALSE)
+  expect_equal(object = c.dt, expected = c)
+})
