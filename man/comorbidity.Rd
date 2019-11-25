@@ -9,8 +9,8 @@ comorbidity(
   id,
   code,
   score,
-  icd = "icd10",
   assign0,
+  icd = "icd10",
   factorise = FALSE,
   labelled = TRUE,
   tidy.codes = TRUE
@@ -25,8 +25,6 @@ comorbidity(
 
 \item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score (\code{charlson}) and the weighted Elixhauser score (\code{elixhauser}). Values are case-insensitive.}
 
-\item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}) or ICD-10 (\code{icd10}). Defaults to \code{icd10}, and values are case-insensitive.}
-
 \item{assign0}{Apply a hierarchy of comorbidities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:
 \itemize{
 \item "Mild liver disease" (\code{mld}) and "Moderate/severe liver disease" (\code{msld}) for the Charlson score;
@@ -36,6 +34,8 @@ comorbidity(
 \item "Diabetes, uncomplicated" (\code{diabunc}) and "Diabetes, complicated" (\code{diabc}) for the Elixhauser score;
 \item "Solid tumour" (\code{solidtum}) and "Metastatic cancer" (\code{metacanc}) for the Elixhauser score.
 }}
+
+\item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}) or ICD-10 (\code{icd10}). Defaults to \code{icd10}, and values are case-insensitive.}
 
 \item{factorise}{Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{FALSE}.}
 
