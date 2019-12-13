@@ -39,7 +39,7 @@ The ICD-9-CM codes used by `comorbidity` to compute the Charlson comorbidity ind
 
 * Congestive heart failure: 398.91, 402.01, 402.11, 402.91, 404.01, 404.03, 404.11, 404.13, 404.91, 404.93, 425.4 - 425.9, 428.x
 
-* Peripheral vascular disease: 093.0, 437.3, 440.x, 441.x, 443.1 - 443.9, 47.1, 557.1, 557.9, V43.4
+* Peripheral vascular disease: 093.0, 437.3, 440.x, 441.x, 443.1 - 443.9, 447.1, 557.1, 557.9, V43.4
 
 * Cerebrovascular disease: 362.34, 430.x - 438.x
 
@@ -68,6 +68,9 @@ The ICD-9-CM codes used by `comorbidity` to compute the Charlson comorbidity ind
 * Metastatic solid tumour: 196.x - 199.x
 
 * AIDS/HIV: 042.x - 044.x
+
+There is a difference between codes reported above for peripheral vascular disease and the paper by Quan _et al_.; the code 47.1 reported in the paper is replaced by 447.1, as it is likely a typo.
+See [here](https://github.com/ellessenne/comorbidity/issues/10) and [here](https://github.com/ellessenne/comorbidity/issues/26) for more details.
 
 ## ICD-10 codes
 
