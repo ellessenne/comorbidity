@@ -645,3 +645,26 @@ test_that("works ok with data.table", {
   c.dt <- comorbidity(x = data.table::setDT(x), id = "id", code = "code", score = "charlson", assign0 = FALSE)
   expect_equal(object = c.dt, expected = c)
 })
+
+test_that("expect warnings when using not syntactically valid names", {
+  dt <- data.frame(
+    `Enc ID` = 1234,
+    DxCode = "N390"
+  )
+  expect_warning(comorbidity(dt, id = "Enc ID", code = "DxCode", icd = "icd10", score = "charlson", assign0 = FALSE))
+  dt <- data.frame(
+    Enc.ID = 1234,
+    DxCode = "N390"
+  )
+  expect_warning(comorbidity(dt, id = "Enc ID", code = "DxCode", icd = "icd10", score = "charlson", assign0 = FALSE))
+  dt <- data.frame(
+    EncID = 1234,
+    `Dx Code` = "N390"
+  )
+  expect_warning(comorbidity(dt, id = "EncID", code = "Dx Code", icd = "icd10", score = "charlson", assign0 = FALSE))
+  dt <- data.frame(
+    EncID = 1234,
+    Dx.Code = "N390"
+  )
+  expect_warning(comorbidity(dt, id = "EncID", code = "Dx Code", icd = "icd10", score = "charlson", assign0 = FALSE))
+})

@@ -2,7 +2,9 @@
 #'
 #' @description Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score.
 #'
-#' @param x A tidy `data.frame` (or a `data.table`; `tibble`s are supported too) with one column containing an individual ID and a column containing all diagnostic codes. Extra columns other than ID and codes are discarded.
+#' @param x A tidy `data.frame` (or a `data.table`; `tibble`s are supported too) with one column containing an individual ID and a column containing all diagnostic codes.
+#' Extra columns other than ID and codes are discarded.
+#' Column names must be syntactically valid names, otherwise they are forced to be so by calling the [make.names()] function.
 #' @param id Column of `x` containing the individual ID.
 #' @param code Column of `x` containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.
 #' @param score The comorbidity score to compute. Possible choices are the weighted Charlson score (`charlson`) and the weighted Elixhauser score (`elixhauser`). Values are case-insensitive.
@@ -131,6 +133,19 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   checkmate::assert_logical(factorise, len = 1, add = arg_checks)
   checkmate::assert_logical(labelled, len = 1, add = arg_checks)
   checkmate::assert_logical(tidy.codes, len = 1, add = arg_checks)
+  # force names to be syntactically valid:
+  if (any(names(x) != make.names(names(x)))) {
+    names(x) <- make.names(names(x))
+    warning("Names of the input dataset 'x' have been modified by make.names(). See ?make.names() for more details.", call. = FALSE)
+  }
+  if (id != make.names(id)) {
+    id <- make.names(id)
+    warning("The input 'id' string has been modified by make.names(). See ?make.names() for more details.", call. = FALSE)
+  }
+  if (code != make.names(code)) {
+    code <- make.names(code)
+    warning("The input 'id' string has been modified by make.names(). See ?make.names() for more details.", call. = FALSE)
+  }
   # id, code must be in x
   checkmate::assert_subset(id, choices = names(x), add = arg_checks)
   checkmate::assert_subset(code, choices = names(x), add = arg_checks)

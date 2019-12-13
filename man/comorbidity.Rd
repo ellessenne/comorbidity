@@ -17,7 +17,9 @@ comorbidity(
 )
 }
 \arguments{
-\item{x}{A tidy \code{data.frame} (or a \code{data.table}; \code{tibble}s are supported too) with one column containing an individual ID and a column containing all diagnostic codes. Extra columns other than ID and codes are discarded.}
+\item{x}{A tidy \code{data.frame} (or a \code{data.table}; \code{tibble}s are supported too) with one column containing an individual ID and a column containing all diagnostic codes.
+Extra columns other than ID and codes are discarded.
+Column names must be syntactically valid names, otherwise they are forced to be so by calling the \code{\link[=make.names]{make.names()}} function.}
 
 \item{id}{Column of \code{x} containing the individual ID.}
 
