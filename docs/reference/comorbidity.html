@@ -139,8 +139,8 @@
   <span class='no'>id</span>,
   <span class='no'>code</span>,
   <span class='no'>score</span>,
-  <span class='kw'>icd</span> <span class='kw'>=</span> <span class='st'>"icd10"</span>,
   <span class='no'>assign0</span>,
+  <span class='kw'>icd</span> <span class='kw'>=</span> <span class='st'>"icd10"</span>,
   <span class='kw'>factorise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>labelled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>tidy.codes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
@@ -151,7 +151,9 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A tidy <code>data.frame</code> (or a <code>data.table</code>; <code>tibble</code>s are supported too) with one column containing an individual ID and a column containing all diagnostic codes. Extra columns other than ID and codes are discarded.</p></td>
+      <td><p>A tidy <code>data.frame</code> (or a <code>data.table</code>; <code>tibble</code>s are supported too) with one column containing an individual ID and a column containing all diagnostic codes.
+Extra columns other than ID and codes are discarded.
+Column names must be syntactically valid names, otherwise they are forced to be so by calling the <code><a href='https://rdrr.io/r/base/make.names.html'>make.names()</a></code> function.</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -166,10 +168,6 @@
       <td><p>The comorbidity score to compute. Possible choices are the weighted Charlson score (<code>charlson</code>) and the weighted Elixhauser score (<code>elixhauser</code>). Values are case-insensitive.</p></td>
     </tr>
     <tr>
-      <th>icd</th>
-      <td><p>The version of ICD coding to use. Possible choices are ICD-9-CM (<code>icd9</code>) or ICD-10 (<code>icd10</code>). Defaults to <code>icd10</code>, and values are case-insensitive.</p></td>
-    </tr>
-    <tr>
       <th>assign0</th>
       <td><p>Apply a hierarchy of comorbidities. If <code>TRUE</code>, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:</p><ul>
 <li><p>"Mild liver disease" (<code>mld</code>) and "Moderate/severe liver disease" (<code>msld</code>) for the Charlson score;</p></li>
@@ -179,6 +177,10 @@
 <li><p>"Diabetes, uncomplicated" (<code>diabunc</code>) and "Diabetes, complicated" (<code>diabc</code>) for the Elixhauser score;</p></li>
 <li><p>"Solid tumour" (<code>solidtum</code>) and "Metastatic cancer" (<code>metacanc</code>) for the Elixhauser score.</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>icd</th>
+      <td><p>The version of ICD coding to use. Possible choices are ICD-9-CM (<code>icd9</code>) or ICD-10 (<code>icd10</code>). Defaults to <code>icd10</code>, and values are case-insensitive.</p></td>
     </tr>
     <tr>
       <th>factorise</th>
@@ -266,7 +268,7 @@
 <p>Labels are presented to the user when using the RStudio viewer (e.g. via the <code><a href='https://rdrr.io/r/utils/View.html'>utils::View()</a></code> function) for convenience.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan <em>et al</em>. (2005). Weights for the Charlson score are based on the original formulation by Charlson <em>et al</em>. in 1987, while weights for the Elixhauser score are based on work by Moore <em>et al</em>. and van Walraven <em>et al</em>. Finally, the categorisation of scores and weighted scores is based on work by Menendez <em>et al</em>. See <code><a href='../articles/comorbidityscores.html'>vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the comorbidity scores and the weighting algorithm.
+    <p>The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan <em>et al</em>. (2005). Weights for the Charlson score are based on the original formulation by Charlson <em>et al</em>. in 1987, while weights for the Elixhauser score are based on work by Moore <em>et al</em>. and van Walraven <em>et al</em>. Finally, the categorisation of scores and weighted scores is based on work by Menendez <em>et al</em>. See <code><a href='../articles/../../../../../../../Z:/R-Dev/comorbidity/vignettes/comorbidityscores.html'>vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the comorbidity scores and the weighting algorithm.
 ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set <code>tidy.codes = TRUE</code> to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 

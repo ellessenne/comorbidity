@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2019-10-15
+2019-12-13
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
