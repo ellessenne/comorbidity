@@ -1,8 +1,8 @@
-# comorbidity (development version)
+# comorbidity 0.5.3
 
 * `comorbidity` now accepts `data.table` objects as input (#23);
 
-* `comorbidity` now can deal with non-syntactically valid names (#25);
+* `comorbidity` can deal with non-syntactically valid names (#25);
 
 * Fixed coding typo in vignette (#10, #26).
 
