@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">comorbidity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.3</span>
       </span>
     </div>
 
@@ -127,14 +127,15 @@
       
     </div>
 
-    <div id="comorbidity-development-version" class="section level1">
+    <div id="comorbidity-053" class="section level1">
 <h1 class="page-header">
-<a href="#comorbidity-development-version" class="anchor"></a>comorbidity (development version)<small> Unreleased </small>
+<a href="#comorbidity-053" class="anchor"></a>comorbidity 0.5.3<small> Unreleased </small>
 </h1>
 <ul>
 <li><p><code>comorbidity</code> now accepts <code>data.table</code> objects as input (#23);</p></li>
-<li><p><code>comorbidity</code> now can deal with non-syntactically valid names (#25);</p></li>
-<li><p>Fixed coding typo in vignette (#10, #26).</p></li>
+<li><p><code>comorbidity</code> can deal with non-syntactically valid names (#25);</p></li>
+<li><p>Fixed coding typo in vignette (#10, #26);</p></li>
+<li><p>Reduced number of random tests, as R CMD check was taking too long on some platforms getting killed on CRAN (as reported by Kurt Hornik).</p></li>
 </ul>
 </div>
     <div id="comorbidity-052" class="section level1">
@@ -179,7 +180,7 @@
 <div id="breaking-changes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#breaking-changes" class="anchor"></a>BREAKING CHANGES</h3>
-<p>Modified the behaviour of the <code>assign0</code> argument after further discussion with <a href="https://github.com/aalexandersson">Anders Alexandersson</a> in Issue #9: now there is no default, forcing the user to decide whether to apply a hierarchy of comorbidity codes or not. This will make the algorithm more transparent to the end user, allowing an informed choice. See <code><a href="../reference/comorbidity.html">?comorbidity::comorbidity</a></code> and <code><a href="../articles/../../../../../../../Z:/R-Dev/comorbidity/vignettes/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the hierarchy being applied.</p>
+<p>Modified the behaviour of the <code>assign0</code> argument after further discussion with <a href="https://github.com/aalexandersson">Anders Alexandersson</a> in Issue #9: now there is no default, forcing the user to decide whether to apply a hierarchy of comorbidity codes or not. This will make the algorithm more transparent to the end user, allowing an informed choice. See <code><a href="../reference/comorbidity.html">?comorbidity::comorbidity</a></code> and <code><a href="../articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the hierarchy being applied.</p>
 </div>
 </div>
     <div id="comorbidity-030" class="section level1">
@@ -190,7 +191,7 @@
 <h3 class="hasAnchor">
 <a href="#breaking-changes-1" class="anchor"></a>BREAKING CHANGES</h3>
 <p><code>comorbidity</code> now returns two Elixhauser scores, one computed using the algorithm of val Walraven <em>et al</em>. (2009) and a second one computed using the AHRQ algorithm (Moore <em>et al</em>., 2017). Thanks to Yumiko Abe-Jones for feedback and the discussion regarding weighted Elixhauser scores.</p>
-<p>More information can be found on the package vignette: <code><a href="../articles/../../../../../../../Z:/R-Dev/comorbidity/vignettes/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code>.</p>
+<p>More information can be found on the package vignette: <code><a href="../articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code>.</p>
 </div>
 </div>
     <div id="comorbidity-021" class="section level1">
@@ -311,7 +312,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#comorbidity-development-version">development version</a></li>
+        <li><a href="#comorbidity-053">0.5.3</a></li>
         <li><a href="#comorbidity-052">0.5.2</a></li>
         <li><a href="#comorbidity-051">0.5.1</a></li>
         <li><a href="#comorbidity-050">0.5.0</a></li>
