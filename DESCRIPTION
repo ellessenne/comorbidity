@@ -6,23 +6,22 @@ Description: Computing comorbidity scores such as the weighted Charlson score
   (Charlson, 1987 <doi:10.1016/0021-9681(87)90171-8>) and the Elixhauser
   comorbidity score (Elixhauser, 1998 <doi:10.1097/00005650-199801000-00004>)
   using ICD-9-CM or ICD-10 codes (Quan, 2005 <doi:10.1097/01.mlr.0000182534.19832.83>).
-Authors@R: c(
-  person(given = "Alessandro", 
-         family = "Gasparini", 
-         role = c("aut", "cre"), 
-         email = "alessandro.gasparini@ki.se",
-         comment = c(ORCID = "0000-0002-8319-7624")),
-  person(given = "Hojjat", 
-         family = "Salmasian", 
-         role = "ctb", 
-         email = "hsalmasian@bwh.harvard.edu", 
-         comment = "ICD-9-CM scores"),
-  person(given = "Jonathan", 
-         family = "Williman", 
-         role = "ctb", 
-         email = "jonathan.williman@otago.ac.nz", 
-         comment = c(ORCID = "0000-0001-5080-4435"))
-  )
+Authors@R: 
+    c(person(given = "Alessandro",
+             family = "Gasparini",
+             role = c("aut", "cre"),
+             email = "alessandro.gasparini@ki.se",
+             comment = c(ORCID = "0000-0002-8319-7624")),
+      person(given = "Hojjat",
+             family = "Salmasian",
+             role = "ctb",
+             email = "hsalmasian@bwh.harvard.edu",
+             comment = "ICD-9-CM scores"),
+      person(given = "Jonathan",
+             family = "Williman",
+             role = "ctb",
+             email = "jonathan.williman@otago.ac.nz",
+             comment = c(ORCID = "0000-0001-5080-4435")))
 Maintainer: Alessandro Gasparini <alessandro.gasparini@ki.se>
 URL: https://ellessenne.github.io/comorbidity
 BugReports: https://github.com/ellessenne/comorbidity/issues

@@ -4,7 +4,9 @@
 
 * `comorbidity` can deal with non-syntactically valid names (#25);
 
-* Fixed coding typo in vignette (#10, #26).
+* Fixed coding typo in vignette (#10, #26);
+
+* Reduced number of random tests, as R CMD check was taking too long on some platforms getting killed on CRAN (as reported by Kurt Hornik).
 
 # comorbidity 0.5.2
 
