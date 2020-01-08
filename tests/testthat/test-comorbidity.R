@@ -456,7 +456,7 @@ test_that("comorbidity scores are 0 or 1", {
   elixhauser10 <- comorbidity(x = dat, id = "record_id", code = "diagnosis_icd_2", score = "elixhauser", icd = "icd10", assign0 = T, factorise = F, labelled = F, tidy.codes = F)[, 2:32]
   expect_true(object = all(elixhauser10 >= 0 & elixhauser10 <= 1))
 
-  for (i in seq(50)) {
+  for (i in seq(25)) {
     x <- data.frame(
       id = sample(1:5, size = 50, replace = TRUE),
       code = sample_diag(50),
@@ -479,7 +479,7 @@ test_that("comorbidity scores are 0 or 1", {
 })
 
 test_that("duplicate codes are not counted twice (or more)", {
-  for (i in seq(50)) {
+  for (i in seq(25)) {
     x <- data.frame(
       id = sample(1:20, size = 100, replace = TRUE),
       code = sample_diag(100),
@@ -518,7 +518,7 @@ test_that("duplicate codes are not counted twice (or more)", {
     expect_true(object = all(ex4[2:32] >= 0 & ex4[2:32] <= 1))
   }
 
-  for (i in seq(50)) {
+  for (i in seq(25)) {
     x <- data.frame(
       id = sample(1:20, size = 50, replace = TRUE),
       code = sample_diag(50),
@@ -644,27 +644,4 @@ test_that("works ok with data.table", {
   c <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
   c.dt <- comorbidity(x = data.table::setDT(x), id = "id", code = "code", score = "charlson", assign0 = FALSE)
   expect_equal(object = c.dt, expected = c)
-})
-
-test_that("expect warnings when using not syntactically valid names", {
-  dt <- data.frame(
-    `Enc ID` = 1234,
-    DxCode = "N390"
-  )
-  expect_warning(comorbidity(dt, id = "Enc ID", code = "DxCode", icd = "icd10", score = "charlson", assign0 = FALSE))
-  dt <- data.frame(
-    Enc.ID = 1234,
-    DxCode = "N390"
-  )
-  expect_warning(comorbidity(dt, id = "Enc ID", code = "DxCode", icd = "icd10", score = "charlson", assign0 = FALSE))
-  dt <- data.frame(
-    EncID = 1234,
-    `Dx Code` = "N390"
-  )
-  expect_warning(comorbidity(dt, id = "EncID", code = "Dx Code", icd = "icd10", score = "charlson", assign0 = FALSE))
-  dt <- data.frame(
-    EncID = 1234,
-    Dx.Code = "N390"
-  )
-  expect_warning(comorbidity(dt, id = "EncID", code = "Dx Code", icd = "icd10", score = "charlson", assign0 = FALSE))
 })
