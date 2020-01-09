@@ -1,3 +1,5 @@
+# comorbidity (development version)
+
 # comorbidity 0.5.3
 
 * `comorbidity` now accepts `data.table` objects as input (#23);
