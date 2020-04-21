@@ -124,8 +124,8 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   checkmate::assert_string(icd, add = arg_checks)
   # score must be charlson, elixhauser; case insensitive
   score <- tolower(score)
-  # checkmate::assert_choice(score, choices = c("charlson", "elixhauser",
-  #                                             "elixhauser_ahrq"), add = arg_checks)
+  checkmate::assert_choice(score, choices = c("charlson", "elixhauser",
+                                              "elixhauser_ahrq"), add = arg_checks)
   # icd must be icd9, icd10; case insensitive
   icd <- tolower(icd)
   checkmate::assert_choice(icd, choices = c("icd9", "icd10"), add = arg_checks)
