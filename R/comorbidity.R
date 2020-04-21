@@ -199,13 +199,95 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     x$index <- with(x, cut(score, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
     x$wscore <- with(x, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0, 0, 1) + diab * ifelse(diabwc == 1 & assign0, 0, 1) + diabwc * 2 + hp * 2 + rend * 2 + canc * ifelse(metacanc == 1 & assign0, 0, 2) + msld * 3 + metacanc * 6 + aids * 6)
     x$windex <- with(x, cut(wscore, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
-  } else {
+  } else if (score == "elixhauser") {
     x$score <- with(x, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
     x$index <- with(x, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
     x$wscore_ahrq <- with(x, chf * 9 + carit * 0 + valv * 0 + pcd * 6 + pvd * 3 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0, 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
     x$wscore_vw <- with(x, chf * 7 + carit * 5 + valv * (-1) + pcd * 4 + pvd * 2 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * 0 + para * 7 + ond * 6 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * 0 + hypothy * 0 + rf * 5 + ld * 11 + pud * 0 + aids * 0 + lymph * 9 + metacanc * 12 + solidtum * ifelse(metacanc == 1 & assign0, 0, 4) + rheumd * 0 + coag * 3 + obes * (-4) + wloss * 6 + fed * 5 + blane * (-2) + dane * (-2) + alcohol * 0 + drug * (-7) + psycho * 0 + depre * (-3))
     x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
     x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
+  } else {
+    # (From SAS code): 
+    # /* Initialize Hypertension, CHF, and Renal */
+    #   /* Comorbidity flags to 1 using the detail */
+    #   /* hypertension flags.                     */
+    
+    # IF HTNPREG_  THEN HTNCX = 1;
+    x$HTNCX[x$HTNPREG==1] = 1
+    
+    # IF HTNWOCHF_ THEN HTNCX = 1;
+    x$HTNCX[x$HTNWOCHF==1] = 1
+    
+    # IF HTNWCHF_  THEN DO;
+    # HTNCX    = 1;
+    # CHF      = 1;
+    x[x$HTNWCHF==1, c('HTNCX', 'CHF')] = 1
+    
+    # IF HRENWORF_ THEN HTNCX = 1;
+    x$HTNCX[x$HRENWORF==1] = 1
+    
+    # IF HRENWRF_  THEN DO;
+    # HTNCX    = 1;
+    # RENLFAIL = 1;
+    x[x$HRENWRF==1, c('HTNCX', 'RENLFAIL')] = 1
+    
+    # IF HHRWOHRF_ THEN HTNCX = 1;
+    x$HTNCX[x$HHRWOHRF==1] = 1
+    
+    # IF HHRWCHF_  THEN DO;
+    # HTNCX    = 1;
+    # CHF      = 1;
+    x[x$HHRWCHF==1, c('HTNCX', 'CHF')] = 1
+    
+    # IF HHRWRF_   THEN DO;
+    # HTNCX    = 1;
+    # RENLFAIL = 1;
+    x[x$HHRWRF==1, c('HTNCX', 'RENLFAIL')] = 1
+    
+    # IF HHRWHRF_  THEN DO;
+    # HTNCX    = 1;
+    # CHF      = 1;
+    # RENLFAIL = 1;
+    x[x$HHRWHRF==1, c('HTNCX', 'CHF', 'RENLFAIL')] = 1
+    
+    # IF OHTNPREG_ THEN HTNCX = 1;	 
+    x$HTNCX[x$OHTNPREG==1] = 1
+    
+    # NOTE carit exists in previous version but not in SAS code
+    x$carit = 0
+    
+    # Rename columns to comorbidity package conventions
+    x <- x %>%
+      rename(chf = CHF,
+             valv = VALVE,
+             pcd = PULMCIRC,
+             pvd = PERIVASC,
+             hypunc = HTN,
+             hypc = HTNCX,
+             para = PARA,
+             ond = NEURO,
+             cpd = CHRNLUNG,
+             diabunc = DM,
+             diabc = DMCX,
+             hypothy = HYPOTHY,
+             rf = RENLFAIL,
+             ld = LIVER,
+             pud = ULCER,
+             aids = AIDS,
+             lymph = LYMPH,
+             metacanc = METS,
+             solidtum = TUMOR,
+             rheumd = ARTH,
+             coag = COAG,
+             obes = OBESE,
+             wloss = WGHTLOSS,
+             fed = LYTES,
+             blane = BLDLOSS,
+             dane = ANEMDEF,
+             alcohol = ALCOHOL,
+             drug = DRUG,
+             psycho = PSYCH,
+             depre = DEPRESS)
   }
 
   ### Check output for possible unknown-state errors

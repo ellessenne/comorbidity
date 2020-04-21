@@ -262,5 +262,12 @@ lofregex[["elixhauser"]][["icd10"]][["drug"]] <- "^F11|^F12|^F13|^F14|^F15|^F16|
 lofregex[["elixhauser"]][["icd10"]][["psycho"]] <- "^F20|^F22|^F23|^F24|^F25|^F28|^F29|^F302|^F312|^F315"
 lofregex[["elixhauser"]][["icd10"]][["depre"]] <- "^F204|^F313|^F314|^F315|^F32|^F33|^F341|^F412|^F432"
 
+# Add elixhauser_ahrq (see comorbidity/fiksdal_work/convert_sas.R)
+lofregex = list()
+lofregex[["elixhauser_ahrq"]] = list()
+lofregex[["elixhauser_ahrq"]][["icd10"]] = list()
+# Fill icd10 sublist from convert_sas.R
+source('ahrq_sas_conversion_af.R')
+
 # Export data as internal
 usethis::use_data(lofregex, internal = TRUE, overwrite = TRUE)
