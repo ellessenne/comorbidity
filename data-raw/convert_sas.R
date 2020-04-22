@@ -14,7 +14,7 @@ library(stringr)
 # "O9903"="BLDLOSS"        /*Blood loss anemia*/
 
 # Read in data
-sas_path <- "comformat_icd10cm_2020_1.txt"
+sas_path <- "data-raw/comformat_icd10cm_2020_1.txt"
 sas_ahrq_raw <- readLines(sas_path)
 
 # Make list of lists for ahrq codes to compare
@@ -55,7 +55,7 @@ test_sas_list = make_sas_list(sas_ahrq_raw)
 
 # Write to txt file to merge with make-data.R
 for (g in names(test_sas_list)) {
-  cat(paste0('lofregex[["elixhauser_ahrq"]][["icd10"]][[',
-             g,']] <- "', test_sas_list[g], '"'),
-      file="../data-raw/ahrq_sas_conversion_af.txt",sep="\n", append=T)
+  cat(paste0('lofregex[["elixhauser_ahrq"]][["icd10"]][["',
+             g,'"]] <- "', test_sas_list[g], '"'),
+      file="data-raw/ahrq_sas_conversion_af.txt",sep="\n", append=T)
 }
