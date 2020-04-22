@@ -258,44 +258,21 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     x$carit = 0
 
     # Rename columns to comorbidity package conventions
-    x <- x %>%
-      dplyr::rename(chf = CHF,
-             valv = VALVE,
-             pcd = PULMCIRC,
-             pvd = PERIVASC,
-             hypunc = HTN,
-             hypc = HTNCX,
-             para = PARA,
-             ond = NEURO,
-             cpd = CHRNLUNG,
-             diabunc = DM,
-             diabc = DMCX,
-             hypothy = HYPOTHY,
-             rf = RENLFAIL,
-             ld = LIVER,
-             pud = ULCER,
-             aids = AIDS,
-             lymph = LYMPH,
-             metacanc = METS,
-             solidtum = TUMOR,
-             rheumd = ARTH,
-             coag = COAG,
-             obes = OBESE,
-             wloss = WGHTLOSS,
-             fed = LYTES,
-             blane = BLDLOSS,
-             dane = ANEMDEF,
-             alcohol = ALCOHOL,
-             drug = DRUG,
-             psycho = PSYCH,
-             depre = DEPRESS)
+    old = c("CHF", "VALVE", "PULMCIRC", "PERIVASC", "HTN", "HTNCX", "PARA",
+            "NEURO", "CHRNLUNG", "DM", "DMCX", "HYPOTHY", "RENLFAIL", "LIVER",
+            "ULCER", "AIDS", "LYMPH", "METS", "TUMOR", "ARTH", "COAG", "OBESE",
+            "WGHTLOSS", "LYTES", "BLDLOSS", "ANEMDEF", "ALCOHOL", "DRUG", 
+            "PSYCH", "DEPRESS")
+    new = c("chf", "valv", "pcd", "pvd", "hypunc", "hypc", "para", "ond", "cpd",
+            "diabunc", "diabc", "hypothy", "rf", "ld", "pud", "aids", "lymph",
+            "metacanc", "solidtum", "rheumd", "coag", "obes", "wloss", "fed",
+            "blane", "dane", "alcohol", "drug", "psycho", "depre")
+    x <- data.table::setnames(x, old=old, new=new)
     
-    # Drop unnecessary columns
-    ## !!DOUBLE CHECK
-    x <- x %>%
-      select(ls(lofregex[['elixhauser']][['icd10']]))
+    # Return only specified variables
+    x <- x[c(id, ls(lofregex[['elixhauser']][['icd10']]))]
     
-    # Same computations as "elixhauser" !!DOUBLE CHECK
+    # Same computations as "elixhauser"
     x$score <- with(x, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
     x$index <- with(x, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
     x$wscore_ahrq <- with(x, chf * 9 + carit * 0 + valv * 0 + pcd * 6 + pvd * 3 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0, 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
@@ -304,7 +281,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   }
 
-  ### Check output for possible unknown-state errors !!FIGURE THIS OUT
+  ### Check output for possible unknown-state errors
   .check_output(x = x, id = id, score = score)
 
   ### Factorise comorbidities if requested
