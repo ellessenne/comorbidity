@@ -181,8 +181,13 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     drg_flags = msdrg_key_value[all_drgs]
     names(drg_flags) = x[[id]]
     drg_flags = drg_flags[!is.na(drg_flags)]
-    drg_flags = unstack(stack(drg_flags)) # get named list of lists
-    drg_flags = lapply(drg_flags, unique)
+    # Get named list of list
+    if (sum(duplicated(names(drg_flags))) > 0){
+      drg_flags = unstack(stack(drg_flags)) 
+      drg_flags = lapply(drg_flags, unique)
+    } else {
+      drg_flags = as.list(drg_flags)
+    }
   }
 
   ### Subset only 'id' and 'code' columns
