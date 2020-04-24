@@ -112,7 +112,7 @@
 #' comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
 #' @export
 
-comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = FALSE, labelled = TRUE, tidy.codes = TRUE) {
+comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = FALSE, labelled = TRUE, tidy.codes = TRUE, drg=NULL) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame (or a data.table)
@@ -122,7 +122,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   checkmate::assert_string(code, add = arg_checks)
   checkmate::assert_string(score, add = arg_checks)
   checkmate::assert_string(icd, add = arg_checks)
-  # score must be charlson, elixhauser; case insensitive
+  # score must be charlson, elixhauser, elixhauser_ahrq; case insensitive
   score <- tolower(score)
   checkmate::assert_choice(score, choices = c("charlson", "elixhauser",
                                               "elixhauser_ahrq"), add = arg_checks)
@@ -134,6 +134,12 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   checkmate::assert_logical(factorise, len = 1, add = arg_checks)
   checkmate::assert_logical(labelled, len = 1, add = arg_checks)
   checkmate::assert_logical(tidy.codes, len = 1, add = arg_checks)
+  # drg must be supplied when score='elixhauser_ahrq'
+  checkmate::assert_true(
+    (score=='elixhauser_ahrq' & !is.null(drg)) | 
+      (score!='elixhauser_ahrq' & is.null(drg)),
+    add = arg_checks
+  )
   # force names to be syntactically valid:
   if (any(names(x) != make.names(names(x)))) {
     names(x) <- make.names(names(x))
@@ -158,7 +164,29 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
 
   ### Extract regex for internal use
   regex <- lofregex[[score]][[icd]]
-
+  
+  ########################## START FIKSDAL
+  ### Extract SAS DRGS
+  if (!is.null(drg)) {
+    # Get MS-DRG flags
+    stacked_lofmsdrg = stack(lofmsdrg)
+    msdrg_key_value = as.vector(stacked_lofmsdrg$ind)
+    names(msdrg_key_value) = as.character(stacked_lofmsdrg$values)
+    msdrg_key_value
+    
+    # Drop DRG leading zeros, convert to character
+    all_drgs = as.numeric(x[[drg]])
+    all_drgs = as.character(all_drgs)
+    
+    # Get list of SAS drg flags
+    drg_flags = msdrg_key_value[all_drgs]
+    names(drg_flags) = x[[id]]
+    drg_flags = drg_flags[!is.na(drg_flags)]
+    drg_flags = unstack(stack(drg_flags)) # get named list of lists
+    drg_flags = lapply(drg_flags, unique)
+  }
+  ########################## END FIKSDAL
+  
   ### Subset only 'id' and 'code' columns
   if (data.table::is.data.table(x)) {
     x <- x[, c(id, code), with = FALSE]
@@ -208,75 +236,328 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
     x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   } else {
-    # (From SAS code):
+    # /*******************************************/
     # /* Initialize Hypertension, CHF, and Renal */
     # /* Comorbidity flags to 1 using the detail */
     # /* hypertension flags.                     */
-
+    # /*******************************************/
     # IF HTNPREG_  THEN HTNCX = 1;
     x$HTNCX[x$HTNPREG==1] = 1
-
+    
     # IF HTNWOCHF_ THEN HTNCX = 1;
     x$HTNCX[x$HTNWOCHF==1] = 1
-
+    
     # IF HTNWCHF_  THEN DO;
-    # HTNCX    = 1;
-    # CHF      = 1;
+    #   HTNCX    = 1;
+    #   CHF      = 1;
     x[x$HTNWCHF==1, c('HTNCX', 'CHF')] = 1
-
+    # END;
+    
     # IF HRENWORF_ THEN HTNCX = 1;
     x$HTNCX[x$HRENWORF==1] = 1
-
+    
     # IF HRENWRF_  THEN DO;
-    # HTNCX    = 1;
-    # RENLFAIL = 1;
+    #   HTNCX    = 1;
+    #   RENLFAIL = 1;
     x[x$HRENWRF==1, c('HTNCX', 'RENLFAIL')] = 1
-
+    # END;
+    
     # IF HHRWOHRF_ THEN HTNCX = 1;
     x$HTNCX[x$HHRWOHRF==1] = 1
-
+    
     # IF HHRWCHF_  THEN DO;
     # HTNCX    = 1;
     # CHF      = 1;
+    # END;
     x[x$HHRWCHF==1, c('HTNCX', 'CHF')] = 1
-
+    
     # IF HHRWRF_   THEN DO;
     # HTNCX    = 1;
     # RENLFAIL = 1;
+    # END;
     x[x$HHRWRF==1, c('HTNCX', 'RENLFAIL')] = 1
-
+    
     # IF HHRWHRF_  THEN DO;
     # HTNCX    = 1;
     # CHF      = 1;
     # RENLFAIL = 1;
+    # END;
     x[x$HHRWHRF==1, c('HTNCX', 'CHF', 'RENLFAIL')] = 1
-
+    
     # IF OHTNPREG_ THEN HTNCX = 1;
     x$HTNCX[x$OHTNPREG==1] = 1
-
-    # NOTE carit exists in previous version but not in SAS code
-    x$carit = 0
-
+    
+    # 
+    # 
+    #   /*********************************************************/
+    #   /* Set up code to only count the more severe comorbidity */
+    #   /*********************************************************/ 
+    #   IF HTNCX = 1 THEN HTN = 0 ;
+    x$HTN[x$HTNCX==1] = 0
+    
+    #   IF METS = 1 THEN TUMOR = 0 ;
+    x$TUMOR[x$METS==1] = 0
+    
+    #   IF DMCX = 1 THEN DM = 0 ;
+    x$DM[x$DMCX==1] = 0
+    
+    #   
+    #     /******************************************************/
+    #     /* Examine DRG and set flags to identify a particular */
+    #     /* DRG group                                          */
+    #     /******************************************************/
+    #     IF PUT(DRG,CARDDRG.)  = 'YES' THEN CARDFLG  = 1;
+    #     IF PUT(DRG,PERIDRG.)  = 'YES' THEN PERIFLG  = 1;
+    #     IF PUT(DRG,CEREDRG.)  = 'YES' THEN CEREFLG  = 1;
+    #     IF PUT(DRG,NERVDRG.)  = 'YES' THEN NERVFLG  = 1;
+    #     IF PUT(DRG,PULMDRG.)  = 'YES' THEN PULMFLG  = 1;
+    #     IF PUT(DRG,DIABDRG.)  = 'YES' THEN DIABFLG  = 1;
+    #     IF PUT(DRG,HYPODRG.)  = 'YES' THEN HYPOFLG  = 1;
+    #     IF PUT(DRG,RENALDRG.) = 'YES' THEN RENALFLG = 1;
+    #     IF PUT(DRG,RENFDRG.)  = 'YES' THEN RENFFLG  = 1;
+    #     IF PUT(DRG,LIVERDRG.) = 'YES' THEN LIVERFLG = 1;
+    #     IF PUT(DRG,ULCEDRG.)  = 'YES' THEN ULCEFLG  = 1;
+    #     IF PUT(DRG,HIVDRG.)   = 'YES' THEN HIVFLG   = 1;
+    #     IF PUT(DRG,LEUKDRG.)  = 'YES' THEN LEUKFLG  = 1;
+    #     IF PUT(DRG,CANCDRG.)  = 'YES' THEN CANCFLG  = 1;
+    #     IF PUT(DRG,ARTHDRG.)  = 'YES' THEN ARTHFLG  = 1;
+    #     IF PUT(DRG,NUTRDRG.)  = 'YES' THEN NUTRFLG  = 1;
+    #     IF PUT(DRG,ANEMDRG.)  = 'YES' THEN ANEMFLG  = 1;
+    #     IF PUT(DRG,ALCDRG.)   = 'YES' THEN ALCFLG   = 1;
+    #     IF PUT(DRG,HTNCXDRG.) = 'YES' THEN HTNCXFLG = 1;
+    #     IF PUT(DRG,HTNDRG.)   = 'YES' THEN HTNFLG   = 1;
+    #     IF PUT(DRG,COAGDRG.)  = 'YES' THEN COAGFLG  = 1;
+    #     IF PUT(DRG,PSYDRG.)   = 'YES' THEN PSYFLG   = 1;  
+    #     IF PUT(DRG,OBESEDRG.) = 'YES' THEN OBESEFLG = 1;
+    #     IF PUT(DRG,DEPRSDRG.) = 'YES' THEN DEPRSFLG = 1;
+    
+    x[names(lofmsdrg)] = NA # Add DRG columns
+    # drg_flags have ids as names and indicated drgs as values
+    for (i in names(drg_flags)) {
+      x[x[[id]]==i, drg_flags[[i]]] = 1 # Add indicators
+    }
+    x[is.na(x)] = 0
+    
+    #     
+    #     
+    #       /************************************************************/
+    #       /* Redefining comorbidities by eliminating the DRG directly */
+    #       /* related to comorbidity, thus limiting the screens to     */
+    #       /* principal diagnoses not directly related to comorbidity  */
+    #       /* in question                                              */
+    #       /************************************************************/  
+    #       IF CHF   	AND CARDFLG  				THEN CHF 		= 0;
+    x$CHF[x$CHF==1 & x$CARDDRG==1] = 0
+    
+    #       IF VALVE 	AND CARDFLG   				THEN VALVE 		= 0;
+    x$VALVE[x$VALVE==1 & x$CARDDRG==1] = 0
+    
+    #       IF PULMCIRC  AND (CARDFLG OR PULMFLG ) 	THEN PULMCIRC 	= 0;
+    x$PULMCIRC[x$PULMCIRC==1 & (x$CARDDRG==1 | x$PULMDRG==1)] = 0
+    
+    #       IF PERIVASC  AND PERIFLG 				THEN PERIVASC 	= 0;
+    x$PERIVASC[x$PERIVASC==1 & x$PERIDRG==1] = 0
+    
+    #       IF HTN 		AND HTNFLG 					THEN HTN 		= 0;
+    x$HTN[x$HTN==1 & x$HTNDRG==1] = 0
+    
+    #       
+    #         /**********************************************************/
+    #         /* Apply DRG Exclusions to Hypertension Complicated, Con- */
+    #         /* gestive Heart Failure, and Renal Failure comorbidities */
+    #         /* using the detailed hypertension flags created above.   */
+    #         /**********************************************************/
+    #         IF HTNCX     AND HTNCXFLG THEN HTNCX = 0  ;
+    x$HTNCX[x$HTNCX==1 & x$HTNCXDRG==1] = 0
+    
+    #         IF HTNPREG_  AND HTNCXFLG THEN HTNCX = 0;
+    x$HTNCX[x$HTNPREG==1 & x$HTNCXDRG==1] = 0
+    
+    #         IF HTNWOCHF_ AND (HTNCXFLG OR CARDFLG) THEN HTNCX = 0;
+    x$HTNCX[x$HTNWOCHF==1 & (x$HTNCXDRG==1 | x$CARDDRG==1)] = 0
+    
+    #         IF HTNWCHF_  THEN DO;
+    #           IF HTNCXFLG THEN HTNCX  = 0;
+    x$HTNCX[x$HTNWCHF==1 & x$HTNCXDRG==1] = 0
+    
+    #           IF CARDFLG THEN DO;
+    #             HTNCX = 0;
+    x$HTNCX[x$HTNWCHF==1 & x$CARDDRG==1] = 0
+    #             CHF   = 0;
+    x$CHF[x$HTNWCHF==1 & x$CARDDRG==1] = 0
+    
+    #           END;
+    #         END;
+    
+    #         IF HRENWORF_ AND (HTNCXFLG OR RENALFLG) THEN HTNCX = 0;
+    x$HTNCX[x$HRENWORF==1 & (x$HTNCXDRG==1 | x$RENALDRG==1)] = 0
+    
+    #         IF HRENWRF_  THEN DO;
+    #           IF HTNCXFLG THEN HTNCX = 0;
+    x$HTNCX[x$HRENWRF==1 & x$HTNCXDRG==1] = 0
+    
+    #           IF RENALFLG THEN DO;
+    #             HTNCX    = 0;
+    #             RENLFAIL = 0;
+    x[x$HRENWRF==1 & x$RENALDRG==1, c('HTNCX', 'RENLFAIL')] = 0
+    
+    #           END;
+    #         END;
+    
+    #         IF HHRWOHRF_ AND (HTNCXFLG OR CARDFLG OR RENALFLG) THEN HTNCX = 0;
+    x$HTNCX[x$HRENWORF==1 & (x$HTNCXDRG==1 | x$CARDDRG==1 | x$RENALDRG==1)] = 0
+    
+    #         IF HHRWCHF_ THEN DO;
+    #           IF HTNCXFLG THEN HTNCX = 0;
+    x$HTNCX[x$HHRWCHF==1 & x$HTNCXDRG==1] = 0
+    
+    #             IF CARDFLG THEN DO;
+    #               HTNCX = 0;
+    #               CHF   = 0;
+    x[x$HHRWCHF==1 & x$CARDDRG==1, c('HTNCX', 'CHF')] = 0
+    
+    #             END;
+    #         IF RENALFLG THEN HTNCX = 0;
+    x$HTNCX[x$HHRWCHF==1 & x$RENALDRG==1] = 0
+    
+    #         END;
+    
+    
+    #         IF HHRWRF_ THEN DO;
+    #           IF HTNCXFLG OR CARDFLG THEN HTNCX = 0;
+    x$HTNCX[x$HHRWRF==1 & (x$HTNCXDRG==1 | x$CARDDRG==1)] = 0
+    
+    #           IF RENALFLG THEN DO;
+    #             HTNCX    = 0;
+    #             RENLFAIL = 0;
+    x[x$HHRWRF==1 & x$RENALDRG==1, c('HTNCX', 'RENLFAIL')] = 0
+    
+    #           END;
+    #         END;
+    
+    #         IF HHRWHRF_ THEN DO;
+    #           IF HTNCXFLG THEN HTNCX = 0;
+    x$HTNCX[x$HHRWHRF==1 & x$HTNCXDRG==1] = 0
+    
+    #           IF CARDFLG THEN DO;
+    #             HTNCX = 0;
+    #             CHF   = 0;
+    x[x$HHRWHRF==1 & x$CARDDRG==1, c('HTNCX', 'CHF')] = 0
+    
+    #           END;
+    #           IF RENALFLG THEN DO;
+    #           HTNCX    = 0;
+    #           RENLFAIL = 0;
+    x[x$HHRWHRF==1 & x$RENALFLG==1, c('HTNCX', 'RENLFAIL')] = 0
+    
+    #           END;
+    #         END;
+    #         IF OHTNPREG_ AND (HTNCXFLG OR CARDFLG OR RENALFLG) THEN HTNCX = 0;
+    x$HTNCX[x$OHTNPREG==1 & (x$HTNCXDRG==1 | x$CARDDRG==1 | x$RENALDRG==1)] = 0
+    
+    #         
+    #         IF NEURO AND NERVFLG THEN NEURO = 0;
+    x$NEURO[x$NEURO==1 & x$NERVDRG==1] = 0
+    
+    #         IF CHRNLUNG AND PULMFLG THEN CHRNLUNG = 0;
+    x$CHRNLUNG[x$CHRNLUNG==1 & x$PULMDRG==1] = 0
+    
+    #         IF DM AND DIABFLG THEN DM = 0;
+    x$DM[x$DM==1 & x$DIABDRG==1] = 0
+    
+    #         IF DMCX AND DIABFLG THEN DMCX = 0 ;
+    x$DMCX[x$DMCX==1 & x$DIABDRG==1] = 0
+    
+    #         IF HYPOTHY AND HYPOFLG THEN HYPOTHY = 0;
+    x$HYPOTHY[x$HYPOTHY==1 & x$HYPODRG==1] = 0
+    
+    #         IF RENLFAIL AND RENFFLG THEN   RENLFAIL = 0;
+    x$RENLFAIL[x$RENLFAIL==1 & x$RENFDRG==1] = 0
+    
+    #         IF LIVER AND LIVERFLG THEN LIVER = 0;
+    x$LIVER[x$LIVER==1 & x$LIVERDRG==1] = 0
+    
+    #         IF ULCER AND ULCEFLG THEN  ULCER = 0;
+    x$ULCER[x$ULCER==1 & x$ULCEDRG==1] = 0
+    
+    #         IF AIDS AND HIVFLG THEN AIDS = 0;
+    x$AIDS[x$AIDS==1 & x$HIVDRG==1] = 0
+    
+    #         IF LYMPH AND LEUKFLG THEN LYMPH = 0;
+    x$LYMPH[x$LYMPH==1 & x$LEUKDRG==1] = 0
+    
+    #         IF METS AND CANCFLG THEN METS = 0;
+    x$METS[x$METS==1 & x$CANCDRG==1] = 0
+    
+    #         IF TUMOR AND CANCFLG THEN TUMOR = 0;
+    x$TUMOR[x$TUMOR==1 & x$CANCDRG==1] = 0
+    
+    #         IF ARTH AND ARTHFLG THEN ARTH = 0;
+    x$ARTH[x$ARTH==1 & x$ARTHDRG==1] = 0
+    
+    #         IF COAG AND COAGFLG THEN COAG = 0;
+    x$COAG[x$COAG==1 & x$COAGFLG==1] = 0
+    
+    #         IF OBESE AND (NUTRFLG OR OBESEFLG) THEN  OBESE = 0;
+    x$OBESE[x$OBESE==1 & (x$NUTRFLG==1 | x$OBESEDRG==1)] = 0
+    
+    #         IF WGHTLOSS AND NUTRFLG THEN WGHTLOSS = 0;
+    x$WGHTLOSS[x$WGHTLOSS==1 & x$NUTRDRG==1] = 0
+    
+    #         IF LYTES AND NUTRFLG THEN LYTES = 0;
+    x$LYTES[x$LYTES==1 & x$NUTRDRG==1] = 0
+    
+    #         IF BLDLOSS AND ANEMFLG THEN BLDLOSS = 0;
+    x$BLDLOSS[x$BLDLOSS==1 & x$ANEMDRG==1] = 0
+    
+    #         IF ANEMDEF AND ANEMFLG THEN ANEMDEF = 0;
+    x$ANEMDEF[x$ANEMDEF==1 & x$ANEMDRG==1] = 0
+    
+    #         IF ALCOHOL AND ALCFLG THEN ALCOHOL = 0;
+    x$ALCOHOL[x$ALCOHOL==1 & x$ALCFLG==1] = 0
+    
+    #         IF DRUG AND ALCFLG THEN DRUG = 0;
+    x$DRUG[x$DRUG==1 & x$ALCDRG==1] = 0
+    
+    #         IF PSYCH AND PSYFLG THEN PSYCH = 0;
+    x$PSYCH[x$PSYCH==1 & x$PSYDRG==1] = 0
+    
+    #         IF DEPRESS AND DEPRSFLG THEN DEPRESS = 0;
+    x$DEPRESS[x$DEPRESS==1 & x$DEPRSDRG==1] = 0
+    
+    #         IF PARA AND CEREFLG THEN PARA = 0;
+    x$PARA[x$PARA==1 & x$CEREDRG==1] = 0
+    
+    #         
+    #           /*************************************/
+    #           /*  Combine HTN and HTNCX into HTN_C */
+    #           /*************************************/
+    #           ATTRIB HTN_C LENGTH=3 LABEL='Hypertension';
+    #           
+    #           IF HTN=1 OR HTNCX=1 THEN HTN_C=1;
+    #           ELSE HTN_C=0;
+    x$HTN_C = ifelse(x$HTN==1 | x$HTNCX==1, 1, 0)
+    
     # Rename columns to comorbidity package conventions
-    old = c("CHF", "VALVE", "PULMCIRC", "PERIVASC", "HTN", "HTNCX", "PARA",
+    old_names = c("CHF", "VALVE", "PULMCIRC", "PERIVASC", "HTN", "HTNCX", "PARA",
             "NEURO", "CHRNLUNG", "DM", "DMCX", "HYPOTHY", "RENLFAIL", "LIVER",
             "ULCER", "AIDS", "LYMPH", "METS", "TUMOR", "ARTH", "COAG", "OBESE",
-            "WGHTLOSS", "LYTES", "BLDLOSS", "ANEMDEF", "ALCOHOL", "DRUG", 
+            "WGHTLOSS", "LYTES", "BLDLOSS", "ANEMDEF", "ALCOHOL", "DRUG",
             "PSYCH", "DEPRESS")
-    new = c("chf", "valv", "pcd", "pvd", "hypunc", "hypc", "para", "ond", "cpd",
+    new_names = c("chf", "valv", "pcd", "pvd", "hypunc", "hypc", "para", "ond", "cpd",
             "diabunc", "diabc", "hypothy", "rf", "ld", "pud", "aids", "lymph",
             "metacanc", "solidtum", "rheumd", "coag", "obes", "wloss", "fed",
             "blane", "dane", "alcohol", "drug", "psycho", "depre")
-    x <- data.table::setnames(x, old=old, new=new)
-    
-    # Return only specified variables
-    x <- x[c(id, ls(lofregex[['elixhauser']][['icd10']]))]
-    
-    # Same computations as "elixhauser"
-    x$score <- with(x, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
+    x <- data.table::setnames(x, old=old_names, new=new_names)
+
+    # Return only elixhauser-specified variables + id
+    x <- x[c(id, new_names)]
+
+    # Same computations as "elixhauser" (except carit removed)
+    x$score <- with(x, chf + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
     x$index <- with(x, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-    x$wscore_ahrq <- with(x, chf * 9 + carit * 0 + valv * 0 + pcd * 6 + pvd * 3 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0, 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
-    x$wscore_vw <- with(x, chf * 7 + carit * 5 + valv * (-1) + pcd * 4 + pvd * 2 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * 0 + para * 7 + ond * 6 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * 0 + hypothy * 0 + rf * 5 + ld * 11 + pud * 0 + aids * 0 + lymph * 9 + metacanc * 12 + solidtum * ifelse(metacanc == 1 & assign0, 0, 4) + rheumd * 0 + coag * 3 + obes * (-4) + wloss * 6 + fed * 5 + blane * (-2) + dane * (-2) + alcohol * 0 + drug * (-7) + psycho * 0 + depre * (-3))
+    x$wscore_ahrq <- with(x, chf * 9 + valv * 0 + pcd * 6 + pvd * 3 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0, 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
+    x$wscore_vw <- with(x, chf * 7 + valv * (-1) + pcd * 4 + pvd * 2 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * 0 + para * 7 + ond * 6 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * 0 + hypothy * 0 + rf * 5 + ld * 11 + pud * 0 + aids * 0 + lymph * 9 + metacanc * 12 + solidtum * ifelse(metacanc == 1 & assign0, 0, 4) + rheumd * 0 + coag * 3 + obes * (-4) + wloss * 6 + fed * 5 + blane * (-2) + dane * (-2) + alcohol * 0 + drug * (-7) + psycho * 0 + depre * (-3))
     x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
     x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   }

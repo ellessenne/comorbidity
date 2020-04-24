@@ -262,8 +262,8 @@ lofregex[["elixhauser"]][["icd10"]][["drug"]] <- "^F11|^F12|^F13|^F14|^F15|^F16|
 lofregex[["elixhauser"]][["icd10"]][["psycho"]] <- "^F20|^F22|^F23|^F24|^F25|^F28|^F29|^F302|^F312|^F315"
 lofregex[["elixhauser"]][["icd10"]][["depre"]] <- "^F204|^F313|^F314|^F315|^F32|^F33|^F341|^F412|^F432"
 
-# Add elixhauser_ahrq (see comorbidity/data-raw/convert_sas.R and
-# comorbidity/data/ahrq_sas_conversion.txt)
+# Add elixhauser_ahrq (see comorbidity/maintenance/convert_sas.R and
+# comorbidity/maintenance/AHRQ_sas_conversion.txt)
 lofregex[["elixhauser_ahrq"]] = list()
 lofregex[["elixhauser_ahrq"]][["icd10"]] = list()
 lofregex[["elixhauser_ahrq"]][["icd10"]][["NONE"]] <- "D473"
@@ -308,6 +308,11 @@ lofregex[["elixhauser_ahrq"]][["icd10"]][["ULCER"]] <- "K254|K255|K256|K257|K259
 lofregex[["elixhauser_ahrq"]][["icd10"]][["VALVE"]] <- "A5203|I050|I051|I052|I058|I059|I060|I061|I062|I068|I069|I070|I071|I072|I078|I079|I080|I081|I082|I083|I088|I089|I091|I0989|I340|I341|I342|I348|I349|I350|I351|I352|I358|I359|I360|I361|I362|I368|I369|I370|I371|I372|I378|I379|I38|I39|Q230|Q231|Q232|Q233|Z952|Z953|Z954"
 lofregex[["elixhauser_ahrq"]][["icd10"]][["WGHTLOSS"]] <- "E40|E41|E42|E43|E440|E441|E45|E46|E640|R634|R636"
 
+# Get lofmsdrg
+source('maintenance/convert-sas.R')
 
 # Export data as internal
-usethis::use_data(lofregex, internal = TRUE, overwrite = TRUE)
+usethis::use_data(lofregex, lofmsdrg, internal = TRUE, overwrite = TRUE)
+
+# Clean up space
+rm(list=ls())
