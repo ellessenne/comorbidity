@@ -165,7 +165,6 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   ### Extract regex for internal use
   regex <- lofregex[[score]][[icd]]
   
-  ########################## START FIKSDAL
   ### Extract SAS DRGS
   if (!is.null(drg)) {
     # Get MS-DRG flags
@@ -185,8 +184,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     drg_flags = unstack(stack(drg_flags)) # get named list of lists
     drg_flags = lapply(drg_flags, unique)
   }
-  ########################## END FIKSDAL
-  
+
   ### Subset only 'id' and 'code' columns
   if (data.table::is.data.table(x)) {
     x <- x[, c(id, code), with = FALSE]
