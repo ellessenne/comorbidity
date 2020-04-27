@@ -408,7 +408,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     #         END;
     
     #         IF HHRWOHRF_ AND (HTNCXFLG OR CARDFLG OR RENALFLG) THEN HTNCX = 0;
-    x$HTNCX[x$HRENWORF==1 & (x$HTNCXDRG==1 | x$CARDDRG==1 | x$RENALDRG==1)] = 0
+    x$HTNCX[x$HHRWOHRF==1 & (x$HTNCXDRG==1 | x$CARDDRG==1 | x$RENALDRG==1)] = 0
     
     #         IF HHRWCHF_ THEN DO;
     #           IF HTNCXFLG THEN HTNCX = 0;
@@ -451,7 +451,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     #           IF RENALFLG THEN DO;
     #           HTNCX    = 0;
     #           RENLFAIL = 0;
-    x[x$HHRWHRF==1 & x$RENALFLG==1, c('HTNCX', 'RENLFAIL')] = 0
+    x[x$HHRWHRF==1 & x$RENALDRG==1, c('HTNCX', 'RENLFAIL')] = 0
     
     #           END;
     #         END;
@@ -499,10 +499,10 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     x$ARTH[x$ARTH==1 & x$ARTHDRG==1] = 0
     
     #         IF COAG AND COAGFLG THEN COAG = 0;
-    x$COAG[x$COAG==1 & x$COAGFLG==1] = 0
+    x$COAG[x$COAG==1 & x$COAGDRG==1] = 0
     
     #         IF OBESE AND (NUTRFLG OR OBESEFLG) THEN  OBESE = 0;
-    x$OBESE[x$OBESE==1 & (x$NUTRFLG==1 | x$OBESEDRG==1)] = 0
+    x$OBESE[x$OBESE==1 & (x$NUTRDRG==1 | x$OBESEDRG==1)] = 0
     
     #         IF WGHTLOSS AND NUTRFLG THEN WGHTLOSS = 0;
     x$WGHTLOSS[x$WGHTLOSS==1 & x$NUTRDRG==1] = 0
@@ -517,7 +517,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     x$ANEMDEF[x$ANEMDEF==1 & x$ANEMDRG==1] = 0
     
     #         IF ALCOHOL AND ALCFLG THEN ALCOHOL = 0;
-    x$ALCOHOL[x$ALCOHOL==1 & x$ALCFLG==1] = 0
+    x$ALCOHOL[x$ALCOHOL==1 & x$ALCDRG==1] = 0
     
     #         IF DRUG AND ALCFLG THEN DRUG = 0;
     x$DRUG[x$DRUG==1 & x$ALCDRG==1] = 0
