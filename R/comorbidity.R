@@ -326,11 +326,11 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     #     IF PUT(DRG,OBESEDRG.) = 'YES' THEN OBESEFLG = 1;
     #     IF PUT(DRG,DEPRSDRG.) = 'YES' THEN DEPRSFLG = 1;
 
-    x[names(lofmsdrg)] = NA # Add DRG columns
     # drg_flags have ids as names and indicated drgs as values
     drg_df = lapply(drg_flags, function(x) (names(lofmsdrg) %in% x)*1)
     drg_df = matrix(unlist(drg_df), nrow=length(drg_df), byrow=T)
     drg_df = data.frame(drg_df, drg_id=names(drg_flags))
+    colnames(drg_df) = c(names(lofmsdrg), 'drg_id')
     # Merge with x by ID
     x = merge(x, drg_df, by.x=id, by.y='drg_id', sort=F, all.x=T)
     
