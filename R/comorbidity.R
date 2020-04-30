@@ -167,27 +167,19 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   
   ### Extract SAS DRGS
   if (!is.null(drg)) {
-    # Get MS-DRG flags
-    stacked_lofmsdrg = stack(lofmsdrg)
-    msdrg_key_value = as.vector(stacked_lofmsdrg$ind)
-    names(msdrg_key_value) = as.character(stacked_lofmsdrg$values)
-    msdrg_key_value
+    # Get number-group key-value pairs
+    reverse_lofmsdrg = unstack(stack(lofmsdrg), form=ind~values)
     
     # Drop DRG leading zeros, convert to character
     all_drgs = as.numeric(x[[drg]])
     all_drgs = as.character(all_drgs)
     
     # Get list of SAS drg flags
-    drg_flags = msdrg_key_value[all_drgs]
+    drg_flags = reverse_lofmsdrg[all_drgs]
     names(drg_flags) = x[[id]]
-    drg_flags = drg_flags[!is.na(drg_flags)]
-    # Get named list of list
-    if (sum(duplicated(names(drg_flags))) > 0){
-      drg_flags = unstack(stack(drg_flags)) 
-      drg_flags = lapply(drg_flags, unique)
-    } else {
-      drg_flags = as.list(drg_flags)
-    }
+    drg_flags = drg_flags[unique(names(drg_flags))]
+    drg_mask = !unlist(lapply(drg_flags, is.null))
+    drg_flags = drg_flags[drg_mask]
   }
 
   ### Subset only 'id' and 'code' columns
@@ -333,12 +325,16 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     #     IF PUT(DRG,PSYDRG.)   = 'YES' THEN PSYFLG   = 1;  
     #     IF PUT(DRG,OBESEDRG.) = 'YES' THEN OBESEFLG = 1;
     #     IF PUT(DRG,DEPRSDRG.) = 'YES' THEN DEPRSFLG = 1;
-    
+
     x[names(lofmsdrg)] = NA # Add DRG columns
     # drg_flags have ids as names and indicated drgs as values
-    for (i in names(drg_flags)) {
-      x[x[[id]]==i, drg_flags[[i]]] = 1 # Add indicators
-    }
+    drg_df = lapply(drg_flags, function(x) (names(lofmsdrg) %in% x)*1)
+    drg_df = matrix(unlist(drg_df), nrow=length(drg_df), byrow=T)
+    drg_df = data.frame(drg_df, drg_id=names(drg_flags))
+    # Merge with x by ID
+    x = merge(x, drg_df, by.x=id, by.y='drg_id', sort=F, all.x=T)
+    
+    # Make NAs 0
     x[is.na(x)] = 0
     
     #     
@@ -564,6 +560,9 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
     x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   }
+  
+  # For testing:
+  # x <- data.table::setnames(x, old=new_names, new=old_names)
 
   ### Check output for possible unknown-state errors
   .check_output(x = x, id = id, score = score)
