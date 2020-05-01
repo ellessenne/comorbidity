@@ -42,8 +42,9 @@ make_sas_list = function(sas_AHRQ_raw){
     if(grepl("=", l, fixed=T)){
       split_l = str_split(l,'=')[[1]]
       temp_list = append(temp_list, split_l[1])
-      AHRQ_list[[split_l[2]]] = str_c(temp_list, collapse="|")
-      # AHRQ_list[[split_l[2]]] = paste0("^", str_c(temp_list, collapse="|^"))
+      # AHRQ_list[[split_l[2]]] = str_c(temp_list, collapse="|")
+      # Must have ^ so that regex doesn't search for within-code substrings
+      AHRQ_list[[split_l[2]]] = paste0("^", str_c(temp_list, collapse="|^"))
       temp_list = c()
     } else {
       temp_list = append(temp_list, l)
@@ -55,14 +56,14 @@ make_sas_list = function(sas_AHRQ_raw){
   }
   AHRQ_list # return the list
 }
-sas_list = make_sas_list(sas_AHRQ_raw)
+AHRQ_list = make_sas_list(sas_AHRQ_raw)
 
-# Write to txt file to merge with make-data.R
+# Write to txt file
 if (file.exists("maintenance/AHRQ_sas_conversion.txt")){
   file.remove("maintenance/AHRQ_sas_conversion.txt")
 }
-for (g in names(sas_list)) {
-  cat(paste0('lofregex[["elixhauser_AHRQ"]][["icd10"]][["',
+for (g in names(AHRQ_list)) {
+  cat(paste0('lofregex[["elixhauser_ahrq"]][["icd10"]][["',
              g,'"]] <- "', sas_list[g], '"'),
       file="maintenance/AHRQ_sas_conversion.txt",sep="\n", append=T)
 }
@@ -122,4 +123,5 @@ make_lofmsdrg <- function(sas_AHRQ_raw){
 }
 lofmsdrg = make_lofmsdrg(sas_AHRQ_raw)
 
-# Running this script in make-data.R will allow lofmsdrg to be added to sysdata.rda
+# Running this script in make-data.R will allow lofregex to be updated and
+# lofmsdrg to be added to sysdata.rda
