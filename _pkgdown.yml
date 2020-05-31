@@ -3,4 +3,3 @@ template:
   params:
     bootswatch: flatly
     noindex: true
-    ganalytics: UA-55201181-3
