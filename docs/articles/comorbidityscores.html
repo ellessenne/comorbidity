@@ -80,13 +80,13 @@
 
       
 
-      </header><script src="comorbidityscores_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="comorbidityscores_files/header-attrs-2.3/header-attrs.js"></script><script src="comorbidityscores_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Comorbidity scores</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2020-05-31</h4>
+            <h4 class="date">2020-06-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/comorbidity/blob/master/vignettes/comorbidityscores.Rmd"><code>vignettes/comorbidityscores.Rmd</code></a></small>
       <div class="hidden name"><code>comorbidityscores.Rmd</code></div>
@@ -432,54 +432,54 @@
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">charlson9</span>)
 <span class="co">#&gt; 'data.frame':    10 obs. of  22 variables:</span>
 <span class="co">#&gt;  $ id      : int  1 2 3 4 5 6 7 8 9 10</span>
-<span class="co">#&gt;  $ ami     : int  0 0 0 0 1 0 0 0 0 1</span>
+<span class="co">#&gt;  $ ami     : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ chf     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pvd     : int  0 0 0 0 0 1 0 0 0 0</span>
-<span class="co">#&gt;  $ cevd    : int  0 0 0 0 1 1 0 0 1 0</span>
+<span class="co">#&gt;  $ pvd     : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ cevd    : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ dementia: num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ copd    : int  0 0 1 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ rheumd  : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pud     : int  0 0 0 0 1 0 0 0 0 0</span>
+<span class="co">#&gt;  $ copd    : int  1 0 0 0 0 0 0 1 1 0</span>
+<span class="co">#&gt;  $ rheumd  : int  0 0 0 0 0 1 0 0 0 0</span>
+<span class="co">#&gt;  $ pud     : int  0 0 0 0 0 1 0 0 0 0</span>
 <span class="co">#&gt;  $ mld     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ diab    : int  0 0 0 0 0 0 0 1 0 0</span>
+<span class="co">#&gt;  $ diab    : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ diabwc  : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ hp      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ rend    : int  0 1 0 0 1 0 0 0 0 0</span>
-<span class="co">#&gt;  $ canc    : int  1 0 1 1 0 1 1 1 1 1</span>
+<span class="co">#&gt;  $ rend    : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ canc    : int  1 0 0 1 0 0 1 1 1 1</span>
 <span class="co">#&gt;  $ msld    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ metacanc: int  0 0 1 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ metacanc: num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ aids    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ score   : num  1 1 3 1 4 3 1 2 2 2</span>
-<span class="co">#&gt;  $ index   : Factor w/ 4 levels "0","1-2","3-4",..: 2 2 3 2 3 3 2 2 2 2</span>
-<span class="co">#&gt;  $ wscore  : num  2 2 9 2 5 4 2 3 3 3</span>
-<span class="co">#&gt;  $ windex  : Factor w/ 4 levels "0","1-2","3-4",..: 2 2 4 2 4 3 2 3 3 3</span>
+<span class="co">#&gt;  $ score   : num  2 0 0 1 0 2 1 2 2 1</span>
+<span class="co">#&gt;  $ index   : Factor w/ 4 levels "0","1-2","3-4",..: 2 1 1 2 1 2 2 2 2 2</span>
+<span class="co">#&gt;  $ wscore  : num  3 0 0 2 0 2 2 3 3 2</span>
+<span class="co">#&gt;  $ windex  : Factor w/ 4 levels "0","1-2","3-4",..: 3 1 1 2 1 2 2 3 3 2</span>
 <span class="co">#&gt;  - attr(*, "variable.labels")= chr [1:22] "ID" "Myocardial infarction" "Congestive heart failure" "Peripheral vascular disease" ...</span></pre></body></html></div>
 <p>The Charlson score based on ICD-10 data:</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">charlson10</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">data10</span>, <span class="kw">id</span> <span class="kw">=</span> <span class="st">"id"</span>, <span class="kw">code</span> <span class="kw">=</span> <span class="st">"code"</span>, <span class="kw">score</span> <span class="kw">=</span> <span class="st">"charlson"</span>, <span class="kw">icd</span> <span class="kw">=</span> <span class="st">"icd10"</span>, <span class="kw">assign0</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">charlson10</span>)
 <span class="co">#&gt; 'data.frame':    10 obs. of  22 variables:</span>
 <span class="co">#&gt;  $ id      : int  1 2 3 4 5 6 7 8 9 10</span>
-<span class="co">#&gt;  $ ami     : int  0 0 0 0 0 1 0 0 0 0</span>
+<span class="co">#&gt;  $ ami     : int  0 0 0 1 0 1 0 0 0 0</span>
 <span class="co">#&gt;  $ chf     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pvd     : int  0 0 0 1 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ cevd    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ dementia: num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ copd    : int  0 1 0 0 1 0 0 0 0 0</span>
-<span class="co">#&gt;  $ rheumd  : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ pvd     : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ cevd    : int  0 0 0 0 0 0 0 0 1 0</span>
+<span class="co">#&gt;  $ dementia: int  0 0 0 1 1 0 0 0 0 0</span>
+<span class="co">#&gt;  $ copd    : int  0 0 0 0 0 1 0 0 1 0</span>
+<span class="co">#&gt;  $ rheumd  : int  0 1 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ pud     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ mld     : int  1 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ diab    : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ mld     : int  0 0 0 0 0 0 0 0 1 0</span>
+<span class="co">#&gt;  $ diab    : int  0 0 0 0 0 0 0 1 0 0</span>
 <span class="co">#&gt;  $ diabwc  : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ hp      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ rend    : int  0 1 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ canc    : int  1 0 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  $ rend    : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ canc    : int  1 0 0 1 1 1 1 1 0 0</span>
 <span class="co">#&gt;  $ msld    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ metacanc: int  0 0 0 0 0 0 1 0 0 0</span>
+<span class="co">#&gt;  $ metacanc: int  0 0 1 0 1 0 0 0 0 1</span>
 <span class="co">#&gt;  $ aids    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ score   : num  2 2 1 2 2 2 2 1 1 1</span>
-<span class="co">#&gt;  $ index   : Factor w/ 4 levels "0","1-2","3-4",..: 2 2 2 2 2 2 2 2 2 2</span>
-<span class="co">#&gt;  $ wscore  : num  3 3 2 3 3 3 8 2 2 2</span>
-<span class="co">#&gt;  $ windex  : Factor w/ 4 levels "0","1-2","3-4",..: 3 3 2 3 3 3 4 2 2 2</span>
+<span class="co">#&gt;  $ score   : num  1 1 1 3 3 3 1 2 3 1</span>
+<span class="co">#&gt;  $ index   : Factor w/ 4 levels "0","1-2","3-4",..: 2 2 2 3 3 3 2 2 3 2</span>
+<span class="co">#&gt;  $ wscore  : num  2 1 6 4 9 4 2 3 3 6</span>
+<span class="co">#&gt;  $ windex  : Factor w/ 4 levels "0","1-2","3-4",..: 2 2 4 3 4 3 2 3 3 4</span>
 <span class="co">#&gt;  - attr(*, "variable.labels")= chr [1:22] "ID" "Myocardial infarction" "Congestive heart failure" "Peripheral vascular disease" ...</span></pre></body></html></div>
 <p>The Elixhauser score based on ICD-9-CM data:</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">elixhauser9</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">data9</span>, <span class="kw">id</span> <span class="kw">=</span> <span class="st">"id"</span>, <span class="kw">code</span> <span class="kw">=</span> <span class="st">"code"</span>, <span class="kw">score</span> <span class="kw">=</span> <span class="st">"elixhauser"</span>, <span class="kw">icd</span> <span class="kw">=</span> <span class="st">"icd9"</span>, <span class="kw">assign0</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
@@ -487,42 +487,42 @@
 <span class="co">#&gt; 'data.frame':    10 obs. of  38 variables:</span>
 <span class="co">#&gt;  $ id         : int  1 2 3 4 5 6 7 8 9 10</span>
 <span class="co">#&gt;  $ chf        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ carit      : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ carit      : int  0 0 0 0 0 1 0 0 0 0</span>
 <span class="co">#&gt;  $ valv       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pcd        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pvd        : int  0 0 0 0 0 1 0 0 0 0</span>
+<span class="co">#&gt;  $ pcd        : int  0 0 0 0 0 0 0 0 1 0</span>
+<span class="co">#&gt;  $ pvd        : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ hypunc     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hypc       : int  0 0 0 0 1 0 0 0 0 0</span>
+<span class="co">#&gt;  $ hypc       : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ para       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ ond        : int  0 0 1 0 0 0 0 1 0 0</span>
-<span class="co">#&gt;  $ cpd        : int  0 0 1 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ diabunc    : int  0 0 0 0 0 0 0 1 0 0</span>
+<span class="co">#&gt;  $ ond        : int  0 0 0 0 0 0 0 1 0 0</span>
+<span class="co">#&gt;  $ cpd        : int  1 0 0 0 0 0 0 1 1 0</span>
+<span class="co">#&gt;  $ diabunc    : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ diabc      : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ hypothy    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ rf         : int  0 0 0 0 1 0 0 0 0 0</span>
+<span class="co">#&gt;  $ rf         : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ ld         : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pud        : int  0 0 0 0 1 0 0 0 0 0</span>
+<span class="co">#&gt;  $ pud        : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ aids       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ lymph      : int  1 0 0 1 0 1 0 1 1 0</span>
-<span class="co">#&gt;  $ metacanc   : int  0 0 1 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ solidtum   : int  0 0 1 0 0 0 1 0 1 1</span>
-<span class="co">#&gt;  $ rheumd     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ coag       : int  1 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ lymph      : int  1 0 0 0 0 0 0 1 0 1</span>
+<span class="co">#&gt;  $ metacanc   : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ solidtum   : int  0 0 0 0 0 0 0 0 1 0</span>
+<span class="co">#&gt;  $ rheumd     : int  1 0 0 0 0 1 0 0 0 0</span>
+<span class="co">#&gt;  $ coag       : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ obes       : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ wloss      : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ fed        : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ blane      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ dane       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ alcohol    : int  1 0 1 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ dane       : int  0 0 1 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ alcohol    : int  0 0 1 0 1 0 0 0 0 0</span>
 <span class="co">#&gt;  $ drug       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ psycho     : int  0 0 0 0 0 0 0 0 0 1</span>
-<span class="co">#&gt;  $ depre      : int  0 0 0 0 1 1 0 0 0 1</span>
-<span class="co">#&gt;  $ score      : num  3 0 5 1 4 3 1 3 2 3</span>
-<span class="co">#&gt;  $ index      : Factor w/ 4 levels "&lt;0","0","1-4",..: 3 2 4 3 3 3 3 3 3 3</span>
-<span class="co">#&gt;  $ wscore_ahrq: num  16 0 28 6 0 4 7 11 13 -3</span>
-<span class="co">#&gt;  $ wscore_vw  : num  12 0 25 9 2 8 4 15 13 1</span>
-<span class="co">#&gt;  $ windex_ahrq: Factor w/ 4 levels "&lt;0","0","1-4",..: 4 2 4 4 2 3 4 4 4 1</span>
-<span class="co">#&gt;  $ windex_vw  : Factor w/ 4 levels "&lt;0","0","1-4",..: 4 2 4 4 3 4 3 4 4 3</span>
+<span class="co">#&gt;  $ psycho     : int  1 1 0 1 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ depre      : int  0 0 0 0 1 0 0 0 0 0</span>
+<span class="co">#&gt;  $ score      : num  4 1 2 1 2 2 0 3 3 1</span>
+<span class="co">#&gt;  $ index      : Factor w/ 4 levels "&lt;0","0","1-4",..: 3 3 3 3 3 3 2 3 3 3</span>
+<span class="co">#&gt;  $ wscore_ahrq: num  4 -5 -3 -5 -6 0 0 14 16 6</span>
+<span class="co">#&gt;  $ wscore_vw  : num  12 0 -2 0 -3 5 0 18 11 9</span>
+<span class="co">#&gt;  $ windex_ahrq: Factor w/ 4 levels "&lt;0","0","1-4",..: 3 1 1 1 1 2 2 4 4 4</span>
+<span class="co">#&gt;  $ windex_vw  : Factor w/ 4 levels "&lt;0","0","1-4",..: 4 2 1 2 1 4 2 4 4 4</span>
 <span class="co">#&gt;  - attr(*, "variable.labels")= chr [1:38] "ID" "Congestive heart failure" "Cardiac arrhythmias" "Valvular disease" ...</span></pre></body></html></div>
 <p>Finally, the Elixhauser score based on ICD-10 data:</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">elixhauser10</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">data10</span>, <span class="kw">id</span> <span class="kw">=</span> <span class="st">"id"</span>, <span class="kw">code</span> <span class="kw">=</span> <span class="st">"code"</span>, <span class="kw">score</span> <span class="kw">=</span> <span class="st">"elixhauser"</span>, <span class="kw">icd</span> <span class="kw">=</span> <span class="st">"icd10"</span>, <span class="kw">assign0</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
@@ -530,42 +530,42 @@
 <span class="co">#&gt; 'data.frame':    10 obs. of  38 variables:</span>
 <span class="co">#&gt;  $ id         : int  1 2 3 4 5 6 7 8 9 10</span>
 <span class="co">#&gt;  $ chf        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ carit      : int  0 0 0 0 0 0 0 0 1 0</span>
-<span class="co">#&gt;  $ valv       : int  0 0 1 0 0 0 0 1 0 0</span>
-<span class="co">#&gt;  $ pcd        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pvd        : int  0 0 0 1 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ carit      : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ valv       : int  1 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ pcd        : int  0 0 0 0 1 0 0 0 0 0</span>
+<span class="co">#&gt;  $ pvd        : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ hypunc     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hypc       : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ hypc       : int  0 0 0 0 0 0 1 0 0 0</span>
 <span class="co">#&gt;  $ para       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ ond        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ cpd        : int  0 1 0 0 1 0 0 0 0 0</span>
-<span class="co">#&gt;  $ diabunc    : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ ond        : int  0 1 0 0 0 0 0 0 1 0</span>
+<span class="co">#&gt;  $ cpd        : int  0 0 0 0 0 1 0 0 1 0</span>
+<span class="co">#&gt;  $ diabunc    : int  0 0 0 0 0 0 0 1 0 0</span>
 <span class="co">#&gt;  $ diabc      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hypothy    : int  0 0 0 1 1 0 0 0 0 0</span>
+<span class="co">#&gt;  $ hypothy    : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ rf         : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ ld         : int  1 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ ld         : int  0 0 0 0 0 0 0 0 1 0</span>
 <span class="co">#&gt;  $ pud        : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ aids       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ lymph      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ metacanc   : int  0 0 0 0 0 0 1 0 0 0</span>
-<span class="co">#&gt;  $ solidtum   : int  1 0 1 1 1 1 1 1 1 1</span>
-<span class="co">#&gt;  $ rheumd     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ coag       : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ lymph      : int  0 0 0 0 0 1 1 0 0 0</span>
+<span class="co">#&gt;  $ metacanc   : int  0 0 1 0 1 0 0 0 0 1</span>
+<span class="co">#&gt;  $ solidtum   : int  1 0 0 1 1 0 1 1 0 0</span>
+<span class="co">#&gt;  $ rheumd     : int  0 1 0 0 0 0 1 0 0 0</span>
+<span class="co">#&gt;  $ coag       : int  0 0 0 0 0 0 0 1 0 0</span>
 <span class="co">#&gt;  $ obes       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ wloss      : int  0 0 0 0 0 0 1 0 0 0</span>
+<span class="co">#&gt;  $ wloss      : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ fed        : num  0 0 0 0 0 0 0 0 0 0</span>
 <span class="co">#&gt;  $ blane      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ dane       : int  0 0 0 1 0 0 0 0 0 1</span>
-<span class="co">#&gt;  $ alcohol    : int  1 0 0 1 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ drug       : int  0 0 0 0 0 0 0 0 1 0</span>
-<span class="co">#&gt;  $ psycho     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ depre      : int  0 0 0 0 0 0 0 0 1 0</span>
-<span class="co">#&gt;  $ score      : num  3 1 2 5 3 1 3 2 4 2</span>
-<span class="co">#&gt;  $ index      : Factor w/ 4 levels "&lt;0","0","1-4",..: 3 3 3 4 3 3 3 3 3 3</span>
-<span class="co">#&gt;  $ wscore_ahrq: num  10 3 7 7 10 7 30 7 -5 5</span>
-<span class="co">#&gt;  $ wscore_vw  : num  15 3 3 4 7 4 22 3 -1 2</span>
-<span class="co">#&gt;  $ windex_ahrq: Factor w/ 4 levels "&lt;0","0","1-4",..: 4 3 4 4 4 4 4 4 1 4</span>
-<span class="co">#&gt;  $ windex_vw  : Factor w/ 4 levels "&lt;0","0","1-4",..: 4 3 3 3 4 3 4 3 1 3</span>
+<span class="co">#&gt;  $ dane       : int  0 0 0 0 0 0 0 0 0 1</span>
+<span class="co">#&gt;  $ alcohol    : num  0 0 0 0 0 0 0 0 0 0</span>
+<span class="co">#&gt;  $ drug       : int  0 0 0 1 0 1 0 0 0 0</span>
+<span class="co">#&gt;  $ psycho     : int  0 0 0 0 0 0 1 0 0 0</span>
+<span class="co">#&gt;  $ depre      : int  0 0 0 0 0 0 1 0 0 0</span>
+<span class="co">#&gt;  $ score      : num  2 2 1 2 3 3 6 3 3 2</span>
+<span class="co">#&gt;  $ index      : Factor w/ 4 levels "&lt;0","0","1-4",..: 3 3 3 3 3 3 4 3 3 3</span>
+<span class="co">#&gt;  $ wscore_ahrq: num  7 5 14 0 27 2 2 18 12 12</span>
+<span class="co">#&gt;  $ wscore_vw  : num  3 6 12 -3 20 5 10 7 20 10</span>
+<span class="co">#&gt;  $ windex_ahrq: Factor w/ 4 levels "&lt;0","0","1-4",..: 4 4 4 2 4 3 3 4 4 4</span>
+<span class="co">#&gt;  $ windex_vw  : Factor w/ 4 levels "&lt;0","0","1-4",..: 3 4 4 1 4 4 4 4 4 4</span>
 <span class="co">#&gt;  - attr(*, "variable.labels")= chr [1:38] "ID" "Congestive heart failure" "Cardiac arrhythmias" "Valvular disease" ...</span></pre></body></html></div>
 </div>
 <div id="references" class="section level1">

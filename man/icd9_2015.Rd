@@ -4,12 +4,14 @@
 \name{icd9_2015}
 \alias{icd9_2015}
 \title{ICD-9 Diagnostic Codes, 2015 Version (v32)}
-\format{A data frame with 14,567 rows and 3 variables:
+\format{
+A data frame with 14,567 rows and 3 variables:
 \describe{
 \item{Code}{ICD-9 diagnostic code}
 \item{Long_description}{Long description of each code}
 \item{Short_description}{Short description of each code}
-}}
+}
+}
 \source{
 CMS.gov Website: https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
 }

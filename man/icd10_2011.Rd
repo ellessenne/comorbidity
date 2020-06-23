@@ -4,13 +4,15 @@
 \name{icd10_2011}
 \alias{icd10_2011}
 \title{ICD-10 Diagnostic Codes, 2011 Version}
-\format{A data frame with 10,856 rows and 4 variables:
+\format{
+A data frame with 10,856 rows and 4 variables:
 \describe{
 \item{Code}{ICD-10 diagnostic code}
 \item{Code.clean}{ICD-10 diagnostic code, removing all punctuation}
 \item{ICD.title}{Code description, in plain English.}
 \item{Status}{Additional information, if available.}
-}}
+}
+}
 \source{
 CDC Website: https://goo.gl/rcTJJ2
 }

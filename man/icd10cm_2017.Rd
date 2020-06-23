@@ -4,11 +4,13 @@
 \name{icd10cm_2017}
 \alias{icd10cm_2017}
 \title{ICD-10-CM Diagnostic Codes, 2017 Version}
-\format{A data frame with 71,486 rows and 2 variables:
+\format{
+A data frame with 71,486 rows and 2 variables:
 \describe{
 \item{Code}{ICD-10-CM diagnostic code}
 \item{Description}{Description of each code}
-}}
+}
+}
 \usage{
 icd10cm_2017
 }
