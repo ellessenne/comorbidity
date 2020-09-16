@@ -1,9 +1,55 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# fiksdala/comorbidity fork particulars
+
+This fork of comorbidity implements the 2019 AHRQ Elixhauser comorbidity
+calcluations. Specifically, I have modified the comorbidity() function
+to replicate the Elixhauser Comorbidity SAS program v3.7 released by
+AHRQ. You can find the SAS program
+[here](https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp).
+Usage is very similar, see below for details:
+
+**Installation**
+
+Requires
+[devtools](https://cran.r-project.org/web/packages/devtools/index.html).
+
+    devtools::install_github('fiksdala/comorbidity')
+
+**AHRQ Elixhauser Usage**
+
+Requires Medicare claims data in long format with the following columns:
+
+  - **id**: Individual encounter IDs
+  - **code**: ICD10 diagnostic codes. Codes must be in upper case with
+    no punctuation in order to be properly recognised.
+  - **drg**: DRG code associated with encounter.
+  - **icd\_rank**: Code that specifies rank or position of ICD10 codes.
+    Must be sequential integers starting from 1, with no gaps or ties.
+
+Example with .csv “medicare\_data.csv” containing the columns “id”,
+“code”, “drg”, and “icd\_rank”:
+
+    devtools::install_github('fiksdala/comorbidity')
+    library(comorbidity)
+    df = read.csv('medicare_data.csv')
+    ahrq_comorbidities = comorbidity(x = df, 
+                                     id = 'id',
+                                     code = 'code',
+                                     score = 'elixhauser_ahrq',
+                                     assign0 = F,
+                                     drg = 'drg',
+                                     icd_rank = 'icd_rank')
+
+**Other Score**
+
+Other scores (“charlson”, “elixhauser”) retain their original
+funcitonality.
+
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2019-12-26
+2020-09-16
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
