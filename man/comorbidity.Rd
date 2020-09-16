@@ -27,8 +27,9 @@ Column names must be syntactically valid names, otherwise they are forced to be 
 \item "Hypertension, uncomplicated" (\code{hypunc}) and "Hypertension, complicated" (\code{hypc}) for the Elixhauser score;
 \item "Diabetes, uncomplicated" (\code{diabunc}) and "Diabetes, complicated" (\code{diabc}) for the Elixhauser score;
 \item "Solid tumour" (\code{solidtum}) and "Metastatic cancer" (\code{metacanc}) for the Elixhauser score.
-Note: This argument has no effect on Elixhauser AHRQ as these choices are incorporated into AHRQ calculations. If using 'elixhauser_ahrq' it is recommended to specify assign0 = FALSE to avoid confusion.
-}}
+}
+
+Note: This argument has no effect on Elixhauser AHRQ as these choices are incorporated into AHRQ calculations. If using 'elixhauser_ahrq' it is recommended to specify assign0 = FALSE to avoid confusion.}
 
 \item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}) or ICD-10 (\code{icd10}). Defaults to \code{icd10}, and values are case-insensitive.
 Note: if 'elixhauser_ahrq' is selected, icd must equal 'icd10'.}

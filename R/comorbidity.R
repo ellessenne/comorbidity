@@ -15,6 +15,7 @@
 #' * "Hypertension, uncomplicated" (`hypunc`) and "Hypertension, complicated" (`hypc`) for the Elixhauser score;
 #' * "Diabetes, uncomplicated" (`diabunc`) and "Diabetes, complicated" (`diabc`) for the Elixhauser score;
 #' * "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`) for the Elixhauser score.
+#' 
 #' Note: This argument has no effect on Elixhauser AHRQ as these choices are incorporated into AHRQ calculations. If using 'elixhauser_ahrq' it is recommended to specify assign0 = FALSE to avoid confusion.
 #' @param icd The version of ICD coding to use. Possible choices are ICD-9-CM (`icd9`) or ICD-10 (`icd10`). Defaults to `icd10`, and values are case-insensitive.
 #' Note: if 'elixhauser_ahrq' is selected, icd must equal 'icd10'.
