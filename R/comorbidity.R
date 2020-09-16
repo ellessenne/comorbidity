@@ -7,7 +7,7 @@
 #' Column names must be syntactically valid names, otherwise they are forced to be so by calling the [make.names()] function.
 #' @param id Column of `x` containing the individual ID.
 #' @param code Column of `x` containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.
-#' @param score The comorbidity score to compute. Possible choices are the weighted Charlson score (`charlson`) and the weighted Elixhauser score (`elixhauser`). Values are case-insensitive.
+#' @param score The comorbidity score to compute. Possible choices are the weighted Charlson score (`charlson`), the weighted (pre 2019 AHRQ) Elixhauser score (`elixhauser`), and the 2019 AHRQ weighted Elixhauser score (`elixhauser_ahrq`). Values are case-insensitive.
 #' @param assign0 Apply a hierarchy of comorbidities. If `TRUE`, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:
 #' * "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`) for the Charlson score;
 #' * "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`) for the Charlson score;
@@ -15,10 +15,14 @@
 #' * "Hypertension, uncomplicated" (`hypunc`) and "Hypertension, complicated" (`hypc`) for the Elixhauser score;
 #' * "Diabetes, uncomplicated" (`diabunc`) and "Diabetes, complicated" (`diabc`) for the Elixhauser score;
 #' * "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`) for the Elixhauser score.
+#' Note: This argument has no effect on Elixhauser AHRQ as these choices are incorporated into AHRQ calculations. If using 'elixhauser_ahrq' it is recommended to specify assign0 = FALSE to avoid confusion.
 #' @param icd The version of ICD coding to use. Possible choices are ICD-9-CM (`icd9`) or ICD-10 (`icd10`). Defaults to `icd10`, and values are case-insensitive.
+#' Note: if 'elixhauser_ahrq' is selected, icd must equal 'icd10'.
 #' @param factorise Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to `FALSE`.
 #' @param labelled Attach labels to each comorbidity, compatible with the RStudio viewer via the [utils::View()] function. Defaults to `TRUE`.
 #' @param tidy.codes Tidy diagnostic codes? If `TRUE`, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}. Defaults to `TRUE`.
+#' @param drg Column of `x` that contains DRG codes associated with the encounter. Defaults to `NULL` but must be specified if score = 'elixhauser_ahrq'.
+#' @param icd_rank Column of `x` that contains the rank or position of DRG codes. Defaults to `NULL` but must be specified if score = 'elixhauser_ahrq'.
 #' @return A data frame with `id`, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
 #'
 #' For the Charlson score, the following variables are included in the dataset:
@@ -84,6 +88,10 @@
 #' * `wscore_vw`, for the weighted version of the Elixhauser score using the algorithm in van Walraven _et al_. (2009);
 #' * `windex_ahrq`, for the weighted version of the grouped Elixhauser index using the AHRQ algorithm (Moore _et al_., 2017);
 #' * `windex_vw`, for the weighted version of the grouped Elixhauser index using the algorithm in van Walraven _et al_. (2009).
+#' 
+#' For AHRQ Elixhauser (elixhauser_ahrq), the dataset contains the same variables as 'Elixhauser' with the following exceptions:
+#'  * Comorbidity columns follow AHRQ's abbreviation formatting.
+#'  * In place of `hypunc` and `hypc`, those measures are combined to form `HTN_C`
 #'
 #' Labels are presented to the user when using the RStudio viewer (e.g. via the [utils::View()] function) for convenience.
 #'
@@ -96,6 +104,7 @@
 #' @references Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. _Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index_. Medical Care 2017; 55(7):698-705.
 #' @references van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.
 #' @references Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886.
+#' @references _Healthcare Cost and Utilization Project. Elixhauser Comorbidity Software Version 3.7_ Available at https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp 
 #'
 #' @examples
 #' set.seed(1)
