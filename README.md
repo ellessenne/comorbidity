@@ -1,55 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# fiksdala/comorbidity fork particulars
-
-This fork of comorbidity implements the 2019 AHRQ Elixhauser comorbidity
-calcluations. Specifically, I have modified the comorbidity() function
-to replicate the Elixhauser Comorbidity SAS program v3.7 released by
-AHRQ. You can find the SAS program
-[here](https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp).
-Usage is very similar, see below for details:
-
-**Installation**
-
-Requires
-[devtools](https://cran.r-project.org/web/packages/devtools/index.html).
-
-    devtools::install_github('fiksdala/comorbidity')
-
-**AHRQ Elixhauser Usage**
-
-Requires Medicare claims data in long format with the following columns:
-
-  - **id**: Individual encounter IDs
-  - **code**: ICD10 diagnostic codes. Codes must be in upper case with
-    no punctuation in order to be properly recognised.
-  - **drg**: DRG code associated with encounter.
-  - **icd\_rank**: Code that specifies rank or position of ICD10 codes.
-    Must be sequential integers starting from 1, with no gaps or ties.
-
-Example with .csv “medicare\_data.csv” containing the columns “id”,
-“code”, “drg”, and “icd\_rank”:
-
-    devtools::install_github('fiksdala/comorbidity')
-    library(comorbidity)
-    df = read.csv('medicare_data.csv')
-    ahrq_comorbidities = comorbidity(x = df, 
-                                     id = 'id',
-                                     code = 'code',
-                                     score = 'elixhauser_ahrq',
-                                     assign0 = F,
-                                     drg = 'drg',
-                                     icd_rank = 'icd_rank')
-
-**Other Score**
-
-Other scores (“charlson”, “elixhauser”) retain their original
-funcitonality.
-
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2020-09-16
+2020-09-29
 
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
@@ -163,6 +117,37 @@ x2 <- data.frame(
 # should not return TRUE
 all.equal(x1, x2)
 ## [1] "Component \"code\": 30 string mismatches"
+```
+
+Simulating ICD-10 codes for AHRQ Elixhauser requires simulating DRG
+codes and ICD-10 ranks:
+
+``` r
+x = data.frame(
+  id = sample(1:5, size = 50, replace = TRUE),
+  code = sample_diag(n = 50),
+  code_seq = 1
+)
+x <- x[order(x$id, x$code), ]
+x$icd_rank =  ave(x$code_seq, x$id, FUN=cumsum) # Simulate ICD Rank
+x$drg = sample_drg(5)[x$id] # Simulate DRG
+print(head(x, n = 15), row.names = FALSE)
+##  id code code_seq icd_rank drg
+##   1 A422        1        1 976
+##   1 B447        1        2 976
+##   1 C512        1        3 976
+##   1 N481        1        4 976
+##   1 S564        1        5 976
+##   1 S907        1        6 976
+##   1 V549        1        7 976
+##   1 V779        1        8 976
+##   1 Y606        1        9 976
+##   2 A921        1        1  78
+##   2 B812        1        2  78
+##   2 C694        1        3  78
+##   2 E568        1        4  78
+##   2 E643        1        5  78
+##   2 H118        1        6  78
 ```
 
 ## Simulating ICD-9 codes
@@ -318,6 +303,48 @@ elixhauser9
 The weighted Elixhauser score is computed using both the AHRQ and the
 van Walraven algorithm (`wscore_ahrq` and `wscore_vw`).
 
+Alternatively, Elixhauser scores based on AHRQ’s SAS program (version
+3.7) can be calculated provided that data includes DRG codes and ICD-10
+code ranks:
+
+``` r
+x = data.frame(
+  id = sample(1:5, size = 50, replace = TRUE),
+  code = sample_diag(n = 50),
+  icd_rank = 1
+)
+x <- x[order(x$id, x$code), ]
+x$icd_rank =  ave(x$icd_rank, x$id, FUN=cumsum) # Simulate ICD Rank
+x$drg = sample_drg(5)[x$id] # Simulate DRG
+
+elixhauser_ahrq = comorbidity(x = x,
+                              id = 'id', 
+                              code = 'code', 
+                              score = 'elixhauser_ahrq',
+                              assign0 = FALSE,
+                              drg = 'drg',
+                              icd_rank = 'icd_rank')
+elixhauser_ahrq
+##   id CHF VALVE PULMCIRC PERIVASC PARA NEURO CHRNLUNG DM DMCX HYPOTHY RENLFAIL LIVER ULCER AIDS
+## 1  1   0     0        0        0    0     0        0  0    0       0        0     0     0    0
+## 2  2   0     0        0        0    0     0        0  0    0       0        0     0     0    0
+## 3  3   0     0        0        0    0     0        0  0    0       0        0     0     0    0
+## 4  4   0     0        0        0    0     0        0  0    0       0        0     0     0    0
+## 5  5   0     0        0        0    0     0        0  0    0       0        0     0     0    0
+##   LYMPH METS TUMOR ARTH COAG OBESE WGHTLOSS LYTES BLDLOSS ANEMDEF ALCOHOL DRUG PSYCH DEPRESS HTN_C
+## 1     0    0     0    0    0     0        0     0       0       0       0    0     0       0     0
+## 2     0    0     0    0    0     0        0     0       0       0       0    0     0       0     0
+## 3     0    0     0    0    0     0        0     0       0       0       0    0     0       0     0
+## 4     0    0     0    0    0     0        0     0       0       0       0    0     0       0     0
+## 5     0    0     0    0    0     0        0     0       0       0       0    0     0       0     0
+##   score index wscore_ahrq wscore_vw windex_ahrq windex_vw
+## 1     0     0           0         0           0         0
+## 2     0     0           0         0           0         0
+## 3     0     0           0         0           0         0
+## 4     0     0           0         0           0         0
+## 5     0     0           0         0           0         0
+```
+
 ## Citation
 
 If you find `comorbidity` useful, please cite it in your publications:
@@ -351,10 +378,12 @@ This package is based on the ICD-10-based formulations of the Charlson
 score and Elixhauser score proposed by Quan *et al*. in 2005. The ICD-9
 formulation of the Charlson score is also from Quan *et al*. The
 ICD-9-based Elixhauser score is according to the AHRQ formulation (Moore
-*et al*., 2017). Weights for the Charlson score are based on the
-original formulation by Charlson *et al*. in 1987, while weights for the
-Elixhauser score are based on work by van Walraven *et al*. Finally, the
-categorisation of scores and weighted scores is based on work by
+*et al*., 2017). The AHRQ Elixhauser comorbidities are calculated using
+code from AHRQ’s SAS program version 3.7 (Healthcare Cost and
+Utilization Project (HCUP)). Weights for the Charlson score are based on
+the original formulation by Charlson *et al*. in 1987, while weights for
+the Elixhauser score are based on work by van Walraven *et al*. Finally,
+the categorisation of scores and weighted scores is based on work by
 Menendez *et al*. Further details on each algorithm are included in the
 package vignette, which you can access by typing the following in the R
 console:
@@ -391,6 +420,10 @@ vignette("comorbidityscores", package = "comorbidity")
     inpatient death after orthopaedic surgery*. Clinical Orthopaedics
     and Related Research 2014; 472(9):2878-2886. DOI:
     [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)
+  - Healthcare Cost and Utilization Project (HCUP). (2017). *HCUP
+    Elixhauser Comorbidity Software (3.7)*. Agency for Healthcare
+    Research and Quality, Rockville, MD.
+    [www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp](www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp)
 
 ## Copyright
 
