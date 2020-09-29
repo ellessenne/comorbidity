@@ -245,6 +245,9 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
     x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   } else {
+    ### Turn internal DF into a DT
+    data.table::setDT(x)
+    
     # This section replicates the AHRQ Elixhauser Comorbidity Software v3.7 
     # https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp
     # /*******************************************/
@@ -575,6 +578,10 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     
     # Return AHRQ vars in SAS format:
     x <- data.table::setnames(x, old=new_names, new=old_names)
+    
+    ### Turn internal DT into a DF
+    data.table::setDF(x)
+    
     # Keep only relevant vars 
     x <- x[c(id, "CHF", "VALVE", "PULMCIRC", "PERIVASC", "PARA",
              "NEURO", "CHRNLUNG", "DM", "DMCX", "HYPOTHY", "RENLFAIL", "LIVER",
@@ -583,6 +590,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
              "PSYCH", "DEPRESS", "HTN_C",
              'score', 'index', 'wscore_ahrq', 'wscore_vw', 'windex_ahrq',
              'windex_vw')]
+    
   }
 
   ### Check output for possible unknown-state errors
@@ -597,3 +605,4 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   ### Return a tidy data.frame
   return(x)
 }
+
