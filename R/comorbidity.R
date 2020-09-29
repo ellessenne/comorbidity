@@ -245,6 +245,8 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
     x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
   } else {
+    # This section replicates the AHRQ Elixhauser Comorbidity Software v3.7 
+    # https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp
     # /*******************************************/
     # /* Initialize Hypertension, CHF, and Renal */
     # /* Comorbidity flags to 1 using the detail */
