@@ -253,50 +253,50 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     # /* hypertension flags.                     */
     # /*******************************************/
     # IF HTNPREG_  THEN HTNCX = 1;
-    x$HTNCX[x$HTNPREG==1] = 1
+    x[HTNPREG==1, HTNCX := 1]
 
     # IF HTNWOCHF_ THEN HTNCX = 1;
-    x$HTNCX[x$HTNWOCHF==1] = 1
+    x[HTNWOCHF==1, HTNCX := 1]
 
     # IF HTNWCHF_  THEN DO;
     #   HTNCX    = 1;
     #   CHF      = 1;
-    x[x$HTNWCHF==1, c('HTNCX', 'CHF')] = 1
+    x[HTNWCHF==1, c('HTNCX', 'CHF') := 1]
     # END;
 
     # IF HRENWORF_ THEN HTNCX = 1;
-    x$HTNCX[x$HRENWORF==1] = 1
+    x[HRENWORF==1, HTNCX := 1]
 
     # IF HRENWRF_  THEN DO;
     #   HTNCX    = 1;
     #   RENLFAIL = 1;
-    x[x$HRENWRF==1, c('HTNCX', 'RENLFAIL')] = 1
+    x[HRENWRF==1, c('HTNCX', 'RENLFAIL') := 1]
     # END;
 
     # IF HHRWOHRF_ THEN HTNCX = 1;
-    x$HTNCX[x$HHRWOHRF==1] = 1
+    x[HHRWOHRF==1, HTNCX := 1]
 
     # IF HHRWCHF_  THEN DO;
     # HTNCX    = 1;
     # CHF      = 1;
     # END;
-    x[x$HHRWCHF==1, c('HTNCX', 'CHF')] = 1
+    x[HHRWCHF==1, c('HTNCX', 'CHF') := 1]
 
     # IF HHRWRF_   THEN DO;
     # HTNCX    = 1;
     # RENLFAIL = 1;
     # END;
-    x[x$HHRWRF==1, c('HTNCX', 'RENLFAIL')] = 1
+    x[HHRWRF==1, c('HTNCX', 'RENLFAIL') := 1]
 
     # IF HHRWHRF_  THEN DO;
     # HTNCX    = 1;
     # CHF      = 1;
     # RENLFAIL = 1;
     # END;
-    x[x$HHRWHRF==1, c('HTNCX', 'CHF', 'RENLFAIL')] = 1
+    x[HHRWHRF==1, c('HTNCX', 'CHF', 'RENLFAIL') := 1]
 
     # IF OHTNPREG_ THEN HTNCX = 1;
-    x$HTNCX[x$OHTNPREG==1] = 1
+    x[OHTNPREG==1, HTNCX := 1]
 
     #
     #
@@ -304,13 +304,13 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     #   /* Set up code to only count the more severe comorbidity */
     #   /*********************************************************/
     #   IF HTNCX = 1 THEN HTN = 0 ;
-    x$HTN[x$HTNCX==1] = 0
+    x[HTNCX==1, HTN := 0]
 
     #   IF METS = 1 THEN TUMOR = 0 ;
-    x$TUMOR[x$METS==1] = 0
+    x[METS==1, TUMOR := 0]
 
     #   IF DMCX = 1 THEN DM = 0 ;
-    x$DM[x$DMCX==1] = 0
+    x[DMCX==1, DM := 0]
 
     #
     #     /******************************************************/
@@ -362,19 +362,19 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     #       /* in question                                              */
     #       /************************************************************/
     #       IF CHF   	AND CARDFLG  				THEN CHF 		= 0;
-    x$CHF[x$CHF==1 & x$CARDDRG==1] = 0
+    x[CHF==1 & CARDDRG==1, CHF := 0]
 
     #       IF VALVE 	AND CARDFLG   				THEN VALVE 		= 0;
-    x$VALVE[x$VALVE==1 & x$CARDDRG==1] = 0
+    x[VALVE==1 & CARDDRG==1, VALVE := 0]
 
     #       IF PULMCIRC  AND (CARDFLG OR PULMFLG ) 	THEN PULMCIRC 	= 0;
-    x$PULMCIRC[x$PULMCIRC==1 & (x$CARDDRG==1 | x$PULMDRG==1)] = 0
+    x[PULMCIRC==1 & (CARDDRG==1 | PULMDRG==1), PULMCIRC := 0]
 
     #       IF PERIVASC  AND PERIFLG 				THEN PERIVASC 	= 0;
-    x$PERIVASC[x$PERIVASC==1 & x$PERIDRG==1] = 0
+    x[PERIVASC==1 & PERIDRG==1, PERIVASC := 0]
 
     #       IF HTN 		AND HTNFLG 					THEN HTN 		= 0;
-    x$HTN[x$HTN==1 & x$HTNDRG==1] = 0
+    x[HTN==1 & HTNDRG==1, HTN := 0] 
 
     #
     #         /**********************************************************/
@@ -383,165 +383,165 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     #         /* using the detailed hypertension flags created above.   */
     #         /**********************************************************/
     #         IF HTNCX     AND HTNCXFLG THEN HTNCX = 0  ;
-    x$HTNCX[x$HTNCX==1 & x$HTNCXDRG==1] = 0
+    x[HTNCX==1 & HTNCXDRG==1, HTNCX := 0] 
 
     #         IF HTNPREG_  AND HTNCXFLG THEN HTNCX = 0;
-    x$HTNCX[x$HTNPREG==1 & x$HTNCXDRG==1] = 0
+    x[HTNPREG==1 & HTNCXDRG==1, HTNCX := 0] 
 
     #         IF HTNWOCHF_ AND (HTNCXFLG OR CARDFLG) THEN HTNCX = 0;
-    x$HTNCX[x$HTNWOCHF==1 & (x$HTNCXDRG==1 | x$CARDDRG==1)] = 0
+    x[HTNWOCHF==1 & (HTNCXDRG==1 | CARDDRG==1), HTNCX := 0]
 
     #         IF HTNWCHF_  THEN DO;
     #           IF HTNCXFLG THEN HTNCX  = 0;
-    x$HTNCX[x$HTNWCHF==1 & x$HTNCXDRG==1] = 0
+    x[HTNWCHF==1 & HTNCXDRG==1, HTNCX := 0] 
 
     #           IF CARDFLG THEN DO;
     #             HTNCX = 0;
-    x$HTNCX[x$HTNWCHF==1 & x$CARDDRG==1] = 0
+    x[HTNWCHF==1 & CARDDRG==1, HTNCX := 0] 
     #             CHF   = 0;
-    x$CHF[x$HTNWCHF==1 & x$CARDDRG==1] = 0
+    x[HTNWCHF==1 & CARDDRG==1, CHF := 0]
 
     #           END;
     #         END;
 
     #         IF HRENWORF_ AND (HTNCXFLG OR RENALFLG) THEN HTNCX = 0;
-    x$HTNCX[x$HRENWORF==1 & (x$HTNCXDRG==1 | x$RENALDRG==1)] = 0
+    x[HRENWORF==1 & (HTNCXDRG==1 | RENALDRG==1), HTNCX := 0]
 
     #         IF HRENWRF_  THEN DO;
     #           IF HTNCXFLG THEN HTNCX = 0;
-    x$HTNCX[x$HRENWRF==1 & x$HTNCXDRG==1] = 0
+    x[HRENWRF==1 & HTNCXDRG==1, HTNCX := 0]
 
     #           IF RENALFLG THEN DO;
     #             HTNCX    = 0;
     #             RENLFAIL = 0;
-    x[x$HRENWRF==1 & x$RENALDRG==1, c('HTNCX', 'RENLFAIL')] = 0
+    x[HRENWRF==1 & RENALDRG==1, c('HTNCX', 'RENLFAIL') := 0] 
 
     #           END;
     #         END;
 
     #         IF HHRWOHRF_ AND (HTNCXFLG OR CARDFLG OR RENALFLG) THEN HTNCX = 0;
-    x$HTNCX[x$HHRWOHRF==1 & (x$HTNCXDRG==1 | x$CARDDRG==1 | x$RENALDRG==1)] = 0
+    x[HHRWOHRF==1 & (HTNCXDRG==1 | CARDDRG==1 | RENALDRG==1), HTNCX := 0] 
 
     #         IF HHRWCHF_ THEN DO;
     #           IF HTNCXFLG THEN HTNCX = 0;
-    x$HTNCX[x$HHRWCHF==1 & x$HTNCXDRG==1] = 0
+    x[HHRWCHF==1 & HTNCXDRG==1, HTNCX := 0] 
 
     #             IF CARDFLG THEN DO;
     #               HTNCX = 0;
     #               CHF   = 0;
-    x[x$HHRWCHF==1 & x$CARDDRG==1, c('HTNCX', 'CHF')] = 0
+    x[HHRWCHF==1 & CARDDRG==1, c('HTNCX', 'CHF') := 0]
 
     #             END;
     #         IF RENALFLG THEN HTNCX = 0;
-    x$HTNCX[x$HHRWCHF==1 & x$RENALDRG==1] = 0
+    x[HHRWCHF==1 & RENALDRG==1, HTNCX := 0] 
 
     #         END;
 
 
     #         IF HHRWRF_ THEN DO;
     #           IF HTNCXFLG OR CARDFLG THEN HTNCX = 0;
-    x$HTNCX[x$HHRWRF==1 & (x$HTNCXDRG==1 | x$CARDDRG==1)] = 0
+    x[HHRWRF==1 & (HTNCXDRG==1 | CARDDRG==1), HTNCX := 0] 
 
     #           IF RENALFLG THEN DO;
     #             HTNCX    = 0;
     #             RENLFAIL = 0;
-    x[x$HHRWRF==1 & x$RENALDRG==1, c('HTNCX', 'RENLFAIL')] = 0
+    x[HHRWRF==1 & RENALDRG==1, c('HTNCX', 'RENLFAIL') := 0] 
 
     #           END;
     #         END;
 
     #         IF HHRWHRF_ THEN DO;
     #           IF HTNCXFLG THEN HTNCX = 0;
-    x$HTNCX[x$HHRWHRF==1 & x$HTNCXDRG==1] = 0
+    x[HHRWHRF==1 & HTNCXDRG==1, HTNCX := 0] 
 
     #           IF CARDFLG THEN DO;
     #             HTNCX = 0;
     #             CHF   = 0;
-    x[x$HHRWHRF==1 & x$CARDDRG==1, c('HTNCX', 'CHF')] = 0
+    x[HHRWHRF==1 & CARDDRG==1, c('HTNCX', 'CHF') := 0] 
 
     #           END;
     #           IF RENALFLG THEN DO;
     #           HTNCX    = 0;
     #           RENLFAIL = 0;
-    x[x$HHRWHRF==1 & x$RENALDRG==1, c('HTNCX', 'RENLFAIL')] = 0
+    x[HHRWHRF==1 & RENALDRG==1, c('HTNCX', 'RENLFAIL') := 0] 
 
     #           END;
     #         END;
     #         IF OHTNPREG_ AND (HTNCXFLG OR CARDFLG OR RENALFLG) THEN HTNCX = 0;
-    x$HTNCX[x$OHTNPREG==1 & (x$HTNCXDRG==1 | x$CARDDRG==1 | x$RENALDRG==1)] = 0
+    x[OHTNPREG==1 & (HTNCXDRG==1 | CARDDRG==1 | RENALDRG==1), HTNCX := 0] 
 
     #
     #         IF NEURO AND NERVFLG THEN NEURO = 0;
-    x$NEURO[x$NEURO==1 & x$NERVDRG==1] = 0
+    x[NEURO==1 & NERVDRG==1, NEURO := 0] 
 
     #         IF CHRNLUNG AND PULMFLG THEN CHRNLUNG = 0;
-    x$CHRNLUNG[x$CHRNLUNG==1 & x$PULMDRG==1] = 0
+    x[CHRNLUNG==1 & PULMDRG==1, CHRNLUNG := 0] 
 
     #         IF DM AND DIABFLG THEN DM = 0;
-    x$DM[x$DM==1 & x$DIABDRG==1] = 0
+    x[DM==1 & DIABDRG==1, DM := 0] 
 
     #         IF DMCX AND DIABFLG THEN DMCX = 0 ;
-    x$DMCX[x$DMCX==1 & x$DIABDRG==1] = 0
+    x[DMCX==1 & DIABDRG==1, DMCX := 0] 
 
     #         IF HYPOTHY AND HYPOFLG THEN HYPOTHY = 0;
-    x$HYPOTHY[x$HYPOTHY==1 & x$HYPODRG==1] = 0
+    x[HYPOTHY==1 & HYPODRG==1, HYPOTHY := 0] 
 
     #         IF RENLFAIL AND RENFFLG THEN   RENLFAIL = 0;
-    x$RENLFAIL[x$RENLFAIL==1 & x$RENFDRG==1] = 0
+    x[RENLFAIL==1 & RENFDRG==1, RENLFAIL := 0] 
 
     #         IF LIVER AND LIVERFLG THEN LIVER = 0;
-    x$LIVER[x$LIVER==1 & x$LIVERDRG==1] = 0
+    x[LIVER==1 & LIVERDRG==1, LIVER := 0] 
 
     #         IF ULCER AND ULCEFLG THEN  ULCER = 0;
-    x$ULCER[x$ULCER==1 & x$ULCEDRG==1] = 0
+    x[ULCER==1 & ULCEDRG==1, ULCER := 0] 
 
     #         IF AIDS AND HIVFLG THEN AIDS = 0;
-    x$AIDS[x$AIDS==1 & x$HIVDRG==1] = 0
+    x[AIDS==1 & HIVDRG==1, AIDS := 0] 
 
     #         IF LYMPH AND LEUKFLG THEN LYMPH = 0;
-    x$LYMPH[x$LYMPH==1 & x$LEUKDRG==1] = 0
+    x[LYMPH==1 & LEUKDRG==1, LYMPH := 0] 
 
     #         IF METS AND CANCFLG THEN METS = 0;
-    x$METS[x$METS==1 & x$CANCDRG==1] = 0
+    x[METS==1 & CANCDRG==1, METS := 0] 
 
     #         IF TUMOR AND CANCFLG THEN TUMOR = 0;
-    x$TUMOR[x$TUMOR==1 & x$CANCDRG==1] = 0
+    x[TUMOR==1 & CANCDRG==1, TUMOR := 0] 
 
     #         IF ARTH AND ARTHFLG THEN ARTH = 0;
-    x$ARTH[x$ARTH==1 & x$ARTHDRG==1] = 0
+    x[ARTH==1 & ARTHDRG==1, ARTH := 0] 
 
     #         IF COAG AND COAGFLG THEN COAG = 0;
-    x$COAG[x$COAG==1 & x$COAGDRG==1] = 0
+    x[COAG==1 & COAGDRG==1, COAG := 0] 
 
     #         IF OBESE AND (NUTRFLG OR OBESEFLG) THEN  OBESE = 0;
-    x$OBESE[x$OBESE==1 & (x$NUTRDRG==1 | x$OBESEDRG==1)] = 0
+    x[OBESE==1 & (NUTRDRG==1 | OBESEDRG==1), OBESE := 0] 
 
     #         IF WGHTLOSS AND NUTRFLG THEN WGHTLOSS = 0;
-    x$WGHTLOSS[x$WGHTLOSS==1 & x$NUTRDRG==1] = 0
+    x[WGHTLOSS==1 & NUTRDRG==1, WGHTLOSS := 0] 
 
     #         IF LYTES AND NUTRFLG THEN LYTES = 0;
-    x$LYTES[x$LYTES==1 & x$NUTRDRG==1] = 0
+    x[LYTES==1 & NUTRDRG==1, LYTES := 0] 
 
     #         IF BLDLOSS AND ANEMFLG THEN BLDLOSS = 0;
-    x$BLDLOSS[x$BLDLOSS==1 & x$ANEMDRG==1] = 0
+    x[BLDLOSS==1 & ANEMDRG==1, BLDLOSS := 0] 
 
     #         IF ANEMDEF AND ANEMFLG THEN ANEMDEF = 0;
-    x$ANEMDEF[x$ANEMDEF==1 & x$ANEMDRG==1] = 0
+    x[ANEMDEF==1 & ANEMDRG==1, ANEMDEF := 0] 
 
     #         IF ALCOHOL AND ALCFLG THEN ALCOHOL = 0;
-    x$ALCOHOL[x$ALCOHOL==1 & x$ALCDRG==1] = 0
+    x[ALCOHOL==1 & ALCDRG==1, ALCOHOL := 0] 
 
     #         IF DRUG AND ALCFLG THEN DRUG = 0;
-    x$DRUG[x$DRUG==1 & x$ALCDRG==1] = 0
+    x[DRUG==1 & ALCDRG==1, DRUG := 0] 
 
     #         IF PSYCH AND PSYFLG THEN PSYCH = 0;
-    x$PSYCH[x$PSYCH==1 & x$PSYDRG==1] = 0
+    x[PSYCH==1 & PSYDRG==1, PSYCH := 0] 
 
     #         IF DEPRESS AND DEPRSFLG THEN DEPRESS = 0;
-    x$DEPRESS[x$DEPRESS==1 & x$DEPRSDRG==1] = 0
+    x[DEPRESS==1 & DEPRSDRG==1, DEPRESS := 0] 
 
     #         IF PARA AND CEREFLG THEN PARA = 0;
-    x$PARA[x$PARA==1 & x$CEREDRG==1] = 0
+    x[PARA==1 & CEREDRG==1, PARA := 0] 
 
     #
     #           /*************************************/
@@ -575,6 +575,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     
     # Return AHRQ vars in SAS format:
     x <- data.table::setnames(x, old=new_names, new=old_names)
+    # Keep only relevant vars 
     x <- x[c(id, "CHF", "VALVE", "PULMCIRC", "PERIVASC", "PARA",
              "NEURO", "CHRNLUNG", "DM", "DMCX", "HYPOTHY", "RENLFAIL", "LIVER",
              "ULCER", "AIDS", "LYMPH", "METS", "TUMOR", "ARTH", "COAG", "OBESE",
