@@ -120,34 +120,36 @@ all.equal(x1, x2)
 ```
 
 Simulating ICD-10 codes for AHRQ Elixhauser requires simulating DRG
-codes and ICD-10 ranks:
+codes and ICD-10 ranks. The `comorbidity` packages includes a function
+named `sample_drg()` that allows simulating DRG codes in a
+straightforward way. For example:
 
 ``` r
 x = data.frame(
   id = sample(1:5, size = 50, replace = TRUE),
   code = sample_diag(n = 50),
-  code_seq = 1
+  icd_rank = 1
 )
 x <- x[order(x$id, x$code), ]
-x$icd_rank =  ave(x$code_seq, x$id, FUN=cumsum) # Simulate ICD Rank
+x$icd_rank =  ave(x$icd_rank, x$id, FUN=cumsum) # Simulate ICD Rank
 x$drg = sample_drg(5)[x$id] # Simulate DRG
 print(head(x, n = 15), row.names = FALSE)
-##  id code code_seq icd_rank drg
-##   1 A422        1        1 976
-##   1 B447        1        2 976
-##   1 C512        1        3 976
-##   1 N481        1        4 976
-##   1 S564        1        5 976
-##   1 S907        1        6 976
-##   1 V549        1        7 976
-##   1 V779        1        8 976
-##   1 Y606        1        9 976
-##   2 A921        1        1  78
-##   2 B812        1        2  78
-##   2 C694        1        3  78
-##   2 E568        1        4  78
-##   2 E643        1        5  78
-##   2 H118        1        6  78
+##  id code icd_rank drg
+##   1 A422        1 976
+##   1 B447        2 976
+##   1 C512        3 976
+##   1 N481        4 976
+##   1 S564        5 976
+##   1 S907        6 976
+##   1 V549        7 976
+##   1 V779        8 976
+##   1 Y606        9 976
+##   2 A921        1  78
+##   2 B812        2  78
+##   2 C694        3  78
+##   2 E568        4  78
+##   2 E643        5  78
+##   2 H118        6  78
 ```
 
 ## Simulating ICD-9 codes
