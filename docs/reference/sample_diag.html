@@ -132,7 +132,7 @@
     <p>A simple function to simulate ICD-10 and ICD-9 diagnostic codes at random.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sample_diag</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>version</span> <span class='kw'>=</span> <span class='st'>"ICD10_2011"</span>)</pre>
+    <pre class="usage"><span class='fu'>sample_diag</span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>1</span>, version <span class='op'>=</span> <span class='st'>"ICD10_2011"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,7 +143,7 @@
     </tr>
     <tr>
       <th>version</th>
-      <td><p>The version of the ICD coding scheme to use. Possible choices are <code>ICD10_2009</code>, <code>ICD10_2011</code>, and <code>ICD9_2015</code>; defaults to <code>ICD10_2011</code>. See <a href='icd10_2009.html'>comorbidity::icd10_2009</a>, <a href='icd10_2011.html'>comorbidity::icd10_2011</a>, and <a href='icd9_2015.html'>comorbidity::icd9_2015</a> for further information on the different schemes.</p></td>
+      <td><p>The version of the ICD coding scheme to use. Possible choices are <code>ICD10_2009</code>, <code>ICD10_2011</code>, and <code>ICD9_2015</code>; defaults to <code>ICD10_2011</code>. See <a href='icd10_2009.html'>icd10_2009</a>, <a href='icd10_2011.html'>icd10_2011</a>, and <a href='icd9_2015.html'>icd9_2015</a> for further information on the different schemes.</p></td>
     </tr>
     </table>
 
@@ -153,15 +153,17 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Simulate 10 ICD-10 codes</span>
-<span class='fu'>sample_diag</span>(<span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] "D682" "R454" "G308" "R90"  "N350" "S064" "V435" "V795" "M356" "R073"</div><div class='input'>
+<span class='fu'>sample_diag</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "D682" "R454" "G308" "R90"  "N350" "S064" "V435" "V795" "M356" "R073"</div><div class='input'>
 <span class='co'># Simulate a tidy dataset with 15 individuals and 200 rows</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>1</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>15</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>code</span> <span class='kw'>=</span> <span class='fu'>sample_diag</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>200</span>),
-  <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;   id code
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>15</span>, size <span class='op'>=</span> <span class='fl'>200</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  code <span class='op'>=</span> <span class='fu'>sample_diag</span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>200</span><span class='op'>)</span>,
+  stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   id code
 #&gt; 1  9  P23
 #&gt; 2  4 B942
 #&gt; 3  7 K764
@@ -183,7 +185,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
