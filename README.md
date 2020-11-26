@@ -3,14 +3,14 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2019-12-26
+2020-11-26
 
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/comorbidity?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/comorbidity)
-[![Travis-CI Build
-Status](https://travis-ci.org/ellessenne/comorbidity.svg?branch=master)](https://travis-ci.org/ellessenne/comorbidity)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/ellessenne/comorbidity/master.svg)](https://codecov.io/github/ellessenne/comorbidity?branch=master)
+<!-- badges: start -->
+
+[![R build
+status](https://github.com/ellessenne/comorbidity/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/comorbidity/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/ellessenne/comorbidity/branch/master/graph/badge.svg)](https://codecov.io/gh/ellessenne/comorbidity?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
@@ -20,6 +20,7 @@ DOI](http://joss.theoj.org/papers/10.21105/joss.00648/status.svg)](https://doi.o
 DOI](https://zenodo.org/badge/68221970.svg)](https://zenodo.org/badge/latestdoi/68221970)
 [![PRs
 Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+<!-- badges: end -->
 
 `comorbidity` is an R package for computing comorbidity scores such as
 the weighted Charlson score and the Elixhauser comorbidity score; both
@@ -317,30 +318,30 @@ console:
 vignette("comorbidityscores", package = "comorbidity")
 ```
 
-  - Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et
+-   Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et
     al. *Coding algorithms for defining comorbidities in ICD-9-CM and
     ICD-10 administrative data*. Medical Care 2005; 43(11):1130-1139.
     DOI:
     [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
-  - Charlson ME, Pompei P, Ales KL, et al. *A new method of classifying
+-   Charlson ME, Pompei P, Ales KL, et al. *A new method of classifying
     prognostic comorbidity in longitudinal studies: development and
     validation*. Journal of Chronic Diseases 1987; 40:373-383. DOI:
-    [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681\(87\)90171-8)
-  - Moore BJ, White S, Washington R, Coenen N, and Elixhauser A.
+    [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681(87)90171-8)
+-   Moore BJ, White S, Washington R, Coenen N, and Elixhauser A.
     *Identifying increased risk of readmission and in-hospital mortality
     using hospital administrative data: the AHRQ Elixhauser comorbidity
     index*. Medical Care 2017; 55(7):698-705. DOI:
     [10.1097/MLR.0000000000000735](https://doi.org/10.1097/MLR.0000000000000735)
-  - Elixhauser A, Steiner C, Harris DR and Coffey RM. *Comorbidity
+-   Elixhauser A, Steiner C, Harris DR and Coffey RM. *Comorbidity
     measures for use with administrative data*. Medical Care 1998;
     36(1):8-27. DOI:
     [10.1097/00005650-199801000-00004](https://doi.org/10.1097/00005650-199801000-00004)
-  - van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. *A
+-   van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. *A
     modification of the Elixhauser comorbidity measures into a point
     system for hospital death using administrative data*. Medical Care
     2009; 47(6):626-633. DOI:
     [10.1097/mlr.0b013e31819432e5](https://doi.org/10.1097/mlr.0b013e31819432e5)
-  - Menendez ME, Neuhaus V, van Dijk CN, Ring D. *The Elixhauser
+-   Menendez ME, Neuhaus V, van Dijk CN, Ring D. *The Elixhauser
     comorbidity method outperforms the Charlson index in predicting
     inpatient death after orthopaedic surgery*. Clinical Orthopaedics
     and Related Research 2014; 472(9):2878-2886. DOI:
