@@ -4,9 +4,23 @@
 \alias{comorbidity}
 \title{Compute comorbidity scores.}
 \usage{
-comorbidity(x, id, code, score, assign0, icd = "icd10",
-  factorise = FALSE, labelled = TRUE, tidy.codes = TRUE,
-  drg = NULL, icd_rank = NULL)
+comorbidity(
+  x,
+  id,
+  code,
+  score,
+  assign0,
+  icd = "icd10",
+  factorise = FALSE,
+  labelled = TRUE,
+  tidy.codes = TRUE,
+  drg = NULL,
+  icd_rank = NULL,
+  poa = NULL,
+  year = NULL,
+  quarter = NULL,
+  icd10cm_vers = NULL
+)
 }
 \arguments{
 \item{x}{A tidy \code{data.frame} (or a \code{data.table}; \code{tibble}s are supported too) with one column containing an individual ID and a column containing all diagnostic codes.
@@ -17,7 +31,7 @@ Column names must be syntactically valid names, otherwise they are forced to be 
 
 \item{code}{Column of \code{x} containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.}
 
-\item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score (\code{charlson}), the weighted (pre 2019 AHRQ) Elixhauser score (\code{elixhauser}), and the 2019 AHRQ weighted Elixhauser score (\code{elixhauser_ahrq}). Values are case-insensitive.}
+\item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score (\code{charlson}), the weighted (pre 2019 AHRQ) Elixhauser score (\code{elixhauser}), and the 2019 AHRQ weighted Elixhauser score (\code{elixhauser_ahrq_2020}). Values are case-insensitive.}
 
 \item{assign0}{Apply a hierarchy of comorbidities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:
 \itemize{
@@ -29,10 +43,10 @@ Column names must be syntactically valid names, otherwise they are forced to be 
 \item "Solid tumour" (\code{solidtum}) and "Metastatic cancer" (\code{metacanc}) for the Elixhauser score.
 }
 
-Note: This argument has no effect on Elixhauser AHRQ as these choices are incorporated into AHRQ calculations. If using 'elixhauser_ahrq' it is recommended to specify assign0 = FALSE to avoid confusion.}
+Note: This argument has no effect on Elixhauser AHRQ as these choices are incorporated into AHRQ calculations. If using 'elixhauser_ahrq_2020' it is recommended to specify assign0 = FALSE to avoid confusion.}
 
 \item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}) or ICD-10 (\code{icd10}). Defaults to \code{icd10}, and values are case-insensitive.
-Note: if 'elixhauser_ahrq' is selected, icd must equal 'icd10'.}
+Note: if 'elixhauser_ahrq_2020' is selected, icd must equal 'icd10'.}
 
 \item{factorise}{Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{FALSE}.}
 
@@ -40,9 +54,17 @@ Note: if 'elixhauser_ahrq' is selected, icd must equal 'icd10'.}
 
 \item{tidy.codes}{Tidy diagnostic codes? If \code{TRUE}, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}. Defaults to \code{TRUE}.}
 
-\item{drg}{Column of \code{x} that contains DRG codes associated with the encounter. Defaults to \code{NULL} but must be specified if score = 'elixhauser_ahrq'.}
+\item{drg}{Column of \code{x} that contains DRG codes associated with the encounter. Defaults to \code{NULL} but must be specified if score = 'elixhauser_ahrq_2020'.}
 
-\item{icd_rank}{Column of \code{x} that contains the rank or position of DRG codes. Defaults to \code{NULL} but must be specified if score = 'elixhauser_ahrq'.}
+\item{icd_rank}{Column of \code{x} that contains the rank or position of DRG codes. Defaults to \code{NULL} but must be specified if score = 'elixhauser_ahrq_2020'.}
+
+\item{poa}{Column of \code{x} that contains the present on admission status codes (e.g. 'Y', 'W', 'N', 'U'). Defaults to \code{NULL} but must be specified if score = 'elixhauser_ahrq_2020'.}
+
+\item{year}{Column of \code{x} that contains the calendar year of the admission. Defaults to \code{NULL}, but either \code{year} and \code{quarter} OR \code{icd10cm_vers} must be specified if score = 'elixhauser_ahrq_2020'.}
+
+\item{quarter}{Column of \code{x} that contains the calendar quarter of the admission. Defaults to \code{NULL}, but either \code{year} and \code{quarter} OR \code{icd10cm_vers} must be specified if score = 'elixhauser_ahrq_2020'.}
+
+\item{icd10cm_vers}{Column of \code{x} that contains the ICD10CM version. Must be specified if \code{year} and \code{quarter} are not. Must be \code{NULL} if \code{year} and \code{quarter} are not \code{NULL}. Defaults to \code{NULL}, but either \code{year} and \code{quarter} OR \code{icd10cm_vers} must be specified if score = 'elixhauser_ahrq_2020'.}
 }
 \value{
 A data frame with \code{id}, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
@@ -115,10 +137,53 @@ Conversely, for the Elixhauser score the dataset contains the following variable
 \item \code{windex_vw}, for the weighted version of the grouped Elixhauser index using the algorithm in van Walraven \emph{et al}. (2009).
 }
 
-For AHRQ Elixhauser (elixhauser_ahrq), the dataset contains the same variables as 'Elixhauser' with the following exceptions:
+For AHRQ Elixhauser (elixhauser_ahrq_2020), the dataset contains the same variables as 'Elixhauser' with the following exceptions:
 \itemize{
 \item Comorbidity columns follow AHRQ's abbreviation formatting.
 \item In place of \code{hypunc} and \code{hypc}, those measures are combined to form \code{HTN_C}
+}
+
+#' For AHRQ Elixhauser (elixhauser_ahrq_2020), the dataset contains the following:
+\itemize{
+\item The \code{id} variable as defined by the user;
+\item \code{AIDS},  Acquired immune deficiency syndrome;
+\item \code{ALCOHOL},  Alcohol abuse;
+\item \code{ANEMDF}, (only if poa is supplied) Deficiency anemias;
+\item \code{ARTH},  Arthropathies;
+\item \code{BLDLOSS}, (only if poa is supplied) Chronic blood loss anemia;
+\item \code{CANCER_LEUK},  Leukemia;
+\item \code{CANCER_LYMPH},  Lymphoma;
+\item \code{CANCER_METS},  Metastatic cancer;
+\item \code{CANCER_NSITU},  Solid tumor without metastasis, in situ;
+\item \code{CANCER_SOLID},  Solid tumor without metastasis, malignant;
+\item \code{CBVD}, (only if poa is supplied) Cerebrovascular disease;
+\item \code{CHF}, (only if poa is supplied) Congestive heart failure;
+\item \code{COAG}, (only if poa is supplied) Coagulopathy;
+\item \code{DEMENTIA},  Dementia;
+\item \code{DEPRESS},  Depression;
+\item \code{DIAB_CX},  Diabetes with chronic complications;
+\item \code{DIAB_UNCX},  Diabetes without chronic complications;
+\item \code{DRUG_ABUSE},  Drug abuse;
+\item \code{HTN_CX},  Hypertension, complicated;
+\item \code{HTN_UNCX},  Hypertension, uncomplicated;
+\item \code{LIVER_MLD}, (only if poa is supplied) Liver disease, mild;
+\item \code{LIVER_SEV}, (only if poa is supplied) Liver disease, moderate to severe;
+\item \code{LUNG_CHRONIC},  Chronic pulmonary disease;
+\item \code{NEURO_MOVT}, (only if poa is supplied) Neurological disorders affecting movement;
+\item \code{NEURO_OTH}, (only if poa is supplied) Other neurological disorders;
+\item \code{NEURO_SEIZ}, (only if poa is supplied) Seizures and epilepsy;
+\item \code{OBESE},  Obesity;
+\item \code{PARALYSIS}, (only if poa is supplied) Paralysis;
+\item \code{PERIVASC},  Peripheral vascular disease;
+\item \code{PSYCHOSES}, (only if poa is supplied) Psychoses;
+\item \code{PULMCIRC}, (only if poa is supplied) Pulmonary circulation disease;
+\item \code{RENLFL_MOD}, (only if poa is supplied) Renal failure, moderate;
+\item \code{RENLFL_SEV}, (only if poa is supplied) Renal failure, severe;
+\item \code{THYROID_HYPO},  Hypothyroidism;
+\item \code{THYROID_OTH},  Other thyroid disorders;
+\item \code{ULCER_PEPTIC}, (only if poa is supplied) Peptic ulcer with bleeding;
+\item \code{VALVE}, (only if poa is supplied) Valvular disease;
+\item \code{WGHTLOSS}, (only if poa is supplied) Weight loss;
 }
 
 Labels are presented to the user when using the RStudio viewer (e.g. via the \code{\link[utils:View]{utils::View()}} function) for convenience.
@@ -156,4 +221,6 @@ van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. \emph{A modificati
 Menendez ME, Neuhaus V, van Dijk CN, Ring D. \emph{The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery}. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886.
 
 \emph{Healthcare Cost and Utilization Project. Elixhauser Comorbidity Software Version 3.7} Available at https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp
+
+\emph{Healthcare Cost and Utilization Project. Elixhauser Comorbidity Software Refined for ICD-10-CM v2021.1} Available at https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp
 }

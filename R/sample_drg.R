@@ -13,9 +13,9 @@
 #' set.seed(1)
 #' x <- data.frame(
 #'   id = sample(1:15, size = 200, replace = TRUE),
-#'   code = sample_drg(n = 200),
 #'   stringsAsFactors = FALSE
 #' )
+#' x$drg = sample_drg(15)[x$id] 
 #' head(x)
 #' @export
 

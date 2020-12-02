@@ -13,7 +13,14 @@
     x[["wscore_vw"]] <- NULL
     x[["windex_ahrq"]] <- NULL
     x[["windex_vw"]] <- NULL
-  } else if (score == "elixhauser_ahrq") {
+  } else if (score == "elixhauser_ahrq_2020") {
+    x[["score"]] <- NULL
+    x[["index"]] <- NULL
+    x[["wscore_ahrq"]] <- NULL
+    x[["wscore_vw"]] <- NULL
+    x[["windex_ahrq"]] <- NULL
+    x[["windex_vw"]] <- NULL
+  } else if (score == "elixhauser_ahrq_2021") {
     x[["score"]] <- NULL
     x[["index"]] <- NULL
     x[["wscore_ahrq"]] <- NULL

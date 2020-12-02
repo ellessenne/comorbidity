@@ -262,16 +262,30 @@ lofregex[["elixhauser"]][["icd10"]][["drug"]] <- "^F11|^F12|^F13|^F14|^F15|^F16|
 lofregex[["elixhauser"]][["icd10"]][["psycho"]] <- "^F20|^F22|^F23|^F24|^F25|^F28|^F29|^F302|^F312|^F315"
 lofregex[["elixhauser"]][["icd10"]][["depre"]] <- "^F204|^F313|^F314|^F315|^F32|^F33|^F341|^F412|^F432"
 
-# Get lofmsdrg and elixhauser_ahrq lofregex
-source('maintenance/convert-sas.R')
+# Get Elixhauser icd10cm_2020_1 and add to lofregex (see sourced file below for details)
+source('AHRQ-Elixhauser/sas-parse/icd10cm_2020_1/get_lofregex.R')
 
-# Add elixhauser_ahrq (AHRQ_list; see comorbidity/maintenance/convert_sas.R and
-# comorbidity/maintenance/AHRQ_sas_conversion.txt for details)
-lofregex[["elixhauser_ahrq"]] <- list()
-lofregex[["elixhauser_ahrq"]][["icd10"]] <- AHRQ_list
+lofregex[["elixhauser_ahrq_2020"]] <- list()
+lofregex[["elixhauser_ahrq_2020"]][["icd10"]] <- icd10cm_2020_1_lofregex
 
+########################################################################################################################
+### Internal Dataset #2: List of msdrg mappings
+
+# Mappings retrieved by parsing SAS code, see file sourced below
+source('AHRQ-Elixhauser/sas-parse/icd10cm_2020_1/get_lofmsdrg.R')
+
+########################################################################################################################
+### Internal Dataset #3: Get icd10cm_2021_1 icd mappings
+# Creates a list Elixhauser2021Formats with the following objects: 
+# ElixhauserAHRQ2021Map, ElixhauserAHRQ2021Abbr, ElixhauserAHRQ2021Labels
+source('AHRQ-Elixhauser/sas-parse/icd10cm_2021_1/get_mappings.R')
+
+########################################################################################################################
 # Export data as internal
-usethis::use_data(lofregex, lofmsdrg, internal = TRUE, overwrite = TRUE)
+usethis::use_data(lofregex, 
+                  lofmsdrg, 
+                  Elixhauser2021Formats,
+                  internal = TRUE, overwrite = TRUE)
 
 # Clean up space
 rm(list=ls())

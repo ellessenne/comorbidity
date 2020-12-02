@@ -9,7 +9,7 @@ sample_diag(n = 1, version = "ICD10_2011")
 \arguments{
 \item{n}{Number of ICD codes to simulate.}
 
-\item{version}{The version of the ICD coding scheme to use. Possible choices are \code{ICD10_2009}, \code{ICD10_2011}, and \code{ICD9_2015}; defaults to \code{ICD10_2011}. See \link[comorbidity:icd10_2009]{comorbidity::icd10_2009}, \link[comorbidity:icd10_2011]{comorbidity::icd10_2011}, and \link[comorbidity:icd9_2015]{comorbidity::icd9_2015} for further information on the different schemes.}
+\item{version}{The version of the ICD coding scheme to use. Possible choices are \code{ICD10_2009}, \code{ICD10_2011}, and \code{ICD9_2015}; defaults to \code{ICD10_2011}. See \link{icd10_2009}, \link{icd10_2011}, and \link{icd9_2015} for further information on the different schemes.}
 }
 \value{
 A vector of \code{n} ICD diagnostic codes.

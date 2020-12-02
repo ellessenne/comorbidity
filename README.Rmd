@@ -195,7 +195,7 @@ The weighted Elixhauser score is computed using both the AHRQ and the van Walrav
 
 Alternatively, Elixhauser scores based on AHRQ's SAS program (version 3.7) can be calculated provided that data includes DRG codes and ICD-10 code ranks:
 
-```{r elixhauser-ahrq}
+```{r elixhauser-ahrq-2020}
 x = data.frame(
   id = sample(1:5, size = 50, replace = TRUE),
   code = sample_diag(n = 50),
@@ -205,14 +205,45 @@ x <- x[order(x$id, x$code), ]
 x$icd_rank =  ave(x$icd_rank, x$id, FUN=cumsum) # Simulate ICD Rank
 x$drg = sample_drg(5)[x$id] # Simulate DRG
 
-elixhauser_ahrq = comorbidity(x = x,
-                              id = 'id', 
-                              code = 'code', 
-                              score = 'elixhauser_ahrq',
-                              assign0 = FALSE,
-                              drg = 'drg',
-                              icd_rank = 'icd_rank')
-elixhauser_ahrq
+elixhauser_ahrq_2020 = comorbidity(x = x,
+                                   id = 'id', 
+                                   code = 'code', 
+                                   score = 'elixhauser_ahrq_2020',
+                                   assign0 = FALSE,
+                                   drg = 'drg',
+                                   icd_rank = 'icd_rank')
+elixhauser_ahrq_2020
+```
+
+Elixhauser scores Refined for ICD-10-CM based on AHRQ's SAS program (v2021.1) can also be calculated provided that data includes ICD-10 code ranks, present on admission (POA) status codes and either admission calendar year and quarter:
+
+```{r elixhauser-ahrq-2021}
+x = data.frame(
+  id = sample(1:5, size = 50, replace = TRUE),
+  code = sample_diag(n = 50),
+  poa = sample(c('Y', 'W', 'N', 'U'), 50, replace=TRUE),
+  icd_rank = 1
+)
+x <- x[order(x$id, x$code), ]
+x$icd_rank =  ave(x$icd_rank, x$id, FUN=cumsum) # Simulate ICD Rank
+x[c('year', 'quarter')] = sample_year_quarter(5)[x$id,] # Get year/quarter
+
+elixhauser_2021 <- comorbidity(
+        x = x, 
+        id = 'id', 
+        code = 'code', 
+        score = 'elixhauser_ahrq_2021', 
+        assign0 = T,
+        icd_rank = 'icd_rank',
+        poa = 'poa',
+        year = 'year',
+        quarter = 'quarter'
+      )
+elixhauser_2021
+```
+
+```{r}
+
 ```
 
 ## Citation
