@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2020-11-26
+2020-12-15
 
 <!-- badges: start -->
 
@@ -55,8 +55,7 @@ set.seed(1)
 # simulate 50 ICD-10 codes for 5 individuals
 x <- data.frame(
   id = sample(1:5, size = 50, replace = TRUE),
-  code = sample_diag(n = 50),
-  stringsAsFactors = FALSE
+  code = sample_diag(n = 50)
 )
 x <- x[order(x$id, x$code), ]
 print(head(x, n = 15), row.names = FALSE)
@@ -86,14 +85,12 @@ ICD-10 coding system. The default is to simulate ICD-10 codes from the
 set.seed(1)
 x1 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
-  code = sample_diag(n = 30),
-  stringsAsFactors = FALSE
+  code = sample_diag(n = 30)
 )
 set.seed(1)
 x2 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
-  code = sample_diag(n = 30, version = "ICD10_2011"),
-  stringsAsFactors = FALSE
+  code = sample_diag(n = 30, version = "ICD10_2011")
 )
 # should return TRUE
 all.equal(x1, x2)
@@ -106,14 +103,12 @@ Alternatively, you could use the 2009 version:
 set.seed(1)
 x1 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
-  code = sample_diag(n = 30, version = "ICD10_2009"),
-  stringsAsFactors = FALSE
+  code = sample_diag(n = 30, version = "ICD10_2009")
 )
 set.seed(1)
 x2 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
-  code = sample_diag(n = 30, version = "ICD10_2011"),
-  stringsAsFactors = FALSE
+  code = sample_diag(n = 30, version = "ICD10_2011")
 )
 # should not return TRUE
 all.equal(x1, x2)
@@ -128,8 +123,7 @@ ICD-9 codes can be easily simulated too:
 set.seed(2)
 x9 <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
-  code = sample_diag(n = 30, version = "ICD9_2015"),
-  stringsAsFactors = FALSE
+  code = sample_diag(n = 30, version = "ICD9_2015")
 )
 x9 <- x9[order(x9$id, x9$code), ]
 print(head(x9, n = 15), row.names = FALSE)
@@ -163,15 +157,14 @@ Say we have 3 individuals with a total of 30 ICD-10 diagnostic codes:
 set.seed(1)
 x <- data.frame(
   id = sample(1:3, size = 30, replace = TRUE),
-  code = sample_diag(n = 30),
-  stringsAsFactors = FALSE
+  code = sample_diag(n = 30)
 )
 ```
 
 We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
-charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = FALSE)
+charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = "none")
 charlson
 ##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
 ## 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    1
@@ -183,12 +176,12 @@ charlson
 ## 3     0     0      0      0
 ```
 
-We set the `assign0` argument to `FALSE` to not apply a hierarchy of
+We set the `assign0` argument to `"none"` to not apply a hierarchy of
 comorbidity codes, as described in `?comorbidity::comorbidity`. The
 default is to assume ICD-10 codes are passed to `comorbidity`:
 
 ``` r
-charlson.default <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+charlson.default <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = "none")
 all.equal(charlson, charlson.default)
 ## [1] TRUE
 ```
@@ -196,7 +189,7 @@ all.equal(charlson, charlson.default)
 Alternatively, we could compute the Elixhauser score:
 
 ``` r
-elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd10", assign0 = FALSE)
+elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd10", assign0 = "none")
 elixhauser
 ##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph
 ## 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    1     0
@@ -219,8 +212,7 @@ diagnostic codes:
 set.seed(3)
 x <- data.frame(
   id = sample(1:5, size = 100, replace = TRUE),
-  code = sample_diag(n = 100, version = "ICD9_2015"),
-  stringsAsFactors = FALSE
+  code = sample_diag(n = 100, version = "ICD9_2015")
 )
 ```
 
@@ -229,7 +221,7 @@ The Charlson and Elixhauser comorbidity codes can be easily computed:
 We could compute the Charlson score, index, and each comorbidity domain:
 
 ``` r
-charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = FALSE)
+charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = "none")
 charlson9
 ##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
 ## 1  1   0   0   1    0        0    0      0   0   0    0      0  0    0    1    0        0    0
@@ -248,7 +240,7 @@ charlson9
 Alternatively, we could compute the Elixhauser score:
 
 ``` r
-elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd9", assign0 = FALSE)
+elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd9", assign0 = "none")
 elixhauser9
 ##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph
 ## 1  1   0     0    0   0   1      0    0    0   0   0       0     0       0  0  0   0    0     0

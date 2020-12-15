@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   comorbidityscores: comorbidityscores.html
-last_built: 2020-11-26T12:57Z
+last_built: 2020-12-15T15:37Z
 urls:
   reference: https://ellessenne.github.io/comorbidity/reference
   article: https://ellessenne.github.io/comorbidity/articles

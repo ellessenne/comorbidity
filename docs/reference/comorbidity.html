@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -106,7 +106,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ellessenne/comorbidity/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -167,7 +167,17 @@ Column names must be syntactically valid names, otherwise they are forced to be 
     </tr>
     <tr>
       <th>assign0</th>
-      <td><p>Apply a hierarchy of comorbidities. If <code>TRUE</code>, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:</p><ul>
+      <td><p>Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
+By doing this, a type of comorbidity is not counted more than once in each patient.</p>
+<p>If <code>assign0 = "score"</code> then the hierarchy will be applied to the score and weighted score only, i.e. the comorbidity domains will not be affected.
+If <code>assign0 = "both"</code> then both domains and scores will be affected.
+Finally, if <code>assign0 = "none"</code> no hierarchy is applied.
+The previous behaviour (<code>comorbidity &lt;= 0.5.3</code>) corresponds to:</p><ul>
+<li><p><code>assign0 = "score"</code> replaces <code>assign0 = TRUE</code>,</p></li>
+<li><p><code>assign0 = "none"</code> replaces <code>assign0 = FALSE</code>.</p></li>
+</ul>
+
+<p>The comorbidities that are affected by this argument are:</p><ul>
 <li><p>"Mild liver disease" (<code>mld</code>) and "Moderate/severe liver disease" (<code>msld</code>) for the Charlson score;</p></li>
 <li><p>"Diabetes" (<code>diab</code>) and "Diabetes with complications" (<code>diabwc</code>) for the Charlson score;</p></li>
 <li><p>"Cancer" (<code>canc</code>) and "Metastatic solid tumour" (<code>metacanc</code>) for the Charlson score;</p></li>
@@ -285,7 +295,7 @@ ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters on
 <span class='op'>)</span>
 
 <span class='co'># Charlson score based on ICD-10 diagnostic codes:</span>
-<span class='fu'>comorbidity</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, id <span class='op'>=</span> <span class='st'>"id"</span>, code <span class='op'>=</span> <span class='st'>"code"</span>, score <span class='op'>=</span> <span class='st'>"charlson"</span>, assign0 <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>comorbidity</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, id <span class='op'>=</span> <span class='st'>"id"</span>, code <span class='op'>=</span> <span class='st'>"code"</span>, score <span class='op'>=</span> <span class='st'>"charlson"</span>, assign0 <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc
 #&gt; 1   1   0   0   0    0        0    0      0   0   0    0      0  0    0    1
 #&gt; 2   2   0   0   0    0        0    0      0   0   0    0      0  0    0    0
@@ -319,7 +329,7 @@ ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters on
 #&gt; 14    0        0    0     0     0      0      0
 #&gt; 15    0        0    0     1   1-2      2    1-2</div><div class='input'>
 <span class='co'># Elixhauser score based on ICD-10 diagnostic codes:</span>
-<span class='fu'>comorbidity</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, id <span class='op'>=</span> <span class='st'>"id"</span>, code <span class='op'>=</span> <span class='st'>"code"</span>, score <span class='op'>=</span> <span class='st'>"elixhauser"</span>, assign0 <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>comorbidity</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, id <span class='op'>=</span> <span class='st'>"id"</span>, code <span class='op'>=</span> <span class='st'>"code"</span>, score <span class='op'>=</span> <span class='st'>"elixhauser"</span>, assign0 <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf
 #&gt; 1   1   0     0    0   0   0      0    0    0   0   0       0     0       1  0
 #&gt; 2   2   0     0    1   0   0      0    0    0   0   0       0     0       0  0

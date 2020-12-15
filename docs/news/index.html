@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -105,7 +105,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ellessenne/comorbidity/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -130,6 +130,18 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#comorbidity-development-version" class="anchor"></a>comorbidity (development version)<small> Unreleased </small>
 </h1>
+<div id="breaking-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>BREAKING CHANGES</h3>
+<p><code>comorbidity</code> 0.6.0 modifies the behaviour of the <code>assign0</code> argument.</p>
+<p>With <code>comorbidity</code> 0.5.3 (and below), <code>assign0</code> accepted a logical value to either apply a hierachy of comorbidities (<code>assign0 = TRUE</code>) or not (<code>assign0 = FALSE</code>); the hierarchy was applied to the score (and weighted score) only.</p>
+<p>Now, the hierarchy can applied to the single comorbidity domains as well. With this new version of the <code>comorbidity</code> package, you can either apply the hierachy to both domains and scores (<code>assign0 = "both"</code>), to scores only (<code>assign0 = "score"</code>) or to not apply the hierarchy at all (<code>assign0 = "none"</code>). The latter two correspond to <code>assign0 = TRUE</code> and <code>assign0 = FALSE</code> from the previous version, respectively:</p>
+<ul>
+<li><p><code>assign0 = "score"</code> (<code>comorbidity</code> 0.6.0) corresponds to <code>assign0 = "TRUE"</code> (<code>comorbidity</code> 0.5.3);</p></li>
+<li><p><code>assign0 = "none"</code> (<code>comorbidity</code> 0.6.0) corresponds to <code>assign0 = "FALSE"</code> (<code>comorbidity</code> 0.5.3).</p></li>
+</ul>
+<p>See <a href='https://github.com/ellessenne/comorbidity/issues/32'>#32</a> on GitHub for more details [@rplzzz].</p>
+</div>
 </div>
     <div id="comorbidity-053" class="section level1">
 <h1 class="page-header" data-toc-text="0.5.3">
@@ -181,9 +193,9 @@
 <h1 class="page-header" data-toc-text="0.4.0">
 <a href="#comorbidity-040" class="anchor"></a>comorbidity 0.4.0<small> Unreleased </small>
 </h1>
-<div id="breaking-changes" class="section level3">
+<div id="breaking-changes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>BREAKING CHANGES</h3>
+<a href="#breaking-changes-1" class="anchor"></a>BREAKING CHANGES</h3>
 <p>Modified the behaviour of the <code>assign0</code> argument after further discussion with <a href="https://github.com/aalexandersson">Anders Alexandersson</a> in Issue <a href='https://github.com/ellessenne/comorbidity/issues/9'>#9</a>: now there is no default, forcing the user to decide whether to apply a hierarchy of comorbidity codes or not. This will make the algorithm more transparent to the end user, allowing an informed choice. See <code><a href="../reference/comorbidity.html">?comorbidity::comorbidity</a></code> and <code><a href="../articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the hierarchy being applied.</p>
 </div>
 </div>
@@ -191,9 +203,9 @@
 <h1 class="page-header" data-toc-text="0.3.0">
 <a href="#comorbidity-030" class="anchor"></a>comorbidity 0.3.0<small> 2019-03-22 </small>
 </h1>
-<div id="breaking-changes-1" class="section level3">
+<div id="breaking-changes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#breaking-changes-1" class="anchor"></a>BREAKING CHANGES</h3>
+<a href="#breaking-changes-2" class="anchor"></a>BREAKING CHANGES</h3>
 <p><code>comorbidity</code> now returns two Elixhauser scores, one computed using the algorithm of val Walraven <em>et al</em>. (2009) and a second one computed using the AHRQ algorithm (Moore <em>et al</em>., 2017). Thanks to Yumiko Abe-Jones for feedback and the discussion regarding weighted Elixhauser scores.</p>
 <p>More information can be found on the package vignette: <code><a href="../articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code>.</p>
 </div>
@@ -224,9 +236,9 @@
 <li>Lots of internal housekeeping;</li>
 <li>Fixed broken GitHub links to the R script used to generate the datasets bundled with <code>comorbidity</code>.</li>
 </ul>
-<div id="breaking-changes-2" class="section level3">
+<div id="breaking-changes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#breaking-changes-2" class="anchor"></a>BREAKING CHANGES</h3>
+<a href="#breaking-changes-3" class="anchor"></a>BREAKING CHANGES</h3>
 <p>The <code>score</code> argument from <code>comorbidity</code> has been split into <code>score</code> and <code>icd</code>. For instance, the command <code><a href="../reference/comorbidity.html">comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")</a></code> has to be modified as <code>r comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10")</code>. The default value of <code>icd</code> is <code>icd10</code>, for ICD-10 codes, and possible values are <code>icd10</code> and <code>icd9</code>.</p>
 </div>
 </div>

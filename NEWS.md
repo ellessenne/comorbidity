@@ -1,5 +1,21 @@
 # comorbidity (development version)
 
+### BREAKING CHANGES
+
+`comorbidity` 0.6.0 modifies the behaviour of the `assign0` argument. 
+
+With `comorbidity` 0.5.3 (and below), `assign0` accepted a logical value to either apply a hierachy of comorbidities (`assign0 = TRUE`) or not (`assign0 = FALSE`); the hierarchy was applied to the score (and weighted score) only.
+
+Now, the hierarchy can applied to the single comorbidity domains as well.
+With this new version of the `comorbidity` package, you can either apply the hierachy to both domains and scores (`assign0 = "both"`), to scores only (`assign0 = "score"`) or to not apply the hierarchy at all (`assign0 = "none"`).
+The latter two correspond to `assign0 = TRUE` and `assign0 = FALSE` from the previous version, respectively:
+
+* `assign0 = "score"` (`comorbidity` 0.6.0) corresponds to `assign0 = "TRUE"` (`comorbidity` 0.5.3);
+
+* `assign0 = "none"` (`comorbidity` 0.6.0) corresponds to `assign0 = "FALSE"` (`comorbidity` 0.5.3).
+
+See #32 on GitHub for more details [@rplzzz].
+
 # comorbidity 0.5.3
 
 * `comorbidity` now accepts `data.table` objects as input (#23);

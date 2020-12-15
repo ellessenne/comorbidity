@@ -43,7 +43,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -69,7 +69,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ellessenne/comorbidity/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -89,7 +89,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#comorbidity-" class="anchor"></a>comorbidity <img src="reference/figures/hex.png" width="150" align="right">
 </h1></div>
-<p>2020-11-26</p>
+<p>2020-12-15</p>
 <!-- badges: start -->
 <p><a href="https://github.com/ellessenne/comorbidity/actions"><img src="https://github.com/ellessenne/comorbidity/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://codecov.io/gh/ellessenne/comorbidity?branch=master"><img src="https://codecov.io/gh/ellessenne/comorbidity/branch/master/graph/badge.svg" alt="Codecov test coverage"></a> <a href="https://cran.r-project.org/package=comorbidity"><img src="http://www.r-pkg.org/badges/version/comorbidity" alt="CRAN_Status_Badge"></a> <a href="https://cran.r-project.org/package=comorbidity"><img src="http://cranlogs.r-pkg.org/badges/comorbidity" alt="CRAN_Logs_Badge"></a> <a href="https://cran.r-project.org/package=comorbidity"><img src="http://cranlogs.r-pkg.org/badges/grand-total/comorbidity" alt="CRAN_Logs_Badge_Total"></a> <a href="https://doi.org/10.21105/joss.00648"><img src="http://joss.theoj.org/papers/10.21105/joss.00648/status.svg" alt="JOSS DOI"></a> <a href="https://zenodo.org/badge/latestdoi/68221970"><img src="https://zenodo.org/badge/68221970.svg" alt="Zenodo DOI"></a> <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a> <!-- badges: end --></p>
 <p><code>comorbidity</code> is an R package for computing comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score; both ICD-10 and ICD-9 coding systems are supported.</p>
@@ -116,8 +116,7 @@
 <span class="co"># simulate 50 ICD-10 codes for 5 individuals</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, size <span class="op">=</span> <span class="fl">50</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
+  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">id</span>, <span class="va">x</span><span class="op">$</span><span class="va">code</span><span class="op">)</span>, <span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -142,14 +141,12 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, size <span class="op">=</span> <span class="fl">30</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
+  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, size <span class="op">=</span> <span class="fl">30</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, version <span class="op">=</span> <span class="st">"ICD10_2011"</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
+  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, version <span class="op">=</span> <span class="st">"ICD10_2011"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co"># should return TRUE</span>
 <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span>
@@ -159,14 +156,12 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, size <span class="op">=</span> <span class="fl">30</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, version <span class="op">=</span> <span class="st">"ICD10_2009"</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
+  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, version <span class="op">=</span> <span class="st">"ICD10_2009"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, size <span class="op">=</span> <span class="fl">30</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, version <span class="op">=</span> <span class="st">"ICD10_2011"</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
+  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, version <span class="op">=</span> <span class="st">"ICD10_2011"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co"># should not return TRUE</span>
 <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span>
@@ -180,8 +175,7 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
 <span class="va">x9</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, size <span class="op">=</span> <span class="fl">30</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, version <span class="op">=</span> <span class="st">"ICD9_2015"</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
+  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span>, version <span class="op">=</span> <span class="st">"ICD9_2015"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">x9</span> <span class="op">&lt;-</span> <span class="va">x9</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">x9</span><span class="op">$</span><span class="va">id</span>, <span class="va">x9</span><span class="op">$</span><span class="va">code</span><span class="op">)</span>, <span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">x9</span>, n <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -211,12 +205,11 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, size <span class="op">=</span> <span class="fl">30</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
+  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>We could compute the Charlson score, index, and each comorbidity domain:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">charlson</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"charlson"</span>, icd <span class="op">=</span> <span class="st">"icd10"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">charlson</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"charlson"</span>, icd <span class="op">=</span> <span class="st">"icd10"</span>, assign0 <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
 <span class="va">charlson</span>
 <span class="co">##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids</span>
 <span class="co">## 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    1</span>
@@ -226,14 +219,14 @@
 <span class="co">## 1     2   1-2      8    &gt;=5</span>
 <span class="co">## 2     1   1-2      2    1-2</span>
 <span class="co">## 3     0     0      0      0</span></code></pre></div>
-<p>We set the <code>assign0</code> argument to <code>FALSE</code> to not apply a hierarchy of comorbidity codes, as described in <code><a href="reference/comorbidity.html">?comorbidity::comorbidity</a></code>. The default is to assume ICD-10 codes are passed to <code>comorbidity</code>:</p>
+<p>We set the <code>assign0</code> argument to <code>"none"</code> to not apply a hierarchy of comorbidity codes, as described in <code><a href="reference/comorbidity.html">?comorbidity::comorbidity</a></code>. The default is to assume ICD-10 codes are passed to <code>comorbidity</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">charlson.default</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"charlson"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">charlson.default</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"charlson"</span>, assign0 <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">charlson</span>, <span class="va">charlson.default</span><span class="op">)</span>
 <span class="co">## [1] TRUE</span></code></pre></div>
 <p>Alternatively, we could compute the Elixhauser score:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">elixhauser</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"elixhauser"</span>, icd <span class="op">=</span> <span class="st">"icd10"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">elixhauser</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"elixhauser"</span>, icd <span class="op">=</span> <span class="st">"icd10"</span>, assign0 <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
 <span class="va">elixhauser</span>
 <span class="co">##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph</span>
 <span class="co">## 1  1   0     0    0   0   0      0    0    0   0   0       0     0       0  0  0   0    1     0</span>
@@ -252,13 +245,12 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, size <span class="op">=</span> <span class="fl">100</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, version <span class="op">=</span> <span class="st">"ICD9_2015"</span><span class="op">)</span>,
-  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>
+  code <span class="op">=</span> <span class="fu"><a href="reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, version <span class="op">=</span> <span class="st">"ICD9_2015"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>The Charlson and Elixhauser comorbidity codes can be easily computed:</p>
 <p>We could compute the Charlson score, index, and each comorbidity domain:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">charlson9</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"charlson"</span>, icd <span class="op">=</span> <span class="st">"icd9"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">charlson9</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"charlson"</span>, icd <span class="op">=</span> <span class="st">"icd9"</span>, assign0 <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
 <span class="va">charlson9</span>
 <span class="co">##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids</span>
 <span class="co">## 1  1   0   0   1    0        0    0      0   0   0    0      0  0    0    1    0        0    0</span>
@@ -274,7 +266,7 @@
 <span class="co">## 5     1   1-2      2    1-2</span></code></pre></div>
 <p>Alternatively, we could compute the Elixhauser score:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">elixhauser9</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"elixhauser"</span>, icd <span class="op">=</span> <span class="st">"icd9"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">elixhauser9</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"elixhauser"</span>, icd <span class="op">=</span> <span class="st">"icd9"</span>, assign0 <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
 <span class="va">elixhauser9</span>
 <span class="co">##   id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf ld pud aids lymph</span>
 <span class="co">## 1  1   0     0    0   0   1      0    0    0   0   0       0     0       0  0  0   0    0     0</span>

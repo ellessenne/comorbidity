@@ -27,7 +27,19 @@ Column names must be syntactically valid names, otherwise they are forced to be 
 
 \item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score (\code{charlson}) and the weighted Elixhauser score (\code{elixhauser}). Values are case-insensitive.}
 
-\item{assign0}{Apply a hierarchy of comorbidities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:
+\item{assign0}{Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
+By doing this, a type of comorbidity is not counted more than once in each patient.
+
+If \code{assign0 = "score"} then the hierarchy will be applied to the score and weighted score only, i.e. the comorbidity domains will not be affected.
+If \code{assign0 = "both"} then both domains and scores will be affected.
+Finally, if \code{assign0 = "none"} no hierarchy is applied.
+The previous behaviour (\verb{comorbidity <= 0.5.3}) corresponds to:
+\itemize{
+\item \code{assign0 = "score"} replaces \code{assign0 = TRUE},
+\item \code{assign0 = "none"} replaces \code{assign0 = FALSE}.
+}
+
+The comorbidities that are affected by this argument are:
 \itemize{
 \item "Mild liver disease" (\code{mld}) and "Moderate/severe liver disease" (\code{msld}) for the Charlson score;
 \item "Diabetes" (\code{diab}) and "Diabetes with complications" (\code{diabwc}) for the Charlson score;
@@ -134,10 +146,10 @@ x <- data.frame(
 )
 
 # Charlson score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = "none")
 
 # Elixhauser score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
+comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = "none")
 }
 \references{
 Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.

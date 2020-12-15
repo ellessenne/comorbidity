@@ -21,15 +21,20 @@ knitr::opts_chunk$set(
 )
 ```
 
-`comorbidity` is an R package for computing comorbidity scores based on ICD codes data. As of version `0.1.0`, `comorbidity` can calculate the Charlson comorbidity score and the Elixhauser comorbidity score, using either the ICD-9 or ICD-10 coding system. Details on each score supported by this package are presented in this vignette, along with examples on how to compute the different scores with this software.
+`comorbidity` is an R package for computing comorbidity scores based on ICD codes data. 
+As of version `0.1.0`, `comorbidity` can calculate the Charlson comorbidity score and the Elixhauser comorbidity score, using either the ICD-9 or ICD-10 coding system. 
+Details on each score supported by this package are presented in this vignette, along with examples on how to compute the different scores with this software.
 
 # Charlson comorbidity score
 
-The Charlson comorbidity index was first developed by Charlson _et al_. in 1987 to predict one-year mortality for patients who may have a range of comorbid conditions. Each condition is assigned a score depending on the risk of dying associated with each one, and consequently scores are summed to provide a total score to predict mortality.
+The Charlson comorbidity index was first developed by Charlson _et al_. in 1987 to predict one-year mortality for patients who may have a range of comorbid conditions. 
+Each condition is assigned a score depending on the risk of dying associated with each one, and consequently scores are summed to provide a total score to predict mortality.
 
 The Charlson comorbidity index includes the following comorbid conditions: acute myocardial infarction, congestive heart failure, peripheral vascular disease, cerebrovascular disease, dementia, chronic obstructive pulmonary disease [COPD], rheumatoid disease, peptic ulcer disease, mild and moderate/severe liver disease, diabetes mellitus with and without complications, hemiplegia/paraplegia, renal disease, cancer (any malignancy) and metastatic solid tumour, AIDS/HIV.
 
-Many variations of the Charlson comorbidity index have been presented, as outlined by Sharabiani _et al_. in their systematic review. `comorbidity` computes the Quan _et al_. version of the Charlson score for both ICD-9-CM and ICD-10 coding systems, as outlined in their paper from 2005; in the next subsections, we present the different ICD codes utilised by `comorbidity`. Categorisation of scores and weighted scores are based on work by Menendez _et al_.
+Many variations of the Charlson comorbidity index have been presented, as outlined by Sharabiani _et al_. in their systematic review.
+`comorbidity` computes the Quan _et al_. version of the Charlson score for both ICD-9-CM and ICD-10 coding systems, as outlined in their paper from 2005; in the next subsections, we present the different ICD codes utilised by `comorbidity`. 
+Categorisation of scores and weighted scores are based on work by Menendez _et al_.
 
 ## ICD-9-CM codes
 
@@ -112,14 +117,21 @@ The ICD-10 codes used by `comorbidity` to compute the Charlson comorbidity index
 
 ## Weights
 
-Each condition from the Charlson score is assigned a score when computing the weighted Charlson index, irrespectively of the coding system utilised. In particular, diabetes with complications, hemiplegia/paraplegia, renal disease, and malignancies are assigned a score of 2; moderate/severe liver disease is assigned a score of 3; metastatic solid tumour and AIDS/HIV are assigned a score of 6; the remaining comorbidities are assigned a score of 1. `comorbidity` allows the option of applying a hierarchy of comorbidities should a more severe version be present: by choosing to do so (and that is the default behaviour of `comorbidity`) a type of comorbidity is never computed more than once for a given patient.
+Each condition from the Charlson score is assigned a score when computing the weighted Charlson index, irrespectively of the coding system utilised. 
+In particular, diabetes with complications, hemiplegia/paraplegia, renal disease, and malignancies are assigned a score of 2; moderate/severe liver disease is assigned a score of 3; metastatic solid tumour and AIDS/HIV are assigned a score of 6; the remaining comorbidities are assigned a score of 1. 
+`comorbidity` allows the option of applying a hierarchy of comorbidities should a more severe version be present: by choosing to do so, a type of comorbidity is never computed more than once for a given patient.
+See `?comorbidity::comorbidity` for more details on `assign0` and possible values.
 
 # Elixhauser comorbidity score
 
-The Elixhauser comorbidity index, analogously as the Charlson comorbidity index, is a method for measuring patient comorbidity based on ICD-9-CM and ICD-10 diagnosis codes found in administrative data developed by Elixhauser _et al_. in 1998. Over time, there have been changes to the Index based on different research. For instance:
+The Elixhauser comorbidity index, analogously as the Charlson comorbidity index, is a method for measuring patient comorbidity based on ICD-9-CM and ICD-10 diagnosis codes found in administrative data developed by Elixhauser _et al_. in 1998. 
+Over time, there have been changes to the Index based on different research. 
+For instance:
 
 * the original index was developed with 30 categories. Now there are variants with 31 categories (Garland _et al_., 2012);
+
 * the list of specific ICD diagnosis codes that are used to identify different categories of comorbidity have been modified and updated from ICD-9-CM to work with ICD-10 coding (Quan _et al_., 2005);
+
 * weighting algorithms were developed, based on the association between comorbidity and death, in order to produce an overall score for the Elixhauser index (van Walraven _et al_., 2009; Moore _et al_., 2016).
 
 `comorbidity` is using the coding definition of Quan _et al_. (2005) for both ICD-9-CM and ICD-10 coding systems; the actual codes and weights utilised by `comorbidity` are introduced in the next subsections.
@@ -307,48 +319,48 @@ The first step consists in loading the `comorbidity` package:
 library(comorbidity)
 ```
 
-We can utilise the built-in `sample_diag()` function to simulate ICD diagnostic codes. Both ICD-9 and ICD-10 codes are supported:
+We can utilise the built-in `sample_diag()` function to simulate ICD diagnostic codes. 
+Both ICD-9 and ICD-10 codes are supported:
 
 ```{r simulate-data}
 data9 <- data.frame(
   id = sample(1:10, size = 250, replace = TRUE),
-  code = sample_diag(n = 250, version = "ICD9_2015"),
-  stringsAsFactors = FALSE
+  code = sample_diag(n = 250, version = "ICD9_2015")
 )
 data9 <- data9[order(data9$id), ]
 data10 <- data.frame(
   id = sample(1:10, size = 250, replace = TRUE),
-  code = sample_diag(n = 250, version = "ICD10_2011"),
-  stringsAsFactors = FALSE
+  code = sample_diag(n = 250, version = "ICD10_2011")
 )
 data10 <- data10[order(data10$id), ]
 ```
 
-Then, we can go ahead and compute various comorbidity scores and indices supported by `comorbidity`. The Charlson score based on ICD-9-CM data is computed as:
+Then, we can go ahead and compute various comorbidity scores and indices supported by `comorbidity`. 
+The Charlson score based on ICD-9-CM data is computed as:
 
 ```{r charlson-9}
-charlson9 <- comorbidity(x = data9, id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = FALSE)
+charlson9 <- comorbidity(x = data9, id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = "none")
 str(charlson9)
 ```
 
 The Charlson score based on ICD-10 data:
 
 ```{r charlson-10}
-charlson10 <- comorbidity(x = data10, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = FALSE)
+charlson10 <- comorbidity(x = data10, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = "none")
 str(charlson10)
 ```
 
 The Elixhauser score based on ICD-9-CM data:
 
 ```{r elixhauser-9}
-elixhauser9 <- comorbidity(x = data9, id = "id", code = "code", score = "elixhauser", icd = "icd9", assign0 = FALSE)
+elixhauser9 <- comorbidity(x = data9, id = "id", code = "code", score = "elixhauser", icd = "icd9", assign0 = "none")
 str(elixhauser9)
 ```
 
 Finally, the Elixhauser score based on ICD-10 data:
 
 ```{r elixhauser-10}
-elixhauser10 <- comorbidity(x = data10, id = "id", code = "code", score = "elixhauser", icd = "icd10", assign0 = FALSE)
+elixhauser10 <- comorbidity(x = data10, id = "id", code = "code", score = "elixhauser", icd = "icd10", assign0 = "none")
 str(elixhauser10)
 ```
 

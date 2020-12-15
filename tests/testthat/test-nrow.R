@@ -8,7 +8,7 @@ test_that("comorbidity works no matter what the name of the id variable is", {
       code = sample_diag(n * 10),
       stringsAsFactors = FALSE
     )
-    res <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = TRUE, tidy.codes = TRUE)
+    res <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = "score", tidy.codes = TRUE)
     expect_equal(object = nrow(res), expected = n)
   }
 })
