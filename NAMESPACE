@@ -2,3 +2,4 @@
 
 export(comorbidity)
 export(sample_diag)
+export(score)

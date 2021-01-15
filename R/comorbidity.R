@@ -117,13 +117,13 @@
 #' )
 #'
 #' # Charlson score based on ICD-10 diagnostic codes:
-#' comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = "none")
+#' comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10", assign0 = FALSE)
 #'
 #' # Elixhauser score based on ICD-10 diagnostic codes:
-#' comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = "none")
+#' comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10", assign0 = FALSE)
 #' @export
 
-comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = FALSE, labelled = TRUE, tidy.codes = TRUE) {
+comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE) {
 
   # x = x
   # id = "id"
@@ -139,22 +139,15 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame (or a data.table)
   checkmate::assert_true(all(class(x) %in% c("data.frame", "data.table", "tbl", "tbl_df")), add = arg_checks)
-  # id, code, score, icd must be a single string value
+  # id, code, map must be a single string value
   checkmate::assert_string(id, add = arg_checks)
   checkmate::assert_string(code, add = arg_checks)
-  checkmate::assert_string(score, add = arg_checks)
-  checkmate::assert_string(icd, add = arg_checks)
-  # assign0 must be a string with possible values: 'score', 'both', 'none'
-  checkmate::assert_string(assign0, add = arg_checks)
-  checkmate::assert_true(assign0 %in% c("score", "both", "none"), add = arg_checks)
-  # score must be charlson, elixhauser; case insensitive
-  score <- tolower(score)
-  checkmate::assert_choice(score, choices = c("charlson", "elixhauser"), add = arg_checks)
-  # icd must be icd9, icd10; case insensitive
-  icd <- tolower(icd)
-  checkmate::assert_choice(icd, choices = c("icd9", "icd10"), add = arg_checks)
-  # factorise, labelled, tidy.codes, parallel must be a single boolean value
-  checkmate::assert_logical(factorise, len = 1, add = arg_checks)
+  checkmate::assert_string(map, add = arg_checks)
+  # map must be one of the supported; case insensitive
+  map <- tolower(map)
+  checkmate::assert_choice(map, choices = c("charlson_icd9", "charlson_icd10", "elixhauser_icd9", "elixhauser_icd10"), add = arg_checks)
+  # assign0, labelled, tidy.codes must be a single boolean value
+  checkmate::assert_logical(assign0, add = arg_checks)
   checkmate::assert_logical(labelled, len = 1, add = arg_checks)
   checkmate::assert_logical(tidy.codes, len = 1, add = arg_checks)
   # force names to be syntactically valid:
@@ -179,8 +172,8 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   ### Tidy codes if required
   if (tidy.codes) x <- .tidy(x = x, code = code)
 
-  ### Extract regex for internal use
-  regex <- lofregex[[score]][[icd]]
+  ### Create regex from a list of codes
+  regex <- lapply(X = maps[[map]], FUN = .codes_to_regex)
 
   ### Subset only 'id' and 'code' columns
   if (data.table::is.data.table(x)) {
@@ -217,49 +210,14 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   ### Turn internal DT into a DF
   data.table::setDF(x)
 
-  ### Compute Charlson score and Charlson index
-  if (score == "charlson") {
-    x$score <- with(x, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0 != "none", 0, 1) + diab * ifelse(diabwc == 1 & assign0 != "none", 0, 1) + diabwc + hp + rend + canc * ifelse(metacanc == 1 & assign0 != "none", 0, 1) + msld + metacanc + aids)
-    x$index <- with(x, cut(score, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
-    x$wscore <- with(x, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0 != "none", 0, 1) + diab * ifelse(diabwc == 1 & assign0 != "none", 0, 1) + diabwc * 2 + hp * 2 + rend * 2 + canc * ifelse(metacanc == 1 & assign0 != "none", 0, 2) + msld * 3 + metacanc * 6 + aids * 6)
-    x$windex <- with(x, cut(wscore, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
-  } else {
-    x$score <- with(x, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0 != "none", 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0 != "none", 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0 != "none", 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
-    x$index <- with(x, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-    x$wscore_ahrq <- with(x, chf * 9 + carit * 0 + valv * 0 + pcd * 6 + pvd * 3 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0 != "none", 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0 != "none", 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
-    x$wscore_vw <- with(x, chf * 7 + carit * 5 + valv * (-1) + pcd * 4 + pvd * 2 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * 0 + para * 7 + ond * 6 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0 != "none", 0, 0) + diabc * 0 + hypothy * 0 + rf * 5 + ld * 11 + pud * 0 + aids * 0 + lymph * 9 + metacanc * 12 + solidtum * ifelse(metacanc == 1 & assign0 != "none", 0, 4) + rheumd * 0 + coag * 3 + obes * (-4) + wloss * 6 + fed * 5 + blane * (-2) + dane * (-2) + alcohol * 0 + drug * (-7) + psycho * 0 + depre * (-3))
-    x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-    x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-  }
-
-  ### If 'assign0 = "both"', then apply hierarchy to individual comorbidity domains too
-  if (assign0 == "both") {
-    if (score == "charlson") {
-      # "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`)
-      x$mld[x$msld == 1] <- 0
-      # "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`)
-      x$diab[x$diabwc == 1] <- 0
-      # "Cancer" (`canc`) and "Metastatic solid tumour" (`metacanc`)
-      x$canc[x$metacanc == 1] <- 0
-    } else {
-      # "Hypertension, uncomplicated" (`hypunc`) and "Hypertension, complicated" (`hypc`)
-      x$hypunc[x$hypc == 1] <- 0
-      # "Diabetes, uncomplicated" (`diabunc`) and "Diabetes, complicated" (`diabc`)
-      x$diabunc[x$diabc == 1] <- 0
-      # "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`)
-      x$solidtum[x$metacanc == 1] <- 0
-    }
-  }
-
   ### Check output for possible unknown-state errors
-  .check_output(x = x, id = id, score = score)
-
-  ### Factorise comorbidities if requested
-  if (factorise) x <- .factorise(x = x, score = score)
+  .check_output(x = x, id = id)
 
   ### Label variables for RStudio viewer if requested
-  if (labelled) x <- .labelled(x = x, score = score)
+  if (labelled) x <- .labelled(x = x, map = map)
 
-  ### Return a tidy data.frame
+  ### Return it, after adding class 'comorbidity' and some attributes
+  class(x) <- c(class(x), "comorbidity")
+  attr(x = x, which = "map") <- map
   return(x)
 }
