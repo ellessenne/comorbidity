@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2020-12-15
+2021-02-15
 
 <!-- badges: start -->
 
@@ -338,6 +338,11 @@ vignette("comorbidityscores", package = "comorbidity")
     inpatient death after orthopaedic surgery*. Clinical Orthopaedics
     and Related Research 2014; 472(9):2878-2886. DOI:
     [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)
+-   Sundararajan V, Henderson T, Perry C, Muggivan A, Quan H, Ghali WA.
+    *New ICD-10 version of the Charlson comorbidity index predicted
+    in-hospital mortality*. Journal of Clinical Epidemiology 2004;
+    57(12):1288-1294. DOI:
+    [10.1016/j.jclinepi.2004.03.012](https://doi.org/10.1016/j.jclinepi.2004.03.012)
 
 ## Copyright
 

@@ -200,6 +200,7 @@ vignette("comorbidityscores", package = "comorbidity")
 * Elixhauser A, Steiner C, Harris DR and Coffey RM. _Comorbidity measures for use with administrative data_. Medical Care 1998; 36(1):8-27. DOI: [10.1097/00005650-199801000-00004 ](https://doi.org/10.1097/00005650-199801000-00004 )
 * van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.  DOI: [10.1097/mlr.0b013e31819432e5](https://doi.org/10.1097/mlr.0b013e31819432e5)
 * Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886. DOI: [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)
+* Sundararajan V, Henderson T, Perry C, Muggivan A, Quan H, Ghali WA. _New ICD-10 version of the Charlson comorbidity index predicted in-hospital mortality_. Journal of Clinical Epidemiology 2004; 57(12):1288-1294. DOI: [10.1016/j.jclinepi.2004.03.012](https://doi.org/10.1016/j.jclinepi.2004.03.012)
 
 ## Copyright
 
