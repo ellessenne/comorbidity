@@ -193,6 +193,26 @@ lofregex[["charlson"]][["icd10"]][["msld"]] <- "^I850|^I859|^I864|^I982|^K704|^K
 lofregex[["charlson"]][["icd10"]][["metacanc"]] <- "^C77|^C78|^C79|^C80"
 lofregex[["charlson"]][["icd10"]][["aids"]] <- "^B20|^B21|^B22|^B24"
 
+# Charlson score, ICD10-AM
+lofregex[["charlson"]][["icd10am"]] <- list()
+lofregex[["charlson"]][["icd10am"]][["ami"]] <- "^I21|^I22|^I252"
+lofregex[["charlson"]][["icd10am"]][["chf"]] <- "^I50"
+lofregex[["charlson"]][["icd10am"]][["pvd"]] <- "^I71|^I790|^I739|^R02|^Z958|^Z959"
+lofregex[["charlson"]][["icd10am"]][["cevd"]] <- "^I60|^I61|^I62|^I63|^I65|^I66|^G450|^G451|^G452|^G458|^G459|^G46|^I64|^G454|^I670|^I671|^I672|^I674|^I675|^I676|^I677|^I678|^I679|^I681|^I682|^I688|^I69"
+lofregex[["charlson"]][["icd10am"]][["dementia"]] <- "^F00|^F01|^F02|^F051"
+lofregex[["charlson"]][["icd10am"]][["copd"]] <- "^J40|^J41|^J42|^J43|^J44|^J45|^J46|^J47|^J60|^J61|^J67"
+lofregex[["charlson"]][["icd10am"]][["rheumd"]] <- "^M32|^M34|^M332|^M053|^M058|^M059|^M060|^M063|^M069|^M050|^M052|^M051|^M353"
+lofregex[["charlson"]][["icd10am"]][["pud"]] <- "^K25|^K26|^K27|^K28"
+lofregex[["charlson"]][["icd10am"]][["mld"]] <- "^K702|^K703|^K73|^K717|^K740|^K742|^K746|^K743|^K744|^K745"
+lofregex[["charlson"]][["icd10am"]][["diab"]] <- "^E109|^E119|^E139|^E149|^E101|^E111|^E131|^E141|^E105|^E115|^E135|^E145"
+lofregex[["charlson"]][["icd10am"]][["diabwc"]] <- "^E102|^E112|^E132|^E142|^E103|^E113|^E133|^E143|^E104|^E114|^E134|^E144"
+lofregex[["charlson"]][["icd10am"]][["hp"]] <- "^G81|^G041|^G820|^G821|^G822"
+lofregex[["charlson"]][["icd10am"]][["rend"]] <- "^N03|^N052|^N053|^N054|^N055|^N056|^N072|^N073|^N074|^N01|^N18|^N19|^N25"
+lofregex[["charlson"]][["icd10am"]][["canc"]] <- "^C0|^C1|^C2|^C3|^C5|^C6|^C40|^C41|^C43|^C45|^C46|^C47|^C48|^C49|^C70|^C71|^C72|^C73|^C74|^C75|^C76|^C80|^C81|^C82|^C83|^C84|^C85|^C883|^C887|^C889|^C900|^C901|^C91|^C92|^C93|^C940|^C941|^C942|^C943|^C9451|^C947|^C95|^C96"
+lofregex[["charlson"]][["icd10am"]][["msld"]] <- "^K729|^K766|^K767|^K721"
+lofregex[["charlson"]][["icd10am"]][["metacanc"]] <- "^C77|^C78|^C79|^C80"
+lofregex[["charlson"]][["icd10am"]][["aids"]] <- "^B20|^B21|^B22|^B23|^B24"
+
 # Elixhauser score, ICD9
 lofregex[["elixhauser"]] <- list()
 lofregex[["elixhauser"]][["icd9"]] <- list()
