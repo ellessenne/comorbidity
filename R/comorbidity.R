@@ -26,7 +26,7 @@
 #' * "Diabetes, uncomplicated" (`diabunc`) and "Diabetes, complicated" (`diabc`) for the Elixhauser score;
 #' * "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`) for the Elixhauser score.
 #'
-#' @param icd The version of ICD coding to use. Possible choices are ICD-9-CM (`icd9`) or ICD-10 (`icd10`). Defaults to `icd10`, and values are case-insensitive.
+#' @param icd The version of ICD coding to use. Possible choices are ICD-9-CM (`icd9`), ICD-10 (`icd10`) or ICD-10-AM (`icd10am`). ICD-10-AM is currently only available for Charlson score. Defaults to `icd10`, and values are case-insensitive.
 #' @param factorise Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to `FALSE`.
 #' @param labelled Attach labels to each comorbidity, compatible with the RStudio viewer via the [utils::View()] function. Defaults to `TRUE`.
 #' @param tidy.codes Tidy diagnostic codes? If `TRUE`, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}. Defaults to `TRUE`.
@@ -152,7 +152,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   checkmate::assert_choice(score, choices = c("charlson", "elixhauser"), add = arg_checks)
   # icd must be icd9, icd10; case insensitive
   icd <- tolower(icd)
-  checkmate::assert_choice(icd, choices = c("icd9", "icd10"), add = arg_checks)
+  checkmate::assert_choice(icd, choices = c("icd9", "icd10", "icd10am"), add = arg_checks)
   # factorise, labelled, tidy.codes, parallel must be a single boolean value
   checkmate::assert_logical(factorise, len = 1, add = arg_checks)
   checkmate::assert_logical(labelled, len = 1, add = arg_checks)
@@ -175,6 +175,11 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   checkmate::assert_subset(code, choices = names(x), add = arg_checks)
   # Report if there are any errors
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+  
+  # ICD-10-AM codes are currently only available for Charlson score
+  if (icd == "icd10am" & score == "elixhauser") {
+    stop("ICD-10-AM codes currently only works for Charlson score")
+  }
 
   ### Tidy codes if required
   if (tidy.codes) x <- .tidy(x = x, code = code)

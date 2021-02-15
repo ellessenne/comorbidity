@@ -49,7 +49,7 @@ The comorbidities that are affected by this argument are:
 \item "Solid tumour" (\code{solidtum}) and "Metastatic cancer" (\code{metacanc}) for the Elixhauser score.
 }}
 
-\item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}) or ICD-10 (\code{icd10}). Defaults to \code{icd10}, and values are case-insensitive.}
+\item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}), ICD-10 (\code{icd10}) or ICD-10-AM (\code{icd10am}). ICD-10-AM is currently only available for Charlson score. Defaults to \code{icd10}, and values are case-insensitive.}
 
 \item{factorise}{Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{FALSE}.}
 
