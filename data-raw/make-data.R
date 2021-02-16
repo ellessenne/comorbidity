@@ -208,7 +208,7 @@ lofregex[["charlson"]][["icd10am"]][["diab"]] <- "^E109|^E119|^E139|^E149|^E101|
 lofregex[["charlson"]][["icd10am"]][["diabwc"]] <- "^E102|^E112|^E132|^E142|^E103|^E113|^E133|^E143|^E104|^E114|^E134|^E144"
 lofregex[["charlson"]][["icd10am"]][["hp"]] <- "^G81|^G041|^G820|^G821|^G822"
 lofregex[["charlson"]][["icd10am"]][["rend"]] <- "^N03|^N052|^N053|^N054|^N055|^N056|^N072|^N073|^N074|^N01|^N18|^N19|^N25"
-lofregex[["charlson"]][["icd10am"]][["canc"]] <- "^C0|^C1|^C2|^C3|^C5|^C6|^C40|^C41|^C43|^C45|^C46|^C47|^C48|^C49|^C70|^C71|^C72|^C73|^C74|^C75|^C76|^C80|^C81|^C82|^C83|^C84|^C85|^C883|^C887|^C889|^C900|^C901|^C91|^C92|^C93|^C940|^C941|^C942|^C943|^C9451|^C947|^C95|^C96"
+lofregex[["charlson"]][["icd10am"]][["canc"]] <- "^C0|^C1|^C2|^C3|^C5|^C6|^C40|^C41|^C43|^C45|^C46|^C47|^C48|^C49|^C70|^C71|^C72|^C73|^C74|^C75|^C76|^C81|^C82|^C83|^C84|^C85|^C883|^C887|^C889|^C900|^C901|^C91|^C92|^C93|^C940|^C941|^C942|^C943|^C9451|^C947|^C95|^C96"
 lofregex[["charlson"]][["icd10am"]][["msld"]] <- "^K729|^K766|^K767|^K721"
 lofregex[["charlson"]][["icd10am"]][["metacanc"]] <- "^C77|^C78|^C79|^C80"
 lofregex[["charlson"]][["icd10am"]][["aids"]] <- "^B20|^B21|^B22|^B23|^B24"
