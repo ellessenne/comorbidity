@@ -3,7 +3,7 @@
 
 # comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
 
-2020-12-15
+2021-02-17
 
 <!-- badges: start -->
 
@@ -338,6 +338,12 @@ vignette("comorbidityscores", package = "comorbidity")
     inpatient death after orthopaedic surgery*. Clinical Orthopaedics
     and Related Research 2014; 472(9):2878-2886. DOI:
     [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)
+-   Quan H, Li B, Couris CM, Fushimi K, Graham P, Hider P, Januel J,
+    Sundararajan V. *Updating and Validating the Charlson Comorbidity
+    Index and Score for Risk Adjustment in Hospital Discharge Abstracts
+    Using Data From 6 Countries*. American Journal of Epidemiology;
+    173(6):676-682. DOI:
+    [10.1093/aje/kwq433](https://doi.org/10.1093/aje/kwq433)
 
 ## Copyright
 
