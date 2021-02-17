@@ -21,7 +21,17 @@ Authors@R:
              family = "Williman",
              role = "ctb",
              email = "jonathan.williman@otago.ac.nz",
-             comment = c(ORCID = "0000-0001-5080-4435")))
+             comment = c(ORCID = "0000-0001-5080-4435")),
+      person(given = "Sing Yi",
+             family = "Chia",
+             role = "ctb",
+             email = "cxycsy@hotmail.com",
+             comment = c(ORCID = "0000-0002-7591-3141")),
+      person(given = "Edmund",
+             family = "Teo",
+             role = "ctb",
+             email = "ed_teo8@yahoo.com.sg",
+             comment = c(ORCID = "0000-0003-3936-4082")))
 Maintainer: Alessandro Gasparini <alessandro.gasparini@ki.se>
 URL: https://ellessenne.github.io/comorbidity
 BugReports: https://github.com/ellessenne/comorbidity/issues
