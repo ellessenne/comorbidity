@@ -1,7 +1,7 @@
 #' @keywords internal
 .check_output <- function(x, id, score) {
   x[[id]] <- NULL
-  if (score == "charlson") {
+  if (score == "charlson"| score == "charlson_2011") {
     x[["score"]] <- NULL
     x[["index"]] <- NULL
     x[["wscore"]] <- NULL

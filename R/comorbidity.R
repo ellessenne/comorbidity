@@ -7,7 +7,7 @@
 #' Column names must be syntactically valid names, otherwise they are forced to be so by calling the [make.names()] function.
 #' @param id Column of `x` containing the individual ID.
 #' @param code Column of `x` containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.
-#' @param score The comorbidity score to compute. Possible choices are the weighted Charlson score (`charlson`) and the weighted Elixhauser score (`elixhauser`). Values are case-insensitive.
+#' @param score The comorbidity score to compute. Possible choices are the weighted Charlson score (`charlson`), the revised weighted Charlson score (`charlson_2011`) and the weighted Elixhauser score (`elixhauser`). Values are case-insensitive.
 #' @param assign0 Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
 #' By doing this, a type of comorbidity is not counted more than once in each patient.
 #'
@@ -99,7 +99,7 @@
 #' Labels are presented to the user when using the RStudio viewer (e.g. via the [utils::View()] function) for convenience.
 #'
 #' @details
-#' The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan _et al_. (2005). Weights for the Charlson score are based on the original formulation by Charlson _et al_. in 1987, while weights for the Elixhauser score are based on work by Moore _et al_. and van Walraven _et al_. Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_. See `vignette("comorbidityscores", package = "comorbidity")` for further details on the comorbidity scores and the weighting algorithm.
+#' The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan _et al_. (2005). Weights for the Charlson score are based on the original formulation by Charlson _et al_. in 1987 and revised by Quan _et al_. in 2011, while weights for the Elixhauser score are based on work by Moore _et al_. and van Walraven _et al_. Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_. See `vignette("comorbidityscores", package = "comorbidity")` for further details on the comorbidity scores and the weighting algorithm.
 #' ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set `tidy.codes = TRUE` to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.
 #'
 #' @references Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139.
@@ -107,6 +107,7 @@
 #' @references Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. _Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index_. Medical Care 2017; 55(7):698-705.
 #' @references van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.
 #' @references Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886.
+#' @references Quan H, Li B, Couris CM, Fushimi K, Graham P, Hider P, Januel J, Sundararajan V. _Updating and Validating the Charlson Comorbidity Index and Score for Risk Adjustment in Hospital Discharge Abstracts Using Data From 6 Countries_. American Journal of Epidemiology 2011; 173(6):676-682.
 #'
 #' @examples
 #' set.seed(1)
@@ -149,7 +150,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   checkmate::assert_true(assign0 %in% c("score", "both", "none"), add = arg_checks)
   # score must be charlson, elixhauser; case insensitive
   score <- tolower(score)
-  checkmate::assert_choice(score, choices = c("charlson", "elixhauser"), add = arg_checks)
+  checkmate::assert_choice(score, choices = c("charlson", "charlson_2011", "elixhauser"), add = arg_checks)
   # icd must be icd9, icd10; case insensitive
   icd <- tolower(icd)
   checkmate::assert_choice(icd, choices = c("icd9", "icd10"), add = arg_checks)
@@ -180,7 +181,11 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   if (tidy.codes) x <- .tidy(x = x, code = code)
 
   ### Extract regex for internal use
-  regex <- lofregex[[score]][[icd]]
+  if (score == "charlson_2011") {
+    regex <- lofregex[["charlson"]][[icd]]
+  } else {
+    regex <- lofregex[[score]][[icd]]
+  }
 
   ### Subset only 'id' and 'code' columns
   if (data.table::is.data.table(x)) {
@@ -223,6 +228,11 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     x$index <- with(x, cut(score, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
     x$wscore <- with(x, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0 != "none", 0, 1) + diab * ifelse(diabwc == 1 & assign0 != "none", 0, 1) + diabwc * 2 + hp * 2 + rend * 2 + canc * ifelse(metacanc == 1 & assign0 != "none", 0, 2) + msld * 3 + metacanc * 6 + aids * 6)
     x$windex <- with(x, cut(wscore, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
+  } else if (score == "charlson_2011") {
+    x$score <- with(x, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0 != "none", 0, 1) + diab * ifelse(diabwc == 1 & assign0 != "none", 0, 1) + diabwc + hp + rend + canc * ifelse(metacanc == 1 & assign0 != "none", 0, 1) + msld + metacanc + aids)
+    x$index <- with(x, cut(score, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
+    x$wscore <- with(x, ami * 0 + chf * 2 + pvd * 0 + cevd * 0 + dementia * 2 + copd + rheumd + pud * 0 + mld * ifelse(msld == 1 & assign0 != "none", 0, 2) + diab * ifelse(diabwc == 1 & assign0 != "none", 0, 0) + diabwc * 1 + hp * 2 + rend * 1 + canc * ifelse(metacanc == 1 & assign0 != "none", 0, 2) + msld * 4 + metacanc * 6 + aids * 4)
+    x$windex <- with(x, cut(wscore, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
   } else {
     x$score <- with(x, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0 != "none", 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0 != "none", 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0 != "none", 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
     x$index <- with(x, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
@@ -234,7 +244,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
 
   ### If 'assign0 = "both"', then apply hierarchy to individual comorbidity domains too
   if (assign0 == "both") {
-    if (score == "charlson") {
+    if (score == "charlson" | score == "charlson_2011") {
       # "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`)
       x$mld[x$msld == 1] <- 0
       # "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`)
