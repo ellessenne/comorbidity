@@ -70,8 +70,16 @@ score <- function(x, weights = NULL, assign0) {
   }
   ww <- matrix(data = ww, ncol = 1)
 
+  # If assign0, first do that to the input dataset
+  x <- x[, names(.maps[[map]])]
+  if (assign0) {
+    data.table::setDT(x)
+    x <- .assign0(x = x, map = map)
+    data.table::setDF(x)
+  }
+
   # Calculate score using matrix multiplication
-  score <- as.matrix(x[, names(.maps[[map]])]) %*% ww
+  score <- as.matrix(x) %*% ww
   score <- drop(score)
   attr(score, "map") <- map
   attr(score, "weights") <- weights

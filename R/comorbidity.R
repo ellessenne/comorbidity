@@ -207,6 +207,11 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   }
   data.table::setcolorder(x, c(id, names(regex)))
 
+  ### Assign zero-values to avoid double-counting comorbidities, if requested
+  if (assign0) {
+    x <- .assign0(x = x, map = map)
+  }
+
   ### Turn internal DT into a DF
   data.table::setDF(x)
 

@@ -15,11 +15,13 @@ x <- data.frame(
 )
 
 # Charlson score based on ICD-10 diagnostic codes:
-x1 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10", assign0 = FALSE)
+x1 <- comorbidity(x = data.frame(id = 1, code = c("E100", "E102")), id = "id", code = "code", map = "charlson_icd10", assign0 = FALSE)
+comorbidity(x = data.frame(id = 1, code = c("E100", "E102")), id = "id", code = "code", map = "charlson_icd10", assign0 = TRUE)
 x2 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10", assign0 = FALSE)
 
-a <- print(score(x1, assign0 = FALSE, weights = "charlson"))
-score(x1, assign0 = FALSE, weights = "quan_2011")
+score(x1, assign0 = FALSE, weights = "charlson")
+score(x1, assign0 = TRUE, weights = "charlson")
+
 score(x2, assign0 = FALSE, weights = "vw")
 
 # TO DO:
