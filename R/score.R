@@ -38,20 +38,44 @@ score <- function(x, weights = NULL, assign0) {
   if (!inherits(x = x, what = "comorbidity")) {
     stop("This function can only be used on an object of class 'comorbidity', which you can obtain by using the 'comorbidity()' function. See ?comorbidity for more details.", call. = FALSE)
   }
+  ### Identify scoring algorithm
+  map <- attr(x, "map")
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
+  # check class of 'x' again, better safe then sorry
+  checkmate::assert_class(x, classes = "comorbidity", add = arg_checks)
   # weights must be a single string value
-  checkmate::assert_string(weights, add = arg_checks)
+  checkmate::assert_string(weights, null.ok = TRUE, add = arg_checks)
   # weights must be one of the supported; case insensitive
-  weights <- tolower(weights)
-  checkmate::assert_choice(weights, choices = c("vw", "ahrq"), add = arg_checks)
+  if (!is.null(weights)) {
+    weights <- tolower(weights)
+  }
+  # check that weighting system is appropriate for the used scoring algorithm
+  if (grepl("charlson", map)) {
+    checkmate::assert_choice(weights, choices = c("charlson", "quan_2011"), null.ok = TRUE, add = arg_checks)
+  } else if (grepl("elixhauser", map)) {
+    checkmate::assert_choice(weights, choices = c("vw", "ahrq", "swiss"), null.ok = TRUE, add = arg_checks)
+  }
   # assign0 be a single boolean value
   checkmate::assert_logical(assign0, add = arg_checks)
   # Report if there are any errors
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
+  # If weights = NULL, then do non-weighted scores
+  if (is.null(weights)) {
+    ww <- rep(1, length(.maps[[map]]))
+    names(ww) <- names(.maps[[map]])
+  } else {
+    ww <- .weights[[weights]]
+  }
+  ww <- matrix(data = ww, ncol = 1)
 
+  # Calculate score using matrix multiplication
+  score <- as.matrix(x[, names(.maps[[map]])]) %*% ww
+  score <- drop(score)
+  attr(score, "map") <- map
+  attr(score, "weights") <- weights
 
-  map <- attr(x = x, which = "map")
-  print(map)
+  # Return score
+  return(score)
 }
