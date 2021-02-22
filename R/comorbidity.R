@@ -173,7 +173,7 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   if (tidy.codes) x <- .tidy(x = x, code = code)
 
   ### Create regex from a list of codes
-  regex <- lapply(X = maps[[map]], FUN = .codes_to_regex)
+  regex <- lapply(X = .maps[[map]], FUN = .codes_to_regex)
 
   ### Subset only 'id' and 'code' columns
   if (data.table::is.data.table(x)) {
