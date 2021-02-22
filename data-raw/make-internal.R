@@ -9,4 +9,4 @@ source("data-raw/make-mapping.R")
 source("data-raw/make-weights.R")
 
 ### Export
-usethis::use_data(maps, weights, internal = TRUE, overwrite = TRUE)
+usethis::use_data(.maps, .weights, internal = TRUE, overwrite = TRUE)
