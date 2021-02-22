@@ -1,8 +1,3 @@
-### Internal datasets with comorbidity maps
-# Required packages:
-library(devtools)
-library(usethis)
-
 # Empty list
 maps <- list()
 
@@ -113,6 +108,3 @@ maps[["elixhauser_icd10"]][["alcohol"]] <- c("F10", "E52", "G621", "I426", "K292
 maps[["elixhauser_icd10"]][["drug"]] <- c("F11", "F12", "F13", "F14", "F15", "F16", "F18", "F19", "Z715", "Z722")
 maps[["elixhauser_icd10"]][["psycho"]] <- c("F20", "F22", "F23", "F24", "F25", "F28", "F29", "F302", "F312", "F315")
 maps[["elixhauser_icd10"]][["depre"]] <- c("F204", "F313", "F314", "F315", "F32", "F33", "F341", "F412", "F432")
-
-# Export data as internal
-usethis::use_data(maps, internal = TRUE, overwrite = TRUE)
