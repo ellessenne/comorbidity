@@ -1,38 +1,51 @@
-# ### Compute Charlson score and Charlson index
-# if (score == "charlson") {
-#   x$score <- with(x, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0 != "none", 0, 1) + diab * ifelse(diabwc == 1 & assign0 != "none", 0, 1) + diabwc + hp + rend + canc * ifelse(metacanc == 1 & assign0 != "none", 0, 1) + msld + metacanc + aids)
-#   x$index <- with(x, cut(score, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
-#   x$wscore <- with(x, ami + chf + pvd + cevd + dementia + copd + rheumd + pud + mld * ifelse(msld == 1 & assign0 != "none", 0, 1) + diab * ifelse(diabwc == 1 & assign0 != "none", 0, 1) + diabwc * 2 + hp * 2 + rend * 2 + canc * ifelse(metacanc == 1 & assign0 != "none", 0, 2) + msld * 3 + metacanc * 6 + aids * 6)
-#   x$windex <- with(x, cut(wscore, breaks = c(0, 1, 2.5, 4.5, Inf), labels = c("0", "1-2", "3-4", ">=5"), right = FALSE))
-# } else {
-#   x$score <- with(x, chf + carit + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0 != "none", 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0 != "none", 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0 != "none", 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
-#   x$index <- with(x, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-#   x$wscore_ahrq <- with(x, chf * 9 + carit * 0 + valv * 0 + pcd * 6 + pvd * 3 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0 != "none", 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0 != "none", 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
-#   x$wscore_vw <- with(x, chf * 7 + carit * 5 + valv * (-1) + pcd * 4 + pvd * 2 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * 0 + para * 7 + ond * 6 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0 != "none", 0, 0) + diabc * 0 + hypothy * 0 + rf * 5 + ld * 11 + pud * 0 + aids * 0 + lymph * 9 + metacanc * 12 + solidtum * ifelse(metacanc == 1 & assign0 != "none", 0, 4) + rheumd * 0 + coag * 3 + obes * (-4) + wloss * 6 + fed * 5 + blane * (-2) + dane * (-2) + alcohol * 0 + drug * (-7) + psycho * 0 + depre * (-3))
-#   x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-#   x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-# }
-#
-# ### If 'assign0 = "both"', then apply hierarchy to individual comorbidity domains too
-# if (assign0 == "both") {
-#   if (score == "charlson") {
-#     # "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`)
-#     x$mld[x$msld == 1] <- 0
-#     # "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`)
-#     x$diab[x$diabwc == 1] <- 0
-#     # "Cancer" (`canc`) and "Metastatic solid tumour" (`metacanc`)
-#     x$canc[x$metacanc == 1] <- 0
-#   } else {
-#     # "Hypertension, uncomplicated" (`hypunc`) and "Hypertension, complicated" (`hypc`)
-#     x$hypunc[x$hypc == 1] <- 0
-#     # "Diabetes, uncomplicated" (`diabunc`) and "Diabetes, complicated" (`diabc`)
-#     x$diabunc[x$diabc == 1] <- 0
-#     # "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`)
-#     x$solidtum[x$metacanc == 1] <- 0
-#   }
-# }
-# }
+#' @title Compute (weighted) comorbidity scores
+#'
+#' @param x An object of class `comorbidty` returned by a call to the [comorbidity()] function.
+#'
+#' @param weights The weighting system to be used.
+#' This will depend on the mapping algorithm.
+#' Possible values for the Charlson index are:
+#' * `charlson`, for the original weights by Charlson et al. (1987);
+#' * `quan`, for the revised weights by Quan et al. (2011).
+#' Possible values for the Elixhauser score are:
+#' * `vw`, for the weights by van Walraver et al. (2009);
+#' * `swiss`, for the Swiss Elixhauser weights by Sharma et al. (2021).
+#' Defaults to `NULL`, in which case an unweighted score will be used.
+#'
+#' @param assign0 Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0 when calculating the score.
+#' By doing this, a type of comorbidity is not counted more than once in each patient.
+#' The comorbidities that are affected by this argument are:
+#' * "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`) for the Charlson score;
+#' * "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`) for the Charlson score;
+#' * "Cancer" (`canc`) and "Metastatic solid tumour" (`metacanc`) for the Charlson score;
+#' * "Hypertension, uncomplicated" (`hypunc`) and "Hypertension, complicated" (`hypc`) for the Elixhauser score;
+#' * "Diabetes, uncomplicated" (`diabunc`) and "Diabetes, complicated" (`diabc`) for the Elixhauser score;
+#' * "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`) for the Elixhauser score.
+#'
+#' @references Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
+#' @references Quan H, Li B, Couris CM, et al. _Updating and validating the Charlson Comorbidity Index and Score for risk adjustment in hospital discharge abstracts using data from 6 countries_. American Journal of Epidemiology 2011; 173(6):676-682.
+#' @references van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.
+#' @references Sharma N, Schwendimann R, Endrich O, et al. _Comparing Charlson and Elixhauser comorbidity indices with different weightings to predict in-hospital mortality: an analysis of national inpatient data_. BMC Health Services Research 2021; 21(13).
+#'
+#' @return A numeric vector with the (weighted) comorbidity score for each subject from the input dataset.
+#'
 #' @export
+#'
+#' @examples
+#' set.seed(1)
+#' x <- data.frame(
+#'   id = sample(1:15, size = 200, replace = TRUE),
+#'   code = sample_diag(200),
+#'   stringsAsFactors = FALSE
+#' )
+#'
+#' # Charlson score based on ICD-10 diagnostic codes:
+#' x1 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10", assign0 = FALSE)
+#' score(x = x1, weights = "charlson", assign0 = FALSE)
+#'
+#' # Elixhauser score based on ICD-10 diagnostic codes:
+#' x2 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10", assign0 = FALSE)
+#' score(x = x2, weights = "vw", assign0 = FALSE)
 score <- function(x, weights = NULL, assign0) {
   ### First, check the function is getting a 'comorbidity' data.frame
   if (!inherits(x = x, what = "comorbidity")) {
@@ -50,11 +63,12 @@ score <- function(x, weights = NULL, assign0) {
   if (!is.null(weights)) {
     weights <- tolower(weights)
   }
+  checkmate::assert_choice(weights, choices = names(.weights), add = arg_checks)
   # check that weighting system is appropriate for the used scoring algorithm
   if (grepl("charlson", map)) {
-    checkmate::assert_choice(weights, choices = c("charlson", "quan_2011"), null.ok = TRUE, add = arg_checks)
+    checkmate::assert_choice(weights, choices = c("charlson", "quan"), null.ok = TRUE, add = arg_checks)
   } else if (grepl("elixhauser", map)) {
-    checkmate::assert_choice(weights, choices = c("vw", "ahrq", "swiss"), null.ok = TRUE, add = arg_checks)
+    checkmate::assert_choice(weights, choices = c("vw", "swiss"), null.ok = TRUE, add = arg_checks)
   }
   # assign0 be a single boolean value
   checkmate::assert_logical(assign0, add = arg_checks)

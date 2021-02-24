@@ -21,7 +21,6 @@ x2 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10", ass
 
 score(x1, assign0 = FALSE, weights = "charlson")
 score(x1, assign0 = TRUE, weights = "charlson")
-
 score(x2, assign0 = FALSE, weights = "vw")
 
 # TO DO:

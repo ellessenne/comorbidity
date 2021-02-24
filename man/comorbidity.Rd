@@ -2,7 +2,7 @@
 % Please edit documentation in R/comorbidity.R
 \name{comorbidity}
 \alias{comorbidity}
-\title{Compute comorbidity scores.}
+\title{Comorbidity mapping.}
 \usage{
 comorbidity(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE)
 }
@@ -13,20 +13,15 @@ Column names must be syntactically valid names, otherwise they are forced to be 
 
 \item{id}{Column of \code{x} containing the individual ID.}
 
-\item{code}{Column of \code{x} containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.}
+\item{code}{Column of \code{x} containing diagnostic codes.
+Codes must be in upper case with no punctuation in order to be properly recognised.}
+
+\item{map}{The mapping algorithm to be used.
+Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (\code{charlson_icd10}, \code{charlson_icd9}) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (\code{elixhauser_icd10}, \code{elixhauser_icd9}).
+Values are case-insensitive.}
 
 \item{assign0}{Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
 By doing this, a type of comorbidity is not counted more than once in each patient.
-
-If \code{assign0 = "score"} then the hierarchy will be applied to the score and weighted score only, i.e. the comorbidity domains will not be affected.
-If \code{assign0 = "both"} then both domains and scores will be affected.
-Finally, if \code{assign0 = "none"} no hierarchy is applied.
-The previous behaviour (\verb{comorbidity <= 0.5.3}) corresponds to:
-\itemize{
-\item \code{assign0 = "score"} replaces \code{assign0 = TRUE},
-\item \code{assign0 = "none"} replaces \code{assign0 = FALSE}.
-}
-
 The comorbidities that are affected by this argument are:
 \itemize{
 \item "Mild liver disease" (\code{mld}) and "Moderate/severe liver disease" (\code{msld}) for the Charlson score;
@@ -37,15 +32,12 @@ The comorbidities that are affected by this argument are:
 \item "Solid tumour" (\code{solidtum}) and "Metastatic cancer" (\code{metacanc}) for the Elixhauser score.
 }}
 
-\item{labelled}{Attach labels to each comorbidity, compatible with the RStudio viewer via the \code{\link[utils:View]{utils::View()}} function. Defaults to \code{TRUE}.}
+\item{labelled}{Attach labels to each comorbidity, compatible with the RStudio viewer via the \code{\link[utils:View]{utils::View()}} function.
+Defaults to \code{TRUE}.}
 
-\item{tidy.codes}{Tidy diagnostic codes? If \code{TRUE}, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}. Defaults to \code{TRUE}.}
-
-\item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score (\code{charlson}) and the weighted Elixhauser score (\code{elixhauser}). Values are case-insensitive.}
-
-\item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}) or ICD-10 (\code{icd10}). Defaults to \code{icd10}, and values are case-insensitive.}
-
-\item{factorise}{Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{FALSE}.}
+\item{tidy.codes}{Tidy diagnostic codes?
+If \code{TRUE}, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}.
+Defaults to \code{TRUE}.}
 }
 \value{
 A data frame with \code{id}, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
@@ -70,10 +62,6 @@ For the Charlson score, the following variables are included in the dataset:
 \item \code{msld}, for moderate or severe liver disease;
 \item \code{metacanc}, for metastatic solid tumour;
 \item \code{aids}, for AIDS/HIV;
-\item \code{score}, for the non-weighted version of the Charlson score;
-\item \code{index}, for the non-weighted version of the grouped Charlson index;
-\item \code{wscore}, for the weighted version of the Charlson score;
-\item \code{windex}, for the weighted version of the grouped Charlson index.
 }
 
 Conversely, for the Elixhauser score the dataset contains the following variables:
@@ -110,22 +98,17 @@ Conversely, for the Elixhauser score the dataset contains the following variable
 \item \code{drug}, for drug abuse;
 \item \code{psycho}, for psychoses;
 \item \code{depre}, for depression;
-\item \code{score}, for the non-weighted version of the Elixhauser score;
-\item \code{index}, for the non-weighted version of the grouped Elixhauser index;
-\item \code{wscore_ahrq}, for the weighted version of the Elixhauser score using the AHRQ algorithm (Moore \emph{et al}., 2017);
-\item \code{wscore_vw}, for the weighted version of the Elixhauser score using the algorithm in van Walraven \emph{et al}. (2009);
-\item \code{windex_ahrq}, for the weighted version of the grouped Elixhauser index using the AHRQ algorithm (Moore \emph{et al}., 2017);
-\item \code{windex_vw}, for the weighted version of the grouped Elixhauser index using the algorithm in van Walraven \emph{et al}. (2009).
 }
 
 Labels are presented to the user when using the RStudio viewer (e.g. via the \code{\link[utils:View]{utils::View()}} function) for convenience.
 }
 \description{
-Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score.
+Maps comorbidity conditions using algorithms from the Charlson and the Elixhauser comorbidity scores.
 }
 \details{
-The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan \emph{et al}. (2005). Weights for the Charlson score are based on the original formulation by Charlson \emph{et al}. in 1987, while weights for the Elixhauser score are based on work by Moore \emph{et al}. and van Walraven \emph{et al}. Finally, the categorisation of scores and weighted scores is based on work by Menendez \emph{et al}. See \code{vignette("comorbidityscores", package = "comorbidity")} for further details on the comorbidity scores and the weighting algorithm.
-ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.
+The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan \emph{et al}. (2005).
+ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically.
+A message is printed to the R console when non-alphanumeric characters are found.
 }
 \examples{
 set.seed(1)
@@ -136,19 +119,13 @@ x <- data.frame(
 )
 
 # Charlson score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10", assign0 = FALSE)
+comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10", assign0 = FALSE)
 
 # Elixhauser score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", score = "elixhauser_icd10", assign0 = FALSE)
+comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10", assign0 = FALSE)
 }
 \references{
 Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.
 
 Charlson ME, Pompei P, Ales KL, et al. \emph{A new method of classifying prognostic comorbidity in longitudinal studies: development and validation}. Journal of Chronic Diseases 1987; 40:373-383.
-
-Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. \emph{Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index}. Medical Care 2017; 55(7):698-705.
-
-van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. \emph{A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data}. Medical Care 2009; 47(6):626-633.
-
-Menendez ME, Neuhaus V, van Dijk CN, Ring D. \emph{The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery}. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886.
 }
