@@ -128,4 +128,6 @@ comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10", assign0 =
 Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.
 
 Charlson ME, Pompei P, Ales KL, et al. \emph{A new method of classifying prognostic comorbidity in longitudinal studies: development and validation}. Journal of Chronic Diseases 1987; 40:373-383.
+
+Ludvigsson JF, Appelros P, Askling J et al. \emph{Adaptation of the Charlson Comorbidity Index for register-based research in Sweden}. Clinical Epidemiology 2021; 13:21-41.
 }
