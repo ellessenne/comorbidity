@@ -16,9 +16,9 @@ Column names must be syntactically valid names, otherwise they are forced to be 
 \item{code}{Column of \code{x} containing diagnostic codes.
 Codes must be in upper case with no punctuation in order to be properly recognised.}
 
-\item{map}{The mapping algorithm to be used.
+\item{map}{The mapping algorithm to be used (values are case-insensitive).
 Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (\code{charlson_icd10}, \code{charlson_icd9}) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (\code{elixhauser_icd10}, \code{elixhauser_icd9}).
-Values are case-insensitive.}
+It is also possible to obtain a Swedish modification of the Charlson score using ICD-10 codes (\code{charlson_icd10se}).}
 
 \item{assign0}{Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
 By doing this, a type of comorbidity is not counted more than once in each patient.
