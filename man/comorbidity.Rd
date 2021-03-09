@@ -17,8 +17,9 @@ Column names must be syntactically valid names, otherwise they are forced to be 
 Codes must be in upper case with no punctuation in order to be properly recognised.}
 
 \item{map}{The mapping algorithm to be used (values are case-insensitive).
-Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (\code{charlson_icd10}, \code{charlson_icd9}) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (\code{elixhauser_icd10}, \code{elixhauser_icd9}).
-It is also possible to obtain a Swedish modification of the Charlson score using ICD-10 codes (\code{charlson_icd10se}).}
+Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (\code{charlson_icd10_quan}, \code{charlson_icd9_quan}) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (\code{elixhauser_icd10_quan}, \code{elixhauser_icd9_quan}).
+These mapping are based on the paper by Quan et al. (2011).
+It is also possible to obtain a Swedish modification of the Charlson score using ICD-10 codes (\code{charlson_icd10_se}).}
 
 \item{assign0}{Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
 By doing this, a type of comorbidity is not counted more than once in each patient.
@@ -119,10 +120,10 @@ x <- data.frame(
 )
 
 # Charlson score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10", assign0 = FALSE)
+comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
 
 # Elixhauser score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10", assign0 = FALSE)
+comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
 }
 \references{
 Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.

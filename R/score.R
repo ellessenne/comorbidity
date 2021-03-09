@@ -40,11 +40,11 @@
 #' )
 #'
 #' # Charlson score based on ICD-10 diagnostic codes:
-#' x1 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10", assign0 = FALSE)
+#' x1 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
 #' score(x = x1, weights = "charlson", assign0 = FALSE)
 #'
 #' # Elixhauser score based on ICD-10 diagnostic codes:
-#' x2 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10", assign0 = FALSE)
+#' x2 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
 #' score(x = x2, weights = "vw", assign0 = FALSE)
 score <- function(x, weights = NULL, assign0) {
   ### First, check the function is getting a 'comorbidity' data.frame
@@ -63,7 +63,7 @@ score <- function(x, weights = NULL, assign0) {
   if (!is.null(weights)) {
     weights <- tolower(weights)
   }
-  checkmate::assert_choice(weights, choices = names(.weights), add = arg_checks)
+  checkmate::assert_choice(weights, choices = names(.weights), null.ok = TRUE, add = arg_checks)
   # check that weighting system is appropriate for the used scoring algorithm
   if (grepl("charlson", map)) {
     checkmate::assert_choice(weights, choices = c("charlson", "quan"), null.ok = TRUE, add = arg_checks)

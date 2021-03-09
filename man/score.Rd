@@ -48,11 +48,11 @@ x <- data.frame(
 )
 
 # Charlson score based on ICD-10 diagnostic codes:
-x1 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10", assign0 = FALSE)
+x1 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
 score(x = x1, weights = "charlson", assign0 = FALSE)
 
 # Elixhauser score based on ICD-10 diagnostic codes:
-x2 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10", assign0 = FALSE)
+x2 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
 score(x = x2, weights = "vw", assign0 = FALSE)
 }
 \references{
