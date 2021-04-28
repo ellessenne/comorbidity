@@ -196,7 +196,7 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   if (labelled) x <- .labelled(x = x, map = map)
 
   ### Return it, after adding class 'comorbidity' and some attributes
-  class(x) <- c(class(x), "comorbidity")
+  class(x) <- c("comorbidity", class(x))
   attr(x = x, which = "map") <- map
   return(x)
 }
