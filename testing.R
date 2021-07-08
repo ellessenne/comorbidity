@@ -1,4 +1,7 @@
 devtools::load_all()
+library(bench)
+library(ggplot2)
+library(ggbeeswarm)
 
 set.seed(1)
 x <- data.frame(
@@ -12,17 +15,24 @@ map <- "charlson_icd10_quan"
 assign0 <- FALSE
 labelled <- TRUE
 tidy.codes <- TRUE
+regex <- lapply(X = .maps[[map]], FUN = .codes_to_regex)
 
 xa <- x[[code]]
 addd <- sample(x = seq(length(xa)), size = 1000)
 xa[addd] <- paste0(".", xa[addd])
 
 bm <- bench::mark(
-  "gsub" = gsub(pattern = "[^[:alnum:]]", x = xa, replacement = ""),
-  "stri_replace_all_regex" = stringi::stri_replace_all_regex(str = xa, pattern = "[^[:alnum:]]", replacement = ""),
-  "stri_replace_all_charclass" = stringi::stri_replace_all_charclass(str = xa, pattern = "[^a-zA-Z0-9]", replacement = ""),
-  relative = TRUE,
-  iterations = 10
+  ".tidy" = .tidy(x = x, code = code),
+  ".tidy2" = .tidy2(x = x, code = code),
+  iterations = 20,
+  relative = TRUE
 )
+autoplot(bm)
 
+bm <- bench::mark(
+  "grep" = grep(pattern = regex[[2]], x = x$code, value = TRUE),
+  "stri_subset_regex" = stringi::stri_subset_regex(str = x$code, pattern = regex[[2]]),
+  iterations = 20,
+  relative = TRUE
+)
 autoplot(bm)
