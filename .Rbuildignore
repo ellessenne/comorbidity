@@ -24,3 +24,4 @@ testing.R
 _pkgdown.yml
 ^docs$
 ^\.github$
+^Makefile$
