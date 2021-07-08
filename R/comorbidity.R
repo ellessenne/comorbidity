@@ -27,6 +27,8 @@
 #' @param tidy.codes Tidy diagnostic codes?
 #' If `TRUE`, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}.
 #' Defaults to `TRUE`.
+#' @param stringi For testing purposes only.
+#'
 #' @return A data frame with `id`, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
 #'
 #' For the Charlson score, the following variables are included in the dataset:
@@ -108,7 +110,22 @@
 #' comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
 #' @export
 
-comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE) {
+comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE, stringi = TRUE) {
+
+  # set.seed(1)
+  # x <- data.frame(
+  #   id = sample(seq(1e3), size = 1e5, replace = TRUE),
+  #   code = sample_diag(1e5),
+  #   stringsAsFactors = FALSE
+  # )
+  # id = "id"
+  # code = "code"
+  # map = "charlson_icd10_quan"
+  # assign0 = FALSE
+  # labelled = TRUE
+  # tidy.codes = TRUE
+  # stringi = TRUE
+
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame (or a data.table)
@@ -144,14 +161,15 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
   ### Tidy codes if required
-  if (tidy.codes) x <- .tidy(x = x, code = code)
+  if (tidy.codes) x <- .tidy(x = x, code = code, stringi = stringi)
 
   ### Create regex from a list of codes
   regex <- lapply(X = .maps[[map]], FUN = .codes_to_regex)
 
   ### Subset only 'id' and 'code' columns
   if (data.table::is.data.table(x)) {
-    x <- x[, c(id, code), with = FALSE]
+    mv <- c(id, code)
+    x <- x[, ..mv]
   } else {
     x <- x[, c(id, code)]
   }
@@ -160,24 +178,30 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   data.table::setDT(x)
 
   ### Get list of unique codes used in dataset that match comorbidities
-  loc <- sapply(regex, grep, unique(x[[code]]), value = TRUE)
+  if (stringi) {
+    loc <- sapply(X = regex, FUN = function(p) stringi::stri_subset_regex(str = unique(x[[code]]), pattern = p))
+  } else {
+    loc <- sapply(X = regex, FUN = function(p) grep(pattern = p, x = unique(x[[code]]), value = TRUE))
+  }
   loc <- utils::stack(loc)
-  names(loc)[1] <- code
+  data.table::setDT(loc)
+  data.table::setnames(x = loc, new = c(code, "ind"))
 
   ### Merge list with original data.table (data.frame)
-  x <- merge(x, loc, all.x = TRUE, allow.cartesian = TRUE)
-  x[[code]] <- NULL
+  x <- merge(x, loc, all.x = TRUE, allow.cartesian = TRUE, by = code)
+  x[, (code) := NULL]
   x <- unique(x)
 
   ### Spread wide
-  xin <- x[, c(id, "ind"), with = FALSE]
+  mv <- c(id, "ind")
+  xin <- x[, ..mv]
   xin[, value := 1L]
   x <- data.table::dcast.data.table(xin, stats::as.formula(paste(id, "~ ind")), fill = 0)
-  x[["NA"]] <- NULL
+  if (!is.null(x[["NA"]])) x[, `NA` := NULL]
 
   ### Add missing columns
   for (col in names(regex)) {
-    if (is.null(x[[col]])) x[[col]] <- 0
+    if (is.null(x[[col]])) x[, (col) := 0L]
   }
   data.table::setcolorder(x, c(id, names(regex)))
 

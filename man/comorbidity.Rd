@@ -4,7 +4,16 @@
 \alias{comorbidity}
 \title{Comorbidity mapping.}
 \usage{
-comorbidity(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE)
+comorbidity(
+  x,
+  id,
+  code,
+  map,
+  assign0,
+  labelled = TRUE,
+  tidy.codes = TRUE,
+  stringi = FALSE
+)
 }
 \arguments{
 \item{x}{A tidy \code{data.frame} (or a \code{data.table}; \code{tibble}s are supported too) with one column containing an individual ID and a column containing all diagnostic codes.
@@ -39,6 +48,8 @@ Defaults to \code{TRUE}.}
 \item{tidy.codes}{Tidy diagnostic codes?
 If \code{TRUE}, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}.
 Defaults to \code{TRUE}.}
+
+\item{stringi}{For testing purposes only.}
 }
 \value{
 A data frame with \code{id}, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
