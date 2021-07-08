@@ -12,7 +12,7 @@ comorbidity(
   assign0,
   labelled = TRUE,
   tidy.codes = TRUE,
-  stringi = FALSE
+  stringi = TRUE
 )
 }
 \arguments{
