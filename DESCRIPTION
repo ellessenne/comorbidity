@@ -23,7 +23,7 @@ Authors@R:
              email = "jonathan.williman@otago.ac.nz",
              comment = c(ORCID = "0000-0001-5080-4435")))
 Maintainer: Alessandro Gasparini <alessandro.gasparini@ki.se>
-URL: https://ellessenne.github.io/comorbidity
+URL: https://ellessenne.github.io/comorbidity/
 BugReports: https://github.com/ellessenne/comorbidity/issues
 License: GPL (>= 3)
 Depends: R (>= 2.10)
