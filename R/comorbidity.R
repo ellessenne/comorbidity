@@ -110,21 +110,7 @@
 #' comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
 #' @export
 
-comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE, stringi = TRUE) {
-
-  # set.seed(1)
-  # x <- data.frame(
-  #   id = sample(seq(1e3), size = 1e5, replace = TRUE),
-  #   code = sample_diag(1e5),
-  #   stringsAsFactors = FALSE
-  # )
-  # id = "id"
-  # code = "code"
-  # map = "charlson_icd10_quan"
-  # assign0 = FALSE
-  # labelled = TRUE
-  # tidy.codes = TRUE
-  # stringi = TRUE
+comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE, new = FALSE) {
 
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
@@ -161,7 +147,7 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
   ### Tidy codes if required
-  if (tidy.codes) x <- .tidy(x = x, code = code, stringi = stringi)
+  if (tidy.codes) x <- .tidy(x = x, code = code, new = new)
 
   ### Create regex from a list of codes
   regex <- lapply(X = .maps[[map]], FUN = .codes_to_regex)
@@ -178,8 +164,9 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   data.table::setDT(x)
 
   ### Get list of unique codes used in dataset that match comorbidities
-  if (stringi) {
-    loc <- sapply(X = regex, FUN = function(p) stringi::stri_subset_regex(str = unique(x[[code]]), pattern = p))
+  if (new) {
+    ..cd <- unique(x[[code]])
+    loc <- sapply(X = regex, FUN = function(p) stringi::stri_subset_regex(str = ..cd, pattern = p))
   } else {
     loc <- sapply(X = regex, FUN = function(p) grep(pattern = p, x = unique(x[[code]]), value = TRUE))
   }

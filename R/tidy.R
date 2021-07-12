@@ -1,6 +1,6 @@
 #' @keywords internal
-.tidy <- function(x, code, stringi = FALSE) {
-  if (stringi) {
+.tidy <- function(x, code, new = FALSE) {
+  if (new) {
     ### Upper case all codes
     x[[code]] <- stringi::stri_trans_toupper(x[[code]])
     ### Remove non-alphanumeric characters
