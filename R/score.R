@@ -61,15 +61,9 @@ score <- function(x, weights = NULL, assign0) {
   checkmate::assert_string(weights, null.ok = TRUE, add = arg_checks)
   # weights must be one of the supported; case insensitive
   if (!is.null(weights)) {
-    weights <- tolower(weights)
+    weights <- stringi::stri_trans_tolower(weights)
   }
-  checkmate::assert_choice(weights, choices = names(.weights), null.ok = TRUE, add = arg_checks)
-  # check that weighting system is appropriate for the used scoring algorithm
-  if (grepl("charlson", map)) {
-    checkmate::assert_choice(weights, choices = c("charlson", "quan"), null.ok = TRUE, add = arg_checks)
-  } else if (grepl("elixhauser", map)) {
-    checkmate::assert_choice(weights, choices = c("vw", "swiss"), null.ok = TRUE, add = arg_checks)
-  }
+  checkmate::assert_choice(weights, choices = names(.weights[[map]]), null.ok = TRUE, add = arg_checks)
   # assign0 be a single boolean value
   checkmate::assert_logical(assign0, add = arg_checks)
   # Report if there are any errors
@@ -80,7 +74,7 @@ score <- function(x, weights = NULL, assign0) {
     ww <- rep(1, length(.maps[[map]]))
     names(ww) <- names(.maps[[map]])
   } else {
-    ww <- .weights[[weights]]
+    ww <- .weights[[map]][[weights]]
   }
   ww <- matrix(data = ww, ncol = 1)
 
