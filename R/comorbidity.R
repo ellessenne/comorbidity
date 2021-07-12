@@ -27,7 +27,6 @@
 #' @param tidy.codes Tidy diagnostic codes?
 #' If `TRUE`, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}.
 #' Defaults to `TRUE`.
-#' @param stringi For testing purposes only.
 #'
 #' @return A data frame with `id`, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
 #'
@@ -110,7 +109,7 @@
 #' comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
 #' @export
 
-comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE, new = FALSE) {
+comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE) {
 
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
@@ -147,7 +146,7 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
   ### Tidy codes if required
-  if (tidy.codes) x <- .tidy(x = x, code = code, new = new)
+  if (tidy.codes) x <- .tidy(x = x, code = code)
 
   ### Create regex from a list of codes
   regex <- lapply(X = .maps[[map]], FUN = .codes_to_regex)
@@ -164,12 +163,8 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   data.table::setDT(x)
 
   ### Get list of unique codes used in dataset that match comorbidities
-  if (new) {
-    ..cd <- unique(x[[code]])
-    loc <- sapply(X = regex, FUN = function(p) stringi::stri_subset_regex(str = ..cd, pattern = p))
-  } else {
-    loc <- sapply(X = regex, FUN = function(p) grep(pattern = p, x = unique(x[[code]]), value = TRUE))
-  }
+  ..cd <- unique(x[[code]])
+  loc <- sapply(X = regex, FUN = function(p) stringi::stri_subset_regex(str = ..cd, pattern = p))
   loc <- utils::stack(loc)
   data.table::setDT(loc)
   data.table::setnames(x = loc, new = c(code, "ind"))

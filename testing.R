@@ -1,7 +1,5 @@
-library(comorbidity)
-library(ggplot2)
-library(ggbeeswarm)
-library(tidyr)
+devtools::load_all()
+library(profvis)
 
 set.seed(1)
 x <- data.frame(
@@ -21,10 +19,6 @@ assign0 <- FALSE
 labelled <- FALSE
 tidy.codes <- TRUE
 
-bm <- bench::mark(
-  "new" = comorbidity(x = x, id = id, code = code, map = map, assign0 = assign0, labelled = labelled, tidy.codes = tidy.codes, new = TRUE),
-  "old" = comorbidity(x = x, id = id, code = code, map = map, assign0 = assign0, labelled = labelled, tidy.codes = tidy.codes, new = FALSE),
-  iterations = 30
-)
-bm
-autoplot(bm)
+profvis::profvis({
+  comorbidity(x = x, id = id, code = code, map = map, assign0 = assign0, labelled = labelled, tidy.codes = tidy.codes)
+})
