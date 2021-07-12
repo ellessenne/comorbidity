@@ -76,7 +76,7 @@
 
 #' @title Adult same-day discharges, 2010
 #'
-#' @description A dataset containing adult same-day discharges from 2010.
+#' @description A dataset containing adult same-day discharges from 2010, obtained from Stata 17.
 #'
 #' @format A data frame with 2,210 rows and 15 variables:
 #' \describe{
@@ -102,7 +102,7 @@
 
 #' @title Australian mortality data, 2010
 #'
-#' @description A dataset containing Australian mortality data, obtained from Stata version 15.
+#' @description A dataset containing Australian mortality data, obtained from Stata 17.
 #'
 #' @format A data frame with 3,322 rows and 3 variables:
 #' \describe{

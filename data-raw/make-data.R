@@ -126,18 +126,20 @@ usethis::use_data(icd10cm_2017, overwrite = TRUE)
 
 ########################################################################################################################
 ### Dataset #6: Adult same-day discharges, 2010 (from Stata)
-nhds2010 <- haven::read_dta("https://www.stata-press.com/data/r16/nhds2010.dta")
-attr(nhds2010, "spec") <- NULL
-nhds2010 <- labelled::remove_labels(nhds2010, user_na_to_na = TRUE)
+nhds2010 <- haven::read_dta("https://www.stata-press.com/data/r17/nhds2010.dta")
+nhds2010 <- haven::zap_formats(nhds2010)
+nhds2010 <- haven::zap_label(nhds2010)
+nhds2010 <- haven::zap_labels(nhds2010)
 
 # Save data in R format
 usethis::use_data(nhds2010, overwrite = TRUE)
 
 ########################################################################################################################
 ### Dataset #7: Australian mortality data, 2010 (from Stata)
-australia10 <- haven::read_dta("https://www.stata-press.com/data/r16/australia10.dta")
-attr(australia10, "spec") <- NULL
-australia10 <- labelled::remove_labels(australia10, user_na_to_na = TRUE)
+australia10 <- haven::read_dta("https://www.stata-press.com/data/r17/australia10.dta")
+australia10 <- haven::zap_formats(australia10)
+australia10 <- haven::zap_label(australia10)
+australia10 <- haven::zap_labels(australia10)
 
 # Save data in R format
 usethis::use_data(australia10, overwrite = TRUE)
