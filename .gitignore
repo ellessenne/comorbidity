@@ -7,3 +7,5 @@ doc
 *.pdf
 TODO.md
 inst/doc
+/doc/
+/Meta/

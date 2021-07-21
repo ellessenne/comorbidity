@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -22,7 +24,6 @@ options(width = 100)
 [![CRAN_Logs_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![CRAN_Logs_Badge_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![JOSS DOI](http://joss.theoj.org/papers/10.21105/joss.00648/status.svg)](https://doi.org/10.21105/joss.00648)
-[![Zenodo DOI](https://zenodo.org/badge/68221970.svg)](https://zenodo.org/badge/latestdoi/68221970)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com/)
 <!-- badges: end -->
 
@@ -123,27 +124,31 @@ x <- data.frame(
 )
 ```
 
-We could compute the Charlson score, index, and each comorbidity domain:
+We could compute the Charlson comorbidity domains:
 
 ```{r charlson}
-charlson <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = "none")
+charlson <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
 charlson
 ```
 
-We set the `assign0` argument to `"none"` to not apply a hierarchy of comorbidity codes, as described in `?comorbidity::comorbidity`. 
-The default is to assume ICD-10 codes are passed to `comorbidity`:
-
-```{r charlson-2}
-charlson.default <- comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = "none")
-all.equal(charlson, charlson.default)
-```
+We set the `assign0` argument to `FALSE` to not apply a hierarchy of comorbidity codes, as described in `?comorbidity::comorbidity`.
 
 Alternatively, we could compute the Elixhauser score:
 
 ```{r elixhauser}
-elixhauser <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd10", assign0 = "none")
+elixhauser <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
 elixhauser
 ```
+
+Weighted an unweighted comorbidity scores can be obtained using the `score()` function:
+
+```{r score}
+unw_cci <- score(charlson, weights = NULL, assign0 = FALSE)
+quan_cci <- score(charlson, weights = "quan", assign0 = FALSE)
+all.equal(unw_cci, quan_cci)
+```
+
+Code for the Elixhauser score is omitted, but works analogously.
 
 Conversely, say we have 5 individuals with a total of 100 ICD-9 diagnostic codes:
 
@@ -155,23 +160,25 @@ x <- data.frame(
 )
 ```
 
-The Charlson and Elixhauser comorbidity codes can be easily computed:
-
-We could compute the Charlson score, index, and each comorbidity domain:
+The Charlson and Elixhauser comorbidity codes can be easily computed once again:
 
 ```{r charlson-9}
-charlson9 <- comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd9", assign0 = "none")
+charlson9 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd9_quan", assign0 = FALSE)
 charlson9
 ```
 
-Alternatively, we could compute the Elixhauser score:
-
 ```{r elixhauser-9}
-elixhauser9 <- comorbidity(x = x, id = "id", code = "code", score = "elixhauser", icd = "icd9", assign0 = "none")
+elixhauser9 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd9_quan", assign0 = FALSE)
 elixhauser9
 ```
 
-The weighted Elixhauser score is computed using both the AHRQ and the van Walraven algorithm (`wscore_ahrq` and `wscore_vw`).
+Scores:
+
+```{r score-9}
+unw_eci <- score(elixhauser9, weights = NULL, assign0 = FALSE)
+vw_eci <- score(elixhauser9, weights = "vw", assign0 = FALSE)
+all.equal(unw_eci, vw_eci)
+```
 
 ## Citation
 
@@ -183,23 +190,12 @@ citation("comorbidity")
 
 ## References
 
-This package is based on the ICD-10-based formulations of the Charlson score and Elixhauser score proposed by Quan _et al_. in 2005. 
-The ICD-9 formulation of the Charlson score is also from Quan _et al_. 
-The ICD-9-based Elixhauser score is according to the AHRQ formulation (Moore _et al_., 2017). 
-Weights for the Charlson score are based on the original formulation by Charlson _et al_. in 1987, while weights for the Elixhauser score are based on work by van Walraven _et al_. 
-Finally, the categorisation of scores and weighted scores is based on work by Menendez _et al_.
-Further details on each algorithm are included in the package vignette, which you can access by typing the following in the R console:
+More details on which comorbidity mapping and scoring algorithm are available within the package can be found in the two accompanying vignettes, which can be accessed on CRAN or directly from your R session:
 
-```{r vignette, eval = FALSE}
+```r
+vignette("introduction", package = "comorbidity")
 vignette("comorbidityscores", package = "comorbidity")
 ```
-
-* Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139. DOI: [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
-* Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383. DOI: [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681(87)90171-8)
-* Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. _Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index_. Medical Care 2017; 55(7):698-705. DOI: [10.1097/MLR.0000000000000735](https://doi.org/10.1097/MLR.0000000000000735)
-* Elixhauser A, Steiner C, Harris DR and Coffey RM. _Comorbidity measures for use with administrative data_. Medical Care 1998; 36(1):8-27. DOI: [10.1097/00005650-199801000-00004 ](https://doi.org/10.1097/00005650-199801000-00004 )
-* van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.  DOI: [10.1097/mlr.0b013e31819432e5](https://doi.org/10.1097/mlr.0b013e31819432e5)
-* Menendez ME, Neuhaus V, van Dijk CN, Ring D. _The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery_. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886. DOI: [10.1007/s11999-014-3686-7](https://doi.org/10.1007/s11999-014-3686-7)
 
 ## Copyright
 

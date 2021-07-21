@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute comorbidity scores. — comorbidity • comorbidity</title>
+<title>Comorbidity mapping. — comorbidity • comorbidity</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Compute comorbidity scores. — comorbidity" />
-<meta property="og:description" content="Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score." />
+<meta property="og:title" content="Comorbidity mapping. — comorbidity" />
+<meta property="og:description" content="Maps comorbidity conditions using algorithms from the Charlson and the Elixhauser comorbidity scores." />
 
 <meta name="robots" content="noindex" />
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">comorbidity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.9000</span>
       </span>
     </div>
 
@@ -95,7 +95,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/comorbidityscores.html">Comorbidity scores</a>
+      <a href="../articles/comorbidityscores.html">Supported Comorbidity Mappings and Scores</a>
+    </li>
+    <li>
+      <a href="../articles/introduction.html">Introduction</a>
     </li>
   </ul>
 </li>
@@ -123,26 +126,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute comorbidity scores.</h1>
+    <h1>Comorbidity mapping.</h1>
     <small class="dont-index">Source: <a href='https://github.com/ellessenne/comorbidity/blob/master/R/comorbidity.R'><code>R/comorbidity.R</code></a></small>
     <div class="hidden name"><code>comorbidity.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score.</p>
+    <p>Maps comorbidity conditions using algorithms from the Charlson and the Elixhauser comorbidity scores.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>comorbidity</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  <span class='va'>id</span>,
-  <span class='va'>code</span>,
-  <span class='va'>score</span>,
-  <span class='va'>assign0</span>,
-  icd <span class='op'>=</span> <span class='st'>"icd10"</span>,
-  factorise <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  labelled <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  tidy.codes <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>comorbidity</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>id</span>, <span class='va'>code</span>, <span class='va'>map</span>, <span class='va'>assign0</span>, labelled <span class='op'>=</span> <span class='cn'>TRUE</span>, tidy.codes <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,25 +152,21 @@ Column names must be syntactically valid names, otherwise they are forced to be 
     </tr>
     <tr>
       <th>code</th>
-      <td><p>Column of <code>x</code> containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.</p></td>
+      <td><p>Column of <code>x</code> containing diagnostic codes.
+Codes must be in upper case with no punctuation in order to be properly recognised.</p></td>
     </tr>
     <tr>
-      <th>score</th>
-      <td><p>The comorbidity score to compute. Possible choices are the weighted Charlson score (<code>charlson</code>) and the weighted Elixhauser score (<code>elixhauser</code>). Values are case-insensitive.</p></td>
+      <th>map</th>
+      <td><p>The mapping algorithm to be used (values are case-insensitive).
+Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (<code>charlson_icd10_quan</code>, <code>charlson_icd9_quan</code>) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (<code>elixhauser_icd10_quan</code>, <code>elixhauser_icd9_quan</code>).
+These mapping are based on the paper by Quan et al. (2011).
+It is also possible to obtain a Swedish modification of the Charlson score using ICD-10 codes (<code>charlson_icd10_se</code>).</p></td>
     </tr>
     <tr>
       <th>assign0</th>
       <td><p>Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
-By doing this, a type of comorbidity is not counted more than once in each patient.</p>
-<p>If <code>assign0 = "score"</code> then the hierarchy will be applied to the score and weighted score only, i.e. the comorbidity domains will not be affected.
-If <code>assign0 = "both"</code> then both domains and scores will be affected.
-Finally, if <code>assign0 = "none"</code> no hierarchy is applied.
-The previous behaviour (<code>comorbidity &lt;= 0.5.3</code>) corresponds to:</p><ul>
-<li><p><code>assign0 = "score"</code> replaces <code>assign0 = TRUE</code>,</p></li>
-<li><p><code>assign0 = "none"</code> replaces <code>assign0 = FALSE</code>.</p></li>
-</ul>
-
-<p>The comorbidities that are affected by this argument are:</p><ul>
+By doing this, a type of comorbidity is not counted more than once in each patient.
+The comorbidities that are affected by this argument are:</p><ul>
 <li><p>"Mild liver disease" (<code>mld</code>) and "Moderate/severe liver disease" (<code>msld</code>) for the Charlson score;</p></li>
 <li><p>"Diabetes" (<code>diab</code>) and "Diabetes with complications" (<code>diabwc</code>) for the Charlson score;</p></li>
 <li><p>"Cancer" (<code>canc</code>) and "Metastatic solid tumour" (<code>metacanc</code>) for the Charlson score;</p></li>
@@ -187,20 +176,15 @@ The previous behaviour (<code>comorbidity &lt;= 0.5.3</code>) corresponds to:</p
 </ul></td>
     </tr>
     <tr>
-      <th>icd</th>
-      <td><p>The version of ICD coding to use. Possible choices are ICD-9-CM (<code>icd9</code>) or ICD-10 (<code>icd10</code>). Defaults to <code>icd10</code>, and values are case-insensitive.</p></td>
-    </tr>
-    <tr>
-      <th>factorise</th>
-      <td><p>Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to <code>FALSE</code>.</p></td>
-    </tr>
-    <tr>
       <th>labelled</th>
-      <td><p>Attach labels to each comorbidity, compatible with the RStudio viewer via the <code><a href='https://rdrr.io/r/utils/View.html'>utils::View()</a></code> function. Defaults to <code>TRUE</code>.</p></td>
+      <td><p>Attach labels to each comorbidity, compatible with the RStudio viewer via the <code><a href='https://rdrr.io/r/utils/View.html'>utils::View()</a></code> function.
+Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>tidy.codes</th>
-      <td><p>Tidy diagnostic codes? If <code>TRUE</code>, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression <code>[^[:alnum:]]</code>. Defaults to <code>TRUE</code>.</p></td>
+      <td><p>Tidy diagnostic codes?
+If <code>TRUE</code>, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression <code>[^[:alnum:]]</code>.
+Defaults to <code>TRUE</code>.</p></td>
     </tr>
     </table>
 
@@ -226,10 +210,6 @@ The previous behaviour (<code>comorbidity &lt;= 0.5.3</code>) corresponds to:</p
 <li><p><code>msld</code>, for moderate or severe liver disease;</p></li>
 <li><p><code>metacanc</code>, for metastatic solid tumour;</p></li>
 <li><p><code>aids</code>, for AIDS/HIV;</p></li>
-<li><p><code>score</code>, for the non-weighted version of the Charlson score;</p></li>
-<li><p><code>index</code>, for the non-weighted version of the grouped Charlson index;</p></li>
-<li><p><code>wscore</code>, for the weighted version of the Charlson score;</p></li>
-<li><p><code>windex</code>, for the weighted version of the grouped Charlson index.</p></li>
 </ul>
 
 <p>Conversely, for the Elixhauser score the dataset contains the following variables:</p><ul>
@@ -265,26 +245,19 @@ The previous behaviour (<code>comorbidity &lt;= 0.5.3</code>) corresponds to:</p
 <li><p><code>drug</code>, for drug abuse;</p></li>
 <li><p><code>psycho</code>, for psychoses;</p></li>
 <li><p><code>depre</code>, for depression;</p></li>
-<li><p><code>score</code>, for the non-weighted version of the Elixhauser score;</p></li>
-<li><p><code>index</code>, for the non-weighted version of the grouped Elixhauser index;</p></li>
-<li><p><code>wscore_ahrq</code>, for the weighted version of the Elixhauser score using the AHRQ algorithm (Moore <em>et al</em>., 2017);</p></li>
-<li><p><code>wscore_vw</code>, for the weighted version of the Elixhauser score using the algorithm in van Walraven <em>et al</em>. (2009);</p></li>
-<li><p><code>windex_ahrq</code>, for the weighted version of the grouped Elixhauser index using the AHRQ algorithm (Moore <em>et al</em>., 2017);</p></li>
-<li><p><code>windex_vw</code>, for the weighted version of the grouped Elixhauser index using the algorithm in van Walraven <em>et al</em>. (2009).</p></li>
 </ul>
 
 <p>Labels are presented to the user when using the RStudio viewer (e.g. via the <code><a href='https://rdrr.io/r/utils/View.html'>utils::View()</a></code> function) for convenience.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan <em>et al</em>. (2005). Weights for the Charlson score are based on the original formulation by Charlson <em>et al</em>. in 1987, while weights for the Elixhauser score are based on work by Moore <em>et al</em>. and van Walraven <em>et al</em>. Finally, the categorisation of scores and weighted scores is based on work by Menendez <em>et al</em>. See <code><a href='../articles/comorbidityscores.html'>vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the comorbidity scores and the weighting algorithm.
-ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set <code>tidy.codes = TRUE</code> to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.</p>
+    <p>The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan <em>et al</em>. (2005).
+ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set <code>tidy.codes = TRUE</code> to properly tidy the codes automatically.
+A message is printed to the R console when non-alphanumeric characters are found.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. <em>Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data</em>. Medical Care 2005; 43(11):1130-1139.</p>
 <p>Charlson ME, Pompei P, Ales KL, et al. <em>A new method of classifying prognostic comorbidity in longitudinal studies: development and validation</em>. Journal of Chronic Diseases 1987; 40:373-383.</p>
-<p>Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. <em>Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index</em>. Medical Care 2017; 55(7):698-705.</p>
-<p>van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. <em>A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data</em>. Medical Care 2009; 47(6):626-633.</p>
-<p>Menendez ME, Neuhaus V, van Dijk CN, Ring D. <em>The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery</em>. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886.</p>
+<p>Ludvigsson JF, Appelros P, Askling J et al. <em>Adaptation of the Charlson Comorbidity Index for register-based research in Sweden</em>. Clinical Epidemiology 2021; 13:21-41.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
@@ -295,7 +268,7 @@ ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters on
 <span class='op'>)</span>
 
 <span class='co'># Charlson score based on ICD-10 diagnostic codes:</span>
-<span class='fu'>comorbidity</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, id <span class='op'>=</span> <span class='st'>"id"</span>, code <span class='op'>=</span> <span class='st'>"code"</span>, score <span class='op'>=</span> <span class='st'>"charlson"</span>, assign0 <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+<span class='fu'>comorbidity</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, id <span class='op'>=</span> <span class='st'>"id"</span>, code <span class='op'>=</span> <span class='st'>"code"</span>, map <span class='op'>=</span> <span class='st'>"charlson_icd10_quan"</span>, assign0 <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc
 #&gt; 1   1   0   0   0    0        0    0      0   0   0    0      0  0    0    1
 #&gt; 2   2   0   0   0    0        0    0      0   0   0    0      0  0    0    0
@@ -312,24 +285,24 @@ ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters on
 #&gt; 13 13   0   0   0    0        0    0      0   1   0    0      0  0    0    1
 #&gt; 14 14   0   0   0    0        0    0      0   0   0    0      0  0    0    0
 #&gt; 15 15   0   0   0    0        0    0      0   0   0    0      0  0    0    1
-#&gt;    msld metacanc aids score index wscore windex
-#&gt; 1     0        0    0     1   1-2      2    1-2
-#&gt; 2     0        0    1     1   1-2      6    &gt;=5
-#&gt; 3     0        0    0     0     0      0      0
-#&gt; 4     0        0    0     1   1-2      2    1-2
-#&gt; 5     0        0    0     0     0      0      0
-#&gt; 6     0        0    0     0     0      0      0
-#&gt; 7     0        0    0     3   3-4      4    3-4
-#&gt; 8     0        0    0     0     0      0      0
-#&gt; 9     0        0    0     2   1-2      3    3-4
-#&gt; 10    0        0    0     1   1-2      2    1-2
-#&gt; 11    0        0    0     0     0      0      0
-#&gt; 12    0        0    0     0     0      0      0
-#&gt; 13    0        0    0     2   1-2      3    3-4
-#&gt; 14    0        0    0     0     0      0      0
-#&gt; 15    0        0    0     1   1-2      2    1-2</div><div class='input'>
+#&gt;    msld metacanc aids
+#&gt; 1     0        0    0
+#&gt; 2     0        0    1
+#&gt; 3     0        0    0
+#&gt; 4     0        0    0
+#&gt; 5     0        0    0
+#&gt; 6     0        0    0
+#&gt; 7     0        0    0
+#&gt; 8     0        0    0
+#&gt; 9     0        0    0
+#&gt; 10    0        0    0
+#&gt; 11    0        0    0
+#&gt; 12    0        0    0
+#&gt; 13    0        0    0
+#&gt; 14    0        0    0
+#&gt; 15    0        0    0</div><div class='input'>
 <span class='co'># Elixhauser score based on ICD-10 diagnostic codes:</span>
-<span class='fu'>comorbidity</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, id <span class='op'>=</span> <span class='st'>"id"</span>, code <span class='op'>=</span> <span class='st'>"code"</span>, score <span class='op'>=</span> <span class='st'>"elixhauser"</span>, assign0 <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+<span class='fu'>comorbidity</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>x</span>, id <span class='op'>=</span> <span class='st'>"id"</span>, code <span class='op'>=</span> <span class='st'>"code"</span>, map <span class='op'>=</span> <span class='st'>"elixhauser_icd10_quan"</span>, assign0 <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf
 #&gt; 1   1   0     0    0   0   0      0    0    0   0   0       0     0       1  0
 #&gt; 2   2   0     0    1   0   0      0    0    0   0   0       0     0       0  0
@@ -362,38 +335,22 @@ ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters on
 #&gt; 13  0   1    0     0        0        1      0    0    0     0   0     0    0
 #&gt; 14  0   0    0     0        0        0      0    0    0     0   0     0    0
 #&gt; 15  0   0    0     0        0        1      0    0    0     0   0     0    0
-#&gt;    alcohol drug psycho depre score index wscore_ahrq wscore_vw windex_ahrq
-#&gt; 1        0    0      0     0     2   1-4           7         4         &gt;=5
-#&gt; 2        0    0      0     0     2   1-4           0        -1           0
-#&gt; 3        0    0      0     0     0     0           0         0           0
-#&gt; 4        0    0      0     0     0     0           0         0           0
-#&gt; 5        0    0      0     0     0     0           0         0           0
-#&gt; 6        0    0      0     0     0     0           0         0           0
-#&gt; 7        1    0      0     0     4   1-4          19        22         &gt;=5
-#&gt; 8        0    0      0     0     0     0           0         0           0
-#&gt; 9        0    0      0     0     2   1-4           7         4         &gt;=5
-#&gt; 10       0    0      0     0     1   1-4           7         4         &gt;=5
-#&gt; 11       0    0      0     0     0     0           0         0           0
-#&gt; 12       0    1      1     0     4   1-4           4         2         1-4
-#&gt; 13       0    0      0     0     2   1-4           7         4         &gt;=5
-#&gt; 14       0    0      0     0     0     0           0         0           0
-#&gt; 15       0    0      0     0     1   1-4           7         4         &gt;=5
-#&gt;    windex_vw
-#&gt; 1        1-4
-#&gt; 2         &lt;0
-#&gt; 3          0
-#&gt; 4          0
-#&gt; 5          0
-#&gt; 6          0
-#&gt; 7        &gt;=5
-#&gt; 8          0
-#&gt; 9        1-4
-#&gt; 10       1-4
-#&gt; 11         0
-#&gt; 12       1-4
-#&gt; 13       1-4
-#&gt; 14         0
-#&gt; 15       1-4</div></pre>
+#&gt;    alcohol drug psycho depre
+#&gt; 1        0    0      0     0
+#&gt; 2        0    0      0     0
+#&gt; 3        0    0      0     0
+#&gt; 4        0    0      0     0
+#&gt; 5        0    0      0     0
+#&gt; 6        0    0      0     0
+#&gt; 7        1    0      0     0
+#&gt; 8        0    0      0     0
+#&gt; 9        0    0      0     0
+#&gt; 10       0    0      0     0
+#&gt; 11       0    0      0     0
+#&gt; 12       0    1      1     0
+#&gt; 13       0    0      0     0
+#&gt; 14       0    0      0     0
+#&gt; 15       0    0      0     0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

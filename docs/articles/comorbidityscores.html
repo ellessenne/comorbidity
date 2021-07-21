@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comorbidity scores • comorbidity</title>
+<title>Supported Comorbidity Mappings and Scores • comorbidity</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Comorbidity scores">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Supported Comorbidity Mappings and Scores">
 <meta property="og:description" content="comorbidity">
 <meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">comorbidity</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.9000</span>
       </span>
     </div>
 
@@ -55,7 +55,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/comorbidityscores.html">Comorbidity scores</a>
+      <a href="../articles/comorbidityscores.html">Supported Comorbidity Mappings and Scores</a>
+    </li>
+    <li>
+      <a href="../articles/introduction.html">Introduction</a>
     </li>
   </ul>
 </li>
@@ -80,13 +83,13 @@
 
       
 
-      </header><script src="comorbidityscores_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="comorbidityscores_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Comorbidity scores</h1>
+      <h1 data-toc-skip>Supported Comorbidity Mappings and Scores</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2020-12-15</h4>
+            <h4 class="date">2021-07-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/comorbidity/blob/master/vignettes/comorbidityscores.Rmd"><code>vignettes/comorbidityscores.Rmd</code></a></small>
       <div class="hidden name"><code>comorbidityscores.Rmd</code></div>
@@ -95,495 +98,40 @@
 
     
     
-<p><code>comorbidity</code> is an R package for computing comorbidity scores based on ICD codes data. As of version <code>0.1.0</code>, <code>comorbidity</code> can calculate the Charlson comorbidity score and the Elixhauser comorbidity score, using either the ICD-9 or ICD-10 coding system. Details on each score supported by this package are presented in this vignette, along with examples on how to compute the different scores with this software.</p>
-<div id="charlson-comorbidity-score" class="section level1">
+<p>The {comorbidity} R package can be used to identify comorbidity conditions and calculate comorbidity scores based on ICD codes data. Supported mapping and weighting algorithms are described below, including relevant references.</p>
+<p>Examples showing how to apply each algorithm are included in a separate vignette.</p>
+<div id="supported-mapping-algorithms" class="section level1">
 <h1 class="hasAnchor">
-<a href="#charlson-comorbidity-score" class="anchor"></a>Charlson comorbidity score</h1>
-<p>The Charlson comorbidity index was first developed by Charlson <em>et al</em>. in 1987 to predict one-year mortality for patients who may have a range of comorbid conditions. Each condition is assigned a score depending on the risk of dying associated with each one, and consequently scores are summed to provide a total score to predict mortality.</p>
-<p>The Charlson comorbidity index includes the following comorbid conditions: acute myocardial infarction, congestive heart failure, peripheral vascular disease, cerebrovascular disease, dementia, chronic obstructive pulmonary disease [COPD], rheumatoid disease, peptic ulcer disease, mild and moderate/severe liver disease, diabetes mellitus with and without complications, hemiplegia/paraplegia, renal disease, cancer (any malignancy) and metastatic solid tumour, AIDS/HIV.</p>
-<p>Many variations of the Charlson comorbidity index have been presented, as outlined by Sharabiani <em>et al</em>. in their systematic review. <code>comorbidity</code> computes the Quan <em>et al</em>. version of the Charlson score for both ICD-9-CM and ICD-10 coding systems, as outlined in their paper from 2005; in the next subsections, we present the different ICD codes utilised by <code>comorbidity</code>. Categorisation of scores and weighted scores are based on work by Menendez <em>et al</em>.</p>
-<div id="icd-9-cm-codes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#icd-9-cm-codes" class="anchor"></a>ICD-9-CM codes</h2>
-<p>The ICD-9-CM codes used by <code>comorbidity</code> to compute the Charlson comorbidity index are:</p>
-<ul>
-<li><p>Myocardial infarction: 410.x, 412.x</p></li>
-<li><p>Congestive heart failure: 398.91, 402.01, 402.11, 402.91, 404.01, 404.03, 404.11, 404.13, 404.91, 404.93, 425.4 - 425.9, 428.x</p></li>
-<li><p>Peripheral vascular disease: 093.0, 437.3, 440.x, 441.x, 443.1 - 443.9, 447.1, 557.1, 557.9, V43.4</p></li>
-<li><p>Cerebrovascular disease: 362.34, 430.x - 438.x</p></li>
-<li><p>Dementia: 290.x, 294.1, 331.2</p></li>
-<li><p>Chronic pulmonary disease: 416.8, 416.9, 490.x - 505.x, 506.4, 508.1, 508.8</p></li>
-<li><p>Rheumatic disease: 446.5, 710.0 - 710.4, 714.0 - 714.2, 714.8, 725.x</p></li>
-<li><p>Peptic ulcer disease: 531.x - 534.x</p></li>
-<li><p>Mild liver disease: 070.22, 070.23, 070.32, 070.33, 070.44, 070.54, 070.6, 070.9, 570.x, 571.x, 573.3, 573.4, 573.8, 573.9, V42.7</p></li>
-<li><p>Diabetes without chronic complication: 250.0 - 250.3, 250.8, 250.9</p></li>
-<li><p>Diabetes with chronic complication: 250.4 - 250.7</p></li>
-<li><p>Hemiplegia or paraplegia: 334.1, 342.x, 343.x, 344.0 - 344.6, 344.9</p></li>
-<li><p>Renal disease: 403.01, 403.11, 403.91, 404.02, 404.03, 404.12, 404.13, 404.92, 404.93, 582.x, 583.0 - 583.7, 585.x, 586.x, 588.0, V42.0, V45.1, V56.x</p></li>
-<li><p>Any malignancy, including lymphoma and leukaemia, except malignant neoplasm of skin: 140.x - 172.x, 174.x - 195.8, 200.x - 208.x, 238.6</p></li>
-<li><p>Moderate or severe liver disease: 456.0 - 456.2, 572.2- 572.8</p></li>
-<li><p>Metastatic solid tumour: 196.x - 199.x</p></li>
-<li><p>AIDS/HIV: 042.x - 044.x</p></li>
-</ul>
-<p>There is a difference between codes reported above for peripheral vascular disease and the paper by Quan <em>et al</em>.; the code 47.1 reported in the paper is replaced by 447.1, as it is likely a typo. See <a href="https://github.com/ellessenne/comorbidity/issues/10">here</a> and <a href="https://github.com/ellessenne/comorbidity/issues/26">here</a> for more details.</p>
+<a href="#supported-mapping-algorithms" class="anchor"></a>Supported Mapping Algorithms</h1>
+<p>The {comorbidity} package can apply comorbidity mappings corresponding to the Charlson and the Elixhauser comorbidity scores. Both ICD-9 and ICD-10 coding systems are supported, with algorithms described in the paper by Quan et al. (2005). The resulting mapping algorithms are denoted with <code>charlson_icd9_quan</code> and <code>charlson_icd10_quan</code> for the Charlson score (based on ICD-9 and ICD-10 systems, respectively), <code>elixhauser_icd9_quan</code> and <code>elixhauser_icd10_quan</code> for the Elixhauser score.</p>
+<p>Furthermore, a Swedish modification of the Charlson score (Ludvigsson et al., 2021) is implemented as well, and identified by <code>charlson_icd10_se</code>.</p>
 </div>
-<div id="icd-10-codes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#icd-10-codes" class="anchor"></a>ICD-10 codes</h2>
-<p>The ICD-10 codes used by <code>comorbidity</code> to compute the Charlson comorbidity index are:</p>
-<ul>
-<li><p>Myocardial infarction: I21.x, I22.x, I25.2</p></li>
-<li><p>Congestive heart failure: I09.9, I11.0, I13.0, I13.2, I25.5, I42.0, I42.5 - I42.9, I43.x, I50.x, P29.0</p></li>
-<li><p>Peripheral vascular disease: I70.x, I71.x, I73.1, I73.8, I73.9, I77.1, I79.0, I79.2, K55.1, K55.8, K55.9, Z95.8, Z95.9</p></li>
-<li><p>Cerebrovascular disease: G45.x, G46.x, H34.0, I60.x - I69.x</p></li>
-<li><p>Dementia: F00.x - F03.x, F05.1, G30.x, G31.1</p></li>
-<li><p>Chronic pulmonary disease: I27.8, I27.9, J40.x - J47.x, J60.x - J67.x, J68.4, J70.1, J70.3</p></li>
-<li><p>Rheumatic disease: M05.x, M06.x, M31.5, M32.x - M34.x, M35.1, M35.3, M36.0</p></li>
-<li><p>Peptic ulcer disease: K25.x - K28.x</p></li>
-<li><p>Mild liver disease: B18.x, K70.0 - K70.3, K70.9, K71.3 - K71.5, K71.7, K73.x, K74.x, K76.0, K76.2 - K76.4, K76.8, K76.9, Z94.4</p></li>
-<li><p>Diabetes without chronic complication: E10.0, E10.1, E10.6, E10.8, E10.9, E11.0, E11.1, E11.6, E11.8, E11.9, E12.0, E12.1, E12.6, E12.8, E12.9, E13.0, E13.1, E13.6, E13.8, E13.9, E14.0, E14.1, E14.6, E14.8, E14.9</p></li>
-<li><p>Diabetes with chronic complication: E10.2 - E10.5, E10.7, E11.2 - E11.5, E11.7, E12.2 - E12.5, E12.7, E13.2 - E13.5, E13.7, E14.2 - E14.5, E14.7</p></li>
-<li><p>Hemiplegia or paraplegia: G04.1, G11.4, G80.1, G80.2, G81.x, G82.x, G83.0 - G83.4, G83.9</p></li>
-<li><p>Renal disease: I12.0, I13.1, N03.2 - N03.7, N05.2 - N05.7, N18.x, N19.x, N25.0, Z49.0 - Z49.2, Z94.0, Z99.2</p></li>
-<li><p>Any malignancy, including lymphoma and leukaemia, except malignant neoplasm of skin: C00.x - C26.x, C30.x - C34.x, C37.x - C41.x, C43.x, C45.x - C58.x, C60.x - C76.x, C81.x - C85.x, C88.x, C90.x - C97.x</p></li>
-<li><p>Moderate or severe liver disease: I85.0, I85.9, I86.4, I98.2, K70.4, K71.1, K72.1, K72.9, K76.5, K76.6, K76.7</p></li>
-<li><p>Metastatic solid tumour: C77.x - C80.x</p></li>
-<li><p>AIDS/HIV: B20.x - B22.x, B24.x</p></li>
-</ul>
-</div>
-<div id="weights" class="section level2">
-<h2 class="hasAnchor">
-<a href="#weights" class="anchor"></a>Weights</h2>
-<p>Each condition from the Charlson score is assigned a score when computing the weighted Charlson index, irrespectively of the coding system utilised. In particular, diabetes with complications, hemiplegia/paraplegia, renal disease, and malignancies are assigned a score of 2; moderate/severe liver disease is assigned a score of 3; metastatic solid tumour and AIDS/HIV are assigned a score of 6; the remaining comorbidities are assigned a score of 1. <code>comorbidity</code> allows the option of applying a hierarchy of comorbidities should a more severe version be present: by choosing to do so, a type of comorbidity is never computed more than once for a given patient. See <code><a href="../reference/comorbidity.html">?comorbidity::comorbidity</a></code> for more details on <code>assign0</code> and possible values.</p>
-</div>
-</div>
-<div id="elixhauser-comorbidity-score" class="section level1">
+<div id="supported-weighting-algorithms" class="section level1">
 <h1 class="hasAnchor">
-<a href="#elixhauser-comorbidity-score" class="anchor"></a>Elixhauser comorbidity score</h1>
-<p>The Elixhauser comorbidity index, analogously as the Charlson comorbidity index, is a method for measuring patient comorbidity based on ICD-9-CM and ICD-10 diagnosis codes found in administrative data developed by Elixhauser <em>et al</em>. in 1998. Over time, there have been changes to the Index based on different research. For instance:</p>
+<a href="#supported-weighting-algorithms" class="anchor"></a>Supported Weighting Algorithms</h1>
+<p>Different weighting algorithms have been proposed to combine the different conditions into a single measure, for both the Charlson and the Elixhauser index.</p>
+<p>Currently, the following weighting algorithms are supported for the Charlson score:</p>
 <ul>
-<li><p>the original index was developed with 30 categories. Now there are variants with 31 categories (Garland <em>et al</em>., 2012);</p></li>
-<li><p>the list of specific ICD diagnosis codes that are used to identify different categories of comorbidity have been modified and updated from ICD-9-CM to work with ICD-10 coding (Quan <em>et al</em>., 2005);</p></li>
-<li><p>weighting algorithms were developed, based on the association between comorbidity and death, in order to produce an overall score for the Elixhauser index (van Walraven <em>et al</em>., 2009; Moore <em>et al</em>., 2016).</p></li>
+<li><p>The original weights by Charlson et al. (1987), denoted with <code>charlson</code>;</p></li>
+<li><p>Updated weights by Quan et al. (2011), denoted with <code>quan</code>.</p></li>
 </ul>
-<p><code>comorbidity</code> is using the coding definition of Quan <em>et al</em>. (2005) for both ICD-9-CM and ICD-10 coding systems; the actual codes and weights utilised by <code>comorbidity</code> are introduced in the next subsections. However, there is no consensus regarding the weighting algorithm, with several competing definitions. <code>comorbidity</code> implements (and returns) both the AHRQ version of the Elixhauser index (Moore <em>et al</em>., 2017) and the van Walraven <em>et al.</em> (2009) version. The AHRQ Elixhauser comorbidity score only includes 29 comorbidities; the missing comorbidities are therefore assigned a weight of zero. Finally, the categorisation of scores and weighted scores is based on work by Menendez <em>et al</em>.</p>
-<div id="icd-9-cm-codes-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#icd-9-cm-codes-1" class="anchor"></a>ICD-9-CM codes</h2>
-<p>The ICD-9-CM codes used by <code>comorbidity</code> to compute the Elixhauser comorbidity index are:</p>
+<p>Then, for the Elixhauser score:</p>
 <ul>
-<li><p>Congestive heart failure: 398.91, 402.01, 402.11, 402.91, 404.01, 404.03, 404.11, 404.13, 404.91, 404.93, 425.4 - 425.9, 428.x</p></li>
-<li><p>Cardiac arrhythmias: 426.0, 426.13, 426.7, 426.9, 426.10, 426.12, 427.0 - 427.4, 427.6 - 427.9, 785.0, 996.01, 996.04, V45.0, V53.3</p></li>
-<li><p>Valvular disease: 093.2, 394.x - 397.x, 424.x, 746.3 - 746.6, V42.2, V43.3</p></li>
-<li><p>Pulmonary circulation disorders: 415.0, 415.1, 416.x, 417.0, 417.8, 417.9</p></li>
-<li><p>Peripheral vascular disorders: 093.0, 437.3, 440.x, 441.x, 443.1 - 443.9, 447.1, 557.1, 557.9, V43.4</p></li>
-<li><p>Hypertension, uncomplicated: 401.x</p></li>
-<li><p>Hypertension, complicated: 402.x - 405.x</p></li>
-<li><p>Paralysis: 334.1, 342.x, 343.x, 344.0 - 344.6, 344.9</p></li>
-<li><p>Other neurological disorders: 331.9, 332.0, 332.1, 333.4, 333.5, 333.92, 334.x - 335.x, 336.2, 340.x, 341.x, 345.x, 348.1, 348.3, 780.3, 784.3</p></li>
-<li><p>Chronic pulmonary disease: 416.8, 416.9, 490.x - 505.x, 506.4, 508.1, 508.8</p></li>
-<li><p>Diabetes, uncomplicated: 250.0 - 250.3</p></li>
-<li><p>Diabetes, complicated: 250.4 - 250.9</p></li>
-<li><p>Hypothyroidism: 240.9, 243.x, 244.x, 246.1, 246.8</p></li>
-<li><p>Renal failure: 403.01, 403.11, 403.91, 404.02, 404.03, 404.12, 404.13, 404.92, 404.93, 585.x, 586.x, 588.0, V42.0, V45.1, V56.x</p></li>
-<li><p>Liver disease: 070.22, 070.23, 070.32, 070.33, 070.44, 070.54, 070.6, 070.9, 456.0 - 456.2, 570.x, 571.x, 572.2 - 572.8, 573.3, 573.4, 573.8, 573.9, V42.7</p></li>
-<li><p>Peptic ulcer disease, excluding bleeding: 531.7, 531.9, 532.7, 532.9, 533.7, 533.9, 534.7, 534.9</p></li>
-<li><p>AIDS/HIV: 042.x - 044.x</p></li>
-<li><p>Lymphoma: 200.x - 202.x, 203.0, 238.6</p></li>
-<li><p>Metastatic cancer: 196.x - 199.x</p></li>
-<li><p>Solid tumour without metastasis: 140.x - 172.x, 174.x - 195.x</p></li>
-<li><p>Rheumatoid arthritis/collagen vascular diseases: 446.x, 701.0, 710.0 - 710.4, 710.8, 710.9, 711.2, 714.x, 719.3, 720.x, 725.x, 728.5, 728.89, 729.30</p></li>
-<li><p>Coagulopathy: 286.x, 287.1, 287.3 - 287.5</p></li>
-<li><p>Obesity: 278.0</p></li>
-<li><p>Weight loss: 260.x - 263.x, 783.2, 799.4</p></li>
-<li><p>Fluid and electrolyte disorders: 253.6, 276.x</p></li>
-<li><p>Blood loss anaemia: 280.0</p></li>
-<li><p>Deficiency anaemia: 280.1 - 280.9, 281.x</p></li>
-<li><p>Alcohol abuse: 265.2, 291.1 - 291.3, 291.5 - 291.9, 303.0, 303.9, 305.0, 357.5, 425.5, 535.3, 571.0 - 571.3, 980.x, V11.3</p></li>
-<li><p>Drug abuse: 292.x, 304.x, 305.2 - 305.9, V65.42</p></li>
-<li><p>Psychoses: 293.8, 295.x, 296.04, 296.14, 296.44, 296.54, 297.x, 298.x</p></li>
-<li><p>Depression: 296.2, 296.3, 296.5, 300.4, 309.x, 311</p></li>
+<li><p>Weights proposed by van Walraven et al. (2009), denoted with <code>vw</code>;</p></li>
+<li><p>The Swiss weights modification by Sharma et al. (2021), denoted with <code>swiss</code>.</p></li>
 </ul>
-</div>
-<div id="icd-10-codes-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#icd-10-codes-1" class="anchor"></a>ICD-10 codes</h2>
-<p>The ICD-10 codes used by <code>comorbidity</code> to compute the Elixhauser comorbidity index are:</p>
-<ul>
-<li><p>Congestive heart failure: I09.9, I11.0, I13.0, I13.2, I25.5, I42.0, I42.5 - I42.9, I43.x, I50.x, P29.0</p></li>
-<li><p>Cardiac arrhythmias: I44.1 - I44.3, I45.6, I45.9, I47.x - I49.x, R00.0, R00.1, R00.8, T82.1, Z45.0, Z95.0</p></li>
-<li><p>Valvular disease: A52.0, I05.x - I08.x, I09.1, I09.8, I34.x - I39.x, Q23.0 - Q23.3, Z95.2 - Z95.4</p></li>
-<li><p>Pulmonary circulation disorders: I26.x, I27.x, I28.0, I28.8, I28.9</p></li>
-<li><p>Peripheral vascular disorders: I70.x, I71.x, I73.1, I73.8, I73.9, I77.1, I79.0, I79.2, K55.1, K55.8, K55.9, Z95.8, Z95.9</p></li>
-<li><p>Hypertension, uncomplicated: I10.x</p></li>
-<li><p>Hypertension, complicated: I11.x - I13.x, I15.x</p></li>
-<li><p>Paralysis: G04.1, G11.4, G80.1, G80.2, G81.x, G82.x, G83.0 - G83.4, G83.9</p></li>
-<li><p>Other neurological disorders: G10.x - G13.x, G20.x - G22.x, G25.4, G25.5, G31.2, G31.8, G31.9, G32.x, G35.x - G37.x, G40.x, G41.x, G93.1, G93.4, R47.0, R56.x</p></li>
-<li><p>Chronic pulmonary disease: I27.8, I27.9, J40.x - J47.x, J60.x - J67.x, J68.4, J70.1, J70.3</p></li>
-<li><p>Diabetes, uncomplicated: E10.0, E10.1, E10.9, E11.0, E11.1, E11.9, E12.0, E12.1, E12.9, E13.0, E13.1, E13.9, E14.0, E14.1, E14.9</p></li>
-<li><p>Diabetes, complicated: E10.2 - E10.8, E11.2 - E11.8, E12.2 - E12.8, E13.2 - E13.8, E14.2 - E14.8</p></li>
-<li><p>Hypothyroidism: E00.x - E03.x, E89.0</p></li>
-<li><p>Renal failure: I12.0, I13.1, N18.x, N19.x, N25.0, Z49.0 - Z49.2, Z94.0, Z99.2</p></li>
-<li><p>Liver disease: B18.x, I85.x, I86.4, I98.2, K70.x, K71.1, K71.3 - K71.5, K71.7, K72.x - K74.x, K76.0, K76.2 - K76.9, Z94.4</p></li>
-<li><p>Peptic ulcer disease, excluding bleeding: K25.7, K25.9, K26.7, K26.9, K27.7, K27.9, K28.7, K28.9</p></li>
-<li><p>AIDS/HIV: B20.x - B22.x, B24.x</p></li>
-<li><p>Lymphoma: C81.x - C85.x, C88.x, C96.x, C90.0, C90.2</p></li>
-<li><p>Metastatic cancer: C77.x - C80.x</p></li>
-<li><p>Solid tumour without metastasis: C00.x - C26.x, C30.x - C34.x, C37.x - C41.x, C43.x, C45.x - C58.x, C60.x - C76.x, C97.x</p></li>
-<li><p>Rheumatoid arthritis/collagen vascular diseases: L94.0, L94.1, L94.3, M05.x, M06.x, M08.x, M12.0, M12.3, M30.x, M31.0 - M31.3, M32.x - M35.x, M45.x, M46.1, M46.8, M46.9</p></li>
-<li><p>Coagulopathy: D65 - D68.x, D69.1, D69.3 - D69.6</p></li>
-<li><p>Obesity: E66.x</p></li>
-<li><p>Weight loss: E40.x - E46.x, R63.4, R64</p></li>
-<li><p>Fluid and electrolyte disorders: E22.2, E86.x, E87.x</p></li>
-<li><p>Blood loss anaemia: D50.0</p></li>
-<li><p>Deficiency anaemia: D50.8, D50.9, D51.x - D53.x</p></li>
-<li><p>Alcohol abuse: F10, E52, G62.1, I42.6, K29.2, K70.0, K70.3, K70.9, T51.x, Z50.2, Z71.4, Z72.1</p></li>
-<li><p>Drug abuse: F11.x - F16.x, F18.x, F19.x, Z71.5, Z72.2</p></li>
-<li><p>Psychoses: F20.x, F22.x - F25.x, F28.x, F29.x, F30.2, F31.2, F31.5</p></li>
-<li><p>Depression: F20.4, F31.3 - F31.5, F32.x, F33.x, F34.1, F41.2, F43.2</p></li>
-</ul>
-</div>
-<div id="weights-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#weights-1" class="anchor"></a>Weights</h2>
-<p>The weights for the Elixhauser comorbidity index are included in the following table, depending on the algorithm used for the weighting process:</p>
-<table class="table">
-<thead><tr class="header">
-<th align="center">Comorbidity Domain</th>
-<th align="center">AHRQ Algorithm</th>
-<th align="center">van Walraven Algorithm</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="center">Congestive heart failure</td>
-<td align="center">9</td>
-<td align="center">7</td>
-</tr>
-<tr class="even">
-<td align="center">Cardiac arrhythmias</td>
-<td align="center">(0)</td>
-<td align="center">5</td>
-</tr>
-<tr class="odd">
-<td align="center">Valvular disease</td>
-<td align="center">0</td>
-<td align="center">-1</td>
-</tr>
-<tr class="even">
-<td align="center">Pulmonary circulation disorders</td>
-<td align="center">6</td>
-<td align="center">4</td>
-</tr>
-<tr class="odd">
-<td align="center">Peripheral vascular disorders</td>
-<td align="center">3</td>
-<td align="center">2</td>
-</tr>
-<tr class="even">
-<td align="center">Hypertension (combined uncomplicated and complicated)</td>
-<td align="center">-1</td>
-<td align="center">0</td>
-</tr>
-<tr class="odd">
-<td align="center">Paralysis</td>
-<td align="center">5</td>
-<td align="center">7</td>
-</tr>
-<tr class="even">
-<td align="center">Other neurological disorders</td>
-<td align="center">5</td>
-<td align="center">6</td>
-</tr>
-<tr class="odd">
-<td align="center">Chronic pulmonary disease</td>
-<td align="center">3</td>
-<td align="center">3</td>
-</tr>
-<tr class="even">
-<td align="center">Diabetes, uncomplicated</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr class="odd">
-<td align="center">Diabetes, complicated</td>
-<td align="center">-3</td>
-<td align="center">0</td>
-</tr>
-<tr class="even">
-<td align="center">Hypothyroidism</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr class="odd">
-<td align="center">Renal failure</td>
-<td align="center">6</td>
-<td align="center">5</td>
-</tr>
-<tr class="even">
-<td align="center">Liver disease</td>
-<td align="center">4</td>
-<td align="center">11</td>
-</tr>
-<tr class="odd">
-<td align="center">Peptic ulcer disease, excluding bleeding</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr class="even">
-<td align="center">AIDS/HIV</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr class="odd">
-<td align="center">Lymphoma</td>
-<td align="center">6</td>
-<td align="center">9</td>
-</tr>
-<tr class="even">
-<td align="center">Metastatic cancer</td>
-<td align="center">14</td>
-<td align="center">12</td>
-</tr>
-<tr class="odd">
-<td align="center">Solid tumour without metastasis</td>
-<td align="center">7</td>
-<td align="center">4</td>
-</tr>
-<tr class="even">
-<td align="center">Rheumatoid arthritis/collagen vascular diseases</td>
-<td align="center">0</td>
-<td align="center">0</td>
-</tr>
-<tr class="odd">
-<td align="center">Coagulopathy</td>
-<td align="center">11</td>
-<td align="center">3</td>
-</tr>
-<tr class="even">
-<td align="center">Obesity</td>
-<td align="center">-5</td>
-<td align="center">-4</td>
-</tr>
-<tr class="odd">
-<td align="center">Weight loss</td>
-<td align="center">9</td>
-<td align="center">6</td>
-</tr>
-<tr class="even">
-<td align="center">Fluid and electrolyte disorders</td>
-<td align="center">11</td>
-<td align="center">5</td>
-</tr>
-<tr class="odd">
-<td align="center">Blood loss anaemia</td>
-<td align="center">-3</td>
-<td align="center">-2</td>
-</tr>
-<tr class="even">
-<td align="center">Deficiency anaemia</td>
-<td align="center">-2</td>
-<td align="center">-2</td>
-</tr>
-<tr class="odd">
-<td align="center">Alcohol abuse</td>
-<td align="center">-1</td>
-<td align="center">0</td>
-</tr>
-<tr class="even">
-<td align="center">Drug abuse</td>
-<td align="center">-7</td>
-<td align="center">-7</td>
-</tr>
-<tr class="odd">
-<td align="center">Psychoses</td>
-<td align="center">-5</td>
-<td align="center">0</td>
-</tr>
-<tr class="even">
-<td align="center">Depression</td>
-<td align="center">-5</td>
-<td align="center">-3</td>
-</tr>
-</tbody>
-</table>
-<p>The AHRQ algorithm does not include cardiac arrhythmias, hence a weight of 0 is assigned.</p>
-</div>
-</div>
-<div id="examples" class="section level1">
-<h1 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h1>
-<p>The first step consists in loading the <code>comorbidity</code> package:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/comorbidity">comorbidity</a></span><span class="op">)</span></code></pre></div>
-<p>We can utilise the built-in <code><a href="../reference/sample_diag.html">sample_diag()</a></code> function to simulate ICD diagnostic codes. Both ICD-9 and ICD-10 codes are supported:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data9</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, size <span class="op">=</span> <span class="fl">250</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="../reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">250</span>, version <span class="op">=</span> <span class="st">"ICD9_2015"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="va">data9</span> <span class="op">&lt;-</span> <span class="va">data9</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">data9</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>, <span class="op">]</span>
-<span class="va">data10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, size <span class="op">=</span> <span class="fl">250</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="../reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">250</span>, version <span class="op">=</span> <span class="st">"ICD10_2011"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="va">data10</span> <span class="op">&lt;-</span> <span class="va">data10</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">data10</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>, <span class="op">]</span></code></pre></div>
-<p>Then, we can go ahead and compute various comorbidity scores and indices supported by <code>comorbidity</code>. The Charlson score based on ICD-9-CM data is computed as:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">charlson9</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data9</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"charlson"</span>, icd <span class="op">=</span> <span class="st">"icd9"</span>, assign0 <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">charlson9</span><span class="op">)</span>
-<span class="co">#&gt; 'data.frame':    10 obs. of  22 variables:</span>
-<span class="co">#&gt;  $ id      : int  1 2 3 4 5 6 7 8 9 10</span>
-<span class="co">#&gt;  $ ami     : int  0 0 0 0 0 0 0 1 0 0</span>
-<span class="co">#&gt;  $ chf     : int  0 0 0 0 0 0 1 0 0 0</span>
-<span class="co">#&gt;  $ pvd     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ cevd    : int  0 1 0 0 1 0 0 0 0 0</span>
-<span class="co">#&gt;  $ dementia: num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ copd    : int  0 0 1 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ rheumd  : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pud     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ mld     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ diab    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ diabwc  : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hp      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ rend    : int  0 1 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ canc    : int  0 1 1 0 0 1 1 0 1 1</span>
-<span class="co">#&gt;  $ msld    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ metacanc: num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ aids    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ score   : num  0 3 2 0 1 1 2 1 1 1</span>
-<span class="co">#&gt;  $ index   : Factor w/ 4 levels "0","1-2","3-4",..: 1 3 2 1 2 2 2 2 2 2</span>
-<span class="co">#&gt;  $ wscore  : num  0 5 3 0 1 2 3 1 2 2</span>
-<span class="co">#&gt;  $ windex  : Factor w/ 4 levels "0","1-2","3-4",..: 1 4 3 1 2 2 3 2 2 2</span>
-<span class="co">#&gt;  - attr(*, "variable.labels")= chr [1:22] "ID" "Myocardial infarction" "Congestive heart failure" "Peripheral vascular disease" ...</span></code></pre></div>
-<p>The Charlson score based on ICD-10 data:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">charlson10</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data10</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"charlson"</span>, icd <span class="op">=</span> <span class="st">"icd10"</span>, assign0 <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">charlson10</span><span class="op">)</span>
-<span class="co">#&gt; 'data.frame':    10 obs. of  22 variables:</span>
-<span class="co">#&gt;  $ id      : int  1 2 3 4 5 6 7 8 9 10</span>
-<span class="co">#&gt;  $ ami     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ chf     : int  0 0 0 0 1 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pvd     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ cevd    : int  0 0 0 0 0 0 0 1 0 1</span>
-<span class="co">#&gt;  $ dementia: int  0 1 0 0 0 1 0 0 0 0</span>
-<span class="co">#&gt;  $ copd    : int  1 0 0 0 0 0 0 0 0 1</span>
-<span class="co">#&gt;  $ rheumd  : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pud     : int  0 0 0 0 0 1 0 0 0 0</span>
-<span class="co">#&gt;  $ mld     : int  0 0 0 0 0 0 0 1 0 0</span>
-<span class="co">#&gt;  $ diab    : int  0 0 0 0 0 0 1 0 0 0</span>
-<span class="co">#&gt;  $ diabwc  : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hp      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ rend    : int  0 0 0 0 0 0 1 0 0 0</span>
-<span class="co">#&gt;  $ canc    : int  1 1 1 1 0 0 0 1 1 0</span>
-<span class="co">#&gt;  $ msld    : int  0 0 0 0 0 0 0 1 1 0</span>
-<span class="co">#&gt;  $ metacanc: num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ aids    : int  0 1 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ score   : num  2 3 1 1 1 2 2 4 2 2</span>
-<span class="co">#&gt;  $ index   : Factor w/ 4 levels "0","1-2","3-4",..: 2 3 2 2 2 2 2 3 2 2</span>
-<span class="co">#&gt;  $ wscore  : num  3 9 2 2 1 2 3 7 5 2</span>
-<span class="co">#&gt;  $ windex  : Factor w/ 4 levels "0","1-2","3-4",..: 3 4 2 2 2 2 3 4 4 2</span>
-<span class="co">#&gt;  - attr(*, "variable.labels")= chr [1:22] "ID" "Myocardial infarction" "Congestive heart failure" "Peripheral vascular disease" ...</span></code></pre></div>
-<p>The Elixhauser score based on ICD-9-CM data:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">elixhauser9</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data9</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"elixhauser"</span>, icd <span class="op">=</span> <span class="st">"icd9"</span>, assign0 <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">elixhauser9</span><span class="op">)</span>
-<span class="co">#&gt; 'data.frame':    10 obs. of  38 variables:</span>
-<span class="co">#&gt;  $ id         : int  1 2 3 4 5 6 7 8 9 10</span>
-<span class="co">#&gt;  $ chf        : int  0 0 0 0 0 0 1 0 0 0</span>
-<span class="co">#&gt;  $ carit      : int  0 0 0 0 0 1 0 0 0 0</span>
-<span class="co">#&gt;  $ valv       : int  0 0 0 0 1 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pcd        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pvd        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hypunc     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hypc       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ para       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ ond        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ cpd        : int  0 0 1 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ diabunc    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ diabc      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hypothy    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ rf         : int  0 1 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ ld         : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pud        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ aids       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ lymph      : int  0 1 1 0 0 0 1 0 0 1</span>
-<span class="co">#&gt;  $ metacanc   : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ solidtum   : int  0 1 0 0 0 1 0 0 1 1</span>
-<span class="co">#&gt;  $ rheumd     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ coag       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ obes       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ wloss      : int  0 1 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ fed        : int  0 0 0 0 0 0 0 0 0 1</span>
-<span class="co">#&gt;  $ blane      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ dane       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ alcohol    : int  0 0 0 0 0 0 0 0 0 1</span>
-<span class="co">#&gt;  $ drug       : int  0 0 0 0 1 0 0 0 0 0</span>
-<span class="co">#&gt;  $ psycho     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ depre      : int  0 0 0 0 0 0 1 0 1 0</span>
-<span class="co">#&gt;  $ score      : num  0 4 2 0 2 2 3 0 2 4</span>
-<span class="co">#&gt;  $ index      : Factor w/ 4 levels "&lt;0","0","1-4",..: 2 3 3 2 3 3 3 2 3 3</span>
-<span class="co">#&gt;  $ wscore_ahrq: num  0 28 9 0 -7 7 10 0 2 23</span>
-<span class="co">#&gt;  $ wscore_vw  : num  0 24 12 0 -8 9 13 0 1 18</span>
-<span class="co">#&gt;  $ windex_ahrq: Factor w/ 4 levels "&lt;0","0","1-4",..: 2 4 4 2 1 4 4 2 3 4</span>
-<span class="co">#&gt;  $ windex_vw  : Factor w/ 4 levels "&lt;0","0","1-4",..: 2 4 4 2 1 4 4 2 3 4</span>
-<span class="co">#&gt;  - attr(*, "variable.labels")= chr [1:38] "ID" "Congestive heart failure" "Cardiac arrhythmias" "Valvular disease" ...</span></code></pre></div>
-<p>Finally, the Elixhauser score based on ICD-10 data:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">elixhauser10</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data10</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"elixhauser"</span>, icd <span class="op">=</span> <span class="st">"icd10"</span>, assign0 <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">elixhauser10</span><span class="op">)</span>
-<span class="co">#&gt; 'data.frame':    10 obs. of  38 variables:</span>
-<span class="co">#&gt;  $ id         : int  1 2 3 4 5 6 7 8 9 10</span>
-<span class="co">#&gt;  $ chf        : int  0 0 0 0 1 0 0 0 0 0</span>
-<span class="co">#&gt;  $ carit      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ valv       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ pcd        : int  0 0 0 0 0 1 0 0 0 0</span>
-<span class="co">#&gt;  $ pvd        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hypunc     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hypc       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ para       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ ond        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ cpd        : int  1 0 0 0 0 0 0 0 0 1</span>
-<span class="co">#&gt;  $ diabunc    : int  0 0 0 0 0 0 1 0 0 0</span>
-<span class="co">#&gt;  $ diabc      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ hypothy    : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ rf         : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ ld         : int  0 0 0 0 0 0 0 1 1 0</span>
-<span class="co">#&gt;  $ pud        : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ aids       : int  0 1 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ lymph      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ metacanc   : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ solidtum   : int  1 1 1 1 0 0 0 1 0 0</span>
-<span class="co">#&gt;  $ rheumd     : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ coag       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ obes       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ wloss      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ fed        : int  0 0 0 1 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ blane      : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ dane       : num  0 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ alcohol    : int  1 0 0 0 0 0 0 0 0 0</span>
-<span class="co">#&gt;  $ drug       : int  0 0 0 0 1 0 0 1 0 0</span>
-<span class="co">#&gt;  $ psycho     : int  0 0 0 0 0 0 0 1 0 0</span>
-<span class="co">#&gt;  $ depre      : int  0 0 0 0 0 0 1 0 0 1</span>
-<span class="co">#&gt;  $ score      : num  3 2 1 2 2 1 2 4 1 2</span>
-<span class="co">#&gt;  $ index      : Factor w/ 4 levels "&lt;0","0","1-4",..: 3 3 3 3 3 3 3 3 3 3</span>
-<span class="co">#&gt;  $ wscore_ahrq: num  9 7 7 18 2 6 -5 -1 4 -2</span>
-<span class="co">#&gt;  $ wscore_vw  : num  7 4 4 9 0 4 -3 8 11 0</span>
-<span class="co">#&gt;  $ windex_ahrq: Factor w/ 4 levels "&lt;0","0","1-4",..: 4 4 4 4 3 4 1 1 3 1</span>
-<span class="co">#&gt;  $ windex_vw  : Factor w/ 4 levels "&lt;0","0","1-4",..: 4 3 3 4 2 3 1 4 4 2</span>
-<span class="co">#&gt;  - attr(*, "variable.labels")= chr [1:38] "ID" "Congestive heart failure" "Cardiac arrhythmias" "Valvular disease" ...</span></code></pre></div>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <ul>
-<li><p>Charlson ME, Pompei P, Ales KL, et al. <em>A new method of classifying prognostic comorbidity in longitudinal studies: development and validation</em>. Journal of Chronic Diseases 1987; 40:373-383. DOI: <a href="https://doi.org/10.1016/0021-9681(87)90171-8">10.1016/0021-9681(87)90171-8</a></p></li>
-<li><p>Sharabiani MT, Aylin P, Bottle A. <em>Systematic review of comorbidity indices for administrative data</em>. Medical Care 2012; 50(12):1109-1118. DOI: <a href="https://doi.org/10.1097/MLR.0b013e31825f64d0">10.1097/MLR.0b013e31825f64d0</a></p></li>
-<li><p>Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. <em>Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data</em>. Medical Care 2005; 43(11):1130-1139. DOI: <a href="https://doi.org/10.1097/01.mlr.0000182534.19832.83">10.1097/01.mlr.0000182534.19832.83</a></p></li>
-<li><p>Menendez ME, Neuhaus V, van Dijk CN, Ring D. <em>The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery</em>. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886. DOI: <a href="https://doi.org/10.1007/s11999-014-3686-7">10.1007/s11999-014-3686-7</a></p></li>
-<li><p>Elixhauser A, Steiner C, Harris DR and Coffey RM. <em>Comorbidity measures for use with administrative data</em>. Medical Care 1998; 36(1):8-27. DOI: <a href="https://doi.org/10.1097/00005650-199801000-00004">10.1097/00005650-199801000-00004</a></p></li>
-<li><p>Garland A, Fransoo R, Olafson K, Ramsey C, Yogendran M, Chateau D, McGowan K. <em>The epidemiology and outcomes of critical illness in Manitoba</em>. Winnipeg, MB: Manitoba Centre for Health Policy, 2012. URL: <a href="http://mchp-appserv.cpe.umanitoba.ca/reference/MCHP_ICU_Report_WEB_(20120403).pdf" class="uri">http://mchp-appserv.cpe.umanitoba.ca/reference/MCHP_ICU_Report_WEB_(20120403).pdf</a></p></li>
+<li><p>Charlson ME et al. <em>A new method of classifying prognostic comorbidity in longitudinal studies: development and validation</em>. Journal of Chronic Diseases 1987; 40:373-383. DOI: <a href="https://doi.org/10.1016/0021-9681(87)90171-8">10.1016/0021-9681(87)90171-8</a></p></li>
+<li><p>Elixhauser A et al. <em>Comorbidity measures for use with administrative data</em>. Medical Care 1998; 36(1):8-27. DOI: <a href="https://doi.org/10.1097/00005650-199801000-00004">10.1097/00005650-199801000-00004</a></p></li>
+<li><p>Ludvigsson JF et al. <em>Adaptation of the Charlson Comorbidity Index for register-based research in Sweden</em>. Clinical Epidemiology 2021; 13:21–41. DOI: <a href="http://dx.doi.org/10.2147/clep.s282475">10.2147/clep.s282475</a></p></li>
+<li><p>Quan H et al. <em>Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data</em>. Medical Care 2005; 43(11):1130-1139. DOI: <a href="https://doi.org/10.1097/01.mlr.0000182534.19832.83">10.1097/01.mlr.0000182534.19832.83</a></p></li>
+<li><p>Quan H et al. <em>Updating and validating the Charlson Comorbidity Index and score for risk adjustment in hospital discharge abstracts using data from 6 countries</em>. American Journal of Epidemiology 2011;173(6):676-82. DOI: <a href="http://dx.doi.org/10.1093/aje/kwq433">10.1093/aje/kwq433</a></p></li>
+<li><p>Sharma N et al. <em>Comparing Charlson and Elixhauser comorbidity indices with different weightings to predict in-hospital mortality: an analysis of national inpatient data</em>. BMC Health Services Research 2021; 21(1). DOI: <a href="http://dx.doi.org/10.1186/s12913-020-05999-5">10.1186/s12913-020-05999-5</a></p></li>
 <li><p>van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. <em>A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data</em>. Medical Care 2009; 47(6):626-633. DOI: <a href="https://doi.org/10.1097/MLR.0b013e31819432e5">10.1097/MLR.0b013e31819432e5</a></p></li>
-<li><p>Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. <em>Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index</em>. Medical Care 2017; 55(7):698-705. DOI: <a href="https://doi.org/10.1097/MLR.0000000000000735">10.1097/MLR.0000000000000735</a></p></li>
 </ul>
 </div>
   </div>
