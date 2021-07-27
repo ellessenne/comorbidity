@@ -30,7 +30,7 @@ Authors@R:
       person(given = "Edmund",
              family = "Teo",
              role = "ctb",
-             email = ed_teo8@yahoo.com.sg,
+             email = "ed_teo8@yahoo.com.sg",
              comment = c(ORCID = "0000-0003-3936-4082")))
 Maintainer: Alessandro Gasparini <alessandro.gasparini@ki.se>
 URL: https://ellessenne.github.io/comorbidity/
