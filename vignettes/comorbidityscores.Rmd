@@ -22,7 +22,7 @@ The {comorbidity} package can apply comorbidity mappings corresponding to the Ch
 Both ICD-9 and ICD-10 coding systems are supported, with algorithms described in the paper by Quan et al. (2005).
 The resulting mapping algorithms are denoted with `charlson_icd9_quan` and `charlson_icd10_quan` for the Charlson score (based on ICD-9 and ICD-10 systems, respectively), `elixhauser_icd9_quan` and `elixhauser_icd10_quan` for the Elixhauser score.
 
-Furthermore, the Swedish (Ludvigsson et al., 2021) and Australian (Sundararajan et al., 2004) modification of the Charlson score are implemented as well, and identified by `charlson_icd10_se` and `charlson_icd10_am` respectively.
+Furthermore, the Swedish (Ludvigsson et al., 2021) and Australian (Sundararajan et al., 2004) modifications of the Charlson score are implemented as well, and identified by `charlson_icd10_se` and `charlson_icd10_am` respectively.
 
 # Supported Weighting Algorithms
 
