@@ -19,7 +19,7 @@ Codes must be in upper case with no punctuation in order to be properly recognis
 \item{map}{The mapping algorithm to be used (values are case-insensitive).
 Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (\code{charlson_icd10_quan}, \code{charlson_icd9_quan}) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (\code{elixhauser_icd10_quan}, \code{elixhauser_icd9_quan}).
 These mapping are based on the paper by Quan et al. (2011).
-It is also possible to obtain a Swedish modification of the Charlson score using ICD-10 codes (\code{charlson_icd10_se}).}
+It is also possible to obtain a Swedish (\code{charlson_icd10_se}) or Australian (\code{charlson_icd10_am}) modification of the Charlson score using ICD-10 codes.}
 
 \item{assign0}{Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
 By doing this, a type of comorbidity is not counted more than once in each patient.
@@ -131,4 +131,6 @@ Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. \emph{Codi
 Charlson ME, Pompei P, Ales KL, et al. \emph{A new method of classifying prognostic comorbidity in longitudinal studies: development and validation}. Journal of Chronic Diseases 1987; 40:373-383.
 
 Ludvigsson JF, Appelros P, Askling J et al. \emph{Adaptation of the Charlson Comorbidity Index for register-based research in Sweden}. Clinical Epidemiology 2021; 13:21-41.
+
+Sundararajan V, Henderson T, Perry C, Muggivan A, Quan H, Ghali WA. \emph{New ICD-10 version of the Charlson comorbidity index predicted in-hospital mortality}. Journal of Clinical Epidemiology 2004; 57(12):1288-1294.
 }
