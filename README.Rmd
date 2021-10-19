@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 options(width = 100)
 ```
 
-# comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
+# The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
 README last updated: `r Sys.Date()`
 

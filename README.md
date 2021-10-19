@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# comorbidity <img src="man/figures/hex.png" width = "150" align="right" />
+# The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
 README last updated: 2021-10-19
 
@@ -48,10 +48,6 @@ For instance, we could simulate ICD-10 codes:
 ``` r
 # load the comorbidity package
 library(comorbidity)
-## This is {comorbidity} version 1.0.0.
-## A lot has changed since the last release on CRAN, please check-out breaking changes here:
-## -> https://ellessenne.github.io/comorbidity/articles/C-changes.html
-## Sorry to bother you! This message will disappear in future updates.
 # set a seed for reproducibility
 set.seed(1)
 # simulate 50 ICD-10 codes for 5 individuals
