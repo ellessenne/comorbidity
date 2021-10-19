@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Adult same-day discharges, 2010 — nhds2010 • comorbidity</title>
+<title>Display Currently Supported Algorithms — available_algorithms • comorbidity</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Adult same-day discharges, 2010 — nhds2010" />
-<meta property="og:description" content="A dataset containing adult same-day discharges from 2010, obtained from Stata 17." />
+<meta property="og:title" content="Display Currently Supported Algorithms — available_algorithms" />
+<meta property="og:description" content="This function prints all (currently) supported and implemented
+comorbidity mapping, and for each one of those, each supported scoring and
+weighting algorithm." />
 
 <meta name="robots" content="noindex" />
 
@@ -129,43 +131,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Adult same-day discharges, 2010</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ellessenne/comorbidity/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>nhds2010.Rd</code></div>
+    <h1>Display Currently Supported Algorithms</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ellessenne/comorbidity/blob/master/R/available_algorithms.R'><code>R/available_algorithms.R</code></a></small>
+    <div class="hidden name"><code>available_algorithms.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A dataset containing adult same-day discharges from 2010, obtained from Stata 17.</p>
+    <p>This function prints all (currently) supported and implemented
+comorbidity mapping, and for each one of those, each supported scoring and
+weighting algorithm.</p>
     </div>
 
-    <pre class="usage"><span class='va'>nhds2010</span></pre>
+    <pre class="usage"><span class='fu'>available_algorithms</span><span class='op'>(</span><span class='op'>)</span></pre>
 
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 2,210 rows and 15 variables:</p><dl>
-<dt>ageu</dt><dd><p>Units for age</p></dd>
-<dt>age</dt><dd><p>Age</p></dd>
-<dt>sex</dt><dd><p>Sex</p></dd>
-<dt>race</dt><dd><p>Race</p></dd>
-<dt>month</dt><dd><p>Discharge month</p></dd>
-<dt>status</dt><dd><p>Discharge status</p></dd>
-<dt>region</dt><dd><p>Region</p></dd>
-<dt>atype</dt><dd><p>Type of admission</p></dd>
-<dt>dx1</dt><dd><p>Diagnosis 1, ICD9-CM</p></dd>
-<dt>dx2</dt><dd><p>Diagnosis 2, ICD9-CM</p></dd>
-<dt>dx3</dt><dd><p>Diagnosis 3, ICD9-CM, imported incorrectly</p></dd>
-<dt>dx3corr</dt><dd><p>Diagnosis 3, ICD9-CM, corrected</p></dd>
-<dt>pr1</dt><dd><p>Procedure 1</p></dd>
-<dt>wgt</dt><dd><p>Frequency weight</p></dd>
-<dt>recid</dt><dd><p>Order of record (raw data)</p></dd>
-
-</dl>
-
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>The R code used to download and process the dataset from Stata is available <a href='https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R'>here</a>.</p>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>available_algorithms</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Supported comorbidity mapping algorithms:
+#&gt; 	* charlson_icd9_quan 
+#&gt; 	* charlson_icd10_quan 
+#&gt; 	* charlson_icd10_se 
+#&gt; 	* charlson_icd10_am 
+#&gt; 	* elixhauser_icd9_quan 
+#&gt; 	* elixhauser_icd10_quan 
+#&gt; 
+#&gt; Supported scoring weights algorithms:
+#&gt; 	* For charlson_icd9_quan: charlson, quan 
+#&gt; 	* For charlson_icd10_quan: charlson, quan 
+#&gt; 	* For charlson_icd10_se: charlson, quan 
+#&gt; 	* For charlson_icd10_am: charlson, quan 
+#&gt; 	* For elixhauser_icd9_quan: vw, swiss 
+#&gt; 	* For elixhauser_icd10_quan: vw, swiss </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

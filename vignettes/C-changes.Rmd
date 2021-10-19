@@ -1,6 +1,6 @@
 ---
-title: "Updating to {comorbidity} 0.6.0"
-description: "Introducing the breaking changes introduced with {comorbidity} version 0.6.0"
+title: "Updating to {comorbidity} 1.0.0"
+description: "Introducing the breaking changes introduced with {comorbidity} version 1.0.0"
 author: "Alessandro Gasparini"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -15,8 +15,103 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+The 1.0.0 release of the {comorbidity} package consists of a vast rewrite of the package API and internals, which unfortunately introduces a variety of breaking changes by modifying the behaviour of the user-facing `comorbidity()` function.
+This article describes some of the changes, including some examples using simulated data and comparisons with the previous API.
+
+The simulated dataset (with 10 subjects and a total of 250 ICD codes) that we will be using throughout this article can be generated as follows:
+
+```{r}
 library(comorbidity)
+
+set.seed(2837465)
+
+sim_data <- data.frame(
+  id = sample(x = seq(10), size = 250, replace = TRUE),
+  code = sample_diag(n = 250)
+)
+sim_data <- sim_data[order(sim_data$id), ]
+str(sim_data)
 ```
 
-This article introduces breaking changes that were introduced with {comorbidity} version 0.6.0.
+We use ICD-10 only (to simplify this document), but everything applies to ICD-9 as well (with the obvious adjustments).
+
+# Comorbidity Mapping and Scoring are Now Distinct Functions
+
+With the previous release of {comorbidity}, the comorbidity mapping and scoring algorithms were applied jointly with a single function call:
+
+```r
+comorbidity(x = sim_data, id = "id", code = "code", score = "charlson", icd = "icd10", assign0 = FALSE)
+#>    id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc
+#> 1   1   0   0   0    0        0    0      0   0   0    0      0  1    0    1
+#> 2   2   0   0   0    0        0    0      0   0   0    1      1  0    0    1
+#> 3   3   0   0   0    0        0    0      0   1   0    0      0  0    0    0
+#> 4   4   0   0   0    1        0    0      0   0   0    0      0  0    0    1
+#> 5   5   0   0   0    0        0    0      0   0   0    1      0  0    0    0
+#> 6   6   0   0   0    0        0    0      0   0   0    0      0  0    0    0
+#> 7   7   0   0   0    0        0    0      0   0   0    0      0  0    1    1
+#> 8   8   0   0   0    1        0    0      1   0   0    1      1  0    0    1
+#> 9   9   0   0   0    0        0    0      0   0   0    0      0  0    0    1
+#> 10 10   0   0   0    0        0    0      0   0   0    0      0  0    0    1
+#>    msld metacanc aids score index wscore windex
+#> 1     0        0    0     2   1-2      4    3-4
+#> 2     0        0    0     3   3-4      5    >=5
+#> 3     0        0    0     1   1-2      1    1-2
+#> 4     0        0    0     2   1-2      3    3-4
+#> 5     0        0    0     1   1-2      1    1-2
+#> 6     0        0    0     0     0      0      0
+#> 7     0        0    0     2   1-2      4    3-4
+#> 8     0        0    0     5   >=5      7    >=5
+#> 9     0        0    0     1   1-2      2    1-2
+#> 10    0        0    0     1   1-2      2    1-2
+```
+
+Now, we first need to apply the mapping algorithm:
+
+```{r}
+com <- comorbidity(x = sim_data, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
+com
+```
+
+...which yields the same results shown above.
+
+Then, if we need to calculate comorbidity scores, we can use the `score()` function:
+
+```{r}
+score(com, assign0 = FALSE, weights = NULL)
+```
+
+This yields unweighted scores (e.g. equivalent to the `score` column above).
+If we need weighted scores (e.g. the `wscore` column above, which assumes the old Charlson score weights from 1987), we can pass the name of a supported scoring algorithm:
+
+```{r}
+score(com, assign0 = FALSE, weights = "charlson")
+```
+
+Once again, all the results from the `score()` function are equivalent to what we obtained using the previously-released version.
+
+# Supported Mapping and Scoring Algorithms
+
+The new version includes updated comorbidity mapping and scoring algorithms.
+Furthermore, it is designed in such a way that should simplify the addition of new scores in the future.
+The currently supported comorbidity mapping algorithms are described in the following vignette:
+
+```r
+vignette("02-comorbidityscores", package = "comorbidity")
+```
+
+Alternatively, a new function is provided to display supported algorithms in the R console:
+
+```{r}
+available_algorithms()
+```
+
+This is picked up _auto-magically_ from the internal data structures, so it *should* always be up-to-date.
+
+# Computational Speed
+
+The internal re-writing of the package API allowed optimising code for speed and efficiency.
+We managed to estimate, using simulated data, that the main comorbidity mapping function (e.g. `comorbidity()`) should be approximately twice as fast as version 0.5.3, across a variety of sample sizes:
+
+<img src="https://github.com/ellessenne/comorbidity/raw/master/inst/Timing/plot.png" width="100%">
+
+This is the main computational bottleneck, as applying the scoring algorithm should be very fast in general.

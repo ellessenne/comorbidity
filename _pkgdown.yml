@@ -1,5 +1,5 @@
 url: https://ellessenne.github.io/comorbidity
 template:
   params:
-    bootswatch: flatly
+    bootswatch: cosmo
     noindex: true
