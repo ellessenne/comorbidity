@@ -18,8 +18,9 @@ Possible values for the Charlson index are:
 Possible values for the Elixhauser score are:
 \item \code{vw}, for the weights by van Walraver et al. (2009);
 \item \code{swiss}, for the Swiss Elixhauser weights by Sharma et al. (2021).
-Defaults to \code{NULL}, in which case an unweighted score will be used.
-}}
+}
+
+Defaults to \code{NULL}, in which case an unweighted score will be used.}
 
 \item{assign0}{Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0 when calculating the score.
 By doing this, a type of comorbidity is not counted more than once in each patient.

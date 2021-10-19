@@ -10,6 +10,7 @@
 #' Possible values for the Elixhauser score are:
 #' * `vw`, for the weights by van Walraver et al. (2009);
 #' * `swiss`, for the Swiss Elixhauser weights by Sharma et al. (2021).
+#'
 #' Defaults to `NULL`, in which case an unweighted score will be used.
 #'
 #' @param assign0 Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0 when calculating the score.
