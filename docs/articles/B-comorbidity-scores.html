@@ -55,10 +55,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/comorbidityscores.html">Supported Comorbidity Mappings and Scores</a>
+      <a href="../articles/A-introduction.html">Introduction</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">Introduction</a>
+      <a href="../articles/B-comorbidity-scores.html">Supported Comorbidity Mappings and Scores</a>
+    </li>
+    <li>
+      <a href="../articles/C-changes.html">Updating to {comorbidity} 0.6.0</a>
     </li>
   </ul>
 </li>
@@ -83,16 +86,16 @@
 
       
 
-      </header><script src="comorbidityscores_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="B-comorbidity-scores_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Supported Comorbidity Mappings and Scores</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2021-07-21</h4>
+            <h4 class="date">2021-10-19</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ellessenne/comorbidity/blob/master/vignettes/comorbidityscores.Rmd"><code>vignettes/comorbidityscores.Rmd</code></a></small>
-      <div class="hidden name"><code>comorbidityscores.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/ellessenne/comorbidity/blob/master/vignettes/B-comorbidity-scores.Rmd"><code>vignettes/B-comorbidity-scores.Rmd</code></a></small>
+      <div class="hidden name"><code>B-comorbidity-scores.Rmd</code></div>
 
     </div>
 
@@ -104,7 +107,7 @@
 <h1 class="hasAnchor">
 <a href="#supported-mapping-algorithms" class="anchor"></a>Supported Mapping Algorithms</h1>
 <p>The {comorbidity} package can apply comorbidity mappings corresponding to the Charlson and the Elixhauser comorbidity scores. Both ICD-9 and ICD-10 coding systems are supported, with algorithms described in the paper by Quan et al. (2005). The resulting mapping algorithms are denoted with <code>charlson_icd9_quan</code> and <code>charlson_icd10_quan</code> for the Charlson score (based on ICD-9 and ICD-10 systems, respectively), <code>elixhauser_icd9_quan</code> and <code>elixhauser_icd10_quan</code> for the Elixhauser score.</p>
-<p>Furthermore, a Swedish modification of the Charlson score (Ludvigsson et al., 2021) is implemented as well, and identified by <code>charlson_icd10_se</code>.</p>
+<p>Furthermore, the Swedish (Ludvigsson et al., 2021) and Australian (Sundararajan et al., 2004) modifications of the Charlson score are implemented as well, and identified by <code>charlson_icd10_se</code> and <code>charlson_icd10_am</code> respectively.</p>
 </div>
 <div id="supported-weighting-algorithms" class="section level1">
 <h1 class="hasAnchor">
@@ -131,6 +134,7 @@
 <li><p>Quan H et al. <em>Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data</em>. Medical Care 2005; 43(11):1130-1139. DOI: <a href="https://doi.org/10.1097/01.mlr.0000182534.19832.83">10.1097/01.mlr.0000182534.19832.83</a></p></li>
 <li><p>Quan H et al. <em>Updating and validating the Charlson Comorbidity Index and score for risk adjustment in hospital discharge abstracts using data from 6 countries</em>. American Journal of Epidemiology 2011;173(6):676-82. DOI: <a href="http://dx.doi.org/10.1093/aje/kwq433">10.1093/aje/kwq433</a></p></li>
 <li><p>Sharma N et al. <em>Comparing Charlson and Elixhauser comorbidity indices with different weightings to predict in-hospital mortality: an analysis of national inpatient data</em>. BMC Health Services Research 2021; 21(1). DOI: <a href="http://dx.doi.org/10.1186/s12913-020-05999-5">10.1186/s12913-020-05999-5</a></p></li>
+<li><p>Sundararajan V et al. <em>New ICD-10 version of the Charlson comorbidity index predicted in-hospital mortality</em>. Journal of Clinical Epidemiology 2004; 57(12):1288-1294. DOI: <a href="http://dx.doi.org/10.1016/j.jclinepi.2004.03.012">10.1016/j.jclinepi.2004.03.012</a></p></li>
 <li><p>van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. <em>A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data</em>. Medical Care 2009; 47(6):626-633. DOI: <a href="https://doi.org/10.1097/MLR.0b013e31819432e5">10.1097/MLR.0b013e31819432e5</a></p></li>
 </ul>
 </div>

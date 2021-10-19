@@ -94,10 +94,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/comorbidityscores.html">Supported Comorbidity Mappings and Scores</a>
+      <a href="../articles/A-introduction.html">Introduction</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">Introduction</a>
+      <a href="../articles/B-comorbidity-scores.html">Supported Comorbidity Mappings and Scores</a>
+    </li>
+    <li>
+      <a href="../articles/C-changes.html">Updating to {comorbidity} 0.6.0</a>
     </li>
   </ul>
 </li>
@@ -199,7 +202,7 @@
 <div id="breaking-changes-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#breaking-changes-1" class="anchor"></a>BREAKING CHANGES</h3>
-<p>Modified the behaviour of the <code>assign0</code> argument after further discussion with <a href="https://github.com/aalexandersson">Anders Alexandersson</a> in Issue <a href='https://github.com/ellessenne/comorbidity/issues/9'>#9</a>: now there is no default, forcing the user to decide whether to apply a hierarchy of comorbidity codes or not. This will make the algorithm more transparent to the end user, allowing an informed choice. See <code><a href="../reference/comorbidity.html">?comorbidity::comorbidity</a></code> and <code><a href="../articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the hierarchy being applied.</p>
+<p>Modified the behaviour of the <code>assign0</code> argument after further discussion with <a href="https://github.com/aalexandersson">Anders Alexandersson</a> in Issue <a href='https://github.com/ellessenne/comorbidity/issues/9'>#9</a>: now there is no default, forcing the user to decide whether to apply a hierarchy of comorbidity codes or not. This will make the algorithm more transparent to the end user, allowing an informed choice. See <code><a href="../reference/comorbidity.html">?comorbidity::comorbidity</a></code> and <code><a href="https://ellessenne.github.io/comorbidity/articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the hierarchy being applied.</p>
 </div>
 </div>
     <div id="comorbidity-030" class="section level1">
@@ -210,7 +213,7 @@
 <h3 class="hasAnchor">
 <a href="#breaking-changes-2" class="anchor"></a>BREAKING CHANGES</h3>
 <p><code>comorbidity</code> now returns two Elixhauser scores, one computed using the algorithm of val Walraven <em>et al</em>. (2009) and a second one computed using the AHRQ algorithm (Moore <em>et al</em>., 2017). Thanks to Yumiko Abe-Jones for feedback and the discussion regarding weighted Elixhauser scores.</p>
-<p>More information can be found on the package vignette: <code><a href="../articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code>.</p>
+<p>More information can be found on the package vignette: <code><a href="https://ellessenne.github.io/comorbidity/articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code>.</p>
 </div>
 </div>
     <div id="comorbidity-021" class="section level1">

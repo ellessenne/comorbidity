@@ -2,7 +2,10 @@
 title: "Updating to {comorbidity} 0.6.0"
 description: "Introducing the breaking changes introduced with {comorbidity} version 0.6.0"
 author: "Alessandro Gasparini"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
