@@ -115,3 +115,16 @@ We managed to estimate, using simulated data, that the main comorbidity mapping 
 <img src="https://github.com/ellessenne/comorbidity/raw/master/inst/Timing/plot.png" width="100%">
 
 This is the main computational bottleneck, as applying the scoring algorithm should be very fast in general.
+
+# Reverting to previous release
+
+I understand that this new release might break some workflows, so apologies for that.
+If you have some feedback, please feel free to e-mail the maintainer of the package or to [open an issue on GitHub](https://github.com/ellessenne/comorbidity/issues) (the latter being strongly recommended!).
+
+Finally, if required, you can revert to the previous release by installing from GitHub:
+
+```r
+library(remotes)
+remotes::install_github("ellessenne/comorbidity@0.5.3")
+```
+

@@ -136,8 +136,11 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#comorbidity-development-version" class="anchor"></a>comorbidity (development version)<small> Unreleased </small>
 </h1>
-<p><code>comorbidity</code> version 1.0.0 is a release that substantially modifies and updates the package API. There is a lot of improvements, in terms of performance, supported algorithms, and user-facing functions; see e.g. discussion <a href="https://github.com/ellessenne/comorbidity/pull/38"><a href='https://github.com/ellessenne/comorbidity/issues/38'>#38</a></a>.</p>
-<p>If required, you can revert to the previous release by installing from GitHub: <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("ellessenne/comorbidity@0.5.3")</a></code>.</p>
+<ul>
+<li><p><code>comorbidity</code> version 1.0.0 is a release that substantially modifies and updates the package API. There is a lot of improvements, in terms of performance, supported algorithms, and user-facing functions; see e.g. discussion <a href="https://github.com/ellessenne/comorbidity/pull/38"><a href='https://github.com/ellessenne/comorbidity/issues/38'>#38</a></a>. Changes are discussed in more detail here: <a href="https://ellessenne.github.io/comorbidity/articles/C-changes.html" class="uri">https://ellessenne.github.io/comorbidity/articles/C-changes.html</a></p></li>
+<li><p>If required, you can revert to the previous release by installing from GitHub: <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("ellessenne/comorbidity@0.5.3")</a></code>.</p></li>
+<li><p>A startup message pointing out the changes in the API is now displayed with 50% probability when attaching the package, and will be removed in future releases.</p></li>
+</ul>
 </div>
     <div id="comorbidity-053" class="section level1">
 <h1 class="page-header" data-toc-text="0.5.3">
@@ -192,7 +195,7 @@
 <div id="breaking-changes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#breaking-changes" class="anchor"></a>BREAKING CHANGES</h3>
-<p>Modified the behaviour of the <code>assign0</code> argument after further discussion with <a href="https://github.com/aalexandersson">Anders Alexandersson</a> in Issue <a href='https://github.com/ellessenne/comorbidity/issues/9'>#9</a>: now there is no default, forcing the user to decide whether to apply a hierarchy of comorbidity codes or not. This will make the algorithm more transparent to the end user, allowing an informed choice. See <code><a href="../reference/comorbidity.html">?comorbidity::comorbidity</a></code> and <code><a href="https://ellessenne.github.io/comorbidity/articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code> for further details on the hierarchy being applied.</p>
+<p>Modified the behaviour of the <code>assign0</code> argument after further discussion with <a href="https://github.com/aalexandersson">Anders Alexandersson</a> in Issue <a href='https://github.com/ellessenne/comorbidity/issues/9'>#9</a>: now there is no default, forcing the user to decide whether to apply a hierarchy of comorbidity codes or not. This will make the algorithm more transparent to the end user, allowing an informed choice. See <code><a href="../reference/comorbidity.html">?comorbidity::comorbidity</a></code> and <code>vignette("comorbidityscores", package = "comorbidity")</code> for further details on the hierarchy being applied.</p>
 </div>
 </div>
     <div id="comorbidity-030" class="section level1">
@@ -203,7 +206,7 @@
 <h3 class="hasAnchor">
 <a href="#breaking-changes-1" class="anchor"></a>BREAKING CHANGES</h3>
 <p><code>comorbidity</code> now returns two Elixhauser scores, one computed using the algorithm of val Walraven <em>et al</em>. (2009) and a second one computed using the AHRQ algorithm (Moore <em>et al</em>., 2017). Thanks to Yumiko Abe-Jones for feedback and the discussion regarding weighted Elixhauser scores.</p>
-<p>More information can be found on the package vignette: <code><a href="https://ellessenne.github.io/comorbidity/articles/comorbidityscores.html">vignette("comorbidityscores", package = "comorbidity")</a></code>.</p>
+<p>More information can be found on the package vignette: <code>vignette("comorbidityscores", package = "comorbidity")</code>.</p>
 </div>
 </div>
     <div id="comorbidity-021" class="section level1">

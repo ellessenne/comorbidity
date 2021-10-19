@@ -1,9 +1,12 @@
 # comorbidity (development version)
 
-`comorbidity` version 1.0.0 is a release that substantially modifies and updates the package API.
-There is a lot of improvements, in terms of performance, supported algorithms, and user-facing functions; see e.g. discussion [#38](https://github.com/ellessenne/comorbidity/pull/38).
+* `comorbidity` version 1.0.0 is a release that substantially modifies and updates the package API.
+  There is a lot of improvements, in terms of performance, supported algorithms, and user-facing functions; see e.g. discussion [#38](https://github.com/ellessenne/comorbidity/pull/38).
+  Changes are discussed in more detail here: https://ellessenne.github.io/comorbidity/articles/C-changes.html
 
-If required, you can revert to the previous release by installing from GitHub: `remotes::install_github("ellessenne/comorbidity@0.5.3")`.
+* If required, you can revert to the previous release by installing from GitHub: `remotes::install_github("ellessenne/comorbidity@0.5.3")`.
+
+* A startup message pointing out the changes in the API is now displayed with 50% probability when attaching the package, and will be removed in future releases.
 
 # comorbidity 0.5.3
 

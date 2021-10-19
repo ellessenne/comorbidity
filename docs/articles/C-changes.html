@@ -105,6 +105,10 @@
 <p>The simulated dataset (with 10 subjects and a total of 250 ICD codes) that we will be using throughout this article can be generated as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/comorbidity/">comorbidity</a></span><span class="op">)</span>
+<span class="co">#&gt; This is {comorbidity} version 1.0.0.</span>
+<span class="co">#&gt; A lot has changed since the last release on CRAN, please check-out breaking changes here:</span>
+<span class="co">#&gt; -&gt; https://ellessenne.github.io/comorbidity/articles/C-changes.html</span>
+<span class="co">#&gt; Sorry to bother you! This message will disappear in future updates.</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2837465</span><span class="op">)</span>
 
@@ -221,6 +225,15 @@
 <p>The internal re-writing of the package API allowed optimising code for speed and efficiency. We managed to estimate, using simulated data, that the main comorbidity mapping function (e.g. <code><a href="../reference/comorbidity.html">comorbidity()</a></code>) should be approximately twice as fast as version 0.5.3, across a variety of sample sizes:</p>
 <p><img src="https://github.com/ellessenne/comorbidity/raw/master/inst/Timing/plot.png" width="100%"></p>
 <p>This is the main computational bottleneck, as applying the scoring algorithm should be very fast in general.</p>
+</div>
+<div id="reverting-to-previous-release" class="section level1">
+<h1 class="hasAnchor">
+<a href="#reverting-to-previous-release" class="anchor"></a>Reverting to previous release</h1>
+<p>I understand that this new release might break some workflows, so apologies for that. If you have some feedback, please feel free to e-mail the maintainer of the package or to <a href="https://github.com/ellessenne/comorbidity/issues">open an issue on GitHub</a> (the latter being strongly recommended!).</p>
+<p>Finally, if required, you can revert to the previous release by installing from GitHub:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org">remotes</a></span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ellessenne/comorbidity@0.5.3"</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 
