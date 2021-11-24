@@ -303,8 +303,20 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   } else {
     if (score == 'elixhauser_ahrq_2020') {
       x <- get_ahrq_2020(x, id, code, assign0, drg, icd_rank)
-    } else {
+    } else if (score == 'elixhauser_ahrq_2021') {
       x <- get_ahrq_2021(
+        df = x,
+        patient_id = id,
+        icd_code = code,
+        icd_seq = icd_rank,
+        poa_code = poa,
+        year = year,
+        quarter = quarter,
+        icd10cm_vers = icd10cm_vers, # If NULL, vers derived from year/quarter columns
+        return_n_unique = T # For N comorbidity vs. N ICD-Codes per comorbdiity
+      )
+    } else {
+      x <- get_ahrq_2022(
         df = x,
         patient_id = id,
         icd_code = code,

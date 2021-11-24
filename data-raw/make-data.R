@@ -281,11 +281,18 @@ source('AHRQ-Elixhauser/sas-parse/icd10cm_2020_1/get_lofmsdrg.R')
 source('AHRQ-Elixhauser/sas-parse/icd10cm_2021_1/get_mappings.R')
 
 ########################################################################################################################
+### Internal Dataset #4: Get icd10cm_2022_1 icd mappings
+# Creates a list Elixhauser2022Formats with the following objects: 
+# ElixhauserAHRQ2022Map, ElixhauserAHRQ2022Abbr, ElixhauserAHRQ2022Labels
+source('AHRQ-Elixhauser/sas-parse/icd10cm_2022_1/get_mappings.R')
+
+########################################################################################################################
 # Export data as internal
 usethis::use_data(lofregex, 
                   lofmsdrg, 
-                  Elixhauser2021Formats,
+                  Elixhauser2021Formats, 
+                  Elixhauser2022Formats,
                   internal = TRUE, overwrite = TRUE)
-
+				  
 # Clean up space
 rm(list=ls())
