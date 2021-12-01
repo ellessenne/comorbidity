@@ -119,7 +119,7 @@ This is the main computational bottleneck, as applying the scoring algorithm sho
 # Reverting to previous release
 
 I understand that this new release might break some workflows, so apologies for that.
-If you have some feedback, please feel free to e-mail the maintainer of the package or to [open an issue on GitHub](https://github.com/ellessenne/comorbidity/issues) (the latter being strongly recommended!).
+If you have some feedback, please feel free to e-mail the maintainer of the package or to [open an issue on GitHub](https://github.com/ellessenne/comorbidity/issues), the latter being strongly suggested.
 
 Finally, if required, you can revert to the previous release by installing from GitHub:
 
@@ -127,4 +127,3 @@ Finally, if required, you can revert to the previous release by installing from 
 library(remotes)
 remotes::install_github("ellessenne/comorbidity@0.5.3")
 ```
-
