@@ -1,4 +1,4 @@
-# comorbidity (development version)
+# comorbidity 1.0.0
 
 * `comorbidity` version 1.0.0 is a release that substantially modifies and updates the package API.
   There is a lot of improvements, in terms of performance, supported algorithms, and user-facing functions; see e.g. [this thread on GitHub](https://github.com/ellessenne/comorbidity/pull/38).
@@ -8,7 +8,7 @@
 
 * A startup message pointing out the changes in the API is now displayed with 50% probability when attaching the package, and will be removed in future releases.
 
-* New contributors: Sing Yi Chia [@SY-CHIA] and Edmund Teo [@torema-ed].
+* New contributors: [Sing Yi Chia](https://github.com/SY-CHIA) and [Edmund Teo](https://github.com/torema-ed).
 
 # comorbidity 0.5.3
 
