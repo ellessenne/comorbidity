@@ -33,13 +33,11 @@ jobs:
           - {os: windows-latest, r: 'oldrel'}
           - {os: windows-latest, r: '3.5'}
           - {os: windows-latest, r: '3.4'}
-          - {os: windows-latest, r: '3.3'}
           - {os: ubuntu-latest,  r: 'devel'}
           - {os: ubuntu-latest,  r: 'release'}
           - {os: ubuntu-latest,  r: 'oldrel'}
           - {os: ubuntu-latest,  r: '3.5'}
           - {os: ubuntu-latest,  r: '3.4'}
-          - {os: ubuntu-latest,  r: '3.3'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
