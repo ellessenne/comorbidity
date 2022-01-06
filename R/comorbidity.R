@@ -184,7 +184,8 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
   checkmate::assert_choice(score, choices = c("charlson", 
                                               "elixhauser",
                                               "elixhauser_ahrq_2020",
-                                              "elixhauser_ahrq_2021"), 
+                                              "elixhauser_ahrq_2021",
+                                              "elixhauser_ahrq_2022"), 
                            add = arg_checks)
   # icd must be icd9, icd10; case insensitive
   icd <- tolower(icd)
@@ -201,15 +202,17 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
     add = arg_checks
   )
   # icd_rank and either (year & quarter) or icd10cm_vers must not be null
-  # when score = 'elixhauser_ahrq_2021'
+  # when score = 'elixhauser_ahrq_2021' or 'elixhauser_ahrq_2022'
   checkmate::assert_true(
-    (score=='elixhauser_ahrq_2021' & !is.null(icd_rank) & 
+    (
+      (score=='elixhauser_ahrq_2021' | score=='elixhauser_ahrq_2022') & 
+        !is.null(icd_rank) & 
        !is.null(icd10cm_vers)) | 
-      (score=='elixhauser_ahrq_2021' & 
+      ((score=='elixhauser_ahrq_2021' | score=='elixhauser_ahrq_2022') & 
          !is.null(icd_rank) & 
          !is.null(year) & 
          !is.null(quarter)) |
-      score != 'elixhauser_ahrq_2021',
+      (score!='elixhauser_ahrq_2021' & score!='elixhauser_ahrq_2022'),
     add = arg_checks
   )
   # if icd10cm_vers is specified for elixhauser_ahrq_2021, vers must be integer
@@ -220,6 +223,15 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
       (score=='elixhauser_ahrq_2021' & ifelse(is.null(icd10cm_vers), 
                                               F, 
                                               icd10cm_vers %in% 33:38))
+  )
+  # if icd10cm_vers is specified for elixhauser_ahrq_2022, vers must be integer
+  # in (33,34,35,36,37,38,39)
+  checkmate::assert_true(
+    score!='elixhauser_ahrq_2022' | 
+      (score=='elixhauser_ahrq_2022' & is.null(icd10cm_vers)) |
+      (score=='elixhauser_ahrq_2022' & ifelse(is.null(icd10cm_vers), 
+                                              F, 
+                                              icd10cm_vers %in% 33:39))
   )
   # force names to be syntactically valid:
   if (any(names(x) != make.names(names(x)))) {
@@ -312,8 +324,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
         poa_code = poa,
         year = year,
         quarter = quarter,
-        icd10cm_vers = icd10cm_vers, # If NULL, vers derived from year/quarter columns
-        return_n_unique = T # For N comorbidity vs. N ICD-Codes per comorbdiity
+        icd10cm_vers = icd10cm_vers # If NULL, vers derived from year/quarter columns
       )
     } else {
       x <- get_ahrq_2022(
@@ -324,8 +335,7 @@ comorbidity <- function(x, id, code, score, assign0, icd = "icd10", factorise = 
         poa_code = poa,
         year = year,
         quarter = quarter,
-        icd10cm_vers = icd10cm_vers, # If NULL, vers derived from year/quarter columns
-        return_n_unique = T # For N comorbidity vs. N ICD-Codes per comorbdiity
+        icd10cm_vers = icd10cm_vers # If NULL, vers derived from year/quarter columns
       )
     }
   }
