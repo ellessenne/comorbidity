@@ -7,7 +7,7 @@ for (w in names(.maps)) {
     # Original Charlson weights
     .weights[[w]][["charlson"]] <- c(ami = 1, chf = 1, pvd = 1, cevd = 1, dementia = 1, copd = 1, rheumd = 1, pud = 1, mld = 1, diab = 1, diabwc = 2, hp = 2, rend = 2, canc = 2, msld = 3, metacanc = 6, aids = 6)
     # Quan (2011)
-    .weights[[w]][["quan"]] <- c(ami = 0, chf = 2, pvd = 0, cevd = 0, dementia = 2, copd = 1, rheumd = 1, pud = 0, mld = 2, diab = 0, diabwc = 1, hp = 2, rend = 1, canc = 2, msld = 4, metacanc = 6, aids = 2)
+    .weights[[w]][["quan"]] <- c(ami = 0, chf = 2, pvd = 0, cevd = 0, dementia = 2, copd = 1, rheumd = 1, pud = 0, mld = 2, diab = 0, diabwc = 1, hp = 2, rend = 1, canc = 2, msld = 4, metacanc = 6, aids = 4)
   } else {
     # Elixhauser-compatible weights:
     # van Walraven
