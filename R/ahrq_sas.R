@@ -1281,7 +1281,7 @@ get_ahrq_2022 = function(
     #             IF DXVALUE = "HFHTN_CX"           THEN CHF        = 1;
     dt[(EXEMPTPOA==1 | (EXEMPTPOA==0 & poa_code %in% c('Y', 'W'))) &
          HFHTN_CX==1,
-       CHF := 1]
+       HF := 1]
     
     #             IF DXVALUE = "HTN_CXRENLFL_SEV"    THEN RENLFL_SEV = 1;
     dt[(EXEMPTPOA==1 | (EXEMPTPOA==0 & poa_code %in% c('Y', 'W'))) &
@@ -1343,6 +1343,7 @@ get_ahrq_2022 = function(
   
   to_pivot = c('id',
                Elixhauser2022Formats$ElixhauserAHRQ2022PreExclusion)
+  
   # Remove columns in to_pivot that do not exist if poa=F
   to_pivot = to_pivot[to_pivot %in% colnames(dt)]
   dt = dt[, ..to_pivot]
