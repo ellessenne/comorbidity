@@ -144,7 +144,11 @@ Weighted an unweighted comorbidity scores can be obtained using the `score()` fu
 
 ```{r score}
 unw_cci <- score(charlson, weights = NULL, assign0 = FALSE)
+unw_cci
+
 quan_cci <- score(charlson, weights = "quan", assign0 = FALSE)
+quan_cci
+
 all.equal(unw_cci, quan_cci)
 ```
 

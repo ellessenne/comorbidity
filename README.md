@@ -48,6 +48,9 @@ For instance, we could simulate ICD-10 codes:
 ``` r
 # load the comorbidity package
 library(comorbidity)
+## This is {comorbidity} version 1.0.0.
+## A lot has changed since the last release on CRAN, please check-out breaking changes here:
+## -> https://ellessenne.github.io/comorbidity/articles/C-changes.html
 # set a seed for reproducibility
 set.seed(1)
 # simulate 50 ICD-10 codes for 5 individuals
@@ -193,7 +196,19 @@ Weighted an unweighted comorbidity scores can be obtained using the
 
 ``` r
 unw_cci <- score(charlson, weights = NULL, assign0 = FALSE)
+unw_cci
+## [1] 2 1 0
+## attr(,"map")
+## [1] "charlson_icd10_quan"
+
 quan_cci <- score(charlson, weights = "quan", assign0 = FALSE)
+quan_cci
+## [1] 6 2 0
+## attr(,"map")
+## [1] "charlson_icd10_quan"
+## attr(,"weights")
+## [1] "quan"
+
 all.equal(unw_cci, quan_cci)
 ## [1] "Attributes: < Length mismatch: comparison on first 1 components >"
 ## [2] "Mean relative difference: 1.666667"

@@ -8,7 +8,7 @@
 #' * `charlson`, for the original weights by Charlson et al. (1987);
 #' * `quan`, for the revised weights by Quan et al. (2011).
 #' Possible values for the Elixhauser score are:
-#' * `vw`, for the weights by van Walraver et al. (2009);
+#' * `vw`, for the weights by van Walraven et al. (2009);
 #' * `swiss`, for the Swiss Elixhauser weights by Sharma et al. (2021).
 #'
 #' Defaults to `NULL`, in which case an unweighted score will be used.
