@@ -26,3 +26,4 @@ _pkgdown.yml
 ^\.github$
 ^Makefile$
 ^vignettes/C-changes\.Rmd$
+^revdep$
