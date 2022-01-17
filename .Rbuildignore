@@ -27,3 +27,4 @@ _pkgdown.yml
 ^Makefile$
 ^vignettes/C-changes\.Rmd$
 ^revdep$
+^CRAN-SUBMISSION$
