@@ -33,7 +33,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
@@ -68,12 +68,16 @@
   </div>
 </nav><div class="container template-article">
 
+
+
+
 <div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Supported Comorbidity Mappings and Scores</h1>
-                        <h4 data-toc-skip class="author">Alessandro Gasparini</h4>
+                        <h4 data-toc-skip class="author">Alessandro
+Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2022-01-04</h4>
+            <h4 data-toc-skip class="date">2022-01-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/comorbidity/blob/HEAD/vignettes/B-comorbidity-scores.Rmd" class="external-link"><code>vignettes/B-comorbidity-scores.Rmd</code></a></small>
       <div class="d-none name"><code>B-comorbidity-scores.Rmd</code></div>
@@ -81,41 +85,80 @@
 
     
     
-<p>The {comorbidity} R package can be used to identify comorbidity conditions and calculate comorbidity scores based on ICD codes data. Supported mapping and weighting algorithms are described below, including relevant references.</p>
-<p>Examples showing how to apply each algorithm are included in a separate vignette.</p>
-<div class="section level1">
-<h1 id="supported-mapping-algorithms">Supported Mapping Algorithms<a class="anchor" aria-label="anchor" href="#supported-mapping-algorithms"></a>
-</h1>
-<p>The {comorbidity} package can apply comorbidity mappings corresponding to the Charlson and the Elixhauser comorbidity scores. Both ICD-9 and ICD-10 coding systems are supported, with algorithms described in the paper by Quan et al. (2005). The resulting mapping algorithms are denoted with <code>charlson_icd9_quan</code> and <code>charlson_icd10_quan</code> for the Charlson score (based on ICD-9 and ICD-10 systems, respectively), <code>elixhauser_icd9_quan</code> and <code>elixhauser_icd10_quan</code> for the Elixhauser score.</p>
-<p>Furthermore, the Swedish (Ludvigsson et al., 2021) and Australian (Sundararajan et al., 2004) modifications of the Charlson score are implemented as well, and identified by <code>charlson_icd10_se</code> and <code>charlson_icd10_am</code> respectively.</p>
+<p>The {comorbidity} R package can be used to identify comorbidity
+conditions and calculate comorbidity scores based on ICD codes data.
+Supported mapping and weighting algorithms are described below,
+including relevant references.</p>
+<p>Examples showing how to apply each algorithm are included in a
+separate vignette.</p>
+<div class="section level2">
+<h2 id="supported-mapping-algorithms">Supported Mapping Algorithms<a class="anchor" aria-label="anchor" href="#supported-mapping-algorithms"></a>
+</h2>
+<p>The {comorbidity} package can apply comorbidity mappings
+corresponding to the Charlson and the Elixhauser comorbidity scores.
+Both ICD-9 and ICD-10 coding systems are supported, with algorithms
+described in the paper by Quan et al. (2005). The resulting mapping
+algorithms are denoted with <code>charlson_icd9_quan</code> and
+<code>charlson_icd10_quan</code> for the Charlson score (based on ICD-9
+and ICD-10 systems, respectively), <code>elixhauser_icd9_quan</code> and
+<code>elixhauser_icd10_quan</code> for the Elixhauser score.</p>
+<p>Furthermore, the Swedish (Ludvigsson et al., 2021) and Australian
+(Sundararajan et al., 2004) modifications of the Charlson score are
+implemented as well, and identified by <code>charlson_icd10_se</code>
+and <code>charlson_icd10_am</code> respectively.</p>
 </div>
-<div class="section level1">
-<h1 id="supported-weighting-algorithms">Supported Weighting Algorithms<a class="anchor" aria-label="anchor" href="#supported-weighting-algorithms"></a>
-</h1>
-<p>Different weighting algorithms have been proposed to combine the different conditions into a single measure, for both the Charlson and the Elixhauser index.</p>
-<p>Currently, the following weighting algorithms are supported for the Charlson score:</p>
+<div class="section level2">
+<h2 id="supported-weighting-algorithms">Supported Weighting Algorithms<a class="anchor" aria-label="anchor" href="#supported-weighting-algorithms"></a>
+</h2>
+<p>Different weighting algorithms have been proposed to combine the
+different conditions into a single measure, for both the Charlson and
+the Elixhauser index.</p>
+<p>Currently, the following weighting algorithms are supported for the
+Charlson score:</p>
 <ul>
-<li><p>The original weights by Charlson et al. (1987), denoted with <code>charlson</code>;</p></li>
-<li><p>Updated weights by Quan et al. (2011), denoted with <code>quan</code>.</p></li>
+<li><p>The original weights by Charlson et al. (1987), denoted with
+<code>charlson</code>;</p></li>
+<li><p>Updated weights by Quan et al. (2011), denoted with
+<code>quan</code>.</p></li>
 </ul>
 <p>Then, for the Elixhauser score:</p>
 <ul>
-<li><p>Weights proposed by van Walraven et al. (2009), denoted with <code>vw</code>;</p></li>
-<li><p>The Swiss weights modification by Sharma et al. (2021), denoted with <code>swiss</code>.</p></li>
+<li><p>Weights proposed by van Walraven et al. (2009), denoted with
+<code>vw</code>;</p></li>
+<li><p>The Swiss weights modification by Sharma et al. (2021), denoted
+with <code>swiss</code>.</p></li>
 </ul>
 </div>
-<div class="section level1">
-<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <ul>
-<li><p>Charlson ME et al. <em>A new method of classifying prognostic comorbidity in longitudinal studies: development and validation</em>. Journal of Chronic Diseases 1987; 40:373-383. DOI: <a href="https://doi.org/10.1016/0021-9681(87)90171-8" class="external-link">10.1016/0021-9681(87)90171-8</a></p></li>
-<li><p>Elixhauser A et al. <em>Comorbidity measures for use with administrative data</em>. Medical Care 1998; 36(1):8-27. DOI: <a href="https://doi.org/10.1097/00005650-199801000-00004" class="external-link">10.1097/00005650-199801000-00004</a></p></li>
-<li><p>Ludvigsson JF et al. <em>Adaptation of the Charlson Comorbidity Index for register-based research in Sweden</em>. Clinical Epidemiology 2021; 13:21–41. DOI: <a href="http://dx.doi.org/10.2147/clep.s282475" class="external-link">10.2147/clep.s282475</a></p></li>
-<li><p>Quan H et al. <em>Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data</em>. Medical Care 2005; 43(11):1130-1139. DOI: <a href="https://doi.org/10.1097/01.mlr.0000182534.19832.83" class="external-link">10.1097/01.mlr.0000182534.19832.83</a></p></li>
-<li><p>Quan H et al. <em>Updating and validating the Charlson Comorbidity Index and score for risk adjustment in hospital discharge abstracts using data from 6 countries</em>. American Journal of Epidemiology 2011;173(6):676-82. DOI: <a href="http://dx.doi.org/10.1093/aje/kwq433" class="external-link">10.1093/aje/kwq433</a></p></li>
-<li><p>Sharma N et al. <em>Comparing Charlson and Elixhauser comorbidity indices with different weightings to predict in-hospital mortality: an analysis of national inpatient data</em>. BMC Health Services Research 2021; 21(1). DOI: <a href="http://dx.doi.org/10.1186/s12913-020-05999-5" class="external-link">10.1186/s12913-020-05999-5</a></p></li>
-<li><p>Sundararajan V et al. <em>New ICD-10 version of the Charlson comorbidity index predicted in-hospital mortality</em>. Journal of Clinical Epidemiology 2004; 57(12):1288-1294. DOI: <a href="http://dx.doi.org/10.1016/j.jclinepi.2004.03.012" class="external-link">10.1016/j.jclinepi.2004.03.012</a></p></li>
-<li><p>van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. <em>A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data</em>. Medical Care 2009; 47(6):626-633. DOI: <a href="https://doi.org/10.1097/MLR.0b013e31819432e5" class="external-link">10.1097/MLR.0b013e31819432e5</a></p></li>
+<li><p>Charlson ME et al. <em>A new method of classifying prognostic
+comorbidity in longitudinal studies: development and validation</em>.
+Journal of Chronic Diseases 1987; 40:373-383. DOI: <a href="https://doi.org/10.1016/0021-9681(87)90171-8" class="external-link">10.1016/0021-9681(87)90171-8</a></p></li>
+<li><p>Elixhauser A et al. <em>Comorbidity measures for use with
+administrative data</em>. Medical Care 1998; 36(1):8-27. DOI: <a href="https://doi.org/10.1097/00005650-199801000-00004" class="external-link">10.1097/00005650-199801000-00004</a></p></li>
+<li><p>Ludvigsson JF et al. <em>Adaptation of the Charlson Comorbidity
+Index for register-based research in Sweden</em>. Clinical Epidemiology
+2021; 13:21–41. DOI: <a href="http://dx.doi.org/10.2147/clep.s282475" class="external-link">10.2147/clep.s282475</a></p></li>
+<li><p>Quan H et al. <em>Coding algorithms for defining comorbidities in
+ICD-9-CM and ICD-10 administrative data</em>. Medical Care 2005;
+43(11):1130-1139. DOI: <a href="https://doi.org/10.1097/01.mlr.0000182534.19832.83" class="external-link">10.1097/01.mlr.0000182534.19832.83</a></p></li>
+<li><p>Quan H et al. <em>Updating and validating the Charlson
+Comorbidity Index and score for risk adjustment in hospital discharge
+abstracts using data from 6 countries</em>. American Journal of
+Epidemiology 2011;173(6):676-82. DOI: <a href="http://dx.doi.org/10.1093/aje/kwq433" class="external-link">10.1093/aje/kwq433</a></p></li>
+<li><p>Sharma N et al. <em>Comparing Charlson and Elixhauser comorbidity
+indices with different weightings to predict in-hospital mortality: an
+analysis of national inpatient data</em>. BMC Health Services Research
+2021; 21(1). DOI: <a href="http://dx.doi.org/10.1186/s12913-020-05999-5" class="external-link">10.1186/s12913-020-05999-5</a></p></li>
+<li><p>Sundararajan V et al. <em>New ICD-10 version of the Charlson
+comorbidity index predicted in-hospital mortality</em>. Journal of
+Clinical Epidemiology 2004; 57(12):1288-1294. DOI: <a href="http://dx.doi.org/10.1016/j.jclinepi.2004.03.012" class="external-link">10.1016/j.jclinepi.2004.03.012</a></p></li>
+<li><p>van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ.
+<em>A modification of the Elixhauser comorbidity measures into a point
+system for hospital death using administrative data</em>. Medical Care
+2009; 47(6):626-633. DOI: <a href="https://doi.org/10.1097/MLR.0b013e31819432e5" class="external-link">10.1097/MLR.0b013e31819432e5</a></p></li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -131,7 +174,8 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
     </footer>

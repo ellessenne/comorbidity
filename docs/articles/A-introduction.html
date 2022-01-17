@@ -33,7 +33,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
@@ -68,12 +68,16 @@
   </div>
 </nav><div class="container template-article">
 
+
+
+
 <div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Introduction</h1>
-                        <h4 data-toc-skip class="author">Alessandro Gasparini</h4>
+                        <h4 data-toc-skip class="author">Alessandro
+Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2022-01-04</h4>
+            <h4 data-toc-skip class="date">2022-01-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/comorbidity/blob/HEAD/vignettes/A-introduction.Rmd" class="external-link"><code>vignettes/A-introduction.Rmd</code></a></small>
       <div class="d-none name"><code>A-introduction.Rmd</code></div>
@@ -81,10 +85,16 @@
 
     
     
-<p>This vignette illustrates how to use the {comorbidity} package to identify comorbid conditions and to compute weighted (or unweighted) comorbidity scores.</p>
-<p>For this, we will simulate a dataset with 100 patients and 10000 ICD-10 codes using the <code><a href="../reference/sample_diag.html">sample_diag()</a></code> function:</p>
+<p>This vignette illustrates how to use the {comorbidity} package to
+identify comorbid conditions and to compute weighted (or unweighted)
+comorbidity scores.</p>
+<p>For this, we will simulate a dataset with 100 patients and 10000
+ICD-10 codes using the <code><a href="../reference/sample_diag.html">sample_diag()</a></code> function:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/comorbidity/">comorbidity</a></span><span class="op">)</span>
+<span class="co">#&gt; This is {comorbidity} version 1.0.0.</span>
+<span class="co">#&gt; A lot has changed since the last release on CRAN, please check-out breaking changes here:</span>
+<span class="co">#&gt; -&gt; https://ellessenne.github.io/comorbidity/articles/C-changes.html</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
@@ -97,11 +107,15 @@
 <span class="co">#&gt; 'data.frame':    10000 obs. of  2 variables:</span>
 <span class="co">#&gt;  $ id  : int  1 1 1 1 1 1 1 1 1 1 ...</span>
 <span class="co">#&gt;  $ code: chr  "A671" "B170" "C33" "C33" ...</span></code></pre></div>
-<p>By default, the <code><a href="../reference/sample_diag.html">sample_diag()</a></code> function simulates ICD-10 data; it is however possible to simulate ICD-9 codes too, as we will see later on.</p>
-<div class="section level1">
-<h1 id="mapping-comorbidities">Mapping Comorbidities<a class="anchor" aria-label="anchor" href="#mapping-comorbidities"></a>
-</h1>
-<p>The <code><a href="../reference/comorbidity.html">comorbidity()</a></code> function can be used to apply mapping algorithms to a dataset. Here, for instance, we use the Quan et al. (2005) version of the Charlson Comorbidity Index:</p>
+<p>By default, the <code><a href="../reference/sample_diag.html">sample_diag()</a></code> function simulates ICD-10
+data; it is however possible to simulate ICD-9 codes too, as we will see
+later on.</p>
+<div class="section level2">
+<h2 id="mapping-comorbidities">Mapping Comorbidities<a class="anchor" aria-label="anchor" href="#mapping-comorbidities"></a>
+</h2>
+<p>The <code><a href="../reference/comorbidity.html">comorbidity()</a></code> function can be used to apply mapping
+algorithms to a dataset. Here, for instance, we use the Quan et
+al. (2005) version of the Charlson Comorbidity Index:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">charlson_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>
   x <span class="op">=</span> <span class="va">df</span>,
@@ -132,19 +146,26 @@
 <span class="co">#&gt;  $ aids    : int  0 0 0 0 0 0 0 0 0 0 ...</span>
 <span class="co">#&gt;  - attr(*, "variable.labels")= chr [1:18] "ID" "Myocardial infarction" "Congestive heart failure" "Peripheral vascular disease" ...</span>
 <span class="co">#&gt;  - attr(*, "map")= chr "charlson_icd10_quan"</span></code></pre></div>
-<p>The resulting data frame has a row per subject, a column for IDs, and a column for each condition included in a given score (e.g. 17 conditions for the Charlson score).</p>
+<p>The resulting data frame has a row per subject, a column for IDs, and
+a column for each condition included in a given score (e.g. 17
+conditions for the Charlson score).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">charlson_df</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p>The different columns are also labelled for compatibility with the RStudio viewer, see e.g. <code>View(charlson_df)</code> after running the code above on your computer.</p>
+<p>The different columns are also labelled for compatibility with the
+RStudio viewer, see e.g. <code>View(charlson_df)</code> after running
+the code above on your computer.</p>
 <p>To see all supported mapping algorithms, please see the vignette:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"02-comorbidityscores"</span>, package <span class="op">=</span> <span class="st">"comorbidity"</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="comorbidity-scores">Comorbidity Scores<a class="anchor" aria-label="anchor" href="#comorbidity-scores"></a>
-</h1>
-<p>After calculating a data frame of comorbid conditions, that can be used to calculate comorbidity scores using the <code><a href="../reference/score.html">score()</a></code> function. Say we want to calculate the Charlson comorbidity score, weighted using the Quan et al. (2011) weights:</p>
+<div class="section level2">
+<h2 id="comorbidity-scores">Comorbidity Scores<a class="anchor" aria-label="anchor" href="#comorbidity-scores"></a>
+</h2>
+<p>After calculating a data frame of comorbid conditions, that can be
+used to calculate comorbidity scores using the <code><a href="../reference/score.html">score()</a></code>
+function. Say we want to calculate the Charlson comorbidity score,
+weighted using the Quan et al. (2011) weights:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">quan_cci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">charlson_df</span>, weights <span class="op">=</span> <span class="st">"quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">quan_cci</span><span class="op">)</span>
@@ -155,22 +176,32 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">quan_cci</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">charlson_df</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p>If a pure combination of conditions is required (e.g. an unweighted score), pass the <code>NULL</code> value to the <code>weights</code> argument of the <code><a href="../reference/score.html">score()</a></code> function:</p>
+<p>If a pure combination of conditions is required (e.g. an unweighted
+score), pass the <code>NULL</code> value to the <code>weights</code>
+argument of the <code><a href="../reference/score.html">score()</a></code> function:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">unw_cci</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">charlson_df</span>, weights <span class="op">=</span> <span class="cn">NULL</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">unw_cci</span><span class="op">)</span>
 <span class="co">#&gt; unw_cci</span>
 <span class="co">#&gt;  1  2  3  4 </span>
 <span class="co">#&gt;  7 25 43 25</span></code></pre></div>
-<p>Once again, available weighting systems/algorithms are described in the same vignette that was mentioned above.</p>
+<p>Once again, available weighting systems/algorithms are described in
+the same vignette that was mentioned above.</p>
 </div>
-<div class="section level1">
-<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <ul>
-<li><p>Charlson ME et al. <em>A new method of classifying prognostic comorbidity in longitudinal studies: development and validation</em>. Journal of Chronic Diseases 1987; 40:373-383. DOI: <a href="https://doi.org/10.1016/0021-9681(87)90171-8" class="external-link">10.1016/0021-9681(87)90171-8</a></p></li>
-<li><p>Quan H et al. <em>Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data</em>. Medical Care 2005; 43(11):1130-1139. DOI: <a href="https://doi.org/10.1097/01.mlr.0000182534.19832.83" class="external-link">10.1097/01.mlr.0000182534.19832.83</a></p></li>
-<li><p>Quan H et al. <em>Updating and validating the Charlson Comorbidity Index and score for risk adjustment in hospital discharge abstracts using data from 6 countries</em>. American Journal of Epidemiology 2011;173(6):676-82. DOI: <a href="http://dx.doi.org/10.1093/aje/kwq433" class="external-link">10.1093/aje/kwq433</a></p></li>
+<li><p>Charlson ME et al. <em>A new method of classifying prognostic
+comorbidity in longitudinal studies: development and validation</em>.
+Journal of Chronic Diseases 1987; 40:373-383. DOI: <a href="https://doi.org/10.1016/0021-9681(87)90171-8" class="external-link">10.1016/0021-9681(87)90171-8</a></p></li>
+<li><p>Quan H et al. <em>Coding algorithms for defining comorbidities in
+ICD-9-CM and ICD-10 administrative data</em>. Medical Care 2005;
+43(11):1130-1139. DOI: <a href="https://doi.org/10.1097/01.mlr.0000182534.19832.83" class="external-link">10.1097/01.mlr.0000182534.19832.83</a></p></li>
+<li><p>Quan H et al. <em>Updating and validating the Charlson
+Comorbidity Index and score for risk adjustment in hospital discharge
+abstracts using data from 6 countries</em>. American Journal of
+Epidemiology 2011;173(6):676-82. DOI: <a href="http://dx.doi.org/10.1093/aje/kwq433" class="external-link">10.1093/aje/kwq433</a></p></li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -186,7 +217,8 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
     </footer>
