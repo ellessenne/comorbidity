@@ -196,7 +196,7 @@ unw_cci <- score(charlson, weights = NULL, assign0 = FALSE)
 quan_cci <- score(charlson, weights = "quan", assign0 = FALSE)
 all.equal(unw_cci, quan_cci)
 ## [1] "Attributes: < Length mismatch: comparison on first 1 components >"
-## [2] "Mean relative difference: 1"
+## [2] "Mean relative difference: 1.666667"
 ```
 
 Code for the Elixhauser score is omitted, but works analogously.
