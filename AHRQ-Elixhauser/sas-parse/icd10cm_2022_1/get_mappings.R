@@ -17,7 +17,7 @@ raw_format = readLines(
   )
 
 # Remove quotes, commas, and whitespace
-trim_format = trimws(gsub(',', '', gsub('"', "", raw_format))) 
+trim_format = trimws(gsub(',', '', gsub('"', "", raw_format)))
 # Remove 'proc' lines
 trim_format = trim_format[!grepl('Proc', trim_format)]
 # Remove 'run' lines
@@ -27,7 +27,7 @@ trim_format = trim_format[!grepl('other', trim_format)]
 
 # Separate vector by blank line
 format_list = split(
-  trim_format[trim_format!=''], 
+  trim_format[trim_format!=''],
   cumsum(trim_format=="")[trim_format!='']
 )
 
@@ -48,13 +48,13 @@ comfmt_names <- as.vector(
         strsplit(tail(x, 1), ' = ')[[1]][2]
       }
     )
-  ) 
+  )
 )
-# Get values for each group in comfmt 
+# Get values for each group in comfmt
 comfmt_values <- list()
 # First element is unique as it contains comfmt header
 comfmt_values <- append(
-  comfmt_values, 
+  comfmt_values,
   list(
     sapply(
       strsplit(format_list[!poaxmpt_filter][[1]][-1], ' = '),
@@ -110,53 +110,53 @@ names(poaxmpt_values) <- tolower(poaxmpt_names)
 # Create complete ElixhauserAHRQ2022Map
 ElixhauserAHRQ2022Map <- list(
   comfmt = comfmt_values
-) 
+)
 ElixhauserAHRQ2022Map <- append(
-  ElixhauserAHRQ2022Map, 
+  ElixhauserAHRQ2022Map,
   poaxmpt_values
 )
 
 ElixhauserAHRQ2022PreExclusion <- c(
-  "AIDS", 
-  "ALCOHOL",     
-  "ANEMDEF",      
-  "AUTOIMMUNE", 
-  "BLDLOSS",  
-  "CANCER_LYMPH", 
-  "CANCER_LEUK",  
-  "CANCER_METS", 
-  "CANCER_NSITU", 
-  "CANCER_SOLID", 
-  "CBVD_SQLA",   
-  "CBVD_POA",     
-  "CBVD_NPOA",  
-  "CBVD",      
-  "HF", 
-  "COAG",  
-  "DEMENTIA",     
-  "DEPRESS",     
-  "DIAB_UNCX", 
-  "DIAB_CX",      
-  "DRUG_ABUSE",  
-  "HTN_CX",       
-  "HTN_UNCX",   
-  "LIVER_MLD", 
-  "LIVER_SEV",    
-  "LUNG_CHRONIC", 
-  "NEURO_MOVT", 
-  "NEURO_OTH",    
-  "NEURO_SEIZ",  
-  "OBESE", 
-  "PARALYSIS",  
-  "PERIVASC",  
-  "PSYCHOSES",    
-  "PULMCIRC",     
-  "RENLFL_MOD",  
+  "AIDS",
+  "ALCOHOL",
+  "ANEMDEF",
+  "AUTOIMMUNE",
+  "BLDLOSS",
+  "CANCER_LYMPH",
+  "CANCER_LEUK",
+  "CANCER_METS",
+  "CANCER_NSITU",
+  "CANCER_SOLID",
+  "CBVD_SQLA",
+  "CBVD_POA",
+  "CBVD_NPOA",
+  "CBVD",
+  "HF",
+  "COAG",
+  "DEMENTIA",
+  "DEPRESS",
+  "DIAB_UNCX",
+  "DIAB_CX",
+  "DRUG_ABUSE",
+  "HTN_CX",
+  "HTN_UNCX",
+  "LIVER_MLD",
+  "LIVER_SEV",
+  "LUNG_CHRONIC",
+  "NEURO_MOVT",
+  "NEURO_OTH",
+  "NEURO_SEIZ",
+  "OBESE",
+  "PARALYSIS",
+  "PERIVASC",
+  "PSYCHOSES",
+  "PULMCIRC",
+  "RENLFL_MOD",
   "RENLFL_SEV",
-  "THYROID_HYPO", 
-  "THYROID_OTH", 
-  "ULCER_PEPTIC", 
-  "VALVE",      
+  "THYROID_HYPO",
+  "THYROID_OTH",
+  "ULCER_PEPTIC",
+  "VALVE",
   "WGHTLOSS"
 )
 
@@ -202,7 +202,7 @@ ElixhauserAHRQ2022Abbr = c(
   'WGHTLOSS'
 )
 
-# Define and save value labels 
+# Define and save value labels
 # (see Comorb_ICD10CM_Format_v2022-1.sas)
 ElixhauserAHRQ2022Labels = c(
   'AIDS' = 'Acquired immune deficiency syndrome',
@@ -222,7 +222,7 @@ ElixhauserAHRQ2022Labels = c(
   'DIAB_CX' = 'Diabetes with chronic complications',
   'DIAB_UNCX' = 'Diabetes without chronic complications',
   'DRUG_ABUSE' = 'Drug abuse',
-  'HF' = 'Heart failure', 
+  'HF' = 'Heart failure',
   'HTN_CX' = 'Hypertension, complicated',
   'HTN_UNCX' = 'Hypertension, uncomplicated',
   'LIVER_MLD' = 'Liver disease, mild',
@@ -253,8 +253,8 @@ Elixhauser2022Formats = list(
   ElixhauserAHRQ2022PreExclusion = ElixhauserAHRQ2022PreExclusion
 )
 
-saveRDS(Elixhauser2022Formats, 
-        'AHRQ-Elixhauser/sas-formats/icd10cm_2021_1/Elixhauser2022Formats.Rds')
+saveRDS(Elixhauser2022Formats,
+        'AHRQ-Elixhauser/sas-formats/icd10cm_2022_1/Elixhauser2022Formats.Rds')
 
 # Remove .zip file
 file.remove(
