@@ -1,16 +1,15 @@
 library(tidyverse)
+library(hrbrthemes)
 
 ### Results
 res.release <- lapply(
-  list.files(path = "/scratch/cvdanalysis/ag475/comorbidity-results/", pattern = "res-released-", full.names = TRUE),
+  list.files(path = "inst/Timing/results/", pattern = "res-released-", full.names = TRUE),
   function(w) {
     tibble::tibble(
       time = readRDS(w),
-      value = w
+      i = w
     ) %>%
-      dplyr::mutate(value = str_sub(value, 49, -5)) %>%
-      tidyr::separate(value, into = c("x", "y", "i"), sep = "-") %>%
-      dplyr::select(-x, -y) %>%
+      dplyr::mutate(i = str_sub(i, 35, -5)) %>%
       dplyr::mutate_all(as.numeric) %>%
       dplyr::arrange(i) %>%
       dplyr::mutate(v = "released")
@@ -18,65 +17,42 @@ res.release <- lapply(
 )
 res.release <- dplyr::bind_rows(res.release)
 
-res.13 <- lapply(
-  list.files(path = "/scratch/cvdanalysis/ag475/comorbidity-results/", pattern = "res-13-", full.names = TRUE),
+res.dev <- lapply(
+  list.files(path = "inst/Timing/results/", pattern = "res-dev-", full.names = TRUE),
   function(w) {
     tibble::tibble(
       time = readRDS(w),
-      value = w
+      i = w
     ) %>%
-      dplyr::mutate(value = str_sub(value, 49, -5)) %>%
-      tidyr::separate(value, into = c("x", "y", "i"), sep = "-") %>%
-      dplyr::select(-x, -y) %>%
+      dplyr::mutate(i = str_sub(i, 30, -5)) %>%
       dplyr::mutate_all(as.numeric) %>%
       dplyr::arrange(i) %>%
-      dplyr::mutate(v = "13")
+      dplyr::mutate(v = "dev")
   }
 )
-res.13 <- dplyr::bind_rows(res.13)
-
-res.13v2 <- lapply(
-  list.files(path = "/scratch/cvdanalysis/ag475/comorbidity-results/", pattern = "res-13v2-", full.names = TRUE),
-  function(w) {
-    tibble::tibble(
-      time = readRDS(w),
-      value = w
-    ) %>%
-      dplyr::mutate(value = str_sub(value, 49, -5)) %>%
-      tidyr::separate(value, into = c("x", "y", "i"), sep = "-") %>%
-      dplyr::select(-x, -y) %>%
-      dplyr::mutate_all(as.numeric) %>%
-      dplyr::arrange(i) %>%
-      dplyr::mutate(v = "13v2")
-  }
-)
-res.13v2 <- dplyr::bind_rows(res.13v2)
+res.dev <- dplyr::bind_rows(res.dev)
 
 ### DGMs
-dgms <- readRDS("/scratch/cvdanalysis/ag475/comorbidity-dgms.RDS")
+dgms <- readRDS("inst/Timing/comorbidity-dgms.RDS")
 
 ### Plot
 res <- dplyr::bind_rows(
   res.release,
-  res.13,
-  res.13v2
+  res.dev
 ) %>%
   tidyr::spread(
     value = time,
     key = v
   ) %>%
-  mutate(
-    ratio.13 = released / `13`,
-    ratio.13v2 = released / `13v2`
-  ) %>%
+  mutate(ratio = released / dev) %>%
   left_join(dgms, "i")
 
-ggplot(res, aes(x = n_ids, size = n_codes, y = ratio.13v2)) +
+ggplot(res, aes(x = n_ids, size = n_codes, y = ratio)) +
   geom_point(alpha = 0.5) +
-  theme_minimal(base_family = "PT Sans Narrow") +
+  geom_smooth(show.legend = FALSE, color = "red", size = 1) +
+  theme_ipsum_rc(base_size = 12) +
   scale_y_continuous(labels = scales::comma) +
   scale_x_continuous(labels = scales::comma) +
   theme(legend.position = "top") +
-  labs(x = "Number of individuals", y = "Fold improvement in computational speed", size = "Codes per individual", color = "", fill = "")
-
-ggsave(filename = "inst/Timing/plot.png", dpi = 300, width = 5, height = 5)
+  labs(x = "Number of subjects", y = "Fold improvement in computational speed", size = "Codes per subject", color = "", fill = "")
+ggsave(filename = "inst/Timing/plot.png", dpi = 600, width = 4.5, height = 4.5, device = ragg::agg_png, res = 600, units = "in")

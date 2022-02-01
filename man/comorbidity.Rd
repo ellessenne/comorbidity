@@ -2,25 +2,9 @@
 % Please edit documentation in R/comorbidity.R
 \name{comorbidity}
 \alias{comorbidity}
-\title{Compute comorbidity scores.}
+\title{Comorbidity mapping.}
 \usage{
-comorbidity(
-  x,
-  id,
-  code,
-  score,
-  assign0,
-  icd = "icd10",
-  factorise = FALSE,
-  labelled = TRUE,
-  tidy.codes = TRUE,
-  drg = NULL,
-  icd_rank = NULL,
-  poa = NULL,
-  year = NULL,
-  quarter = NULL,
-  icd10cm_vers = NULL
-)
+comorbidity(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE)
 }
 \arguments{
 \item{x}{A tidy \code{data.frame} (or a \code{data.table}; \code{tibble}s are supported too) with one column containing an individual ID and a column containing all diagnostic codes.
@@ -29,11 +13,17 @@ Column names must be syntactically valid names, otherwise they are forced to be 
 
 \item{id}{Column of \code{x} containing the individual ID.}
 
-\item{code}{Column of \code{x} containing diagnostic codes. Codes must be in upper case with no punctuation in order to be properly recognised.}
+\item{code}{Column of \code{x} containing diagnostic codes.
+Codes must be in upper case with no punctuation in order to be properly recognised.}
 
-\item{score}{The comorbidity score to compute. Possible choices are the weighted Charlson score (\code{charlson}), the weighted (pre 2019 AHRQ) Elixhauser score (\code{elixhauser}), and the 2019 AHRQ weighted Elixhauser score (\code{elixhauser_ahrq_2020}). Values are case-insensitive.}
+\item{map}{The mapping algorithm to be used (values are case-insensitive).
+Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (\code{charlson_icd10_quan}, \code{charlson_icd9_quan}) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (\code{elixhauser_icd10_quan}, \code{elixhauser_icd9_quan}).
+These mapping are based on the paper by Quan et al. (2011).
+It is also possible to obtain a Swedish (\code{charlson_icd10_se}) or Australian (\code{charlson_icd10_am}) modification of the Charlson score using ICD-10 codes.}
 
-\item{assign0}{Apply a hierarchy of comorbidities. If \code{TRUE}, should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned to 0 and therefore not counted. By doing this, a type of comorbidity is not counted more than once in each patient. In particular, the comorbidities that are affected by this argument are:
+\item{assign0}{Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
+By doing this, a type of comorbidity is not counted more than once in each patient.
+The comorbidities that are affected by this argument are:
 \itemize{
 \item "Mild liver disease" (\code{mld}) and "Moderate/severe liver disease" (\code{msld}) for the Charlson score;
 \item "Diabetes" (\code{diab}) and "Diabetes with complications" (\code{diabwc}) for the Charlson score;
@@ -41,30 +31,14 @@ Column names must be syntactically valid names, otherwise they are forced to be 
 \item "Hypertension, uncomplicated" (\code{hypunc}) and "Hypertension, complicated" (\code{hypc}) for the Elixhauser score;
 \item "Diabetes, uncomplicated" (\code{diabunc}) and "Diabetes, complicated" (\code{diabc}) for the Elixhauser score;
 \item "Solid tumour" (\code{solidtum}) and "Metastatic cancer" (\code{metacanc}) for the Elixhauser score.
-}
+}}
 
-Note: This argument has no effect on Elixhauser AHRQ as these choices are incorporated into AHRQ calculations. If using 'elixhauser_ahrq_2020' it is recommended to specify assign0 = FALSE to avoid confusion.}
+\item{labelled}{Attach labels to each comorbidity, compatible with the RStudio viewer via the \code{\link[utils:View]{utils::View()}} function.
+Defaults to \code{TRUE}.}
 
-\item{icd}{The version of ICD coding to use. Possible choices are ICD-9-CM (\code{icd9}) or ICD-10 (\code{icd10}). Defaults to \code{icd10}, and values are case-insensitive.
-Note: if 'elixhauser_ahrq_2020' is selected, icd must equal 'icd10'.}
-
-\item{factorise}{Return comorbidities as factors rather than numeric, where (1 = presence of comorbidity, 0 = otherwise). Defaults to \code{FALSE}.}
-
-\item{labelled}{Attach labels to each comorbidity, compatible with the RStudio viewer via the \code{\link[utils:View]{utils::View()}} function. Defaults to \code{TRUE}.}
-
-\item{tidy.codes}{Tidy diagnostic codes? If \code{TRUE}, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}. Defaults to \code{TRUE}.}
-
-\item{drg}{Column of \code{x} that contains DRG codes associated with the encounter. Defaults to \code{NULL} but must be specified if score = 'elixhauser_ahrq_2020'.}
-
-\item{icd_rank}{Column of \code{x} that contains the rank or position of DRG codes. Defaults to \code{NULL} but must be specified if score = 'elixhauser_ahrq_2020'.}
-
-\item{poa}{Column of \code{x} that contains the present on admission status codes (e.g. 'Y', 'W', 'N', 'U'). Defaults to \code{NULL} but must be specified if score = 'elixhauser_ahrq_2020'.}
-
-\item{year}{Column of \code{x} that contains the calendar year of the admission. Defaults to \code{NULL}, but either \code{year} and \code{quarter} OR \code{icd10cm_vers} must be specified if score = 'elixhauser_ahrq_2020'.}
-
-\item{quarter}{Column of \code{x} that contains the calendar quarter of the admission. Defaults to \code{NULL}, but either \code{year} and \code{quarter} OR \code{icd10cm_vers} must be specified if score = 'elixhauser_ahrq_2020'.}
-
-\item{icd10cm_vers}{Column of \code{x} that contains the ICD10CM version. Must be specified if \code{year} and \code{quarter} are not. Must be \code{NULL} if \code{year} and \code{quarter} are not \code{NULL}. Defaults to \code{NULL}, but either \code{year} and \code{quarter} OR \code{icd10cm_vers} must be specified if score = 'elixhauser_ahrq_2020'.}
+\item{tidy.codes}{Tidy diagnostic codes?
+If \code{TRUE}, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}.
+Defaults to \code{TRUE}.}
 }
 \value{
 A data frame with \code{id}, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
@@ -89,10 +63,6 @@ For the Charlson score, the following variables are included in the dataset:
 \item \code{msld}, for moderate or severe liver disease;
 \item \code{metacanc}, for metastatic solid tumour;
 \item \code{aids}, for AIDS/HIV;
-\item \code{score}, for the non-weighted version of the Charlson score;
-\item \code{index}, for the non-weighted version of the grouped Charlson index;
-\item \code{wscore}, for the weighted version of the Charlson score;
-\item \code{windex}, for the weighted version of the grouped Charlson index.
 }
 
 Conversely, for the Elixhauser score the dataset contains the following variables:
@@ -129,71 +99,17 @@ Conversely, for the Elixhauser score the dataset contains the following variable
 \item \code{drug}, for drug abuse;
 \item \code{psycho}, for psychoses;
 \item \code{depre}, for depression;
-\item \code{score}, for the non-weighted version of the Elixhauser score;
-\item \code{index}, for the non-weighted version of the grouped Elixhauser index;
-\item \code{wscore_ahrq}, for the weighted version of the Elixhauser score using the AHRQ algorithm (Moore \emph{et al}., 2017);
-\item \code{wscore_vw}, for the weighted version of the Elixhauser score using the algorithm in van Walraven \emph{et al}. (2009);
-\item \code{windex_ahrq}, for the weighted version of the grouped Elixhauser index using the AHRQ algorithm (Moore \emph{et al}., 2017);
-\item \code{windex_vw}, for the weighted version of the grouped Elixhauser index using the algorithm in van Walraven \emph{et al}. (2009).
-}
-
-For AHRQ Elixhauser (elixhauser_ahrq_2020), the dataset contains the same variables as 'Elixhauser' with the following exceptions:
-\itemize{
-\item Comorbidity columns follow AHRQ's abbreviation formatting.
-\item In place of \code{hypunc} and \code{hypc}, those measures are combined to form \code{HTN_C}
-}
-
-#' For AHRQ Elixhauser (elixhauser_ahrq_2020), the dataset contains the following:
-\itemize{
-\item The \code{id} variable as defined by the user;
-\item \code{AIDS},  Acquired immune deficiency syndrome;
-\item \code{ALCOHOL},  Alcohol abuse;
-\item \code{ANEMDF}, (only if poa is supplied) Deficiency anemias;
-\item \code{ARTH},  Arthropathies;
-\item \code{BLDLOSS}, (only if poa is supplied) Chronic blood loss anemia;
-\item \code{CANCER_LEUK},  Leukemia;
-\item \code{CANCER_LYMPH},  Lymphoma;
-\item \code{CANCER_METS},  Metastatic cancer;
-\item \code{CANCER_NSITU},  Solid tumor without metastasis, in situ;
-\item \code{CANCER_SOLID},  Solid tumor without metastasis, malignant;
-\item \code{CBVD}, (only if poa is supplied) Cerebrovascular disease;
-\item \code{CHF}, (only if poa is supplied) Congestive heart failure;
-\item \code{COAG}, (only if poa is supplied) Coagulopathy;
-\item \code{DEMENTIA},  Dementia;
-\item \code{DEPRESS},  Depression;
-\item \code{DIAB_CX},  Diabetes with chronic complications;
-\item \code{DIAB_UNCX},  Diabetes without chronic complications;
-\item \code{DRUG_ABUSE},  Drug abuse;
-\item \code{HTN_CX},  Hypertension, complicated;
-\item \code{HTN_UNCX},  Hypertension, uncomplicated;
-\item \code{LIVER_MLD}, (only if poa is supplied) Liver disease, mild;
-\item \code{LIVER_SEV}, (only if poa is supplied) Liver disease, moderate to severe;
-\item \code{LUNG_CHRONIC},  Chronic pulmonary disease;
-\item \code{NEURO_MOVT}, (only if poa is supplied) Neurological disorders affecting movement;
-\item \code{NEURO_OTH}, (only if poa is supplied) Other neurological disorders;
-\item \code{NEURO_SEIZ}, (only if poa is supplied) Seizures and epilepsy;
-\item \code{OBESE},  Obesity;
-\item \code{PARALYSIS}, (only if poa is supplied) Paralysis;
-\item \code{PERIVASC},  Peripheral vascular disease;
-\item \code{PSYCHOSES}, (only if poa is supplied) Psychoses;
-\item \code{PULMCIRC}, (only if poa is supplied) Pulmonary circulation disease;
-\item \code{RENLFL_MOD}, (only if poa is supplied) Renal failure, moderate;
-\item \code{RENLFL_SEV}, (only if poa is supplied) Renal failure, severe;
-\item \code{THYROID_HYPO},  Hypothyroidism;
-\item \code{THYROID_OTH},  Other thyroid disorders;
-\item \code{ULCER_PEPTIC}, (only if poa is supplied) Peptic ulcer with bleeding;
-\item \code{VALVE}, (only if poa is supplied) Valvular disease;
-\item \code{WGHTLOSS}, (only if poa is supplied) Weight loss;
 }
 
 Labels are presented to the user when using the RStudio viewer (e.g. via the \code{\link[utils:View]{utils::View()}} function) for convenience.
 }
 \description{
-Computes comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score.
+Maps comorbidity conditions using algorithms from the Charlson and the Elixhauser comorbidity scores.
 }
 \details{
-The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan \emph{et al}. (2005). Weights for the Charlson score are based on the original formulation by Charlson \emph{et al}. in 1987, while weights for the Elixhauser score are based on work by Moore \emph{et al}. and van Walraven \emph{et al}. Finally, the categorisation of scores and weighted scores is based on work by Menendez \emph{et al}. See \code{vignette("comorbidityscores", package = "comorbidity")} for further details on the comorbidity scores and the weighting algorithm.
-ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically. As a convenience, a message is printed to the R console when non-alphanumeric characters are found.
+The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan \emph{et al}. (2005).
+ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically.
+A message is printed to the R console when non-alphanumeric characters are found.
 }
 \examples{
 set.seed(1)
@@ -204,23 +120,17 @@ x <- data.frame(
 )
 
 # Charlson score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", score = "charlson", assign0 = FALSE)
+comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
 
 # Elixhauser score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = FALSE)
+comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
 }
 \references{
 Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.
 
 Charlson ME, Pompei P, Ales KL, et al. \emph{A new method of classifying prognostic comorbidity in longitudinal studies: development and validation}. Journal of Chronic Diseases 1987; 40:373-383.
 
-Moore BJ, White S, Washington R, Coenen N, and Elixhauser A. \emph{Identifying increased risk of readmission and in-hospital mortality using hospital administrative data: the AHRQ Elixhauser comorbidity index}. Medical Care 2017; 55(7):698-705.
+Ludvigsson JF, Appelros P, Askling J et al. \emph{Adaptation of the Charlson Comorbidity Index for register-based research in Sweden}. Clinical Epidemiology 2021; 13:21-41.
 
-van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. \emph{A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data}. Medical Care 2009; 47(6):626-633.
-
-Menendez ME, Neuhaus V, van Dijk CN, Ring D. \emph{The Elixhauser comorbidity method outperforms the Charlson index in predicting inpatient death after orthopaedic surgery}. Clinical Orthopaedics and Related Research 2014; 472(9):2878-2886.
-
-\emph{Healthcare Cost and Utilization Project. Elixhauser Comorbidity Software Version 3.7} Available at https://www.hcup-us.ahrq.gov/toolssoftware/comorbidity/comorbidity.jsp
-
-\emph{Healthcare Cost and Utilization Project. Elixhauser Comorbidity Software Refined for ICD-10-CM v2021.1} Available at https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp
+Sundararajan V, Henderson T, Perry C, Muggivan A, Quan H, Ghali WA. \emph{New ICD-10 version of the Charlson comorbidity index predicted in-hospital mortality}. Journal of Clinical Epidemiology 2004; 57(12):1288-1294.
 }

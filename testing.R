@@ -1,10 +1,24 @@
-### R script for testing
-
-## Load libraries
 devtools::load_all()
+library(profvis)
 
-dt <- data.frame(
-  `Enc ID` = 1234,
-  DxCode = "N390"
+set.seed(1)
+x <- data.frame(
+  id = sample(seq(1e5), size = 1e7, replace = TRUE),
+  code = sample_diag(1e7),
+  stringsAsFactors = FALSE
 )
-comorbidity(dt, id = "Enc ID", code = "DxCode", icd = "icd10", score = "charlson", assign0 = F)
+
+addd <- sample(x = seq(nrow(x)), size = 5e4)
+x$code[addd] <- paste0(".", x$code[addd])
+
+#
+id <- "id"
+code <- "code"
+map <- "elixhauser_icd10_quan"
+assign0 <- FALSE
+labelled <- FALSE
+tidy.codes <- TRUE
+
+profvis::profvis({
+  comorbidity(x = x, id = id, code = code, map = map, assign0 = assign0, labelled = labelled, tidy.codes = tidy.codes)
+})

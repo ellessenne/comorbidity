@@ -14,4 +14,4 @@ NULL
 .datatable.aware <- TRUE
 
 # Quiets concerns of R CMD check re: variable names used internally
-if (getRversion() >= "2.15.1") utils::globalVariables(c(".", "L1", ":=", "value"))
+if (getRversion() >= "2.15.1") utils::globalVariables(c(":=", "..mv", "NA", "canc", "diab", "diabc", "diabunc", "diabwc", "hypc", "hypunc", "metacanc", "mld", "msld", "solidtum", "value"))

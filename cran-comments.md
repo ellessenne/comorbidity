@@ -1,19 +1,14 @@
-# Test environments
-* local macOS Mojave 10.14.6, R 3.6.2
-* local Windows 10, R 3.6.2
-* ubuntu (via travis-ci), R-oldrel, R-release, and R-devel
-* windows (via appveyor)
-* win-builder (R-oldrel, R-release, R-devel)
-* r-hub (using rhub::check_for_cran())
+## Test environments
 
-# R CMD check results on local macOS
-0 errors | 0 warnings | 0 notes
+* local R installation, R 4.1.2, Intel-based macOS Big Sur 11.6.2
+* ubuntu-latest (via GitHub Actions, devel, release, oldrel, 3.5, 3.4)
+* windows-latest (via GitHub Actions, devel, release, oldrel, 3.5, 3.4)
+* macos-latest (via GitHub Actions, release, oldrel)
+* windows (via winbuilder, devel, release, oldrel)
+* rhub (with rhub::check_for_cran())
+* arm64 mac (via macbuilder)
+* arm64 mac (via rhub::check(platform = 'macos-m1-bigsur-release'))
 
-# R CMD check results on win-builder (R-oldrel, R-release, R-devel)
-0 errors | 0 warnings | 0 notes
+## R CMD check results
 
-# R CMD check results on r-hub (using rhub::check_for_cran())
-0 errors | 0 warnings | 0 notes
-
-# Reverse dependencies
-There are no reverse dependencies
+0 errors | 0 warnings | 0 note

@@ -23,3 +23,8 @@
 testing.R
 _pkgdown.yml
 ^docs$
+^\.github$
+^Makefile$
+^vignettes/C-changes\.Rmd$
+^revdep$
+^CRAN-SUBMISSION$

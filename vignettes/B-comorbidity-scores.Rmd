@@ -1,0 +1,59 @@
+---
+title: "Supported Comorbidity Mappings and Scores"
+author: "Alessandro Gasparini"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Supported Comorbidity Mappings and Scores}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+The {comorbidity} R package can be used to identify comorbidity conditions and calculate comorbidity scores based on ICD codes data.
+Supported mapping and weighting algorithms are described below, including relevant references.
+
+Examples showing how to apply each algorithm are included in a separate vignette.
+
+# Supported Mapping Algorithms
+
+The {comorbidity} package can apply comorbidity mappings corresponding to the Charlson and the Elixhauser comorbidity scores.
+Both ICD-9 and ICD-10 coding systems are supported, with algorithms described in the paper by Quan et al. (2005).
+The resulting mapping algorithms are denoted with `charlson_icd9_quan` and `charlson_icd10_quan` for the Charlson score (based on ICD-9 and ICD-10 systems, respectively), `elixhauser_icd9_quan` and `elixhauser_icd10_quan` for the Elixhauser score.
+
+Furthermore, the Swedish (Ludvigsson et al., 2021) and Australian (Sundararajan et al., 2004) modifications of the Charlson score are implemented as well, and identified by `charlson_icd10_se` and `charlson_icd10_am` respectively.
+
+# Supported Weighting Algorithms
+
+Different weighting algorithms have been proposed to combine the different conditions into a single measure, for both the Charlson and the Elixhauser index.
+
+Currently, the following weighting algorithms are supported for the Charlson score:
+
+* The original weights by Charlson et al. (1987), denoted with `charlson`;
+
+* Updated weights by Quan et al. (2011), denoted with `quan`.
+
+Then, for the Elixhauser score:
+
+* Weights proposed by van Walraven et al. (2009), denoted with `vw`;
+
+* The Swiss weights modification by Sharma et al. (2021), denoted with `swiss`.
+
+# References
+
+* Charlson ME et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383. DOI: [10.1016/0021-9681(87)90171-8](https://doi.org/10.1016/0021-9681(87)90171-8)
+
+* Elixhauser A et al. _Comorbidity measures for use with administrative data_. Medical Care 1998; 36(1):8-27. DOI: [10.1097/00005650-199801000-00004 ](https://doi.org/10.1097/00005650-199801000-00004)
+
+* Ludvigsson JF et al. _Adaptation of the Charlson Comorbidity Index for register-based research in Sweden_. Clinical Epidemiology 2021; 13:21–41. DOI: [10.2147/clep.s282475](http://dx.doi.org/10.2147/clep.s282475)
+
+* Quan H et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139. DOI: [10.1097/01.mlr.0000182534.19832.83](https://doi.org/10.1097/01.mlr.0000182534.19832.83)
+
+* Quan H et al. _Updating and validating the Charlson Comorbidity Index and score for risk adjustment in hospital discharge abstracts using data from 6 countries_. American Journal of Epidemiology 2011;173(6):676-82. DOI: [10.1093/aje/kwq433](http://dx.doi.org/10.1093/aje/kwq433)
+
+* Sharma N et al. _Comparing Charlson and Elixhauser comorbidity indices with different weightings to predict in-hospital mortality: an analysis of national inpatient data_. BMC Health Services Research 2021; 21(1). DOI: [10.1186/s12913-020-05999-5](http://dx.doi.org/10.1186/s12913-020-05999-5)
+
+* Sundararajan V et al. _New ICD-10 version of the Charlson comorbidity index predicted in-hospital mortality_. Journal of Clinical Epidemiology 2004; 57(12):1288-1294. DOI: [10.1016/j.jclinepi.2004.03.012](http://dx.doi.org/10.1016/j.jclinepi.2004.03.012)
+
+* van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633. DOI: [10.1097/MLR.0b013e31819432e5](https://doi.org/10.1097/MLR.0b013e31819432e5)

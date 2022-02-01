@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ellessenne.github.io/comorbidity/404.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/comorbidity/CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/comorbidity/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/comorbidity/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/comorbidity/articles/A-introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/comorbidity/articles/B-comorbidity-scores.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/comorbidity/articles/C-changes.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/comorbidity/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/comorbidity/authors.html</loc>
+  </url>
+  <url>
     <loc>https://ellessenne.github.io/comorbidity/index.html</loc>
   </url>
   <url>
+    <loc>https://ellessenne.github.io/comorbidity/news/index.html</loc>
+  </url>
+  <url>
     <loc>https://ellessenne.github.io/comorbidity/reference/australia10.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/comorbidity/reference/available_algorithms.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/comorbidity/reference/comorbidity-package.html</loc>
@@ -28,12 +61,15 @@
     <loc>https://ellessenne.github.io/comorbidity/reference/icd9_2015.html</loc>
   </url>
   <url>
+    <loc>https://ellessenne.github.io/comorbidity/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://ellessenne.github.io/comorbidity/reference/nhds2010.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/comorbidity/reference/sample_diag.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/comorbidity/articles/comorbidityscores.html</loc>
+    <loc>https://ellessenne.github.io/comorbidity/reference/score.html</loc>
   </url>
 </urlset>

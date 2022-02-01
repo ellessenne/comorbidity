@@ -399,12 +399,12 @@ get_ahrq_2020 <- function(x, id, code, assign0, drg, icd_rank) {
   x <- data.table::setnames(x, old=old_names, new=new_names)
 
   # Same computations as "elixhauser" (except carit removed)
-  x$score <- with(x, chf + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
-  x$index <- with(x, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-  x$wscore_ahrq <- with(x, chf * 9 + valv * 0 + pcd * 6 + pvd * 3 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0, 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
-  x$wscore_vw <- with(x, chf * 7 + valv * (-1) + pcd * 4 + pvd * 2 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * 0 + para * 7 + ond * 6 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * 0 + hypothy * 0 + rf * 5 + ld * 11 + pud * 0 + aids * 0 + lymph * 9 + metacanc * 12 + solidtum * ifelse(metacanc == 1 & assign0, 0, 4) + rheumd * 0 + coag * 3 + obes * (-4) + wloss * 6 + fed * 5 + blane * (-2) + dane * (-2) + alcohol * 0 + drug * (-7) + psycho * 0 + depre * (-3))
-  x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
-  x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
+  # x$score <- with(x, chf + valv + pcd + pvd + hypunc * ifelse(hypc == 1 & assign0, 0, 1) + hypc + para + ond + cpd + diabunc * ifelse(diabc == 1 & assign0, 0, 1) + diabc + hypothy + rf + ld + pud + aids + lymph + metacanc + solidtum * ifelse(metacanc == 1 & assign0, 0, 1) + rheumd + coag + obes + wloss + fed + blane + dane + alcohol + drug + psycho + depre)
+  # x$index <- with(x, cut(score, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
+  # x$wscore_ahrq <- with(x, chf * 9 + valv * 0 + pcd * 6 + pvd * 3 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * (-1) + para * 5 + ond * 5 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * (-3) + hypothy * 0 + rf * 6 + ld * 4 + pud * 0 + aids * 0 + lymph * 6 + metacanc * 14 + solidtum * ifelse(metacanc == 1 & assign0, 0, 7) + rheumd * 0 + coag * 11 + obes * (-5) + wloss * 9 + fed * 11 + blane * (-3) + dane * (-2) + alcohol * (-1) + drug * (-7) + psycho * (-5) + depre * (-5))
+  # x$wscore_vw <- with(x, chf * 7 + valv * (-1) + pcd * 4 + pvd * 2 + ifelse(hypunc == 1 | hypc == 1, 1, 0) * 0 + para * 7 + ond * 6 + cpd * 3 + diabunc * ifelse(diabc == 1 & assign0, 0, 0) + diabc * 0 + hypothy * 0 + rf * 5 + ld * 11 + pud * 0 + aids * 0 + lymph * 9 + metacanc * 12 + solidtum * ifelse(metacanc == 1 & assign0, 0, 4) + rheumd * 0 + coag * 3 + obes * (-4) + wloss * 6 + fed * 5 + blane * (-2) + dane * (-2) + alcohol * 0 + drug * (-7) + psycho * 0 + depre * (-3))
+  # x$windex_ahrq <- with(x, cut(wscore_ahrq, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
+  # x$windex_vw <- with(x, cut(wscore_vw, breaks = c(-Inf, 0, 1, 4.5, Inf), labels = c("<0", "0", "1-4", ">=5"), right = FALSE))
 
   # Return AHRQ vars in SAS format:
   x <- data.table::setnames(x, old=new_names, new=old_names)
@@ -413,13 +413,19 @@ get_ahrq_2020 <- function(x, id, code, assign0, drg, icd_rank) {
   data.table::setDF(x)
 
   # Keep only relevant vars
+  # x <- x[c(id, "CHF", "VALVE", "PULMCIRC", "PERIVASC", "PARA",
+  #          "NEURO", "CHRNLUNG", "DM", "DMCX", "HYPOTHY", "RENLFAIL", "LIVER",
+  #          "ULCER", "AIDS", "LYMPH", "METS", "TUMOR", "ARTH", "COAG", "OBESE",
+  #          "WGHTLOSS", "LYTES", "BLDLOSS", "ANEMDEF", "ALCOHOL", "DRUG",
+  #          "PSYCH", "DEPRESS", "HTN_C",
+  #          'score', 'index', 'wscore_ahrq', 'wscore_vw', 'windex_ahrq',
+  #          'windex_vw')]
+  
   x <- x[c(id, "CHF", "VALVE", "PULMCIRC", "PERIVASC", "PARA",
            "NEURO", "CHRNLUNG", "DM", "DMCX", "HYPOTHY", "RENLFAIL", "LIVER",
            "ULCER", "AIDS", "LYMPH", "METS", "TUMOR", "ARTH", "COAG", "OBESE",
            "WGHTLOSS", "LYTES", "BLDLOSS", "ANEMDEF", "ALCOHOL", "DRUG",
-           "PSYCH", "DEPRESS", "HTN_C",
-           'score', 'index', 'wscore_ahrq', 'wscore_vw', 'windex_ahrq',
-           'windex_vw')]
+           "PSYCH", "DEPRESS", "HTN_C")]
 
   # Return the dataframe
   x
@@ -888,8 +894,8 @@ get_ahrq_2021 = function(
   dt = dt[, ..keep_vars]
 
   # Compute total score
-  dt[, score := rowSums(.SD),
-     .SDcols = keep_vars[-1]]
+  # dt[, score := rowSums(.SD),
+  #    .SDcols = keep_vars[-1]]
 
   # Rename id back to user-specified
   data.table::setnames(dt, new_col_names, names(new_col_names),
@@ -899,6 +905,8 @@ get_ahrq_2021 = function(
   as.data.frame(dt)
 }
 
+#' @internal
+#' @export
 get_ahrq_2022 = function(
   df,
   patient_id = NULL,
@@ -1410,8 +1418,8 @@ get_ahrq_2022 = function(
   dt = dt[, ..keep_vars]
   
   # Compute total score
-  dt[, score := rowSums(.SD),
-     .SDcols = keep_vars[-1]]
+  # dt[, score := rowSums(.SD),
+  #    .SDcols = keep_vars[-1]]
   
   # Rename id back to user-specified
   data.table::setnames(dt, new_col_names, names(new_col_names),

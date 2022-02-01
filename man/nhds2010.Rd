@@ -28,7 +28,7 @@ A data frame with 2,210 rows and 15 variables:
 nhds2010
 }
 \description{
-A dataset containing adult same-day discharges from 2010.
+A dataset containing adult same-day discharges from 2010, obtained from Stata 17.
 }
 \note{
 The R code used to download and process the dataset from Stata is available \href{https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R}{here}.

@@ -1,5 +1,17 @@
 # comorbidity (development version)
 
+# comorbidity 1.0.0
+
+* `comorbidity` version 1.0.0 is a release that substantially modifies and updates the package API.
+  There are a lot of improvements in terms of performance, supported algorithms, and user-facing functions; see e.g. [this thread on GitHub](https://github.com/ellessenne/comorbidity/pull/38).
+  Specific user-facing changes, including examples of the new API, are discussed in more detail here: https://ellessenne.github.io/comorbidity/articles/C-changes.html
+
+* If required, you can revert to the previous release by installing from GitHub: `remotes::install_github("ellessenne/comorbidity@0.5.3")`.
+
+* A startup message pointing out the changes in the API is now displayed with a 50% probability when attaching the package and will be removed in future releases.
+
+* New contributors: [Sing Yi Chia](https://github.com/SY-CHIA) and [Edmund Teo](https://github.com/torema-ed).
+
 # comorbidity 0.5.3
 
 * `comorbidity` now accepts `data.table` objects as input (#23);
@@ -42,7 +54,7 @@ Modified the behaviour of the `assign0` argument after further discussion with [
 
 ### BREAKING CHANGES
 
-`comorbidity` now returns two Elixhauser scores, one computed using the algorithm of val Walraven _et al_. (2009) and a second one computed using the AHRQ algorithm (Moore _et al_., 2017). Thanks to Yumiko Abe-Jones for feedback and the discussion regarding weighted Elixhauser scores.
+`comorbidity` now returns two Elixhauser scores, one computed using the algorithm of van Walraven _et al_. (2009) and a second one computed using the AHRQ algorithm (Moore _et al_., 2017). Thanks to Yumiko Abe-Jones for feedback and the discussion regarding weighted Elixhauser scores.
 
 More information can be found on the package vignette: `vignette("comorbidityscores", package = "comorbidity")`.
 
