@@ -107,12 +107,12 @@ score <- function(x, weights = NULL, assign0) {
     
   } else {
     if (map == 'elixhauser_ahrq_2020' | map == 'elixhauser_ahrq_2021') {
-      x$score <- rowSums(x %>% select(-PatientAccountID))
+      x$score <- rowSums(x %>% select(-ID))
       score <- x %>% pull(score)
       
     } else {
       if (is.null(weights)) {
-        x$score <- rowSums(x %>% select(-PatientAccountID))
+        x$score <- rowSums(x %>% select(-ID))
         score <- x %>% pull(score)
         attr(score, "map") <- map
         
