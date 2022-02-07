@@ -107,13 +107,13 @@ score <- function(x, weights = NULL, assign0) {
     
   } else {
     if (map == 'elixhauser_ahrq_2020' | map == 'elixhauser_ahrq_2021') {
-      x$score <- rowSums(x %>% select(-ID))
-      score <- x %>% pull(score)
+      x$score <- rowSums(x[,.SD, .SDcols = !c('ID')])
+      score <- x$score
       
     } else {
       if (is.null(weights)) {
-        x$score <- rowSums(x %>% select(-ID))
-        score <- x %>% pull(score)
+        x$score <- rowSums(x[,.SD, .SDcols = !c('ID')])
+        score <- x$score
         attr(score, "map") <- map
         
       } else {
@@ -143,7 +143,7 @@ score <- function(x, weights = NULL, assign0) {
           
           # Add calculated Readmission index to the input table
           x$score <- rowSums(output_readmit)
-          score <- x %>% pull(score)
+          score <- x$score
           attr(score, "map") <- map
           
         } else if (weights == "mw") {
@@ -172,7 +172,7 @@ score <- function(x, weights = NULL, assign0) {
           
           # Add calculated Mortality index to the input table
           x$score <- rowSums(output_mort)
-          score <- x %>% pull(score)
+          score <- x$score
           attr(score, "map") <- map
           
         } else {
