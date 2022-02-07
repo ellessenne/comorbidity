@@ -28,9 +28,11 @@ Last updated: `r Sys.Date()`
 <!-- badges: end -->
 
 `comorbidity` is an R package for computing comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score; both ICD-10 and ICD-9 coding systems are supported. 
-<br />In addition, this package provides features implementing the 2020, 2021 and 2022 versions of the AHRQ's 'Elixhauser Comorbidity Software' (https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp) in R. Simialar to the AHRQ Software, the two following Elixhauser Comorbidity Indices refined for ICD-10-CM could be predicted:<br />
-- Risk of in-hospital mortality<br />
-- Risk of 30-day, all-cause readmission
+
+In addition, this package provides features implementing the 2020, 2021 and 2022 versions of the AHRQ's 'Elixhauser Comorbidity Software' (https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp) in R. Simialar to the AHRQ Software, the two following Elixhauser Comorbidity Indices refined for ICD-10-CM could be predicted:
+
+  - Risk of in-hospital mortality
+  - Risk of 30-day, all-cause readmission
 
 ## Installation
 
@@ -116,16 +118,16 @@ print(head(x9, n = 15), row.names = FALSE)
 ## Sample Data of ICD-10 codes, ICD-10 codes squences, MS-DRG, and Present on Admission (POA) status of ICD-10 codes
 
 This data set could be used to test the package specifically the AHRQ Software oriented features.
-The data fields of the data set are:<br /> 
-- DischargeFiscalYearNBR (Year of Discharge)<br />
-- QuarterNBR (Year Quarter)<br />
-- MSDRG (MS-DRG)<br />
-- ICD10DiagnosisCD (ICD-10 Code)<br />
-- ICD10DiagnosisSEQ (Sequence of ICD-10 Code)<br />
-- PresentOnAdmissionCD (POA)
+The data fields of the data set are:
+
+  * DischargeFiscalYearNBR (Year of Discharge) 
+  * QuarterNBR (Year Quarter)
+  * MSDRG (MS-DRG)
+  * ICD10DiagnosisCD (ICD-10 Code)
+  * ICD10DiagnosisSEQ (Sequence of ICD-10 Code)
+  * PresentOnAdmissionCD (POA)
 
 ```{r ahrq_section_test_data}
-
 x10 <- as.data.frame(readRDS(file.path('data', 'ahrq_section_test_data.rds')))
 print(
   x10[x10$ID %in% 1:3, ]
@@ -198,10 +200,11 @@ elixhauser9 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_ic
 elixhauser9
 ```
 
-Comorbidity codes for different versions of the AHRQ’s ‘Elixhauser Comorbidity Software’ could be computed. Accordingly, 'map' argument could take any of the following ones:<br />
-- elixhauser_ahrq_2020<br />
-- elixhauser_ahrq_2021<br />
-- elixhauser_ahrq_2022<br />
+Comorbidity codes for different versions of the AHRQ’s ‘Elixhauser Comorbidity Software’ could be computed. Accordingly, 'map' argument could take any of the following ones: 
+
+  - elixhauser_ahrq_2020
+  - elixhauser_ahrq_2021
+  - elixhauser_ahrq_2022
 
 The following example calculates the comorbidity codes for the 2020 version. 
 
@@ -227,7 +230,14 @@ The 2021 and 2022 versions do not require a specified "drg" argument.
 
 ```{r ahrq_2021_2022}
 elixhauser_ahrq_2022 <- comorbidity(
-    year='DischargeFiscalYearNBR',
+  x=x10[x10$ID %in% 1:3, ],
+  id='ID',
+  code='ICD10DiagnosisCD',
+  map='elixhauser_ahrq_2022',
+  assign0=F,
+  icd_rank='ICD10DiagnosisSEQ',
+  poa='PresentOnAdmissionCD',
+  year='DischargeFiscalYearNBR',
   quarter='QuarterNBR'
 )
 

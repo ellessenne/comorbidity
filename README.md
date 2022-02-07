@@ -3,7 +3,7 @@
 
 # The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
-Last updated: 2022-01-17
+Last updated: 2022-02-07
 
 <!-- badges: start -->
 
@@ -11,9 +11,9 @@ Last updated: 2022-01-17
 status](https://github.com/ellessenne/comorbidity/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/comorbidity/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/ellessenne/comorbidity/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ellessenne/comorbidity?branch=master)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![CRAN_Logs_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![CRAN_Logs_Badge_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![JOSS
 DOI](http://joss.theoj.org/papers/10.21105/joss.00648/status.svg)](https://doi.org/10.21105/joss.00648)
 [![PRs
@@ -23,6 +23,15 @@ Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://make
 `comorbidity` is an R package for computing comorbidity scores such as
 the weighted Charlson score and the Elixhauser comorbidity score; both
 ICD-10 and ICD-9 coding systems are supported.
+
+In addition, this package provides features implementing the 2020, 2021
+and 2022 versions of the AHRQ’s ‘Elixhauser Comorbidity Software’
+(<https://www.hcup-us.ahrq.gov/toolssoftware/comorbidityicd10/comorbidity_icd10.jsp>)
+in R. Simialar to the AHRQ Software, the two following Elixhauser
+Comorbidity Indices refined for ICD-10-CM could be predicted:
+
+-   Risk of in-hospital mortality
+-   Risk of 30-day, all-cause readmission
 
 ## Installation
 
@@ -48,6 +57,9 @@ For instance, we could simulate ICD-10 codes:
 ``` r
 # load the comorbidity package
 library(comorbidity)
+## This is {comorbidity} version 1.0.0.
+## A lot has changed since the last release on CRAN, please check-out breaking changes here:
+## -> https://ellessenne.github.io/comorbidity/articles/C-changes.html
 # set a seed for reproducibility
 set.seed(1)
 # simulate 50 ICD-10 codes for 5 individuals
@@ -141,6 +153,105 @@ print(head(x9, n = 15), row.names = FALSE)
 ##   2 09169
 ##   2 20046
 ##   2 25082
+```
+
+## Sample Data of ICD-10 codes, ICD-10 codes squences, MS-DRG, and Present on Admission (POA) status of ICD-10 codes
+
+This data set could be used to test the package specifically the AHRQ
+Software oriented features. The data fields of the data set are:
+
+-   DischargeFiscalYearNBR (Year of Discharge)
+-   QuarterNBR (Year Quarter)
+-   MSDRG (MS-DRG)
+-   ICD10DiagnosisCD (ICD-10 Code)
+-   ICD10DiagnosisSEQ (Sequence of ICD-10 Code)
+-   PresentOnAdmissionCD (POA)
+
+``` r
+x10 <- as.data.frame(readRDS(file.path('data', 'ahrq_section_test_data.rds')))
+print(
+  x10[x10$ID %in% 1:3, ]
+)
+##    ID DischargeFiscalYearNBR QuarterNBR MSDRG ICD10DiagnosisCD ICD10DiagnosisSEQ
+## 1   1                   2022          4   267          T82857A                 1
+## 2   1                   2022          4   267           K91871                 2
+## 3   1                   2022          4   267             I350                 3
+## 4   1                   2022          4   267            I2510                 4
+## 5   1                   2022          4   267             E785                 5
+## 6   1                   2022          4   267              I10                 6
+## 7   1                   2022          4   267             Z006                 7
+## 8   1                   2022          4   267             E039                 8
+## 9   1                   2022          4   267           Z20828                 9
+## 10  1                   2022          4   267             Z951                10
+## 11  1                   2022          4   267             I480                11
+## 12  1                   2022          4   267          T82818A                12
+## 13  1                   2022          4   267            Z7982                13
+## 14  1                   2022          4   267           Z87891                14
+## 15  1                   2022          4   267             Y838                15
+## 16  2                   2022          4   707              C61                 1
+## 17  2                   2022          4   707             N179                 2
+## 18  2                   2022          4   707           F17213                 3
+## 19  2                   2022          4   707             E871                 4
+## 20  2                   2022          4   707             K567                 5
+## 21  2                   2022          4   707             K219                 6
+## 22  2                   2022          4   707              I10                 7
+## 23  2                   2022          4   707            G4733                 8
+## 24  2                   2022          4   707             M109                 9
+## 25  2                   2022          4   707           Z20828                10
+## 26  2                   2022          4   707             K648                11
+## 27  2                   2022          4   707             R110                12
+## 28  2                   2022          4   707             Z886                13
+## 29  3                   2022          4   655             C678                 1
+## 30  3                   2022          4   655            G8929                 2
+## 31  3                   2022          4   655             I714                 3
+## 32  3                   2022          4   655             N400                 4
+## 33  3                   2022          4   655             M545                 5
+## 34  3                   2022          4   655              I10                 6
+## 35  3                   2022          4   655           Z96652                 7
+## 36  3                   2022          4   655            M4800                 8
+## 37  3                   2022          4   655           Z20828                 9
+## 38  3                   2022          4   655           Z79891                10
+## 39  3                   2022          4   655           Z87891                11
+##    PresentOnAdmissionCD
+## 1                     Y
+## 2                     N
+## 3                     Y
+## 4                     Y
+## 5                     Y
+## 6                     Y
+## 7                     E
+## 8                     Y
+## 9                     Y
+## 10                    E
+## 11                    Y
+## 12                    Y
+## 13                    E
+## 14                    E
+## 15                    Y
+## 16                    Y
+## 17                    Y
+## 18                    Y
+## 19                    Y
+## 20                    N
+## 21                    Y
+## 22                    Y
+## 23                    Y
+## 24                    Y
+## 25                    Y
+## 26                    Y
+## 27                    N
+## 28                    E
+## 29                    Y
+## 30                    Y
+## 31                    Y
+## 32                    Y
+## 33                    Y
+## 34                    Y
+## 35                    Y
+## 36                    Y
+## 37                    Y
+## 38                    E
+## 39                    E
 ```
 
 ## Computing comorbidity scores
@@ -255,6 +366,78 @@ elixhauser9
 ## 5        0        0      1    0    0     0   0     0    0       0    0      0     0
 ```
 
+Comorbidity codes for different versions of the AHRQ’s ‘Elixhauser
+Comorbidity Software’ could be computed. Accordingly, ‘map’ argument
+could take any of the following ones:
+
+-   elixhauser\_ahrq\_2020
+-   elixhauser\_ahrq\_2021
+-   elixhauser\_ahrq\_2022
+
+The following example calculates the comorbidity codes for the 2020
+version.
+
+``` r
+elixhauser_ahrq_2020 <- comorbidity(
+  x=x10[x10$ID %in% 1:3, ],
+  id='ID',
+  code='ICD10DiagnosisCD',
+  map='elixhauser_ahrq_2020',
+  assign0=F,
+  drg='MSDRG',
+  icd_rank='ICD10DiagnosisSEQ',
+  poa='PresentOnAdmissionCD',
+  year='DischargeFiscalYearNBR',
+  quarter='QuarterNBR'
+)
+
+elixhauser_ahrq_2020
+##   ID CHF VALVE PULMCIRC PERIVASC PARA NEURO CHRNLUNG DM DMCX HYPOTHY RENLFAIL LIVER ULCER AIDS
+## 1  1   0     0        0        0    0     0        0  0    0       1        0     0     0    0
+## 2  2   0     0        0        0    0     0        0  0    0       0        0     0     0    0
+## 3  3   0     0        0        1    0     0        0  0    0       0        0     0     0    0
+##   LYMPH METS TUMOR ARTH COAG OBESE WGHTLOSS LYTES BLDLOSS ANEMDEF ALCOHOL DRUG PSYCH DEPRESS HTN_C
+## 1     0    0     0    0    0     0        0     0       0       0       0    0     0       0     1
+## 2     0    0     0    0    0     0        0     1       0       0       0    0     0       0     1
+## 3     0    0     0    0    0     0        0     0       0       0       0    0     0       0     1
+```
+
+The following example calculates the comorbidity codes for the 2022
+version. The 2021 and 2022 versions do not require a specified “drg”
+argument.
+
+``` r
+elixhauser_ahrq_2022 <- comorbidity(
+  x=x10[x10$ID %in% 1:3, ],
+  id='ID',
+  code='ICD10DiagnosisCD',
+  map='elixhauser_ahrq_2022',
+  assign0=F,
+  icd_rank='ICD10DiagnosisSEQ',
+  poa='PresentOnAdmissionCD',
+  year='DischargeFiscalYearNBR',
+  quarter='QuarterNBR'
+)
+
+elixhauser_ahrq_2022
+##   ID AIDS ALCOHOL ANEMDEF AUTOIMMUNE BLDLOSS CANCER_LEUK CANCER_LYMPH CANCER_METS CANCER_NSITU
+## 1  1    0       0       0          0       0           0            0           0            0
+## 2  2    0       0       0          0       0           0            0           0            0
+## 3  3    0       0       0          0       0           0            0           0            0
+##   CANCER_SOLID CBVD COAG DEMENTIA DEPRESS DIAB_CX DIAB_UNCX DRUG_ABUSE HF HTN_CX HTN_UNCX LIVER_MLD
+## 1            0    0    0        0       0       0         0          0  0      0        1         0
+## 2            0    0    0        0       0       0         0          0  0      0        1         0
+## 3            0    0    0        0       0       0         0          0  0      0        1         0
+##   LIVER_SEV LUNG_CHRONIC NEURO_MOVT NEURO_OTH NEURO_SEIZ OBESE PARALYSIS PERIVASC PSYCHOSES
+## 1         0            0          0         0          0     0         0        0         0
+## 2         0            0          0         0          0     0         0        0         0
+## 3         0            0          0         0          0     0         0        1         0
+##   PULMCIRC RENLFL_MOD RENLFL_SEV THYROID_HYPO THYROID_OTH ULCER_PEPTIC VALVE WGHTLOSS
+## 1        0          0          0            1           0            0     1        0
+## 2        0          0          0            0           0            0     0        0
+## 3        0          0          0            0           0            0     0        0
+```
+
 Scores:
 
 ``` r
@@ -264,6 +447,20 @@ all.equal(unw_eci, vw_eci)
 ## [1] "Attributes: < Length mismatch: comparison on first 1 components >"
 ## [2] "Mean relative difference: 2"
 ```
+
+To calculate ‘Risk of in-hospital mortality’ index, ‘weights’ is set to
+‘mw’.
+
+``` r
+ahrq_scores <- score(elixhauser_ahrq_2022, weights = "mw", assign0 = FALSE)
+ahrq_scores
+## [1] -3  0  3
+## attr(,"map")
+## [1] "elixhauser_ahrq_2022"
+```
+
+‘Risk of 30-day, all-cause readmission’ index could be calculated by
+setting ‘weights’ to ‘rw’.
 
 ## Citation
 
