@@ -3,11 +3,7 @@
 
 # The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
-<<<<<<< HEAD
-Last updated: 2022-02-07
-=======
-Last updated: 2022-01-17
->>>>>>> e56b9bb3f11f99b0e684353d7a90265924f7ccb4
+Last updated: 2022-02-15
 
 <!-- badges: start -->
 
@@ -15,15 +11,9 @@ Last updated: 2022-01-17
 status](https://github.com/ellessenne/comorbidity/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/comorbidity/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/ellessenne/comorbidity/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ellessenne/comorbidity?branch=master)
-<<<<<<< HEAD
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
-=======
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![CRAN_Logs_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![CRAN_Logs_Badge_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
->>>>>>> e56b9bb3f11f99b0e684353d7a90265924f7ccb4
 [![JOSS
 DOI](http://joss.theoj.org/papers/10.21105/joss.00648/status.svg)](https://doi.org/10.21105/joss.00648)
 [![PRs
@@ -178,7 +168,9 @@ Software oriented features. The data fields of the data set are:
 -   PresentOnAdmissionCD (POA)
 
 ``` r
-x10 <- as.data.frame(readRDS(file.path('data', 'ahrq_section_test_data.rds')))
+x10 <- as.data.frame(
+  readRDS(file.path('data', 'ahrq_section_test_data.rds'))
+)
 print(
   x10[x10$ID %in% 1:3, ]
 )
@@ -307,7 +299,6 @@ elixhauser
 ## 1        0        1      0    0    0     0   0     0    0       0    0      0     0
 ## 2        0        1      0    0    0     0   0     0    0       0    0      0     0
 ## 3        0        0      0    0    0     0   0     0    0       0    0      0     0
-<<<<<<< HEAD
 ```
 
 Weighted an unweighted comorbidity scores can be obtained using the
@@ -333,33 +324,6 @@ all.equal(unw_cci, quan_cci)
 ## [2] "Mean relative difference: 1.666667"
 ```
 
-=======
-```
-
-Weighted an unweighted comorbidity scores can be obtained using the
-`score()` function:
-
-``` r
-unw_cci <- score(charlson, weights = NULL, assign0 = FALSE)
-unw_cci
-## [1] 2 1 0
-## attr(,"map")
-## [1] "charlson_icd10_quan"
-
-quan_cci <- score(charlson, weights = "quan", assign0 = FALSE)
-quan_cci
-## [1] 6 2 0
-## attr(,"map")
-## [1] "charlson_icd10_quan"
-## attr(,"weights")
-## [1] "quan"
-
-all.equal(unw_cci, quan_cci)
-## [1] "Attributes: < Length mismatch: comparison on first 1 components >"
-## [2] "Mean relative difference: 1.666667"
-```
-
->>>>>>> e56b9bb3f11f99b0e684353d7a90265924f7ccb4
 Code for the Elixhauser score is omitted, but works analogously.
 
 Conversely, say we have 5 individuals with a total of 100 ICD-9
@@ -404,7 +368,6 @@ elixhauser9
 ## 5        0        0      1    0    0     0   0     0    0       0    0      0     0
 ```
 
-<<<<<<< HEAD
 Comorbidity codes for different versions of the AHRQ’s ‘Elixhauser
 Comorbidity Software’ could be computed. Accordingly, ‘map’ argument
 could take any of the following ones:
@@ -477,8 +440,6 @@ elixhauser_ahrq_2022
 ## 3        0          0          0            0           0            0     0        0
 ```
 
-=======
->>>>>>> e56b9bb3f11f99b0e684353d7a90265924f7ccb4
 Scores:
 
 ``` r
@@ -488,7 +449,6 @@ all.equal(unw_eci, vw_eci)
 ## [1] "Attributes: < Length mismatch: comparison on first 1 components >"
 ## [2] "Mean relative difference: 2"
 ```
-<<<<<<< HEAD
 
 To calculate ‘Risk of in-hospital mortality’ index, ‘weights’ is set to
 ‘mw’.
@@ -503,8 +463,6 @@ ahrq_scores
 
 ‘Risk of 30-day, all-cause readmission’ index could be calculated by
 setting ‘weights’ to ‘rw’.
-=======
->>>>>>> e56b9bb3f11f99b0e684353d7a90265924f7ccb4
 
 ## Citation
 
