@@ -115,11 +115,11 @@ for (w in c(names(.maps), "elixhauser_ahrq_2022")) {
       depre = -3
     )
   } else {
-    
+
     #***********************************************
     #  Weights for calculating readmission index
     #***********************************************
-    
+
     .weights[["elixhauser_ahrq_2022"]][["rw"]] <- c(
       AIDS         =  5,
       ALCOHOL      =  3,
@@ -160,11 +160,11 @@ for (w in c(names(.maps), "elixhauser_ahrq_2022")) {
       VALVE        =  0,
       WGHTLOSS     =  6
     )
-    
+
     #*********************************************
     #  Weights for calculating mortality index
     #*********************************************
-    
+
     .weights[["elixhauser_ahrq_2022"]][["mw"]] <- c(
       AIDS         = -4,
       ALCOHOL      = -1,
@@ -204,8 +204,8 @@ for (w in c(names(.maps), "elixhauser_ahrq_2022")) {
       ULCER_PEPTIC =  0,
       VALVE        =  0,
       WGHTLOSS     = 14
-    )    
-    
+    )
+
   }
   usethis::ui_done(x = "Done with score: '{w}'!")
 }

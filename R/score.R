@@ -55,10 +55,10 @@ score <- function(x, weights = NULL, assign0) {
       call. = FALSE
     )
   }
-  
+
   ### Identify scoring algorithm
   map <- attr(x, "map")
-  
+
   if (map %in% names(.maps)) {
     ### Check arguments
     arg_checks <- checkmate::makeAssertCollection()
@@ -81,7 +81,7 @@ score <- function(x, weights = NULL, assign0) {
     # Report if there are any errors
     if (!arg_checks$isEmpty())
       checkmate::reportAssertions(arg_checks)
-    
+
     # If weights = NULL, then do non-weighted scores
     if (is.null(weights)) {
       ww <- rep(1, length(.maps[[map]]))
@@ -90,7 +90,7 @@ score <- function(x, weights = NULL, assign0) {
       ww <- .weights[[map]][[weights]]
     }
     ww <- matrix(data = ww, ncol = 1)
-    
+
     # If assign0, first do that to the input dataset
     x <- x[, names(.maps[[map]])]
     if (assign0) {
@@ -98,33 +98,33 @@ score <- function(x, weights = NULL, assign0) {
       x <- .assign0(x = x, map = map)
       data.table::setDF(x)
     }
-    
+
     # Calculate score using matrix multiplication
     score <- as.matrix(x) %*% ww
     score <- drop(score)
     attr(score, "map") <- map
     attr(score, "weights") <- weights
-    
+
   } else {
     if (map == 'elixhauser_ahrq_2020' | map == 'elixhauser_ahrq_2021') {
       x$score <- rowSums(x[,.SD, .SDcols = !c('ID')])
       score <- x$score
-      
+
     } else {
       if (is.null(weights)) {
         x$score <- rowSums(x[,.SD, .SDcols = !c('ID')])
         score <- x$score
         attr(score, "map") <- map
-        
+
       } else {
         if (weights == "rw") {
           # Readmission
-          
+
           # Order of columns of the output table
           # The order should be consistent with
           # that of the elements in list "rw"
           column_order <- names(.weights[[map]][[weights]])
-          
+
           # Apply the weights for Readmission index
           x <- x[column_order]
           output_readmit <-
@@ -140,20 +140,20 @@ score <- function(x, weights = NULL, assign0) {
           for (i in 1:length(column_order)) {
             output_readmit[, i] <- x[, i] * .weights[[map]][[weights]][[i]]
           }
-          
+
           # Add calculated Readmission index to the input table
           x$score <- rowSums(output_readmit)
           score <- x$score
           attr(score, "map") <- map
-          
+
         } else if (weights == "mw") {
           # Mortality
-          
+
           # Order of columns of the output table
           # The order should be consistent with
           # that of the elements in list "mw"
           column_order <- names(.weights[[map]][[weights]])
-          
+
           # Apply the weights for Mortality index
           x <- x[column_order]
           output_readmit <-
@@ -169,12 +169,12 @@ score <- function(x, weights = NULL, assign0) {
           for (i in 1:length(column_order)) {
             output_mort[, i] <- x[, i] * .weights[[map]][[weights]][[i]]
           }
-          
+
           # Add calculated Mortality index to the input table
           x$score <- rowSums(output_mort)
           score <- x$score
           attr(score, "map") <- map
-          
+
         } else {
           stop("Argument 'weights' must be either 'rw' or 'mw'")
         }

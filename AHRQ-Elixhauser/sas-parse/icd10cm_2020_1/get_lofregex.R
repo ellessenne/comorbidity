@@ -5,7 +5,7 @@ download.file(
   url = "https://www.hcup-us.AHRQ.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2020_1.txt",
   destfile = "AHRQ-Elixhauser/sas-parse/icd10cm_2020_1/comformat_icd10cm_2020_1.txt"
 )
-  
+
 
 # Example pattern to extract:
 # "D500",
@@ -26,7 +26,7 @@ make_sas_list = function(sas_AHRQ_raw){
   # Assigns ICD-10 codes to comorbidty labels from sas file located here:
   # https://www.hcup-us.AHRQ.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2020_1.txt
   # Omits /**** ICD-10 MS-DRG V37 Formats ****/
-  
+
   # Clean up readlines
   sas_AHRQ_prep <- sas_AHRQ_raw[sas_AHRQ_raw!=""] %>% # Remove empty lines
     .[-(1:18)] %>% # First 18 elements are extraneous
@@ -35,7 +35,7 @@ make_sas_list = function(sas_AHRQ_raw){
     str_trim() %>% # Trim white space
     str_replace_all('\\"', "") %>% # Remove extraneous characters
     str_replace_all(',', "") # Remove extraneous characters
-  
+
   AHRQ_list = list() # create empty list
   temp_list = c() # placeholder for codes
   for(l in sas_AHRQ_prep){
@@ -57,10 +57,6 @@ make_sas_list = function(sas_AHRQ_raw){
   AHRQ_list # return the list
 }
 icd10cm_2020_1_lofregex = make_sas_list(sas_AHRQ_raw)
-
-# Save AHRQ_list object as RDS
-saveRDS(icd10cm_2020_1_lofregex, 
-        'AHRQ-Elixhauser/sas-formats/icd10cm_2020_1/icd10cm_2020_1_lofregex.Rds')
 
 # Remove comformat_icd10cm_2020_1.txt
 file.remove(sas_path)
