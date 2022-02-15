@@ -123,13 +123,13 @@ comorbidity <-  function(x, id, code, map, assign0, factorise = FALSE, labelled 
   # map must be one of the supported; case insensitive
   map <- tolower(map)
   #checkmate::assert_choice(map, choices = names(.maps), add = arg_checks)
-  
+
   checkmate::assert_choice(map, choices = c(names(.maps),
                                             'elixhauser_ahrq_2020',
                                             'elixhauser_ahrq_2021',
-                                            'elixhauser_ahrq_2022'), 
+                                            'elixhauser_ahrq_2022'),
 											  add = arg_checks)
-  
+
   # assign0, labelled, tidy.codes must be a single boolean value
   checkmate::assert_logical(assign0, add = arg_checks)
   checkmate::assert_logical(labelled, len = 1, add = arg_checks)
@@ -210,7 +210,7 @@ comorbidity <-  function(x, id, code, map, assign0, factorise = FALSE, labelled 
 
     if (map == 'elixhauser_ahrq_2020') {
       x <- get_ahrq_2020(x, id, code, assign0, drg, icd_rank)
-      
+
     } else if (map == 'elixhauser_ahrq_2021') {
       x <- get_ahrq_2021(
         df = x,
@@ -222,7 +222,7 @@ comorbidity <-  function(x, id, code, map, assign0, factorise = FALSE, labelled 
         quarter = quarter,
         icd10cm_vers = icd10cm_vers # If NULL, vers derived from year/quarter columns
       )
-      
+
     } else {
       x <- get_ahrq_2022(
         df = x,

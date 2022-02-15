@@ -200,6 +200,7 @@ elixhauser9 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_ic
 elixhauser9
 ```
 
+<<<<<<< HEAD
 Comorbidity codes for different versions of the AHRQ’s ‘Elixhauser Comorbidity Software’ could be computed. Accordingly, 'map' argument could take any of the following ones: 
 
   - elixhauser_ahrq_2020
@@ -244,6 +245,8 @@ elixhauser_ahrq_2022 <- comorbidity(
 elixhauser_ahrq_2022
 ```
 
+=======
+>>>>>>> e56b9bb3f11f99b0e684353d7a90265924f7ccb4
 Scores:
 
 ```{r score-9}
@@ -251,6 +254,7 @@ unw_eci <- score(elixhauser9, weights = NULL, assign0 = FALSE)
 vw_eci <- score(elixhauser9, weights = "vw", assign0 = FALSE)
 all.equal(unw_eci, vw_eci)
 ```
+<<<<<<< HEAD
 
 To calculate 'Risk of in-hospital mortality' index, 'weights' is set to 'mw'.
 
@@ -262,6 +266,8 @@ ahrq_scores
 'Risk of 30-day, all-cause readmission' index could be calculated by setting 'weights' to 'rw'.
 
 
+=======
+>>>>>>> e56b9bb3f11f99b0e684353d7a90265924f7ccb4
 
 ## Citation
 

@@ -253,9 +253,6 @@ Elixhauser2022Formats = list(
   ElixhauserAHRQ2022PreExclusion = ElixhauserAHRQ2022PreExclusion
 )
 
-saveRDS(Elixhauser2022Formats,
-        'AHRQ-Elixhauser/sas-formats/icd10cm_2022_1/Elixhauser2022Formats.Rds')
-
 # Remove .zip file
 file.remove(
   destfile_path

@@ -12,10 +12,10 @@ source("data-raw/make-mapping.R")
 source("data-raw/make-weights.R")
 
 ### Export
-usethis::use_data(.maps, 
-                  .weights, 
-                  lofregex, 
-                  lofmsdrg, 
-                  Elixhauser2021Formats, 
+usethis::use_data(.maps,
+                  .weights,
+                  lofregex,
+                  lofmsdrg,
+                  Elixhauser2021Formats,
                   Elixhauser2022Formats,
                   internal = TRUE, overwrite = TRUE)

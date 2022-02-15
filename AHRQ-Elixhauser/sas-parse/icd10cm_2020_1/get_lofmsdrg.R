@@ -25,23 +25,23 @@ convert_interval = function(interval) {
 format_msdrg = function(x) {
   x %>%
     str_split(',') %>% # Separate intervals
-    unlist() %>% # Unlist 
+    unlist() %>% # Unlist
     str_trim() %>% # Trim whitespace
     .[.!=""] %>% # Remove blanks
     sapply(convert_interval) %>% # convert to numeric intervals
     unlist() %>% # clean up
-    unname() %>% # clean up 
+    unname() %>% # clean up
     as.vector() # keep consistent with vectors
 }
 
 make_lofmsdrg <- function(sas_AHRQ_raw){
-  raw_msdrg = sas_AHRQ_raw[-(1:grep("ICD-10 MS-DRG V37 Formats", 
+  raw_msdrg = sas_AHRQ_raw[-(1:grep("ICD-10 MS-DRG V37 Formats",
                                     sas_AHRQ_raw))] # Skip to MS-DRG
-  raw_msdrg = raw_msdrg[raw_msdrg!="" & 
-                          raw_msdrg!="Run;" & 
+  raw_msdrg = raw_msdrg[raw_msdrg!="" &
+                          raw_msdrg!="Run;" &
                           raw_msdrg!="   "] # Drop empty and run
   raw_msdrg = str_trim(raw_msdrg)
-  
+
   msdrg_labels = list()
   msdrg_num_unformated = c()
   for (i in raw_msdrg){
@@ -65,9 +65,6 @@ make_lofmsdrg <- function(sas_AHRQ_raw){
   msdrg_labels
 }
 lofmsdrg = make_lofmsdrg(sas_AHRQ_raw)
-
-# Save lofmsdrg as .Rds
-saveRDS(lofmsdrg, 'AHRQ-Elixhauser/sas-formats/icd10cm_2020_1/icd10cm_2020_1_lofmsdrg.Rds')
 
 # Remove comformat_icd10cm_2020_1.txt
 file.remove(sas_path)
