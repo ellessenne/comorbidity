@@ -17,7 +17,7 @@ test_that("missing values are dealt with properly (data.frame input)", {
 
 test_that("error if only missing data (data.frame input)", {
   # Error if only missing data
-  expect_error(object = comorbidity(x = xa, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE))
+  expect_error(object = comorbidity(x = xa, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE), regex = "No non-missing data")
 })
 
 data.table::setDT(x)
@@ -34,5 +34,5 @@ test_that("missing values are dealt with properly (data.table input)", {
 
 test_that("error if only missing data (data.table input)", {
   # Error if only missing data
-  expect_error(object = comorbidity(x = xa, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE))
+  expect_error(object = comorbidity(x = xa, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE), regex = "No non-missing data")
 })

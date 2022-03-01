@@ -183,6 +183,8 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   backup <- x[, ..mvb]
   backup <- unique(backup)
   x <- stats::na.omit(x)
+  # If there are no rows left (= user passed missing data only), then error:
+  if (nrow(x) == 0) stop("No non-missing data, please check your input data", call. = FALSE)
 
   ### Get list of unique codes used in dataset that match comorbidities
   ..cd <- unique(x[[code]])
