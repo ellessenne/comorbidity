@@ -1,5 +1,4 @@
 library(stringr)
-library(dplyr)
 
 download.file(
   url = "https://www.hcup-us.AHRQ.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2020_1.txt",
@@ -26,16 +25,23 @@ make_sas_list = function(sas_AHRQ_raw){
   # Assigns ICD-10 codes to comorbidty labels from sas file located here:
   # https://www.hcup-us.AHRQ.gov/toolssoftware/comorbidityicd10/comformat_icd10cm_2020_1.txt
   # Omits /**** ICD-10 MS-DRG V37 Formats ****/
-
+  
   # Clean up readlines
-  sas_AHRQ_prep <- sas_AHRQ_raw[sas_AHRQ_raw!=""] %>% # Remove empty lines
-    .[-(1:18)] %>% # First 18 elements are extraneous
-    lapply(function(x) str_split(x,"\\/\\*")[[1]][1] ) %>% # Drop sas comments
-    unlist() %>%
-    str_trim() %>% # Trim white space
-    str_replace_all('\\"', "") %>% # Remove extraneous characters
-    str_replace_all(',', "") # Remove extraneous characters
-
+  sas_AHRQ_prep <- str_replace_all(
+    str_replace_all(
+      str_trim(
+        unlist(
+          lapply(
+            sas_AHRQ_raw[sas_AHRQ_raw!=""][-(1:18)], 
+            function(x) str_split(x,"\\/\\*")[[1]][1] 
+          )
+        )
+      ), 
+      '\\"', ""
+    ), 
+    ',', ""
+  ) 
+  
   AHRQ_list = list() # create empty list
   temp_list = c() # placeholder for codes
   for(l in sas_AHRQ_prep){
