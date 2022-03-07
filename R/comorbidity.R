@@ -112,6 +112,22 @@
 
 # comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE) {
 comorbidity <-  function(x, id, code, map, assign0, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE, drg = NULL, icd_rank = NULL, poa = NULL, year = NULL, quarter = NULL, icd10cm_vers = NULL){
+  # set.seed(1)
+    # x <- data.frame(
+    #   id = 1,
+    #   code = sample_diag(10),
+    #   stringsAsFactors = FALSE
+    # )
+    # xa <- data.frame(id = 1:2, code = NA_character_)
+    # xm <- rbind(x, xa)
+    #
+    # x = xm
+    # id = "id"
+    # code = "code"
+    # map = "charlson_icd10_quan"
+    # assign0 = FALSE
+    # labelled = T
+    # tidy.codes = T
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame (or a data.table)
@@ -174,6 +190,14 @@ comorbidity <-  function(x, id, code, map, assign0, factorise = FALSE, labelled 
   ### Turn x into a DT
   data.table::setDT(x)
 
+  ### Deal with missing codes
+  mvb <- id
+  backup <- x[, ..mvb]
+  backup <- unique(backup)
+  x <- stats::na.omit(x)
+  # If there are no rows left (= user passed missing data only), then error:
+  if (nrow(x) == 0) stop("No non-missing data, please check your input data", call. = FALSE)
+
   ### Get list of unique codes used in dataset that match comorbidities
   ..cd <- unique(x[[code]])
   loc <- sapply(X = regex, FUN = function(p) stringi::stri_subset_regex(str = ..cd, pattern = p))
@@ -192,6 +216,10 @@ comorbidity <-  function(x, id, code, map, assign0, factorise = FALSE, labelled 
   xin[, value := 1L]
   x <- data.table::dcast.data.table(xin, stats::as.formula(paste(id, "~ ind")), fill = 0)
   if (!is.null(x[["NA"]])) x[, `NA` := NULL]
+
+  ### Restore IDs
+  x <- merge(x, backup, by = id, all.y = TRUE, )
+  data.table::setnafill(x = x, type = "const", fill = 0L)
 
   ### Add missing columns
   for (col in names(regex)) {
