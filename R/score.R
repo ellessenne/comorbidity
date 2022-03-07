@@ -50,49 +50,137 @@
 score <- function(x, weights = NULL, assign0) {
   ### First, check the function is getting a 'comorbidity' data.frame
   if (!inherits(x = x, what = "comorbidity")) {
-    stop("This function can only be used on an object of class 'comorbidity', which you can obtain by using the 'comorbidity()' function. See ?comorbidity for more details.", call. = FALSE)
+    stop(
+      "This function can only be used on an object of class 'comorbidity', which you can obtain by using the 'comorbidity()' function. See ?comorbidity for more details.",
+      call. = FALSE
+    )
   }
+
   ### Identify scoring algorithm
   map <- attr(x, "map")
-  ### Check arguments
-  arg_checks <- checkmate::makeAssertCollection()
-  # check class of 'x' again, better safe then sorry
-  checkmate::assert_class(x, classes = "comorbidity", add = arg_checks)
-  # weights must be a single string value
-  checkmate::assert_string(weights, null.ok = TRUE, add = arg_checks)
-  # weights must be one of the supported; case insensitive
-  if (!is.null(weights)) {
-    weights <- stringi::stri_trans_tolower(weights)
-  }
-  checkmate::assert_choice(weights, choices = names(.weights[[map]]), null.ok = TRUE, add = arg_checks)
-  # assign0 be a single boolean value
-  checkmate::assert_logical(assign0, add = arg_checks)
-  # Report if there are any errors
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
-  # If weights = NULL, then do non-weighted scores
-  if (is.null(weights)) {
-    ww <- rep(1, length(.maps[[map]]))
-    names(ww) <- names(.maps[[map]])
+  if (map %in% names(.maps)) {
+    ### Check arguments
+    arg_checks <- checkmate::makeAssertCollection()
+    # check class of 'x' again, better safe then sorry
+    checkmate::assert_class(x, classes = "comorbidity", add = arg_checks)
+    # weights must be a single string value
+    checkmate::assert_string(weights, null.ok = TRUE, add = arg_checks)
+    # weights must be one of the supported; case insensitive
+    if (!is.null(weights)) {
+      weights <- stringi::stri_trans_tolower(weights)
+    }
+    checkmate::assert_choice(
+      weights,
+      choices = names(.weights[[map]]),
+      null.ok = TRUE,
+      add = arg_checks
+    )
+    # assign0 be a single boolean value
+    checkmate::assert_logical(assign0, add = arg_checks)
+    # Report if there are any errors
+    if (!arg_checks$isEmpty())
+      checkmate::reportAssertions(arg_checks)
+
+    # If weights = NULL, then do non-weighted scores
+    if (is.null(weights)) {
+      ww <- rep(1, length(.maps[[map]]))
+      names(ww) <- names(.maps[[map]])
+    } else {
+      ww <- .weights[[map]][[weights]]
+    }
+    ww <- matrix(data = ww, ncol = 1)
+
+    # If assign0, first do that to the input dataset
+    x <- x[, names(.maps[[map]])]
+    if (assign0) {
+      data.table::setDT(x)
+      x <- .assign0(x = x, map = map)
+      data.table::setDF(x)
+    }
+
+    # Calculate score using matrix multiplication
+    score <- as.matrix(x) %*% ww
+    score <- drop(score)
+    attr(score, "map") <- map
+    attr(score, "weights") <- weights
+
   } else {
-    ww <- .weights[[map]][[weights]]
+    if (map == 'elixhauser_ahrq_2020' | map == 'elixhauser_ahrq_2021') {
+      x$score <- rowSums(x[,.SD, .SDcols = !c('ID')])
+      score <- x$score
+
+    } else {
+      if (is.null(weights)) {
+        x$score <- rowSums(x[,.SD, .SDcols = !c('ID')])
+        score <- x$score
+        attr(score, "map") <- map
+
+      } else {
+        if (weights == "rw") {
+          # Readmission
+
+          # Order of columns of the output table
+          # The order should be consistent with
+          # that of the elements in list "rw"
+          column_order <- names(.weights[[map]][[weights]])
+
+          # Apply the weights for Readmission index
+          x <- x[column_order]
+          output_readmit <-
+            data.frame(matrix(
+              ncol = length(column_order),
+              nrow = dim(x)[1]
+            ))
+          output_mort <-
+            data.frame(matrix(
+              ncol = length(column_order),
+              nrow = dim(x)[1]
+            ))
+          for (i in 1:length(column_order)) {
+            output_readmit[, i] <- x[, i] * .weights[[map]][[weights]][[i]]
+          }
+
+          # Add calculated Readmission index to the input table
+          x$score <- rowSums(output_readmit)
+          score <- x$score
+          attr(score, "map") <- map
+
+        } else if (weights == "mw") {
+          # Mortality
+
+          # Order of columns of the output table
+          # The order should be consistent with
+          # that of the elements in list "mw"
+          column_order <- names(.weights[[map]][[weights]])
+
+          # Apply the weights for Mortality index
+          x <- x[column_order]
+          output_readmit <-
+            data.frame(matrix(
+              ncol = length(column_order),
+              nrow = dim(x)[1]
+            ))
+          output_mort <-
+            data.frame(matrix(
+              ncol = length(column_order),
+              nrow = dim(x)[1]
+            ))
+          for (i in 1:length(column_order)) {
+            output_mort[, i] <- x[, i] * .weights[[map]][[weights]][[i]]
+          }
+
+          # Add calculated Mortality index to the input table
+          x$score <- rowSums(output_mort)
+          score <- x$score
+          attr(score, "map") <- map
+
+        } else {
+          stop("Argument 'weights' must be either 'rw' or 'mw'")
+        }
+      }
+    }
   }
-  ww <- matrix(data = ww, ncol = 1)
-
-  # If assign0, first do that to the input dataset
-  x <- x[, names(.maps[[map]])]
-  if (assign0) {
-    data.table::setDT(x)
-    x <- .assign0(x = x, map = map)
-    data.table::setDF(x)
-  }
-
-  # Calculate score using matrix multiplication
-  score <- as.matrix(x) %*% ww
-  score <- drop(score)
-  attr(score, "map") <- map
-  attr(score, "weights") <- weights
-
   # Return score
   return(score)
 }

@@ -9,7 +9,7 @@ library(haven)
 ########################################################################################################################
 ### Dataset #1: ICD-10 codes, 2009 version
 # Download dataset
-download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10/allvalid2009(detailed%20titles%20headings).xls", destfile = "data-raw/allvalid2009.xls")
+download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10/allvalid2009(detailed%20titles%20headings).xls", destfile = "data-raw/allvalid2009.xls", mode = "wb")
 
 # Read data in Excel format
 icd10_2009 <- readxl::read_excel(
@@ -40,7 +40,7 @@ usethis::use_data(icd10_2009, overwrite = TRUE)
 ########################################################################################################################
 ### Dataset #2: ICD-10 codes, 2011 version
 # Download dataset
-download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10/allvalid2011 (detailed%20titles%20headings).xls", destfile = "data-raw/allvalid2011.xls")
+download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10/allvalid2011 (detailed%20titles%20headings).xls", destfile = "data-raw/allvalid2011.xls", mode = "wb")
 
 # Read data in Excel format
 icd10_2011 <- readxl::read_excel(
@@ -71,7 +71,7 @@ usethis::use_data(icd10_2011, overwrite = TRUE)
 ########################################################################################################################
 ### Dataset #3: ICD-9 codes, 2015 version
 # Download dataset
-download.file(url = "https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/Downloads/ICD-9-CM-v32-master-descriptions.zip", destfile = "data-raw/ICD-9-CM-v32-master-descriptions.zip")
+download.file(url = "https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/Downloads/ICD-9-CM-v32-master-descriptions.zip", destfile = "data-raw/ICD-9-CM-v32-master-descriptions.zip", mode = "wb")
 
 # Unzip files
 unzip("data-raw/ICD-9-CM-v32-master-descriptions.zip", exdir = "data-raw")
@@ -89,7 +89,7 @@ usethis::use_data(icd9_2015, overwrite = TRUE)
 
 ########################################################################################################################
 ### Dataset #4 ICD-10-CM codes, 2018 version
-download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2018/2018-ICD-10-CM-Codes-File.zip", destfile = "data-raw/2018-ICD-10-CM-Codes-File.zip")
+download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2018/2018-ICD-10-CM-Codes-File.zip", destfile = "data-raw/2018-ICD-10-CM-Codes-File.zip", mode = "wb")
 
 # Unzip files
 unzip("data-raw/2018-ICD-10-CM-Codes-File.zip", exdir = "data-raw")
@@ -109,7 +109,7 @@ usethis::use_data(icd10cm_2018, overwrite = TRUE)
 
 ########################################################################################################################
 ### Dataset #5 ICD-10-CM codes, 2017 version
-download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2017/icd10cm_codes_2017.txt", destfile = "data-raw/icd10cm_codes_2017.txt")
+download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2017/icd10cm_codes_2017.txt", destfile = "data-raw/icd10cm_codes_2017.txt", mode = "wb")
 
 # Read files
 icd10cm_2017 <- readr::read_tsv(file = "data-raw/icd10cm_codes_2017.txt", col_names = FALSE)

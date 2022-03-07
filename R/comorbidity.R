@@ -110,23 +110,24 @@
 #' comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
 #' @export
 
-comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE) {
+# comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE) {
+comorbidity <-  function(x, id, code, map, assign0, factorise = FALSE, labelled = TRUE, tidy.codes = TRUE, drg = NULL, icd_rank = NULL, poa = NULL, year = NULL, quarter = NULL, icd10cm_vers = NULL){
   # set.seed(1)
-  # x <- data.frame(
-  #   id = 1,
-  #   code = sample_diag(10),
-  #   stringsAsFactors = FALSE
-  # )
-  # xa <- data.frame(id = 1:2, code = NA_character_)
-  # xm <- rbind(x, xa)
-  #
-  # x = xm
-  # id = "id"
-  # code = "code"
-  # map = "charlson_icd10_quan"
-  # assign0 = FALSE
-  # labelled = T
-  # tidy.codes = T
+    # x <- data.frame(
+    #   id = 1,
+    #   code = sample_diag(10),
+    #   stringsAsFactors = FALSE
+    # )
+    # xa <- data.frame(id = 1:2, code = NA_character_)
+    # xm <- rbind(x, xa)
+    #
+    # x = xm
+    # id = "id"
+    # code = "code"
+    # map = "charlson_icd10_quan"
+    # assign0 = FALSE
+    # labelled = T
+    # tidy.codes = T
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame (or a data.table)
@@ -137,7 +138,14 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   checkmate::assert_string(map, add = arg_checks)
   # map must be one of the supported; case insensitive
   map <- tolower(map)
-  checkmate::assert_choice(map, choices = names(.maps), add = arg_checks)
+  #checkmate::assert_choice(map, choices = names(.maps), add = arg_checks)
+
+  checkmate::assert_choice(map, choices = c(names(.maps),
+                                            'elixhauser_ahrq_2020',
+                                            'elixhauser_ahrq_2021',
+                                            'elixhauser_ahrq_2022'),
+											  add = arg_checks)
+
   # assign0, labelled, tidy.codes must be a single boolean value
   checkmate::assert_logical(assign0, add = arg_checks)
   checkmate::assert_logical(labelled, len = 1, add = arg_checks)
@@ -160,6 +168,10 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   checkmate::assert_subset(code, choices = names(x), add = arg_checks)
   # Report if there are any errors
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+
+  ##############################################################################
+  ## Isolate scores computed within comorbidity() vs. within other functions
+  if (map %in% names(.maps)) {
 
   ### Tidy codes if required
   if (tidy.codes) x <- .tidy(x = x, code = code)
@@ -222,7 +234,37 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
 
   ### Turn internal DT into a DF
   data.table::setDF(x)
+} else {
 
+    if (map == 'elixhauser_ahrq_2020') {
+      x <- get_ahrq_2020(x, id, code, assign0, drg, icd_rank)
+
+    } else if (map == 'elixhauser_ahrq_2021') {
+      x <- get_ahrq_2021(
+        df = x,
+        patient_id = id,
+        icd_code = code,
+        icd_seq = icd_rank,
+        poa_code = poa,
+        year = year,
+        quarter = quarter,
+        icd10cm_vers = icd10cm_vers # If NULL, vers derived from year/quarter columns
+      )
+
+    } else {
+      x <- get_ahrq_2022(
+        df = x,
+        patient_id = id,
+        icd_code = code,
+        icd_seq = icd_rank,
+        poa_code = poa,
+        year = year,
+        quarter = quarter,
+        icd10cm_vers = icd10cm_vers # If NULL, vers derived from year/quarter columns
+      )
+    }
+
+}
   ### Check output for possible unknown-state errors
   .check_output(x = x, id = id)
 

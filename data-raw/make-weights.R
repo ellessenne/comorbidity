@@ -1,7 +1,7 @@
 # Empty list
 .weights <- list()
 
-for (w in names(.maps)) {
+for (w in c(names(.maps), "elixhauser_ahrq_2022")) {
   if (grepl(pattern = "charlson", x = w)) {
     # Charlson-compatible weights:
     # Original Charlson weights
@@ -44,7 +44,7 @@ for (w in names(.maps)) {
       metacanc = 6,
       aids = 4
     )
-  } else {
+  } else if (grepl(pattern = "elixhauser_icd", x = w)) {
     # Elixhauser-compatible weights:
     # van Walraven
     .weights[[w]][["vw"]] <- c(
@@ -114,6 +114,98 @@ for (w in names(.maps)) {
       psycho = -4,
       depre = -3
     )
+  } else {
+
+    #***********************************************
+    #  Weights for calculating readmission index
+    #***********************************************
+
+    .weights[["elixhauser_ahrq_2022"]][["rw"]] <- c(
+      AIDS         =  5,
+      ALCOHOL      =  3,
+      ANEMDEF      =  5,
+      AUTOIMMUNE   =  2,
+      BLDLOSS      =  2,
+      CANCER_LEUK  = 10,
+      CANCER_LYMPH =  7,
+      CANCER_METS  = 11,
+      CANCER_NSITU =  0,
+      CANCER_SOLID =  7,
+      CBVD         =  0,
+      COAG         =  3,
+      DEMENTIA     =  1,
+      DEPRESS      =  2,
+      DIAB_CX      =  4,
+      DIAB_UNCX    =  0,
+      DRUG_ABUSE   =  6,
+      HF           =  7,
+      HTN_CX       =  0,
+      HTN_UNCX     =  0,
+      LIVER_MLD    =  3,
+      LIVER_SEV    = 10,
+      LUNG_CHRONIC =  4,
+      NEURO_MOVT   =  1,
+      NEURO_OTH    =  2,
+      NEURO_SEIZ   =  5,
+      OBESE        = -2,
+      PARALYSIS    =  3,
+      PERIVASC     =  1,
+      PSYCHOSES    =  6,
+      PULMCIRC     =  3,
+      RENLFL_MOD   =  4,
+      RENLFL_SEV   =  8,
+      THYROID_HYPO =  0,
+      THYROID_OTH  =  0,
+      ULCER_PEPTIC =  2,
+      VALVE        =  0,
+      WGHTLOSS     =  6
+    )
+
+    #*********************************************
+    #  Weights for calculating mortality index
+    #*********************************************
+
+    .weights[["elixhauser_ahrq_2022"]][["mw"]] <- c(
+      AIDS         = -4,
+      ALCOHOL      = -1,
+      ANEMDEF      = -3,
+      AUTOIMMUNE   = -1,
+      BLDLOSS      = -4,
+      CANCER_LEUK  =  9,
+      CANCER_LYMPH =  6,
+      CANCER_METS  = 23,
+      CANCER_NSITU =  0,
+      CANCER_SOLID = 10,
+      CBVD         =  5,
+      COAG         = 15,
+      DEMENTIA     =  5,
+      DEPRESS      = -9,
+      DIAB_CX      = -2,
+      DIAB_UNCX    =  0,
+      DRUG_ABUSE   = -7,
+      HF           = 15,
+      HTN_CX       =  1,
+      HTN_UNCX     =  0,
+      LIVER_MLD    =  2,
+      LIVER_SEV    = 17,
+      LUNG_CHRONIC =  2,
+      NEURO_MOVT   = -1,
+      NEURO_OTH    = 23,
+      NEURO_SEIZ   =  2,
+      OBESE        = -7,
+      PARALYSIS    =  4,
+      PERIVASC     =  3,
+      PSYCHOSES    = -9,
+      PULMCIRC     =  4,
+      RENLFL_MOD   =  3,
+      RENLFL_SEV   =  8,
+      THYROID_HYPO = -3,
+      THYROID_OTH  = -8,
+      ULCER_PEPTIC =  0,
+      VALVE        =  0,
+      WGHTLOSS     = 14
+    )
+
   }
   usethis::ui_done(x = "Done with score: '{w}'!")
 }
