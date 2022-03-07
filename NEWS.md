@@ -1,5 +1,9 @@
 # comorbidity (development version)
 
+* The startup message pointing out changes in the API now appears less often (40% probability).
+
+* Fixed a bug that was causing all comorbidities to be assigned a value of one when there was missing data in the `code` column (#50), thanks @Chris-M-P for reporting this.
+
 # comorbidity 1.0.0
 
 * `comorbidity` version 1.0.0 is a release that substantially modifies and updates the package API.
