@@ -1,60 +1,42 @@
 devtools::load_all()
-library(profvis)
+library(tidyverse)
 
 set.seed(1)
 x <- data.frame(
-  id = sample(seq(1e5), size = 1e7, replace = TRUE),
-  code = sample_diag(1e7),
+  id = sample(1:15, size = 200, replace = TRUE),
+  code = sample_diag(200),
   stringsAsFactors = FALSE
 )
-
-addd <- sample(x = seq(nrow(x)), size = 5e4)
-x$code[addd] <- paste0(".", x$code[addd])
-
-#
-id <- "id"
-code <- "code"
-map <- "elixhauser_icd10_quan"
-assign0 <- FALSE
-labelled <- FALSE
-tidy.codes <- TRUE
-
-profvis::profvis({
-  comorbidity(x = x, id = id, code = code, map = map, assign0 = assign0, labelled = labelled, tidy.codes = tidy.codes)
-})
-
-# #50:
-set.seed(1)
-x <- data.frame(
-  id = 1,
-  code = sample_diag(10),
-  stringsAsFactors = FALSE
-)
-xa <- data.frame(id = 1:2, code = NA_character_)
-xm <- rbind(x, xa)
-
-library(data.table)
-setDT(xm)
 
 # Charlson score based on ICD-10 diagnostic codes:
-comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
-comorbidity(x = xm, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
-comorbidity(x = xa, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
+x1 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
 
+x2 <- x1 %>%
+  mutate(score = score(x = ., weights = "charlson", assign0 = FALSE))
+
+attributes(x1)
+attributes(x2)
+
+library(devtools)
+install_version("dplyr", version = "1.0.6", repos = "http://cran.us.r-project.org")
+
+library(tidyverse)
+library(comorbidity)
+#> This is {comorbidity} version 1.0.0.
+#> A lot has changed since the last release on CRAN, please check-out breaking changes here:
+#> -> https://ellessenne.github.io/comorbidity/articles/C-changes.html
+
+
+# Charlson score based on ICD-10 diagnostic codes:
 reprex::reprex({
   library(comorbidity)
-  library(tidyverse)
   set.seed(1)
   x <- data.frame(
     id = sample(1:15, size = 200, replace = TRUE),
     code = sample_diag(200),
     stringsAsFactors = FALSE
   )
-
-  # Charlson score based on ICD-10 diagnostic codes:
-  x1 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE) %>%
-    score(x = ., weights = "charlson", assign0 = FALSE)
+  x1 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
+  x1$score <- score(x = x1, weights = "charlson", assign0 = FALSE)
   attributes(x1)
-
-  x1
 })
