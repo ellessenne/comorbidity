@@ -1,5 +1,7 @@
 # comorbidity (development version)
 
+* New dataset: ICD10-CM, 2022 version, named `icd10cm_2022`.
+
 # comorbidity 1.0.1
 
 * The startup message pointing out changes in the API now appears less often (40% probability).
