@@ -3,7 +3,7 @@
 
 # The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
-Last updated: 2022-02-15
+Last updated: 2022-03-17
 
 <!-- badges: start -->
 
@@ -11,9 +11,9 @@ Last updated: 2022-02-15
 status](https://github.com/ellessenne/comorbidity/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/comorbidity/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/ellessenne/comorbidity/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ellessenne/comorbidity?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![CRAN_Logs_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![CRAN_Logs_Badge_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![JOSS
 DOI](http://joss.theoj.org/papers/10.21105/joss.00648/status.svg)](https://doi.org/10.21105/joss.00648)
 [![PRs
@@ -57,9 +57,6 @@ For instance, we could simulate ICD-10 codes:
 ``` r
 # load the comorbidity package
 library(comorbidity)
-## This is {comorbidity} version 1.0.0.
-## A lot has changed since the last release on CRAN, please check-out breaking changes here:
-## -> https://ellessenne.github.io/comorbidity/articles/C-changes.html
 # set a seed for reproducibility
 set.seed(1)
 # simulate 50 ICD-10 codes for 5 individuals
@@ -372,9 +369,9 @@ Comorbidity codes for different versions of the AHRQ’s ‘Elixhauser
 Comorbidity Software’ could be computed. Accordingly, ‘map’ argument
 could take any of the following ones:
 
--   elixhauser\_ahrq\_2020
--   elixhauser\_ahrq\_2021
--   elixhauser\_ahrq\_2022
+-   elixhauser_ahrq_2020
+-   elixhauser_ahrq_2021
+-   elixhauser_ahrq_2022
 
 The following example calculates the comorbidity codes for the 2020
 version.
