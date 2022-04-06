@@ -46,12 +46,12 @@ A data frame with \code{id}, columns relative to each comorbidity domain, comorb
 For the Charlson score, the following variables are included in the dataset:
 \itemize{
 \item The \code{id} variable as defined by the user;
-\item \code{ami}, for acute myocardial infarction;
+\item \code{mi}, for myocardial infarction;
 \item \code{chf}, for congestive heart failure;
 \item \code{pvd}, for peripheral vascular disease;
 \item \code{cevd}, for cerebrovascular disease;
 \item \code{dementia}, for dementia;
-\item \code{copd}, chronic obstructive pulmonary disease;
+\item \code{cpd}, for chronic pulmonary disease;
 \item \code{rheumd}, for rheumatoid disease;
 \item \code{pud}, for peptic ulcer disease;
 \item \code{mld}, for mild liver disease;
@@ -62,7 +62,8 @@ For the Charlson score, the following variables are included in the dataset:
 \item \code{canc}, for cancer (any malignancy);
 \item \code{msld}, for moderate or severe liver disease;
 \item \code{metacanc}, for metastatic solid tumour;
-\item \code{aids}, for AIDS/HIV;
+\item \code{aids}, for AIDS/HIV.
+Please note that we combine "chronic obstructive pulmonary disease" and "chronic other pulmonary disease" for the Swedish version of the Charlson index, for comparability (and compatibility) with other definitions/implementations.
 }
 
 Conversely, for the Elixhauser score the dataset contains the following variables:

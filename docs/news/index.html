@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">comorbidity</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,10 +53,25 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="comorbidity-development-version">comorbidity (development version)<a class="anchor" aria-label="anchor" href="#comorbidity-development-version"></a></h2>
-</div>
+<h2 class="pkg-version" data-toc-text="1.0.2" id="comorbidity-102">comorbidity 1.0.2<a class="anchor" aria-label="anchor" href="#comorbidity-102"></a></h2>
+<ul><li><p>The <code>copd</code> comorbidity for the Charlson index has been
+renamed to <code>cpd</code>, and the <code>ami</code> comorbidity for
+the Charlson index has been renamed to <code>mi</code> (<a href="https://github.com/ellessenne/comorbidity/issues/53" class="external-link">#53</a>, thanks
+<a href="https://github.com/DrYan1102" class="external-link">@DrYan1102</a>). Please be aware that this might break some old code if you
+were selecting comorbidities by name.</p></li>
+<li><p>New dataset: ICD10-CM, 2022 version, named
+<code>icd10cm_2022</code>.</p></li>
+</ul></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.0" id="comorbidity-100">comorbidity 1.0.0<a class="anchor" aria-label="anchor" href="#comorbidity-100"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.1" id="comorbidity-101">comorbidity 1.0.1<a class="anchor" aria-label="anchor" href="#comorbidity-101"></a></h2>
+<ul><li><p>The startup message pointing out changes in the API now appears
+less often (40% probability).</p></li>
+<li><p>Fixed a bug that was causing all comorbidities to be assigned a
+value of one when there was missing data in the <code>code</code> column
+(<a href="https://github.com/ellessenne/comorbidity/issues/50" class="external-link">#50</a>), thanks <a href="https://github.com/Chris-M-P" class="external-link">@Chris-M-P</a> for reporting this.</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.0" id="comorbidity-100">comorbidity 1.0.0<a class="anchor" aria-label="anchor" href="#comorbidity-100"></a></h2><p class="text-muted">CRAN release: 2022-01-17</p>
 <ul><li><p><code>comorbidity</code> version 1.0.0 is a release that
 substantially modifies and updates the package API. There are a lot of
 improvements in terms of performance, supported algorithms, and
@@ -166,9 +181,10 @@ datasets bundled with <code>comorbidity</code>.</li>
 <h4 id="breaking-changes-0-2-0">BREAKING CHANGES<a class="anchor" aria-label="anchor" href="#breaking-changes-0-2-0"></a></h4>
 <p>The <code>score</code> argument from <code>comorbidity</code> has
 been split into <code>score</code> and <code>icd</code>. For instance,
-the command <code>comorbidity(x = x, id = "id", code = "code", score =
-"charlson_icd10")</code> has to be modified as <code>r comorbidity(x =
-x, id = "id", code = "code", score = "charlson", icd = "icd10")</code>.
+the command
+<code>comorbidity(x = x, id = "id", code = "code", score = "charlson_icd10")</code>
+has to be modified as
+<code>r comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = "icd10")</code>.
 The default value of <code>icd</code> is <code>icd10</code>, for ICD-10
 codes, and possible values are <code>icd10</code> and
 <code>icd9</code>.</p>

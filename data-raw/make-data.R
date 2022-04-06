@@ -5,6 +5,8 @@ library(stringr)
 library(devtools)
 library(usethis)
 library(haven)
+library(stringi)
+library(tidyverse)
 
 ########################################################################################################################
 ### Dataset #1: ICD-10 codes, 2009 version
@@ -40,7 +42,7 @@ usethis::use_data(icd10_2009, overwrite = TRUE)
 ########################################################################################################################
 ### Dataset #2: ICD-10 codes, 2011 version
 # Download dataset
-download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10/allvalid2011 (detailed%20titles%20headings).xls", destfile = "data-raw/allvalid2011.xls")
+download.file(url = "ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10/allvalid2011%20%28detailed%20titles%20headings%29.xls", destfile = "data-raw/allvalid2011.xls")
 
 # Read data in Excel format
 icd10_2011 <- readxl::read_excel(
@@ -145,6 +147,30 @@ australia10 <- haven::zap_labels(australia10)
 usethis::use_data(australia10, overwrite = TRUE)
 
 ########################################################################################################################
+### Dataset #7 ICD-10-CM codes, 2022 version
+download.file(url = "https://www.cms.gov/files/zip/2022-code-descriptions-tabular-order-updated-02012022.zip", destfile = "data-raw/tmp.zip")
+unzip(zipfile = "data-raw/tmp.zip", exdir = "data-raw")
+
+# Read files
+icd10cm_2022 <- readLines(con = "data-raw/Code Descriptions/icd10cm_codes_2022.txt")
+where_to_split <- stri_locate_first(str = icd10cm_2022, regex = " ")
+icd10cm_2022 <- data.frame(
+  Code = stri_sub(icd10cm_2022, from = 1L, to = where_to_split[2, ]),
+  Description = stri_sub(icd10cm_2022, from = where_to_split[2, ])
+)
+icd10cm_2022 <- mutate(
+  icd10cm_2022,
+  Code = stri_trim_both(Code),
+  Description = stri_trim_both(Description)
+)
+
+# Save data in R format
+usethis::use_data(icd10cm_2022, overwrite = TRUE)
+
+########################################################################################################################
 ### Remove unnecessary files
+lf <- list.files(path = "data-raw/Code Descriptions", full.names = TRUE, pattern = ".xls|.txt|.zip|.pdf")
+invisible(file.remove(lf))
+invisible(file.remove("data-raw/Code Descriptions/"))
 lf <- list.files(path = "data-raw", full.names = TRUE, pattern = ".xls|.txt|.zip|.pdf")
 invisible(file.remove(lf))

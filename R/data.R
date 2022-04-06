@@ -48,6 +48,19 @@
 #' @source CMS.gov Website: https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/codes.html
 "icd9_2015"
 
+#' @title ICD-10-CM Diagnostic Codes, 2022 Version
+#'
+#' @description A dataset containing the 2022 version of the ICD10-CM coding system.
+#'
+#' @format A data frame with 72,750 rows and 2 variables:
+#' \describe{
+#'   \item{Code}{ICD-10-CM diagnostic code}
+#'   \item{Description}{Description of each code}
+#' }
+#'
+#' @note The R code used to download and process the dataset from the CDC website is available [here](https://raw.githubusercontent.com/ellessenne/comorbidity/master/data-raw/make-data.R).
+"icd10cm_2022"
+
 #' @title ICD-10-CM Diagnostic Codes, 2018 Version
 #'
 #' @description A dataset containing the 2018 version of the ICD10-CM coding system.

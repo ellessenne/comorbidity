@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">comorbidity</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,12 +100,12 @@ Defaults to <code>TRUE</code>.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A data frame with <code>id</code>, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
 For the Charlson score, the following variables are included in the dataset:</p><ul><li><p>The <code>id</code> variable as defined by the user;</p></li>
-<li><p><code>ami</code>, for acute myocardial infarction;</p></li>
+<li><p><code>mi</code>, for myocardial infarction;</p></li>
 <li><p><code>chf</code>, for congestive heart failure;</p></li>
 <li><p><code>pvd</code>, for peripheral vascular disease;</p></li>
 <li><p><code>cevd</code>, for cerebrovascular disease;</p></li>
 <li><p><code>dementia</code>, for dementia;</p></li>
-<li><p><code>copd</code>, chronic obstructive pulmonary disease;</p></li>
+<li><p><code>cpd</code>, for chronic pulmonary disease;</p></li>
 <li><p><code>rheumd</code>, for rheumatoid disease;</p></li>
 <li><p><code>pud</code>, for peptic ulcer disease;</p></li>
 <li><p><code>mld</code>, for mild liver disease;</p></li>
@@ -116,7 +116,8 @@ For the Charlson score, the following variables are included in the dataset:</p>
 <li><p><code>canc</code>, for cancer (any malignancy);</p></li>
 <li><p><code>msld</code>, for moderate or severe liver disease;</p></li>
 <li><p><code>metacanc</code>, for metastatic solid tumour;</p></li>
-<li><p><code>aids</code>, for AIDS/HIV;</p></li>
+<li><p><code>aids</code>, for AIDS/HIV.
+Please note that we combine "chronic obstructive pulmonary disease" and "chronic other pulmonary disease" for the Swedish version of the Charlson index, for comparability (and compatibility) with other definitions/implementations.</p></li>
 </ul><p>Conversely, for the Elixhauser score the dataset contains the following variables:</p><ul><li><p>The <code>id</code> variable as defined by the user;</p></li>
 <li><p><code>chf</code>, for congestive heart failure;</p></li>
 <li><p><code>carit</code>, for cardiac arrhythmias;</p></li>
@@ -176,38 +177,38 @@ A message is printed to the R console when non-alphanumeric characters are found
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Charlson score based on ICD-10 diagnostic codes:</span></span>
 <span class="r-in"><span class="fu">comorbidity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1   0   0   0    0        0    0      0   0   0    0      0  0    0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4   0   0   0    0        0    0      0   0   0    0      0  0    0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   6   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   7   0   1   0    0        0    0      0   0   1    0      0  0    0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9   0   0   0    1        0    0      0   0   0    0      0  0    0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10   0   0   0    0        0    0      0   0   0    0      0  0    0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 11   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 12   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 13   0   0   0    0        0    0      0   1   0    0      0  0    0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 14   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 15   0   0   0    0        0    0      0   0   0    0      0  0    0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    msld metacanc aids</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     0        0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13    0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14    0        0    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15    0        0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id mi chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   6  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   7  0   1   0    0        0   0      0   0   1    0      0  0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9  0   0   0    1        0   0      0   0   0    0      0  0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 11  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 12  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 13  0   0   0    0        0   0      0   1   0    0      0  0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 14  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 15  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    metacanc aids</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        0    0</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Elixhauser score based on ICD-10 diagnostic codes:</span></span>
 <span class="r-in"><span class="fu">comorbidity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"elixhauser_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>

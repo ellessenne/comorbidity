@@ -32,12 +32,12 @@
 #'
 #' For the Charlson score, the following variables are included in the dataset:
 #' * The `id` variable as defined by the user;
-#' * `ami`, for acute myocardial infarction;
+#' * `mi`, for myocardial infarction;
 #' * `chf`, for congestive heart failure;
 #' * `pvd`, for peripheral vascular disease;
 #' * `cevd`, for cerebrovascular disease;
 #' * `dementia`, for dementia;
-#' * `copd`, chronic obstructive pulmonary disease;
+#' * `cpd`, for chronic pulmonary disease;
 #' * `rheumd`, for rheumatoid disease;
 #' * `pud`, for peptic ulcer disease;
 #' * `mld`, for mild liver disease;
@@ -48,7 +48,8 @@
 #' * `canc`, for cancer (any malignancy);
 #' * `msld`, for moderate or severe liver disease;
 #' * `metacanc`, for metastatic solid tumour;
-#' * `aids`, for AIDS/HIV;
+#' * `aids`, for AIDS/HIV.
+#' Please note that we combine "chronic obstructive pulmonary disease" and "chronic other pulmonary disease" for the Swedish version of the Charlson index, for comparability (and compatibility) with other definitions/implementations.
 #'
 #' Conversely, for the Elixhauser score the dataset contains the following variables:
 #' * The `id` variable as defined by the user;
@@ -178,42 +179,8 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
   ### Turn x into a DT
   data.table::setDT(x)
 
-  ### Deal with missing codes
-  mvb <- id
-  backup <- x[, ..mvb]
-  backup <- unique(backup)
-  x <- stats::na.omit(x)
-  # If there are no rows left (= user passed missing data only), then error:
-  if (nrow(x) == 0) stop("No non-missing data, please check your input data", call. = FALSE)
-
-  ### Get list of unique codes used in dataset that match comorbidities
-  ..cd <- unique(x[[code]])
-  loc <- sapply(X = regex, FUN = function(p) stringi::stri_subset_regex(str = ..cd, pattern = p))
-  loc <- utils::stack(loc)
-  data.table::setDT(loc)
-  data.table::setnames(x = loc, new = c(code, "ind"))
-
-  ### Merge list with original data.table (data.frame)
-  x <- merge(x, loc, all.x = TRUE, allow.cartesian = TRUE, by = code)
-  x[, (code) := NULL]
-  x <- unique(x)
-
-  ### Spread wide
-  mv <- c(id, "ind")
-  xin <- x[, ..mv]
-  xin[, value := 1L]
-  x <- data.table::dcast.data.table(xin, stats::as.formula(paste(id, "~ ind")), fill = 0)
-  if (!is.null(x[["NA"]])) x[, `NA` := NULL]
-
-  ### Restore IDs
-  x <- merge(x, backup, by = id, all.y = TRUE, )
-  data.table::setnafill(x = x, type = "const", fill = 0L)
-
-  ### Add missing columns
-  for (col in names(regex)) {
-    if (is.null(x[[col]])) x[, (col) := 0L]
-  }
-  data.table::setcolorder(x, c(id, names(regex)))
+  ### Match comorbidity mapping
+  x <- .matchit(x = x, id = id, code = code, regex = regex)
 
   ### Assign zero-values to avoid double-counting comorbidities, if requested
   if (assign0) {
