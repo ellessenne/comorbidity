@@ -48,6 +48,9 @@ For instance, we could simulate ICD-10 codes:
 ``` r
 # load the comorbidity package
 library(comorbidity)
+## This is {comorbidity} version 1.0.2.
+## A lot has changed since the last release on CRAN, please check-out breaking changes here:
+## -> https://ellessenne.github.io/comorbidity/articles/C-changes.html
 # set a seed for reproducibility
 set.seed(1)
 # simulate 50 ICD-10 codes for 5 individuals
