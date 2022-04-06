@@ -77,7 +77,7 @@
                         <h4 data-toc-skip class="author">Alessandro
 Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2022-03-17</h4>
+            <h4 data-toc-skip class="date">2022-04-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/comorbidity/blob/HEAD/vignettes/C-changes.Rmd" class="external-link"><code>vignettes/C-changes.Rmd</code></a></small>
       <div class="d-none name"><code>C-changes.Rmd</code></div>
@@ -96,6 +96,9 @@ that we will be using throughout this article can be generated as
 follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/comorbidity/">comorbidity</a></span><span class="op">)</span>
+<span class="co">#&gt; This is {comorbidity} version 1.0.1.9000.</span>
+<span class="co">#&gt; A lot has changed since the last release on CRAN, please check-out breaking changes here:</span>
+<span class="co">#&gt; -&gt; https://ellessenne.github.io/comorbidity/articles/C-changes.html</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2837465</span><span class="op">)</span>
 
@@ -144,17 +147,17 @@ call:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">com</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sim_data</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">com</span>
-<span class="co">#&gt;    id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc</span>
-<span class="co">#&gt; 1   1   0   0   0    0        0    0      0   0   0    0      0  1    0    1</span>
-<span class="co">#&gt; 2   2   0   0   0    0        0    0      0   0   0    1      1  0    0    1</span>
-<span class="co">#&gt; 3   3   0   0   0    0        0    0      0   1   0    0      0  0    0    0</span>
-<span class="co">#&gt; 4   4   0   0   0    1        0    0      0   0   0    0      0  0    0    1</span>
-<span class="co">#&gt; 5   5   0   0   0    0        0    0      0   0   0    1      0  0    0    0</span>
-<span class="co">#&gt; 6   6   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span>
-<span class="co">#&gt; 7   7   0   0   0    0        0    0      0   0   0    0      0  0    1    1</span>
-<span class="co">#&gt; 8   8   0   0   0    1        0    0      1   0   0    1      1  0    0    1</span>
-<span class="co">#&gt; 9   9   0   0   0    0        0    0      0   0   0    0      0  0    0    1</span>
-<span class="co">#&gt; 10 10   0   0   0    0        0    0      0   0   0    0      0  0    0    1</span>
+<span class="co">#&gt;    id ami chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc</span>
+<span class="co">#&gt; 1   1   0   0   0    0        0   0      0   0   0    0      0  1    0    1</span>
+<span class="co">#&gt; 2   2   0   0   0    0        0   0      0   0   0    1      1  0    0    1</span>
+<span class="co">#&gt; 3   3   0   0   0    0        0   0      0   1   0    0      0  0    0    0</span>
+<span class="co">#&gt; 4   4   0   0   0    1        0   0      0   0   0    0      0  0    0    1</span>
+<span class="co">#&gt; 5   5   0   0   0    0        0   0      0   0   0    1      0  0    0    0</span>
+<span class="co">#&gt; 6   6   0   0   0    0        0   0      0   0   0    0      0  0    0    0</span>
+<span class="co">#&gt; 7   7   0   0   0    0        0   0      0   0   0    0      0  0    1    1</span>
+<span class="co">#&gt; 8   8   0   0   0    1        0   0      1   0   0    1      1  0    0    1</span>
+<span class="co">#&gt; 9   9   0   0   0    0        0   0      0   0   0    0      0  0    0    1</span>
+<span class="co">#&gt; 10 10   0   0   0    0        0   0      0   0   0    0      0  0    0    1</span>
 <span class="co">#&gt;    msld metacanc aids</span>
 <span class="co">#&gt; 1     0        0    0</span>
 <span class="co">#&gt; 2     0        0    0</span>

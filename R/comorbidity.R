@@ -37,7 +37,7 @@
 #' * `pvd`, for peripheral vascular disease;
 #' * `cevd`, for cerebrovascular disease;
 #' * `dementia`, for dementia;
-#' * `copd`, chronic obstructive pulmonary disease;
+#' * `cpd`, for chronic pulmonary disease;
 #' * `rheumd`, for rheumatoid disease;
 #' * `pud`, for peptic ulcer disease;
 #' * `mld`, for mild liver disease;
@@ -48,7 +48,8 @@
 #' * `canc`, for cancer (any malignancy);
 #' * `msld`, for moderate or severe liver disease;
 #' * `metacanc`, for metastatic solid tumour;
-#' * `aids`, for AIDS/HIV;
+#' * `aids`, for AIDS/HIV.
+#' Please note that we combine "chronic obstructive pulmonary disease" and "chronic other pulmonary disease" for the Swedish version of the Charlson index, for comparability (and compatibility) with other definitions/implementations.
 #'
 #' Conversely, for the Elixhauser score the dataset contains the following variables:
 #' * The `id` variable as defined by the user;

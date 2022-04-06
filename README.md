@@ -3,7 +3,7 @@
 
 # The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
-Last updated: 2022-03-17
+Last updated: 2022-04-06
 
 <!-- badges: start -->
 
@@ -48,9 +48,6 @@ For instance, we could simulate ICD-10 codes:
 ``` r
 # load the comorbidity package
 library(comorbidity)
-## This is {comorbidity} version 1.0.1.9000.
-## A lot has changed since the last release on CRAN, please check-out breaking changes here:
-## -> https://ellessenne.github.io/comorbidity/articles/C-changes.html
 # set a seed for reproducibility
 set.seed(1)
 # simulate 50 ICD-10 codes for 5 individuals
@@ -167,10 +164,10 @@ We could compute the Charlson comorbidity domains:
 ``` r
 charlson <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
 charlson
-##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
-## 1  1   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    1
-## 2  2   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
-## 3  3   0   0   0    0        0    0      0   0   0    0      0  0    0    0    0        0    0
+##   id ami chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
+## 1  1   0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    1
+## 2  2   0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    0
+## 3  3   0   0   0    0        0   0      0   0   0    0      0  0    0    0    0        0    0
 ```
 
 We set the `assign0` argument to `FALSE` to not apply a hierarchy of
@@ -233,12 +230,12 @@ once again:
 ``` r
 charlson9 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd9_quan", assign0 = FALSE)
 charlson9
-##   id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
-## 1  1   0   0   1    0        0    0      0   0   0    0      0  0    0    1    0        0    0
-## 2  2   0   0   0    1        0    0      0   0   0    0      0  0    0    0    0        0    0
-## 3  3   0   0   0    0        0    0      0   1   0    0      0  0    0    0    0        0    0
-## 4  4   0   0   1    1        0    0      0   0   0    0      0  0    0    1    0        0    0
-## 5  5   0   0   0    0        0    0      0   0   0    0      0  0    0    1    0        0    0
+##   id ami chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
+## 1  1   0   0   1    0        0   0      0   0   0    0      0  0    0    1    0        0    0
+## 2  2   0   0   0    1        0   0      0   0   0    0      0  0    0    0    0        0    0
+## 3  3   0   0   0    0        0   0      0   1   0    0      0  0    0    0    0        0    0
+## 4  4   0   0   1    1        0   0      0   0   0    0      0  0    0    1    0        0    0
+## 5  5   0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    0
 ```
 
 ``` r
