@@ -1,6 +1,6 @@
 ## Test environments
 
-* local R installation, R 4.1.2, Intel-based macOS Big Sur 11.6.2
+* local R installation, R 4.1.3, Intel-based macOS Monterey 12.3.1
 * ubuntu-latest (via GitHub Actions, devel, release, oldrel, 3.5, 3.4)
 * windows-latest (via GitHub Actions, devel, release, oldrel, 3.5, 3.4)
 * macos-latest (via GitHub Actions, release, oldrel)
