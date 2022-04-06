@@ -32,7 +32,7 @@
 #'
 #' For the Charlson score, the following variables are included in the dataset:
 #' * The `id` variable as defined by the user;
-#' * `ami`, for acute myocardial infarction;
+#' * `mi`, for myocardial infarction;
 #' * `chf`, for congestive heart failure;
 #' * `pvd`, for peripheral vascular disease;
 #' * `cevd`, for cerebrovascular disease;

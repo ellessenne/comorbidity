@@ -1,6 +1,6 @@
 # comorbidity 1.0.2
 
-* The `copd` comorbidity for the Charlson index has been renamed to `cpd` (#53, thanks @DrYan1102). Please be aware that this might break some old code if you were selecting comorbidities by name.
+* The `copd` comorbidity for the Charlson index has been renamed to `cpd`, and the `ami` comorbidity for the Charlson index has been renamed to `mi` (#53, thanks @DrYan1102). Please be aware that this might break some old code if you were selecting comorbidities by name.
 
 * New dataset: ICD10-CM, 2022 version, named `icd10cm_2022`.
 
