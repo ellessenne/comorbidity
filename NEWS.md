@@ -1,3 +1,5 @@
+# comorbidity (development version)
+
 # comorbidity 1.0.2
 
 * The `copd` and `ami` comorbidities for the Charlson index have been renamed to `cpd` and `mi`, respectively (#53, thanks @DrYan1102). Please be aware that this might break some old code if you were selecting comorbidities by name.
