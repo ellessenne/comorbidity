@@ -164,10 +164,10 @@ We could compute the Charlson comorbidity domains:
 ``` r
 charlson <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
 charlson
-##   id ami chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
-## 1  1   0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    1
-## 2  2   0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    0
-## 3  3   0   0   0    0        0   0      0   0   0    0      0  0    0    0    0        0    0
+##   id mi chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
+## 1  1  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    1
+## 2  2  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    0
+## 3  3  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0        0    0
 ```
 
 We set the `assign0` argument to `FALSE` to not apply a hierarchy of
@@ -230,12 +230,12 @@ once again:
 ``` r
 charlson9 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd9_quan", assign0 = FALSE)
 charlson9
-##   id ami chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
-## 1  1   0   0   1    0        0   0      0   0   0    0      0  0    0    1    0        0    0
-## 2  2   0   0   0    1        0   0      0   0   0    0      0  0    0    0    0        0    0
-## 3  3   0   0   0    0        0   0      0   1   0    0      0  0    0    0    0        0    0
-## 4  4   0   0   1    1        0   0      0   0   0    0      0  0    0    1    0        0    0
-## 5  5   0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    0
+##   id mi chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld metacanc aids
+## 1  1  0   0   1    0        0   0      0   0   0    0      0  0    0    1    0        0    0
+## 2  2  0   0   0    1        0   0      0   0   0    0      0  0    0    0    0        0    0
+## 3  3  0   0   0    0        0   0      0   1   0    0      0  0    0    0    0        0    0
+## 4  4  0   0   1    1        0   0      0   0   0    0      0  0    0    1    0        0    0
+## 5  5  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    0
 ```
 
 ``` r

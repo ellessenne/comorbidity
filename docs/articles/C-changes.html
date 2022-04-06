@@ -144,28 +144,28 @@ call:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">com</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sim_data</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">com</span>
-<span class="co">#&gt;    id ami chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc</span>
-<span class="co">#&gt; 1   1   0   0   0    0        0   0      0   0   0    0      0  1    0    1</span>
-<span class="co">#&gt; 2   2   0   0   0    0        0   0      0   0   0    1      1  0    0    1</span>
-<span class="co">#&gt; 3   3   0   0   0    0        0   0      0   1   0    0      0  0    0    0</span>
-<span class="co">#&gt; 4   4   0   0   0    1        0   0      0   0   0    0      0  0    0    1</span>
-<span class="co">#&gt; 5   5   0   0   0    0        0   0      0   0   0    1      0  0    0    0</span>
-<span class="co">#&gt; 6   6   0   0   0    0        0   0      0   0   0    0      0  0    0    0</span>
-<span class="co">#&gt; 7   7   0   0   0    0        0   0      0   0   0    0      0  0    1    1</span>
-<span class="co">#&gt; 8   8   0   0   0    1        0   0      1   0   0    1      1  0    0    1</span>
-<span class="co">#&gt; 9   9   0   0   0    0        0   0      0   0   0    0      0  0    0    1</span>
-<span class="co">#&gt; 10 10   0   0   0    0        0   0      0   0   0    0      0  0    0    1</span>
-<span class="co">#&gt;    msld metacanc aids</span>
-<span class="co">#&gt; 1     0        0    0</span>
-<span class="co">#&gt; 2     0        0    0</span>
-<span class="co">#&gt; 3     0        0    0</span>
-<span class="co">#&gt; 4     0        0    0</span>
-<span class="co">#&gt; 5     0        0    0</span>
-<span class="co">#&gt; 6     0        0    0</span>
-<span class="co">#&gt; 7     0        0    0</span>
-<span class="co">#&gt; 8     0        0    0</span>
-<span class="co">#&gt; 9     0        0    0</span>
-<span class="co">#&gt; 10    0        0    0</span></code></pre></div>
+<span class="co">#&gt;    id mi chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld</span>
+<span class="co">#&gt; 1   1  0   0   0    0        0   0      0   0   0    0      0  1    0    1    0</span>
+<span class="co">#&gt; 2   2  0   0   0    0        0   0      0   0   0    1      1  0    0    1    0</span>
+<span class="co">#&gt; 3   3  0   0   0    0        0   0      0   1   0    0      0  0    0    0    0</span>
+<span class="co">#&gt; 4   4  0   0   0    1        0   0      0   0   0    0      0  0    0    1    0</span>
+<span class="co">#&gt; 5   5  0   0   0    0        0   0      0   0   0    1      0  0    0    0    0</span>
+<span class="co">#&gt; 6   6  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
+<span class="co">#&gt; 7   7  0   0   0    0        0   0      0   0   0    0      0  0    1    1    0</span>
+<span class="co">#&gt; 8   8  0   0   0    1        0   0      1   0   0    1      1  0    0    1    0</span>
+<span class="co">#&gt; 9   9  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span>
+<span class="co">#&gt; 10 10  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span>
+<span class="co">#&gt;    metacanc aids</span>
+<span class="co">#&gt; 1         0    0</span>
+<span class="co">#&gt; 2         0    0</span>
+<span class="co">#&gt; 3         0    0</span>
+<span class="co">#&gt; 4         0    0</span>
+<span class="co">#&gt; 5         0    0</span>
+<span class="co">#&gt; 6         0    0</span>
+<span class="co">#&gt; 7         0    0</span>
+<span class="co">#&gt; 8         0    0</span>
+<span class="co">#&gt; 9         0    0</span>
+<span class="co">#&gt; 10        0    0</span></code></pre></div>
 <p>…which yields the same results shown above.</p>
 <p>Then, if we need to calculate comorbidity scores, we can use the
 <code><a href="../reference/score.html">score()</a></code> function:</p>

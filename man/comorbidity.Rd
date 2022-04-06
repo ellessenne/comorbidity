@@ -46,7 +46,7 @@ A data frame with \code{id}, columns relative to each comorbidity domain, comorb
 For the Charlson score, the following variables are included in the dataset:
 \itemize{
 \item The \code{id} variable as defined by the user;
-\item \code{ami}, for acute myocardial infarction;
+\item \code{mi}, for myocardial infarction;
 \item \code{chf}, for congestive heart failure;
 \item \code{pvd}, for peripheral vascular disease;
 \item \code{cevd}, for cerebrovascular disease;

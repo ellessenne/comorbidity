@@ -220,10 +220,10 @@ codes:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">charlson</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">charlson</span>
-<span class="co">##   id ami chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld metacanc aids</span>
-<span class="co">## 1  1   0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    1</span>
-<span class="co">## 2  2   0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    0</span>
-<span class="co">## 3  3   0   0   0    0        0   0      0   0   0    0      0  0    0    0    0        0    0</span></code></pre></div>
+<span class="co">##   id mi chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld metacanc aids</span>
+<span class="co">## 1  1  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    1</span>
+<span class="co">## 2  2  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    0</span>
+<span class="co">## 3  3  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0        0    0</span></code></pre></div>
 <p>We set the <code>assign0</code> argument to <code>FALSE</code> to not
 apply a hierarchy of comorbidity codes, as described in
 <code><a href="reference/comorbidity.html">?comorbidity::comorbidity</a></code>.</p>
@@ -273,12 +273,12 @@ once again:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">charlson9</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd9_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">charlson9</span>
-<span class="co">##   id ami chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld metacanc aids</span>
-<span class="co">## 1  1   0   0   1    0        0   0      0   0   0    0      0  0    0    1    0        0    0</span>
-<span class="co">## 2  2   0   0   0    1        0   0      0   0   0    0      0  0    0    0    0        0    0</span>
-<span class="co">## 3  3   0   0   0    0        0   0      0   1   0    0      0  0    0    0    0        0    0</span>
-<span class="co">## 4  4   0   0   1    1        0   0      0   0   0    0      0  0    0    1    0        0    0</span>
-<span class="co">## 5  5   0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    0</span></code></pre></div>
+<span class="co">##   id mi chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld metacanc aids</span>
+<span class="co">## 1  1  0   0   1    0        0   0      0   0   0    0      0  0    0    1    0        0    0</span>
+<span class="co">## 2  2  0   0   0    1        0   0      0   0   0    0      0  0    0    0    0        0    0</span>
+<span class="co">## 3  3  0   0   0    0        0   0      0   1   0    0      0  0    0    0    0        0    0</span>
+<span class="co">## 4  4  0   0   1    1        0   0      0   0   0    0      0  0    0    1    0        0    0</span>
+<span class="co">## 5  5  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0        0    0</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">elixhauser9</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"elixhauser_icd9_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">elixhauser9</span>
