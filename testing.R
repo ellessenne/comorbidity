@@ -58,3 +58,17 @@ reprex::reprex({
 
   x1
 })
+
+
+# #55
+devtools::load_all()
+
+library(comorbidity)
+set.seed(1)
+x <- data.frame(
+  id = sample(1:15, size = 200, replace = TRUE),
+  code = sample_diag(200),
+  stringsAsFactors = FALSE
+)
+x$id <- as.character(x$id)
+comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
