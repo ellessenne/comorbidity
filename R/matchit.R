@@ -28,8 +28,8 @@
   if (!is.null(x[["NA"]])) x[, `NA` := NULL]
 
   ### Restore IDs
-  x <- merge(x, backup, by = id, all.y = TRUE, )
-  data.table::setnafill(x = x, type = "const", fill = 0L)
+  x <- merge(x, backup, by = id, all.y = TRUE)
+  data.table::setnafill(x = x, type = "const", fill = 0L, cols = which(names(x) != id))
 
   ### Add missing columns
   for (col in names(regex)) {
