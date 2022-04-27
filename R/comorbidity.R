@@ -112,22 +112,6 @@
 #' @export
 
 comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE) {
-  # set.seed(1)
-  # x <- data.frame(
-  #   id = 1,
-  #   code = sample_diag(10),
-  #   stringsAsFactors = FALSE
-  # )
-  # xa <- data.frame(id = 1:2, code = NA_character_)
-  # xm <- rbind(x, xa)
-  #
-  # x = xm
-  # id = "id"
-  # code = "code"
-  # map = "charlson_icd10_quan"
-  # assign0 = FALSE
-  # labelled = T
-  # tidy.codes = T
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # x must be a data.frame (or a data.table)
