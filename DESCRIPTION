@@ -1,6 +1,6 @@
 Type: Package
 Package: comorbidity
-Version: 1.0.2.9000
+Version: 1.0.2.9001
 Title: Computing Comorbidity Scores
 Description: Computing comorbidity indices and scores such as the weighted Charlson
   score (Charlson, 1987 <doi:10.1016/0021-9681(87)90171-8>) and the Elixhauser
@@ -34,7 +34,12 @@ Authors@R:
              family = "Teo",
              role = "ctb",
              email = "ed_teo8@yahoo.com.sg",
-             comment = c(ORCID = "0000-0003-3936-4082")))
+             comment = c(ORCID = "0000-0003-3936-4082")),
+      person(given = "Jamie",
+             family = "Wallis",
+             role = "ctb",
+             email = "jwallib@gmail.com",
+             comment = c(ORCID = "0000-0003-2765-3813")))
 Maintainer: Alessandro Gasparini <alessandro.gasparini@ki.se>
 URL: https://ellessenne.github.io/comorbidity/, https://github.com/ellessenne/comorbidity/
 BugReports: https://github.com/ellessenne/comorbidity/issues
