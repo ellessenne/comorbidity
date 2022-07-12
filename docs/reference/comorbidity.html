@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">comorbidity</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">comorbidity</span><span class="op">(</span><span class="va">x</span>, <span class="va">id</span>, <span class="va">code</span>, <span class="va">map</span>, <span class="va">assign0</span>, labelled <span class="op">=</span> <span class="cn">TRUE</span>, tidy.codes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">comorbidity</span><span class="op">(</span><span class="va">x</span>, <span class="va">id</span>, <span class="va">code</span>, <span class="va">map</span>, <span class="va">assign0</span>, labelled <span class="op">=</span> <span class="cn">TRUE</span>, tidy.codes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -68,16 +68,24 @@
 <dd><p>A tidy <code>data.frame</code> (or a <code>data.table</code>; <code>tibble</code>s are supported too) with one column containing an individual ID and a column containing all diagnostic codes.
 Extra columns other than ID and codes are discarded.
 Column names must be syntactically valid names, otherwise they are forced to be so by calling the <code><a href="https://rdrr.io/r/base/make.names.html" class="external-link">make.names()</a></code> function.</p></dd>
+
+
 <dt>id</dt>
 <dd><p>Column of <code>x</code> containing the individual ID.</p></dd>
+
+
 <dt>code</dt>
 <dd><p>Column of <code>x</code> containing diagnostic codes.
 Codes must be in upper case with no punctuation in order to be properly recognised.</p></dd>
+
+
 <dt>map</dt>
 <dd><p>The mapping algorithm to be used (values are case-insensitive).
 Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (<code>charlson_icd10_quan</code>, <code>charlson_icd9_quan</code>) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (<code>elixhauser_icd10_quan</code>, <code>elixhauser_icd9_quan</code>).
 These mapping are based on the paper by Quan et al. (2011).
 It is also possible to obtain a Swedish (<code>charlson_icd10_se</code>) or Australian (<code>charlson_icd10_am</code>) modification of the Charlson score using ICD-10 codes.</p></dd>
+
+
 <dt>assign0</dt>
 <dd><p>Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
 By doing this, a type of comorbidity is not counted more than once in each patient.
@@ -88,18 +96,27 @@ The comorbidities that are affected by this argument are:</p><ul><li><p>"Mild li
 <li><p>"Diabetes, uncomplicated" (<code>diabunc</code>) and "Diabetes, complicated" (<code>diabc</code>) for the Elixhauser score;</p></li>
 <li><p>"Solid tumour" (<code>solidtum</code>) and "Metastatic cancer" (<code>metacanc</code>) for the Elixhauser score.</p></li>
 </ul></dd>
+
+
 <dt>labelled</dt>
 <dd><p>Attach labels to each comorbidity, compatible with the RStudio viewer via the <code><a href="https://rdrr.io/r/utils/View.html" class="external-link">utils::View()</a></code> function.
 Defaults to <code>TRUE</code>.</p></dd>
+
+
 <dt>tidy.codes</dt>
 <dd><p>Tidy diagnostic codes?
 If <code>TRUE</code>, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression <code>[^[:alnum:]]</code>.
 Defaults to <code>TRUE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A data frame with <code>id</code>, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
-For the Charlson score, the following variables are included in the dataset:</p><ul><li><p>The <code>id</code> variable as defined by the user;</p></li>
+    
+
+<p>A data frame with <code>id</code>, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.</p>
+
+
+<p>For the Charlson score, the following variables are included in the dataset:</p><ul><li><p>The <code>id</code> variable as defined by the user;</p></li>
 <li><p><code>mi</code>, for myocardial infarction;</p></li>
 <li><p><code>chf</code>, for congestive heart failure;</p></li>
 <li><p><code>pvd</code>, for peripheral vascular disease;</p></li>
@@ -168,15 +185,15 @@ A message is printed to the R console when non-alphanumeric characters are found
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span class="r-in">  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">15</span>, size <span class="op">=</span> <span class="fl">200</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">  code <span class="op">=</span> <span class="fu"><a href="sample_diag.html">sample_diag</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span>,</span>
-<span class="r-in">  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Charlson score based on ICD-10 diagnostic codes:</span></span>
-<span class="r-in"><span class="fu">comorbidity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">15</span>, size <span class="op">=</span> <span class="fl">200</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  code <span class="op">=</span> <span class="fu"><a href="sample_diag.html">sample_diag</a></span><span class="op">(</span><span class="fl">200</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Charlson score based on ICD-10 diagnostic codes:</span></span></span>
+<span class="r-in"><span><span class="fu">comorbidity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    id mi chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   1  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   2  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
@@ -209,9 +226,9 @@ A message is printed to the R console when non-alphanumeric characters are found
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13        0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14        0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15        0    0</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Elixhauser score based on ICD-10 diagnostic codes:</span></span>
-<span class="r-in"><span class="fu">comorbidity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"elixhauser_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Elixhauser score based on ICD-10 diagnostic codes:</span></span></span>
+<span class="r-in"><span><span class="fu">comorbidity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"elixhauser_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    id chf carit valv pcd pvd hypunc hypc para ond cpd diabunc diabc hypothy rf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   1   0     0    0   0   0      0    0    0   0   0       0     0       1  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   2   0     0    1   0   0      0    0    0   0   0       0     0       0  0</span>
@@ -271,8 +288,7 @@ A message is printed to the R console when non-alphanumeric characters are found
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
