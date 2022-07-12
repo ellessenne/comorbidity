@@ -1,4 +1,4 @@
-# comorbidity (development version)
+# comorbidity 1.0.3
 
 * Fixed a bug that did not allowed ID columns other than numeric (#55, thanks @norihikorihiko for reporting this).
 
