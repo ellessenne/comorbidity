@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">comorbidity</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.3.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,12 +72,12 @@
 
 
 <div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Updating to {comorbidity} 1.0.0</h1>
                         <h4 data-toc-skip class="author">Alessandro
 Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2022-04-06</h4>
+            <h4 data-toc-skip class="date">2022-07-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/comorbidity/blob/HEAD/vignettes/C-changes.Rmd" class="external-link"><code>vignettes/C-changes.Rmd</code></a></small>
       <div class="d-none name"><code>C-changes.Rmd</code></div>
@@ -95,19 +95,22 @@ comparisons with the previous API.</p>
 that we will be using throughout this article can be generated as
 follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/comorbidity/">comorbidity</a></span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2837465</span><span class="op">)</span>
-
-<span class="va">sim_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">250</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  code <span class="op">=</span> <span class="fu"><a href="../reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">250</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="va">sim_data</span> <span class="op">&lt;-</span> <span class="va">sim_data</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">sim_data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>, <span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">sim_data</span><span class="op">)</span>
-<span class="co">#&gt; 'data.frame':    250 obs. of  2 variables:</span>
-<span class="co">#&gt;  $ id  : int  1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ code: chr  "S667" "V596" "R874" "S26" ...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/comorbidity/">comorbidity</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; This is {comorbidity} version 1.0.3.</span></span>
+<span><span class="co">#&gt; A lot has changed since the pre-1.0.0 release on CRAN, please check-out breaking changes here:</span></span>
+<span><span class="co">#&gt; -&gt; https://ellessenne.github.io/comorbidity/articles/C-changes.html</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2837465</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sim_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">250</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  code <span class="op">=</span> <span class="fu"><a href="../reference/sample_diag.html">sample_diag</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">250</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">sim_data</span> <span class="op">&lt;-</span> <span class="va">sim_data</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">sim_data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">sim_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    250 obs. of  2 variables:</span></span>
+<span><span class="co">#&gt;  $ id  : int  1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;  $ code: chr  "S667" "V596" "R874" "S26" ...</span></span></code></pre></div>
 <p>We use ICD-10 only (to simplify this document), but everything
 applies to ICD-9 as well (with the obvious adjustments).</p>
 <div class="section level2">
@@ -117,75 +120,75 @@ applies to ICD-9 as well (with the obvious adjustments).</p>
 and scoring algorithms were applied jointly with a single function
 call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sim_data</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"charlson"</span>, icd <span class="op">=</span> <span class="st">"icd10"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt;    id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc</span>
-<span class="co">#&gt; 1   1   0   0   0    0        0    0      0   0   0    0      0  1    0    1</span>
-<span class="co">#&gt; 2   2   0   0   0    0        0    0      0   0   0    1      1  0    0    1</span>
-<span class="co">#&gt; 3   3   0   0   0    0        0    0      0   1   0    0      0  0    0    0</span>
-<span class="co">#&gt; 4   4   0   0   0    1        0    0      0   0   0    0      0  0    0    1</span>
-<span class="co">#&gt; 5   5   0   0   0    0        0    0      0   0   0    1      0  0    0    0</span>
-<span class="co">#&gt; 6   6   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span>
-<span class="co">#&gt; 7   7   0   0   0    0        0    0      0   0   0    0      0  0    1    1</span>
-<span class="co">#&gt; 8   8   0   0   0    1        0    0      1   0   0    1      1  0    0    1</span>
-<span class="co">#&gt; 9   9   0   0   0    0        0    0      0   0   0    0      0  0    0    1</span>
-<span class="co">#&gt; 10 10   0   0   0    0        0    0      0   0   0    0      0  0    0    1</span>
-<span class="co">#&gt;    msld metacanc aids score index wscore windex</span>
-<span class="co">#&gt; 1     0        0    0     2   1-2      4    3-4</span>
-<span class="co">#&gt; 2     0        0    0     3   3-4      5    &gt;=5</span>
-<span class="co">#&gt; 3     0        0    0     1   1-2      1    1-2</span>
-<span class="co">#&gt; 4     0        0    0     2   1-2      3    3-4</span>
-<span class="co">#&gt; 5     0        0    0     1   1-2      1    1-2</span>
-<span class="co">#&gt; 6     0        0    0     0     0      0      0</span>
-<span class="co">#&gt; 7     0        0    0     2   1-2      4    3-4</span>
-<span class="co">#&gt; 8     0        0    0     5   &gt;=5      7    &gt;=5</span>
-<span class="co">#&gt; 9     0        0    0     1   1-2      2    1-2</span>
-<span class="co">#&gt; 10    0        0    0     1   1-2      2    1-2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sim_data</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, score <span class="op">=</span> <span class="st">"charlson"</span>, icd <span class="op">=</span> <span class="st">"icd10"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    id ami chf pvd cevd dementia copd rheumd pud mld diab diabwc hp rend canc</span></span>
+<span><span class="co">#&gt; 1   1   0   0   0    0        0    0      0   0   0    0      0  1    0    1</span></span>
+<span><span class="co">#&gt; 2   2   0   0   0    0        0    0      0   0   0    1      1  0    0    1</span></span>
+<span><span class="co">#&gt; 3   3   0   0   0    0        0    0      0   1   0    0      0  0    0    0</span></span>
+<span><span class="co">#&gt; 4   4   0   0   0    1        0    0      0   0   0    0      0  0    0    1</span></span>
+<span><span class="co">#&gt; 5   5   0   0   0    0        0    0      0   0   0    1      0  0    0    0</span></span>
+<span><span class="co">#&gt; 6   6   0   0   0    0        0    0      0   0   0    0      0  0    0    0</span></span>
+<span><span class="co">#&gt; 7   7   0   0   0    0        0    0      0   0   0    0      0  0    1    1</span></span>
+<span><span class="co">#&gt; 8   8   0   0   0    1        0    0      1   0   0    1      1  0    0    1</span></span>
+<span><span class="co">#&gt; 9   9   0   0   0    0        0    0      0   0   0    0      0  0    0    1</span></span>
+<span><span class="co">#&gt; 10 10   0   0   0    0        0    0      0   0   0    0      0  0    0    1</span></span>
+<span><span class="co">#&gt;    msld metacanc aids score index wscore windex</span></span>
+<span><span class="co">#&gt; 1     0        0    0     2   1-2      4    3-4</span></span>
+<span><span class="co">#&gt; 2     0        0    0     3   3-4      5    &gt;=5</span></span>
+<span><span class="co">#&gt; 3     0        0    0     1   1-2      1    1-2</span></span>
+<span><span class="co">#&gt; 4     0        0    0     2   1-2      3    3-4</span></span>
+<span><span class="co">#&gt; 5     0        0    0     1   1-2      1    1-2</span></span>
+<span><span class="co">#&gt; 6     0        0    0     0     0      0      0</span></span>
+<span><span class="co">#&gt; 7     0        0    0     2   1-2      4    3-4</span></span>
+<span><span class="co">#&gt; 8     0        0    0     5   &gt;=5      7    &gt;=5</span></span>
+<span><span class="co">#&gt; 9     0        0    0     1   1-2      2    1-2</span></span>
+<span><span class="co">#&gt; 10    0        0    0     1   1-2      2    1-2</span></span></code></pre></div>
 <p>Now, we first need to apply the mapping algorithm:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">com</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sim_data</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">com</span>
-<span class="co">#&gt;    id mi chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld</span>
-<span class="co">#&gt; 1   1  0   0   0    0        0   0      0   0   0    0      0  1    0    1    0</span>
-<span class="co">#&gt; 2   2  0   0   0    0        0   0      0   0   0    1      1  0    0    1    0</span>
-<span class="co">#&gt; 3   3  0   0   0    0        0   0      0   1   0    0      0  0    0    0    0</span>
-<span class="co">#&gt; 4   4  0   0   0    1        0   0      0   0   0    0      0  0    0    1    0</span>
-<span class="co">#&gt; 5   5  0   0   0    0        0   0      0   0   0    1      0  0    0    0    0</span>
-<span class="co">#&gt; 6   6  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span>
-<span class="co">#&gt; 7   7  0   0   0    0        0   0      0   0   0    0      0  0    1    1    0</span>
-<span class="co">#&gt; 8   8  0   0   0    1        0   0      1   0   0    1      1  0    0    1    0</span>
-<span class="co">#&gt; 9   9  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span>
-<span class="co">#&gt; 10 10  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span>
-<span class="co">#&gt;    metacanc aids</span>
-<span class="co">#&gt; 1         0    0</span>
-<span class="co">#&gt; 2         0    0</span>
-<span class="co">#&gt; 3         0    0</span>
-<span class="co">#&gt; 4         0    0</span>
-<span class="co">#&gt; 5         0    0</span>
-<span class="co">#&gt; 6         0    0</span>
-<span class="co">#&gt; 7         0    0</span>
-<span class="co">#&gt; 8         0    0</span>
-<span class="co">#&gt; 9         0    0</span>
-<span class="co">#&gt; 10        0    0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">com</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sim_data</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">com</span></span>
+<span><span class="co">#&gt;    id mi chf pvd cevd dementia cpd rheumd pud mld diab diabwc hp rend canc msld</span></span>
+<span><span class="co">#&gt; 1   1  0   0   0    0        0   0      0   0   0    0      0  1    0    1    0</span></span>
+<span><span class="co">#&gt; 2   2  0   0   0    0        0   0      0   0   0    1      1  0    0    1    0</span></span>
+<span><span class="co">#&gt; 3   3  0   0   0    0        0   0      0   1   0    0      0  0    0    0    0</span></span>
+<span><span class="co">#&gt; 4   4  0   0   0    1        0   0      0   0   0    0      0  0    0    1    0</span></span>
+<span><span class="co">#&gt; 5   5  0   0   0    0        0   0      0   0   0    1      0  0    0    0    0</span></span>
+<span><span class="co">#&gt; 6   6  0   0   0    0        0   0      0   0   0    0      0  0    0    0    0</span></span>
+<span><span class="co">#&gt; 7   7  0   0   0    0        0   0      0   0   0    0      0  0    1    1    0</span></span>
+<span><span class="co">#&gt; 8   8  0   0   0    1        0   0      1   0   0    1      1  0    0    1    0</span></span>
+<span><span class="co">#&gt; 9   9  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span></span>
+<span><span class="co">#&gt; 10 10  0   0   0    0        0   0      0   0   0    0      0  0    0    1    0</span></span>
+<span><span class="co">#&gt;    metacanc aids</span></span>
+<span><span class="co">#&gt; 1         0    0</span></span>
+<span><span class="co">#&gt; 2         0    0</span></span>
+<span><span class="co">#&gt; 3         0    0</span></span>
+<span><span class="co">#&gt; 4         0    0</span></span>
+<span><span class="co">#&gt; 5         0    0</span></span>
+<span><span class="co">#&gt; 6         0    0</span></span>
+<span><span class="co">#&gt; 7         0    0</span></span>
+<span><span class="co">#&gt; 8         0    0</span></span>
+<span><span class="co">#&gt; 9         0    0</span></span>
+<span><span class="co">#&gt; 10        0    0</span></span></code></pre></div>
 <p>…which yields the same results shown above.</p>
 <p>Then, if we need to calculate comorbidity scores, we can use the
 <code><a href="../reference/score.html">score()</a></code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">com</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span>, weights <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 2 3 1 2 1 0 2 5 1 1</span>
-<span class="co">#&gt; attr(,"map")</span>
-<span class="co">#&gt; [1] "charlson_icd10_quan"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">com</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span>, weights <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] 2 3 1 2 1 0 2 5 1 1</span></span>
+<span><span class="co">#&gt; attr(,"map")</span></span>
+<span><span class="co">#&gt; [1] "charlson_icd10_quan"</span></span></code></pre></div>
 <p>This yields unweighted scores (e.g. equivalent to the
 <code>score</code> column above). If we need weighted scores (e.g. the
 <code>wscore</code> column above, which assumes the old Charlson score
 weights from 1987), we can pass the name of a supported scoring
 algorithm:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">com</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span>, weights <span class="op">=</span> <span class="st">"charlson"</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 4 5 1 3 1 0 4 7 2 2</span>
-<span class="co">#&gt; attr(,"map")</span>
-<span class="co">#&gt; [1] "charlson_icd10_quan"</span>
-<span class="co">#&gt; attr(,"weights")</span>
-<span class="co">#&gt; [1] "charlson"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/score.html">score</a></span><span class="op">(</span><span class="va">com</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span>, weights <span class="op">=</span> <span class="st">"charlson"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] 4 5 1 3 1 0 4 7 2 2</span></span>
+<span><span class="co">#&gt; attr(,"map")</span></span>
+<span><span class="co">#&gt; [1] "charlson_icd10_quan"</span></span>
+<span><span class="co">#&gt; attr(,"weights")</span></span>
+<span><span class="co">#&gt; [1] "charlson"</span></span></code></pre></div>
 <p>Once again, all the results from the <code><a href="../reference/score.html">score()</a></code> function
 are equivalent to what we obtained using the previously-released
 version.</p>
@@ -199,26 +202,26 @@ simplify the addition of new scores in the future. The currently
 supported comorbidity mapping algorithms are described in the following
 vignette:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"02-comorbidityscores"</span>, package <span class="op">=</span> <span class="st">"comorbidity"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"02-comorbidityscores"</span>, package <span class="op">=</span> <span class="st">"comorbidity"</span><span class="op">)</span></span></code></pre></div>
 <p>Alternatively, a new function is provided to display supported
 algorithms in the R console:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/available_algorithms.html">available_algorithms</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Supported comorbidity mapping algorithms:</span>
-<span class="co">#&gt;  * charlson_icd9_quan </span>
-<span class="co">#&gt;  * charlson_icd10_quan </span>
-<span class="co">#&gt;  * charlson_icd10_se </span>
-<span class="co">#&gt;  * charlson_icd10_am </span>
-<span class="co">#&gt;  * elixhauser_icd9_quan </span>
-<span class="co">#&gt;  * elixhauser_icd10_quan </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Supported scoring weights algorithms:</span>
-<span class="co">#&gt;  * For charlson_icd9_quan: charlson, quan </span>
-<span class="co">#&gt;  * For charlson_icd10_quan: charlson, quan </span>
-<span class="co">#&gt;  * For charlson_icd10_se: charlson, quan </span>
-<span class="co">#&gt;  * For charlson_icd10_am: charlson, quan </span>
-<span class="co">#&gt;  * For elixhauser_icd9_quan: vw, swiss </span>
-<span class="co">#&gt;  * For elixhauser_icd10_quan: vw, swiss</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/available_algorithms.html">available_algorithms</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Supported comorbidity mapping algorithms:</span></span>
+<span><span class="co">#&gt;  * charlson_icd9_quan </span></span>
+<span><span class="co">#&gt;  * charlson_icd10_quan </span></span>
+<span><span class="co">#&gt;  * charlson_icd10_se </span></span>
+<span><span class="co">#&gt;  * charlson_icd10_am </span></span>
+<span><span class="co">#&gt;  * elixhauser_icd9_quan </span></span>
+<span><span class="co">#&gt;  * elixhauser_icd10_quan </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Supported scoring weights algorithms:</span></span>
+<span><span class="co">#&gt;  * For charlson_icd9_quan: charlson, quan </span></span>
+<span><span class="co">#&gt;  * For charlson_icd10_quan: charlson, quan </span></span>
+<span><span class="co">#&gt;  * For charlson_icd10_se: charlson, quan </span></span>
+<span><span class="co">#&gt;  * For charlson_icd10_am: charlson, quan </span></span>
+<span><span class="co">#&gt;  * For elixhauser_icd9_quan: vw, swiss </span></span>
+<span><span class="co">#&gt;  * For elixhauser_icd10_quan: vw, swiss</span></span></code></pre></div>
 <p>This is picked up <em>auto-magically</em> from the internal data
 structures, so it <em>should</em> always be up-to-date.</p>
 </div>
@@ -244,8 +247,8 @@ GitHub</a>, the latter being strongly suggested.</p>
 <p>Finally, if required, you can revert to the previous release by
 installing from GitHub:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ellessenne/comorbidity@0.5.3"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ellessenne/comorbidity@0.5.3"</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -260,8 +263,7 @@ installing from GitHub:</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>
