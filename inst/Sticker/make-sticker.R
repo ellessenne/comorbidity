@@ -1,6 +1,7 @@
 library(tidyverse)
 library(hexSticker)
 library(sysfonts)
+library(usethis)
 
 sysfonts::font_add(family = "Sticker Font", regular = "lmmono10-italic.otf")
 p_family <- "Sticker Font"
@@ -11,6 +12,7 @@ nf <- c(
 )
 
 for (w in nf) {
+  ui_info("Doing {w}...")
   print(
     sticker(
       subplot = "inst/Sticker/coding-blue-stretched.png",
@@ -37,4 +39,5 @@ for (w in nf) {
       dpi = 1200
     )
   )
+  ui_done("Done!")
 }
