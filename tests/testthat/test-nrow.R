@@ -18,5 +18,7 @@ test_that("'comorbidity' returns a df with the proper (expected) number of rows 
     expect_equal(object = nrow(res), expected = n)
     res <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE, tidy.codes = TRUE)
     expect_equal(object = nrow(res), expected = n)
+    res <- comorbidity(x = x, id = "id", code = "code", map = "m3_icd10_am", assign0 = FALSE, tidy.codes = TRUE)
+    expect_equal(object = nrow(res), expected = n)
   }
 })

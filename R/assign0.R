@@ -21,6 +21,24 @@
     # "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`)
     x[metacanc == 1, solidtum := 0]
     # x$solidtum[x$metacanc == 1] <- 0
+  } else if (grepl("m3", map)) {
+    # Diabetes complicated: add if has diabetes uncomplicated + one or more complication codes...
+    x[diabunc == 1 & flag_comp_diab == 1, diabc := 1]
+    # Set Diabetes uncomplicated to zero if diabetes complicated recorded or complications found
+    x[diabc == 1 | flag_comp_diab == 1, diabunc := 0]
+    # Exclusions for osteoporosis and hypertension.
+    x[flag_exc_osteo == 1, osteounc := 0]
+    x[flag_exc_hyp == 1, hypunc := 0]
+    # Exclude other cancers if metastatic cancer found.
+    # for (canc_col_name in names(x)[names(x) %like% '^canc']) {
+      data.table::set(
+        x,
+        i = which(x[, metacanc == 1]),
+        j = names(x)[data.table::like(names(x), '^canc')],
+        value = 0
+      )
+    # }
+    
   }
   return(x)
 }

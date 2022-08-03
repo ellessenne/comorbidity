@@ -34,7 +34,12 @@ Authors@R:
              family = "Teo",
              role = "ctb",
              email = "ed_teo8@yahoo.com.sg",
-             comment = c(ORCID = "0000-0003-3936-4082")))
+             comment = c(ORCID = "0000-0003-3936-4082")),
+      person(given = "Matthew",
+             family = "Moore",
+             role = "ctb",
+             email = "matthew.moore@auckland.ac.nz",
+             comment = c(ORCID = "0000-0003-0730-8027")))
 Maintainer: Alessandro Gasparini <alessandro.gasparini@ki.se>
 URL: https://ellessenne.github.io/comorbidity/, https://github.com/ellessenne/comorbidity/
 BugReports: https://github.com/ellessenne/comorbidity/issues

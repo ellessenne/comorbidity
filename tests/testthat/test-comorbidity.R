@@ -137,6 +137,8 @@ test_that("comorbidity returns a data.frame", {
   expect_s3_class(cs, "data.frame")
   cs <- comorbidity(x = x9, id = "id", code = "code", map = "elixhauser_icd9_quan", assign0 = FALSE)
   expect_s3_class(cs, "data.frame")
+  cs <- comorbidity(x = x9, id = "id", code = "code", map = "m3_icd10_am", assign0 = FALSE)
+  expect_s3_class(cs, "data.frame")
 })
 
 test_that("comorbidity returns a data.frame with the correct number of rows", {
@@ -166,6 +168,8 @@ test_that("if labelled = TRUE, comorbidity returns variable labels", {
   expect_false(is.null(attr(cs, "variable.labels")))
   cs <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", labelled = TRUE, assign0 = FALSE)
   expect_false(is.null(attr(cs, "variable.labels")))
+  cs <- comorbidity(x = x, id = "id", code = "code", map = "m3_icd10_am", labelled = TRUE, assign0 = FALSE)
+  expect_false(is.null(attr(cs, "variable.labels")))
 })
 
 test_that("if labelled = FALSE, comorbidity does not return variable labels", {
@@ -177,6 +181,8 @@ test_that("if labelled = FALSE, comorbidity does not return variable labels", {
   cs <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", labelled = FALSE, assign0 = FALSE)
   expect_true(is.null(attr(cs, "variable.labels")))
   cs <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", labelled = FALSE, assign0 = FALSE)
+  expect_true(is.null(attr(cs, "variable.labels")))
+  cs <- comorbidity(x = x, id = "id", code = "code", map = "m3_icd10_am", labelled = FALSE, assign0 = FALSE)
   expect_true(is.null(attr(cs, "variable.labels")))
   x9 <- data.frame(
     id = sample(1:5, size = 10 * 5, replace = TRUE),
@@ -211,6 +217,8 @@ test_that("comorbidity domains are 0 or 1", {
     expect_true(object = all(elixhauser10 >= 0 & elixhauser10 <= 1))
     charlson10 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)[, -1]
     expect_true(object = all(charlson10 >= 0 & charlson10 <= 1))
+    m3_10 <- comorbidity(x = x, id = "id", code = "code", map = "m3_icd10_am", assign0 = FALSE)[, -1]
+    expect_true(object = all(m3_10 >= 0 & m3_10 <= 1))
     x <- data.frame(
       id = sample(1:5, size = 50, replace = TRUE),
       code = sample_diag(50, version = "ICD9_2015"),
@@ -241,6 +249,10 @@ test_that("duplicate codes are not counted twice (or more)", {
     ex2 <- comorbidity(x = x2, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
     ex3 <- comorbidity(x = x3, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
     ex4 <- comorbidity(x = x4, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
+    mx <- comorbidity(x = x, id = "id", code = "code", map = "m3_icd10_am", assign0 = FALSE)
+    mx2 <- comorbidity(x = x2, id = "id", code = "code", map = "m3_icd10_am", assign0 = FALSE)
+    mx3 <- comorbidity(x = x3, id = "id", code = "code", map = "m3_icd10_am", assign0 = FALSE)
+    mx4 <- comorbidity(x = x4, id = "id", code = "code", map = "m3_icd10_am", assign0 = FALSE)
     expect_equal(object = cx, expected = cx2)
     expect_equal(object = cx, expected = cx3)
     expect_equal(object = cx, expected = cx4)
@@ -261,6 +273,16 @@ test_that("duplicate codes are not counted twice (or more)", {
     expect_true(object = all(ex2[, -1] >= 0 & ex2[, -1] <= 1))
     expect_true(object = all(ex3[, -1] >= 0 & ex3[, -1] <= 1))
     expect_true(object = all(ex4[, -1] >= 0 & ex4[, -1] <= 1))
+    expect_equal(object = mx, expected = mx2)
+    expect_equal(object = mx, expected = mx3)
+    expect_equal(object = mx, expected = mx4)
+    expect_equal(object = mx2, expected = mx3)
+    expect_equal(object = mx2, expected = mx4)
+    expect_equal(object = mx3, expected = mx4)
+    expect_true(object = all(mx[, -1] >= 0 & mx[, -1] <= 1))
+    expect_true(object = all(mx2[, -1] >= 0 & mx2[, -1] <= 1))
+    expect_true(object = all(mx3[, -1] >= 0 & mx3[, -1] <= 1))
+    expect_true(object = all(mx4[, -1] >= 0 & mx4[, -1] <= 1))
   }
 
   for (i in seq(20)) {
@@ -318,6 +340,9 @@ test_that("input dataset with additional columns", {
   e <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
   e2 <- comorbidity(x = x2, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
   expect_equal(object = e2, expected = e)
+  m <- comorbidity(x = x, id = "id", code = "code", map = "m3_icd10_am", assign0 = FALSE)
+  m2 <- comorbidity(x = x2, id = "id", code = "code", map = "m3_icd10_am", assign0 = FALSE)
+  expect_equal(object = m2, expected = m)
 
   x <- data.frame(
     id = sample(1:20, size = 50, replace = TRUE),
@@ -340,14 +365,18 @@ test_that("all comorbidities", {
   icd10_2011$id <- 1
   c <- comorbidity(x = icd10_2011, id = "id", code = "Code", map = "charlson_icd10_quan", assign0 = FALSE)
   e <- comorbidity(x = icd10_2011, id = "id", code = "Code", map = "elixhauser_icd10_quan", assign0 = FALSE)
+  m <- comorbidity(x = icd10_2011, id = "id", code = "Code", map = "m3_icd10_am", assign0 = FALSE)
   expect_true(object = all(c[, -1] == 1))
   expect_true(object = all(e[, -1] == 1))
+  expect_true(object = all(m[, -1] == 1))
   data("icd10_2009", package = "comorbidity")
   icd10_2009$id <- 1
   c <- comorbidity(x = icd10_2009, id = "id", code = "Code", map = "charlson_icd10_quan", assign0 = FALSE)
   e <- comorbidity(x = icd10_2009, id = "id", code = "Code", map = "elixhauser_icd10_quan", assign0 = FALSE)
+  m <- comorbidity(x = icd10_2009, id = "id", code = "Code", map = "m3_icd10_am", assign0 = FALSE)
   expect_true(object = all(c[, -1] == 1))
   expect_true(object = all(e[, -1] == 1))
+  expect_true(object = all(m[, -1] == 1))
   data("icd9_2015", package = "comorbidity")
   icd9_2015$id <- 1
   c <- comorbidity(x = icd9_2015, id = "id", code = "Code", map = "charlson_icd9_quan", assign0 = FALSE)
@@ -368,6 +397,9 @@ test_that("break output checks", {
   ex <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
   ex[, -1] <- ex[, -1] + rnorm(n = nrow(ex))
   expect_error(.check_output(x = ex, id = "id"), regexp = "unexpected state")
+  mx <- comorbidity(x = x, id = "id", code = "code", map = "m3_icd10_am", assign0 = FALSE)
+  mx[, -1] <- mx[, -1] + rnorm(n = nrow(mx))
+  expect_error(.check_output(x = mx, id = "id"), regexp = "unexpected state")
 })
 
 test_that("works ok with data.table", {
