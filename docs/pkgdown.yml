@@ -1,11 +1,11 @@
 pandoc: '2.18'
-pkgdown: 2.0.5
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   A-introduction: A-introduction.html
   B-comorbidity-scores: B-comorbidity-scores.html
   C-changes: C-changes.html
-last_built: 2022-07-12T11:04Z
+last_built: 2022-08-03T14:56Z
 urls:
   reference: https://ellessenne.github.io/comorbidity/reference
   article: https://ellessenne.github.io/comorbidity/articles
