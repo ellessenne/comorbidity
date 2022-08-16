@@ -86,3 +86,38 @@ map <- "charlson_icd10_quan"
 assign0 <- FALSE
 labelled <- TRUE
 tidy.codes <- TRUE
+
+# E-mail
+library(reprex)
+reprex({
+  library(comorbidity)
+  df <- data.frame(
+    id = 1,
+    mi = 1,
+    chf = 0,
+    pvd = 0,
+    cevd = 0,
+    dementia = 0,
+    cpd = 0,
+    rheumd = 0,
+    pud = 0,
+    mld = 0,
+    diab = 0,
+    diabwc = 1,
+    hp = 1,
+    rend = 0,
+    canc = 0,
+    msld = 0,
+    metacanc = 0,
+    aids = 0
+  )
+  score(x = df)
+
+  class(df) <- c("comorbidity", class(df))
+  attr(df, "map") <- "charlson_icd10_quan"
+  score(x = df, assign0 = FALSE)
+  score(x = df, weights = "quan", assign0 = FALSE)
+
+  df$mi <- NULL
+  score(x = df, assign0 = FALSE)
+})
