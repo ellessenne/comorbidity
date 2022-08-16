@@ -2,11 +2,12 @@
 #'
 #' @param x An object of class `comorbidty` returned by a call to the [comorbidity()] function.
 #'
-#' @param weights The weighting system to be used.
-#' This will depend on the mapping algorithm.
+#' @param weights The weighting system to be used, which will depend on the mapping algorithm.
+#'
 #' Possible values for the Charlson index are:
 #' * `charlson`, for the original weights by Charlson et al. (1987);
 #' * `quan`, for the revised weights by Quan et al. (2011).
+#'
 #' Possible values for the Elixhauser score are:
 #' * `vw`, for the weights by van Walraven et al. (2009);
 #' * `swiss`, for the Swiss Elixhauser weights by Sharma et al. (2021).

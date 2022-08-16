@@ -9,13 +9,16 @@ score(x, weights = NULL, assign0)
 \arguments{
 \item{x}{An object of class \code{comorbidty} returned by a call to the \code{\link[=comorbidity]{comorbidity()}} function.}
 
-\item{weights}{The weighting system to be used.
-This will depend on the mapping algorithm.
+\item{weights}{The weighting system to be used, which will depend on the mapping algorithm.
+
 Possible values for the Charlson index are:
 \itemize{
 \item \code{charlson}, for the original weights by Charlson et al. (1987);
 \item \code{quan}, for the revised weights by Quan et al. (2011).
+}
+
 Possible values for the Elixhauser score are:
+\itemize{
 \item \code{vw}, for the weights by van Walraven et al. (2009);
 \item \code{swiss}, for the Swiss Elixhauser weights by Sharma et al. (2021).
 }

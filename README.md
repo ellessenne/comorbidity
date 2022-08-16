@@ -3,7 +3,7 @@
 
 # The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
-Last updated: 2022-08-03
+Last updated: 2022-08-16
 
 <!-- badges: start -->
 
@@ -48,9 +48,6 @@ For instance, we could simulate ICD-10 codes:
 ``` r
 # load the comorbidity package
 library(comorbidity)
-## This is {comorbidity} version 1.0.3.
-## A lot has changed since the pre-1.0.0 release on CRAN, please check-out breaking changes here:
-## -> https://ellessenne.github.io/comorbidity/articles/C-changes.html
 # set a seed for reproducibility
 set.seed(1)
 # simulate 50 ICD-10 codes for 5 individuals
