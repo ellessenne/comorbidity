@@ -44,6 +44,76 @@ for (w in names(.maps)) {
       metacanc = 6,
       aids = 4
     )
+  } else if (grepl(pattern = "m3", x = w)) {
+    # m3 weights
+    .weights[[w]][["m3"]] <- c(
+      aids = 0.452647425,
+      alcohol = 0.576907507,
+      dane = 0.180927466,
+      anxbd = 0.121481351,
+      aneur = 0.260195993,
+      bone = 0.132827597,
+      bdi = 0.086960591,
+      cancbreast = 0.411891435,
+      carit = 0.173859876,
+      valv = 0.256577208,
+      cevd = 0.097803808,
+      copd = 0.6253395,
+      rend = 0.334155906,
+      blood = 0.265142145,
+      canccolrec = 0.372878764,
+      chf = 0.539809861,
+      conntiss = 0.290446442,
+      dementia = 1.021975368,
+      diabc = 0.271607393,
+      diabunc = 0.299383867,
+      drug = 0.558979499,
+      endo = 0.112673001,
+      epi = 0.594991823,
+      ceye = 0.179923774,
+      cancgyn = 0.70658858,
+      cvhep = 0.569092852,
+      hypunc = 0.117746303,
+      immsys = 0.398529751,
+      inear = 0.06090681,
+      jsd = 0.095585857,
+      msld = 0.474321939,
+      canclung = 1.972481401,
+      canclymphleuk = 1.190108503,
+      mpd = 0.212789563,
+      cancmela = 0.342233292,
+      maln = 0.331335106,
+      bd = 0.039711074,
+      mentret = 1.405761403,
+      metab = 0.006265195,
+      metacanc = 2.468586878,
+      mpnd = 0.208276284,
+      ami = 0.197491908,
+      obes = 0.248243722,
+      osteounc = 0.083506878,
+      cancoth = 1.103452294,
+      ond = 0.564391512,
+      para = 0.281895685,
+      pud = 0.152986438,
+      pvd = 0.349250005,
+      cancprost = 0.432343447,
+      pcd = 0.398432833,
+      sleep = 0.245749995,
+      cancuppergi = 1.941498638,
+      utc = 0.046548658,
+      ven = 0.214050369,
+      # Zero weighted comorbidities
+      ang = 0, #-0.082399267 
+      cdnos = 0, #-0.104225698
+      cinfnos = 0,  #-0.237983891
+      intest = 0, #-0.254089697
+      panc = 0, #-0.237983891
+      tub = 0,  #-0.104290289
+      # Zero weight exclusion/complication flags
+      flag_comp_diab = 0, # Diabetes
+      flag_exc_osteo = 0, # Osteoporosis
+      flag_exc_hyp = 0 # Hypertension
+    )
   } else {
     # Elixhauser-compatible weights:
     # van Walraven

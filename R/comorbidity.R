@@ -1,6 +1,6 @@
 #' @title Comorbidity mapping.
 #'
-#' @description Maps comorbidity conditions using algorithms from the Charlson and the Elixhauser comorbidity scores.
+#' @description Maps comorbidity conditions using algorithms from the Charlson, Elixhauser, and M3 Multimorbidity Index comorbidity scores.
 #'
 #' @param x A tidy `data.frame` (or a `data.table`; `tibble`s are supported too) with one column containing an individual ID and a column containing all diagnostic codes.
 #' Extra columns other than ID and codes are discarded.
@@ -9,7 +9,7 @@
 #' @param code Column of `x` containing diagnostic codes.
 #' Codes must be in upper case with no punctuation in order to be properly recognised.
 #' @param map The mapping algorithm to be used (values are case-insensitive).
-#' Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (`charlson_icd10_quan`, `charlson_icd9_quan`) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (`elixhauser_icd10_quan`, `elixhauser_icd9_quan`).
+#' Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (`charlson_icd10_quan`, `charlson_icd9_quan`), the Elixhauser score, again using either ICD-10 or ICD-9-CM (`elixhauser_icd10_quan`, `elixhauser_icd9_quan`), and the M3 Multimorbidity Index (`m3_icd10_am`) .
 #' These mapping are based on the paper by Quan et al. (2011).
 #' It is also possible to obtain a Swedish (`charlson_icd10_se`) or Australian (`charlson_icd10_am`) modification of the Charlson score using ICD-10 codes.
 #' @param assign0 Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
@@ -21,6 +21,9 @@
 #' * "Hypertension, uncomplicated" (`hypunc`) and "Hypertension, complicated" (`hypc`) for the Elixhauser score;
 #' * "Diabetes, uncomplicated" (`diabunc`) and "Diabetes, complicated" (`diabc`) for the Elixhauser score;
 #' * "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`) for the Elixhauser score.
+#' * "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`) for the M3 score;
+#' * "Osteoporosis, uncomplicated" (`ostunc`) and "Hypertension, uncomplicated" (`hypunc`) for the M3 score;
+#' * All cancers (`canc.+`) for the M3 score;
 #'
 #' @param labelled Attach labels to each comorbidity, compatible with the RStudio viewer via the [utils::View()] function.
 #' Defaults to `TRUE`.
@@ -51,7 +54,7 @@
 #' * `aids`, for AIDS/HIV.
 #' Please note that we combine "chronic obstructive pulmonary disease" and "chronic other pulmonary disease" for the Swedish version of the Charlson index, for comparability (and compatibility) with other definitions/implementations.
 #'
-#' Conversely, for the Elixhauser score the dataset contains the following variables:
+#' For the Elixhauser score the dataset contains the following variables:
 #' * The `id` variable as defined by the user;
 #' * `chf`, for congestive heart failure;
 #' * `carit`, for cardiac arrhythmias;
@@ -84,11 +87,78 @@
 #' * `drug`, for drug abuse;
 #' * `psycho`, for psychoses;
 #' * `depre`, for depression;
+#' 
+#' * The `id` variable as defined by the user;
+#' * `aids`, for AIDS/HIV;
+#' * `alcohol`, for Alcohol abuse;
+#' * `dane`, for Anemia deficiency;
+#' * `anxbd`, for Anxiety and Behavioural disorders;
+#' * `aneur`, for Aortic and other aneurysms;
+#' * `bone`, for Bone disorders;
+#' * `bdi`, for Bowel disease inflammatory;
+#' * `cancbreast`, for Breast cancer;
+#' * `carit`, for Cardiac arrhythmia;
+#' * `valv`, for Cardiac valve;
+#' * `cevd`, for Cerebrovascular disease;
+#' * `copd`, for Chronic pulmonary;
+#' * `rend`, for Chronic renal;
+#' * `blood`, for Coagulopathy and other blood disorder;
+#' * `canccolrec`, for Colorectal cancer;
+#' * `chf`, for Congestive heart failure;
+#' * `conntiss`, for Connective tissue disease;
+#' * `dementia`, for Dementia;
+#' * `diabc`, for Diabetes (complicated);
+#' * `diabunc`, for Diabetes (uncomplicated);
+#' * `drug`, for Drug abuse;
+#' * `endo`, for Endocrine disorder;
+#' * `epi`, for Epilepsy;
+#' * `ceye`, for Eye problem long term;
+#' * `cancgyn`, for Gynaecological cancers;
+#' * `cvhep`, for Hepatitis, chronic viral;
+#' * `hypunc`, for Hypertension (uncomplicated);
+#' * `immsys`, for Immune system disorder;
+#' * `inear`, for Inner ear disorder;
+#' * `jsd`, for Joint or spinal disorder;
+#' * `msld`, for Liver disease (moderate or severe);
+#' * `canclung`, for Lung cancer;
+#' * `canclymphleuk`, for Lymphomas and leukaemias;
+#' * `mpd`, for Major psychiatric disorder;
+#' * `cancmela`, for Malignant melanoma;
+#' * `maln`, for Malnutrition and other nutritional disorders;
+#' * `bd`, for Mental and behavioural disorders due to brain damage;
+#' * `mentret`, for Mental retardation;
+#' * `metab`, for Metabolic disorder;
+#' * `metacanc`, for Metastatic cancer;
+#' * `mpnd`, for Muscular peripheral nerve disorder;
+#' * `ami`, for Myocardial infarction;
+#' * `obes`, for Obesity;
+#' * `osteounc`, for Osteoporosis (uncomplicated);
+#' * `cancoth`, for Other cancers;
+#' * `ond`, for Other neurologic disorders (excluding epilepsy);
+#' * `para`, for Paralysis;
+#' * `pud`, for Peptic ulcer disease;
+#' * `pvd`, for Peripheral vascular disease;
+#' * `cancprost`, for Prostate cancer;
+#' * `pcd`, for Pulmonary circulation disorders;
+#' * `sleep`, for Sleep disorder;
+#' * `cancuppergi`, for Upper gastrointestinal cancer;
+#' * `utc`, for Urinary tract problem (chronic);
+#' * `ven`, for Venous insufficiency;
+#' * `ang`, for Angina;
+#' * `cdnos`, for Cardiac disease (other);
+#' * `cinfnos`, for Infection chronic NOS;
+#' * `intest`, for Intestinal disorder;
+#' * `panc`, for Pancreatitis;
+#' * `tub`, for Tuberculosis;
+#' * `flag_comp_diab`, for flagging for diabetes complications;
+#' * `flag_exc_osteo`, for flagging for osteoporosis exclusions;
+#' * `flag_exc_hyp`, for flagging for hypertension exclusions;
 #'
 #' Labels are presented to the user when using the RStudio viewer (e.g. via the [utils::View()] function) for convenience.
 #'
 #' @details
 #' The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan _et al_. (2005).
+#' The ICD-10-AM coding for the M3 Multimorbidity Index is based on work by Stanley and Sarfati (2017).
 #' ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set `tidy.codes = TRUE` to properly tidy the codes automatically.
 #' A message is printed to the R console when non-alphanumeric characters are found.
 #'
@@ -96,6 +166,7 @@
 #' @references Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
 #' @references Ludvigsson JF, Appelros P, Askling J et al. _Adaptation of the Charlson Comorbidity Index for register-based research in Sweden_. Clinical Epidemiology 2021; 13:21-41.
 #' @references Sundararajan V, Henderson T, Perry C, Muggivan A, Quan H, Ghali WA. _New ICD-10 version of the Charlson comorbidity index predicted in-hospital mortality_. Journal of Clinical Epidemiology 2004; 57(12):1288-1294.
+#' @references Stanley J, Sarfati D. (2017) _The new measuring multimorbidity index predicted mortality better than Charlson and Elixhauser indices among the general population_. Journal of Clinical Epidemiology 2017;92:99-110. DOI: 10.1016/j.jclinepi.2017.08.005
 #' @examples
 #' set.seed(1)
 #' x <- data.frame(

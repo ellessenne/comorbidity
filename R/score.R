@@ -1,6 +1,6 @@
 #' @title Compute (weighted) comorbidity scores
 #'
-#' @param x An object of class `comorbidty` returned by a call to the [comorbidity()] function.
+#' @param x An object of class `comorbidity` returned by a call to the [comorbidity()] function.
 #'
 #' @param weights The weighting system to be used, which will depend on the mapping algorithm.
 #'
@@ -11,6 +11,8 @@
 #' Possible values for the Elixhauser score are:
 #' * `vw`, for the weights by van Walraven et al. (2009);
 #' * `swiss`, for the Swiss Elixhauser weights by Sharma et al. (2021).
+#' Possible values for the M3 score are:
+#' * `m3`, for the weights by Stanley and Sarfati (2017);
 #'
 #' Defaults to `NULL`, in which case an unweighted score will be used.
 #'
@@ -23,11 +25,15 @@
 #' * "Hypertension, uncomplicated" (`hypunc`) and "Hypertension, complicated" (`hypc`) for the Elixhauser score;
 #' * "Diabetes, uncomplicated" (`diabunc`) and "Diabetes, complicated" (`diabc`) for the Elixhauser score;
 #' * "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`) for the Elixhauser score.
+#' * "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`) for the M3 score;
+#' * "Osteoporosis, uncomplicated" (`ostunc`) and "Hypertension, uncomplicated" (`hypunc`) for the M3 score;
+#' * All cancers (`canc.+`) for the M3 score;
 #'
 #' @references Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
 #' @references Quan H, Li B, Couris CM, et al. _Updating and validating the Charlson Comorbidity Index and Score for risk adjustment in hospital discharge abstracts using data from 6 countries_. American Journal of Epidemiology 2011; 173(6):676-682.
 #' @references van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.
 #' @references Sharma N, Schwendimann R, Endrich O, et al. _Comparing Charlson and Elixhauser comorbidity indices with different weightings to predict in-hospital mortality: an analysis of national inpatient data_. BMC Health Services Research 2021; 21(13).
+#' @references Stanley J, Sarfati D. (2017) _The new measuring multimorbidity index predicted mortality better than Charlson and Elixhauser indices among the general population_. Journal of Clinical Epidemiology 2017;92:99-110. DOI: 10.1016/j.jclinepi.2017.08.005
 #'
 #' @return A numeric vector with the (weighted) comorbidity score for each subject from the input dataset.
 #'
