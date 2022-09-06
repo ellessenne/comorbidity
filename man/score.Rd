@@ -9,7 +9,7 @@ score(x, weights = NULL, assign0)
 \arguments{
 \item{x}{An object of class \code{comorbidty} returned by a call to the \code{\link[=comorbidity]{comorbidity()}} function.}
 
-\item{weights}{The weighting system to be used, which will depend on the mapping algorithm.
+\item{weights}{A string denoting the weighting system to be used, which will depend on the mapping algorithm.
 
 Possible values for the Charlson index are:
 \itemize{
@@ -25,9 +25,9 @@ Possible values for the Elixhauser score are:
 
 Defaults to \code{NULL}, in which case an unweighted score will be used.}
 
-\item{assign0}{Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0 when calculating the score.
+\item{assign0}{A logical value denoting whether to apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0 when calculating the score.
 By doing this, a type of comorbidity is not counted more than once in each patient.
-The comorbidities that are affected by this argument are:
+If \code{assign0 = TRUE}, the comorbidities that are affected by this argument are:
 \itemize{
 \item "Mild liver disease" (\code{mld}) and "Moderate/severe liver disease" (\code{msld}) for the Charlson score;
 \item "Diabetes" (\code{diab}) and "Diabetes with complications" (\code{diabwc}) for the Charlson score;
@@ -38,7 +38,7 @@ The comorbidities that are affected by this argument are:
 }}
 }
 \value{
-A numeric vector with the (weighted) comorbidity score for each subject from the input dataset.
+A numeric vector with the (possibly weighted) comorbidity score for each subject from the input dataset.
 }
 \description{
 Compute (weighted) comorbidity scores
@@ -58,6 +58,25 @@ score(x = x1, weights = "charlson", assign0 = FALSE)
 # Elixhauser score based on ICD-10 diagnostic codes:
 x2 <- comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
 score(x = x2, weights = "vw", assign0 = FALSE)
+
+# Checking the `assign0` argument.
+# Please make sure to check the example in the documentation of the
+# `comorbidity()` function first, with ?comorbidity().
+# We use the same dataset for a single subject with two codes, for
+# complicated and uncomplicated diabetes:
+x3 <- data.frame(
+  id = 1,
+  code = c("E100", "E102"),
+  stringsAsFactors = FALSE
+)
+# Then, we calculate the Quan-ICD10 Charlson score:
+ccF <- comorbidity(x = x3, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
+ccF[, c("diab", "diabwc")]
+# If we calculate the unweighted score with `assign0 = FALSE`, both diabetes
+# conditions are counted:
+score(x = ccF, assign0 = FALSE)
+# Conversely, with `assign0 = TRUE`, only the most severe is considered:
+score(x = ccF, assign0 = TRUE)
 }
 \references{
 Charlson ME, Pompei P, Ales KL, et al. \emph{A new method of classifying prognostic comorbidity in longitudinal studies: development and validation}. Journal of Chronic Diseases 1987; 40:373-383.

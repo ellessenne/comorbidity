@@ -69,7 +69,7 @@
 
 
 <dt>weights</dt>
-<dd><p>The weighting system to be used, which will depend on the mapping algorithm.</p>
+<dd><p>A string denoting the weighting system to be used, which will depend on the mapping algorithm.</p>
 <p>Possible values for the Charlson index are:</p><ul><li><p><code>charlson</code>, for the original weights by Charlson et al. (1987);</p></li>
 <li><p><code>quan</code>, for the revised weights by Quan et al. (2011).</p></li>
 </ul><p>Possible values for the Elixhauser score are:</p><ul><li><p><code>vw</code>, for the weights by van Walraven et al. (2009);</p></li>
@@ -78,9 +78,9 @@
 
 
 <dt>assign0</dt>
-<dd><p>Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0 when calculating the score.
+<dd><p>A logical value denoting whether to apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0 when calculating the score.
 By doing this, a type of comorbidity is not counted more than once in each patient.
-The comorbidities that are affected by this argument are:</p><ul><li><p>"Mild liver disease" (<code>mld</code>) and "Moderate/severe liver disease" (<code>msld</code>) for the Charlson score;</p></li>
+If <code>assign0 = TRUE</code>, the comorbidities that are affected by this argument are:</p><ul><li><p>"Mild liver disease" (<code>mld</code>) and "Moderate/severe liver disease" (<code>msld</code>) for the Charlson score;</p></li>
 <li><p>"Diabetes" (<code>diab</code>) and "Diabetes with complications" (<code>diabwc</code>) for the Charlson score;</p></li>
 <li><p>"Cancer" (<code>canc</code>) and "Metastatic solid tumour" (<code>metacanc</code>) for the Charlson score;</p></li>
 <li><p>"Hypertension, uncomplicated" (<code>hypunc</code>) and "Hypertension, complicated" (<code>hypc</code>) for the Elixhauser score;</p></li>
@@ -93,7 +93,7 @@ The comorbidities that are affected by this argument are:</p><ul><li><p>"Mild li
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A numeric vector with the (weighted) comorbidity score for each subject from the input dataset.</p>
+<p>A numeric vector with the (possibly weighted) comorbidity score for each subject from the input dataset.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -129,6 +129,33 @@ The comorbidities that are affected by this argument are:</p><ul><li><p>"Mild li
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "elixhauser_icd10_quan"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"weights")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "vw"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Checking the `assign0` argument.</span></span></span>
+<span class="r-in"><span><span class="co"># Please make sure to check the example in the documentation of the</span></span></span>
+<span class="r-in"><span><span class="co"># `comorbidity()` function first, with ?comorbidity().</span></span></span>
+<span class="r-in"><span><span class="co"># We use the same dataset for a single subject with two codes, for</span></span></span>
+<span class="r-in"><span><span class="co"># complicated and uncomplicated diabetes:</span></span></span>
+<span class="r-in"><span><span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E100"</span>, <span class="st">"E102"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Then, we calculate the Quan-ICD10 Charlson score:</span></span></span>
+<span class="r-in"><span><span class="va">ccF</span> <span class="op">&lt;-</span> <span class="fu"><a href="comorbidity.html">comorbidity</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x3</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ccF</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diab"</span>, <span class="st">"diabwc"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   diab diabwc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1      1</span>
+<span class="r-in"><span><span class="co"># If we calculate the unweighted score with `assign0 = FALSE`, both diabetes</span></span></span>
+<span class="r-in"><span><span class="co"># conditions are counted:</span></span></span>
+<span class="r-in"><span><span class="fu">score</span><span class="op">(</span>x <span class="op">=</span> <span class="va">ccF</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"map")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "charlson_icd10_quan"</span>
+<span class="r-in"><span><span class="co"># Conversely, with `assign0 = TRUE`, only the most severe is considered:</span></span></span>
+<span class="r-in"><span><span class="fu">score</span><span class="op">(</span>x <span class="op">=</span> <span class="va">ccF</span>, assign0 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"map")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "charlson_icd10_quan"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

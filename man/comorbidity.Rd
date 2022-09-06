@@ -11,19 +11,19 @@ comorbidity(x, id, code, map, assign0, labelled = TRUE, tidy.codes = TRUE)
 Extra columns other than ID and codes are discarded.
 Column names must be syntactically valid names, otherwise they are forced to be so by calling the \code{\link[=make.names]{make.names()}} function.}
 
-\item{id}{Column of \code{x} containing the individual ID.}
+\item{id}{String denoting the name of a column of \code{x} containing the individual ID.}
 
-\item{code}{Column of \code{x} containing diagnostic codes.
+\item{code}{String denoting the name of a column of \code{x} containing diagnostic codes.
 Codes must be in upper case with no punctuation in order to be properly recognised.}
 
-\item{map}{The mapping algorithm to be used (values are case-insensitive).
+\item{map}{String denoting the mapping algorithm to be used (values are case-insensitive).
 Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (\code{charlson_icd10_quan}, \code{charlson_icd9_quan}) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (\code{elixhauser_icd10_quan}, \code{elixhauser_icd9_quan}).
 These mapping are based on the paper by Quan et al. (2011).
 It is also possible to obtain a Swedish (\code{charlson_icd10_se}) or Australian (\code{charlson_icd10_am}) modification of the Charlson score using ICD-10 codes.}
 
-\item{assign0}{Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
+\item{assign0}{Logical value denoting whether to apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
 By doing this, a type of comorbidity is not counted more than once in each patient.
-The comorbidities that are affected by this argument are:
+If \code{assign0 = TRUE}, the comorbidities that are affected by this argument are:
 \itemize{
 \item "Mild liver disease" (\code{mld}) and "Moderate/severe liver disease" (\code{msld}) for the Charlson score;
 \item "Diabetes" (\code{diab}) and "Diabetes with complications" (\code{diabwc}) for the Charlson score;
@@ -33,15 +33,16 @@ The comorbidities that are affected by this argument are:
 \item "Solid tumour" (\code{solidtum}) and "Metastatic cancer" (\code{metacanc}) for the Elixhauser score.
 }}
 
-\item{labelled}{Attach labels to each comorbidity, compatible with the RStudio viewer via the \code{\link[utils:View]{utils::View()}} function.
+\item{labelled}{Logical value denoting whether to attach labels to each comorbidity, which are compatible with the RStudio viewer via the \code{\link[utils:View]{utils::View()}} function.
 Defaults to \code{TRUE}.}
 
-\item{tidy.codes}{Tidy diagnostic codes?
+\item{tidy.codes}{Logical value, defaulting to \code{TRUE}, denoting whether ICD codes are to be tidied.
 If \code{TRUE}, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression \code{[^[:alnum:]]}.
-Defaults to \code{TRUE}.}
+It can be set to \code{FALSE} to speed up computations, but please be aware that in that case codes are assumed to be formatted as above.
+If codes are incorrectly formatted, this may lead to wrong results: use at your own risk!}
 }
 \value{
-A data frame with \code{id}, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.
+A data frame with \code{id} and columns relative to each comorbidity domain, with one row per individual.
 
 For the Charlson score, the following variables are included in the dataset:
 \itemize{
@@ -109,7 +110,7 @@ Maps comorbidity conditions using algorithms from the Charlson and the Elixhause
 }
 \details{
 The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan \emph{et al}. (2005).
-ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically.
+ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set \code{tidy.codes = TRUE} to properly tidy the codes automatically (this is the default behaviour).
 A message is printed to the R console when non-alphanumeric characters are found.
 }
 \examples{
@@ -125,6 +126,25 @@ comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign
 
 # Elixhauser score based on ICD-10 diagnostic codes:
 comorbidity(x = x, id = "id", code = "code", map = "elixhauser_icd10_quan", assign0 = FALSE)
+
+# The following example describes how the `assign0` argument works.
+# We create a dataset for a single patient with two codes, one for
+# uncomplicated diabetes ("E100") and one for complicated diabetes
+# ("E102"):
+x2 <- data.frame(
+  id = 1,
+  code = c("E100", "E102"),
+  stringsAsFactors = FALSE
+)
+# Then, we calculate the Quan-ICD10 Charlson score:
+ccF <- comorbidity(x = x2, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
+# With `assign0 = FALSE`, both diabetes comorbidities are counted:
+ccF[, c("diab", "diabwc")]
+# Conversely, with `assign0 = TRUE`, only the more severe diabetes with
+# complications is counted:
+ccT <- comorbidity(x = x2, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = TRUE)
+ccT[, c("diab", "diabwc")]
+
 }
 \references{
 Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. \emph{Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data}. Medical Care 2005; 43(11):1130-1139.

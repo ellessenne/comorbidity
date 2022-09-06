@@ -71,25 +71,25 @@ Column names must be syntactically valid names, otherwise they are forced to be 
 
 
 <dt>id</dt>
-<dd><p>Column of <code>x</code> containing the individual ID.</p></dd>
+<dd><p>String denoting the name of a column of <code>x</code> containing the individual ID.</p></dd>
 
 
 <dt>code</dt>
-<dd><p>Column of <code>x</code> containing diagnostic codes.
+<dd><p>String denoting the name of a column of <code>x</code> containing diagnostic codes.
 Codes must be in upper case with no punctuation in order to be properly recognised.</p></dd>
 
 
 <dt>map</dt>
-<dd><p>The mapping algorithm to be used (values are case-insensitive).
+<dd><p>String denoting the mapping algorithm to be used (values are case-insensitive).
 Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (<code>charlson_icd10_quan</code>, <code>charlson_icd9_quan</code>) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (<code>elixhauser_icd10_quan</code>, <code>elixhauser_icd9_quan</code>).
 These mapping are based on the paper by Quan et al. (2011).
 It is also possible to obtain a Swedish (<code>charlson_icd10_se</code>) or Australian (<code>charlson_icd10_am</code>) modification of the Charlson score using ICD-10 codes.</p></dd>
 
 
 <dt>assign0</dt>
-<dd><p>Apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
+<dd><p>Logical value denoting whether to apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
 By doing this, a type of comorbidity is not counted more than once in each patient.
-The comorbidities that are affected by this argument are:</p><ul><li><p>"Mild liver disease" (<code>mld</code>) and "Moderate/severe liver disease" (<code>msld</code>) for the Charlson score;</p></li>
+If <code>assign0 = TRUE</code>, the comorbidities that are affected by this argument are:</p><ul><li><p>"Mild liver disease" (<code>mld</code>) and "Moderate/severe liver disease" (<code>msld</code>) for the Charlson score;</p></li>
 <li><p>"Diabetes" (<code>diab</code>) and "Diabetes with complications" (<code>diabwc</code>) for the Charlson score;</p></li>
 <li><p>"Cancer" (<code>canc</code>) and "Metastatic solid tumour" (<code>metacanc</code>) for the Charlson score;</p></li>
 <li><p>"Hypertension, uncomplicated" (<code>hypunc</code>) and "Hypertension, complicated" (<code>hypc</code>) for the Elixhauser score;</p></li>
@@ -99,21 +99,22 @@ The comorbidities that are affected by this argument are:</p><ul><li><p>"Mild li
 
 
 <dt>labelled</dt>
-<dd><p>Attach labels to each comorbidity, compatible with the RStudio viewer via the <code><a href="https://rdrr.io/r/utils/View.html" class="external-link">utils::View()</a></code> function.
+<dd><p>Logical value denoting whether to attach labels to each comorbidity, which are compatible with the RStudio viewer via the <code><a href="https://rdrr.io/r/utils/View.html" class="external-link">utils::View()</a></code> function.
 Defaults to <code>TRUE</code>.</p></dd>
 
 
 <dt>tidy.codes</dt>
-<dd><p>Tidy diagnostic codes?
+<dd><p>Logical value, defaulting to <code>TRUE</code>, denoting whether ICD codes are to be tidied.
 If <code>TRUE</code>, all codes are converted to upper case and all non-alphanumeric characters are removed using the regular expression <code>[^[:alnum:]]</code>.
-Defaults to <code>TRUE</code>.</p></dd>
+It can be set to <code>FALSE</code> to speed up computations, but please be aware that in that case codes are assumed to be formatted as above.
+If codes are incorrectly formatted, this may lead to wrong results: use at your own risk!</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A data frame with <code>id</code>, columns relative to each comorbidity domain, comorbidity score, weighted comorbidity score, and categorisations of such scores, with one row per individual.</p>
+<p>A data frame with <code>id</code> and columns relative to each comorbidity domain, with one row per individual.</p>
 
 
 <p>For the Charlson score, the following variables are included in the dataset:</p><ul><li><p>The <code>id</code> variable as defined by the user;</p></li>
@@ -172,7 +173,7 @@ Please note that we combine "chronic obstructive pulmonary disease" and "chronic
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan <em>et al</em>. (2005).
-ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set <code>tidy.codes = TRUE</code> to properly tidy the codes automatically.
+ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set <code>tidy.codes = TRUE</code> to properly tidy the codes automatically (this is the default behaviour).
 A message is printed to the R console when non-alphanumeric characters are found.</p>
     </div>
     <div class="section level2">
@@ -277,6 +278,29 @@ A message is printed to the R console when non-alphanumeric characters are found
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13       0    0      0     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14       0    0      0     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15       0    0      0     0</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The following example describes how the `assign0` argument works.</span></span></span>
+<span class="r-in"><span><span class="co"># We create a dataset for a single patient with two codes, one for</span></span></span>
+<span class="r-in"><span><span class="co"># uncomplicated diabetes ("E100") and one for complicated diabetes</span></span></span>
+<span class="r-in"><span><span class="co"># ("E102"):</span></span></span>
+<span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E100"</span>, <span class="st">"E102"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Then, we calculate the Quan-ICD10 Charlson score:</span></span></span>
+<span class="r-in"><span><span class="va">ccF</span> <span class="op">&lt;-</span> <span class="fu">comorbidity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x2</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># With `assign0 = FALSE`, both diabetes comorbidities are counted:</span></span></span>
+<span class="r-in"><span><span class="va">ccF</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diab"</span>, <span class="st">"diabwc"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   diab diabwc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1      1</span>
+<span class="r-in"><span><span class="co"># Conversely, with `assign0 = TRUE`, only the more severe diabetes with</span></span></span>
+<span class="r-in"><span><span class="co"># complications is counted:</span></span></span>
+<span class="r-in"><span><span class="va">ccT</span> <span class="op">&lt;-</span> <span class="fu">comorbidity</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x2</span>, id <span class="op">=</span> <span class="st">"id"</span>, code <span class="op">=</span> <span class="st">"code"</span>, map <span class="op">=</span> <span class="st">"charlson_icd10_quan"</span>, assign0 <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ccT</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diab"</span>, <span class="st">"diabwc"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   diab diabwc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0      1</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
