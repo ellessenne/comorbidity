@@ -300,8 +300,8 @@ vignettes, which can be accessed on CRAN or directly from your R
 session:
 
 ``` r
-vignette("01-introduction", package = "comorbidity")
-vignette("02-comorbidity-scores", package = "comorbidity")
+vignette("A-introduction", package = "comorbidity")
+vignette("B-comorbidity-scores", package = "comorbidity")
 ```
 
 ## Copyright

@@ -64,7 +64,7 @@ The different columns are also labelled for compatibility with the RStudio viewe
 To see all supported mapping algorithms, please see the vignette:
 
 ```r
-vignette("02-comorbidityscores", package = "comorbidity")
+vignette("B-comorbidity-scores", package = "comorbidity")
 ```
 
 # Comorbidity Scores
