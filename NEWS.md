@@ -2,7 +2,11 @@
 
 * Updated hex sticker.
 
+* Updated maintainer e-mail.
+
 * Improved documentation for the `score()` function.
+
+* The startup message pointing out changes in the API now appears less often (10% probability).
 
 # comorbidity 1.0.3
 
