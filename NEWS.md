@@ -1,10 +1,12 @@
 # comorbidity (development version)
 
-* Updated hex sticker.
-
 * Updated maintainer e-mail.
 
-* Improved documentation for the `score()` function.
+* Updated hex sticker.
+
+* Improved documentation for arguments of the `comorbidity()` and `score()` functions (#61, thanks @dsjoho).
+
+* Fixed broken references to the old vignettes' names (#61, thanks @dsjoho).
 
 * The startup message pointing out changes in the API now appears less often (10% probability).
 
