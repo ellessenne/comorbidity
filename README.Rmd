@@ -15,7 +15,7 @@ options(width = 100)
 
 # The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
-Last updated: `r Sys.Date()`
+Last updated: `r Sys.time()`
 
 <!-- badges: start -->
 [![R build status](https://github.com/ellessenne/comorbidity/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/comorbidity/actions)

@@ -8,6 +8,8 @@
 
 * Fixed broken references to the old vignettes' names (#61, thanks @dsjoho).
 
+* Overall, package documentation has been tidied up here and there.
+
 * The startup message pointing out changes in the API now appears less often (10% probability).
 
 # comorbidity 1.0.3

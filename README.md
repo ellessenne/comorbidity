@@ -3,7 +3,7 @@
 
 # The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
-Last updated: 2022-09-09
+Last updated: 2022-09-09 14:51:56
 
 <!-- badges: start -->
 

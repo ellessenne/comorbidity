@@ -103,7 +103,7 @@ Conversely, for the Elixhauser score the dataset contains the following variable
 \item \code{depre}, for depression;
 }
 
-Labels are presented to the user when using the RStudio viewer (e.g. via the \code{\link[utils:View]{utils::View()}} function) for convenience.
+Labels are presented to the user when using the RStudio viewer (e.g. via the \code{\link[utils:View]{utils::View()}} function) for convenience, if \code{labelled = TRUE}.
 }
 \description{
 Maps comorbidity conditions using algorithms from the Charlson and the Elixhauser comorbidity scores.

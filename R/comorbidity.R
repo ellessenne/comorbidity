@@ -85,7 +85,7 @@
 #' * `psycho`, for psychoses;
 #' * `depre`, for depression;
 #'
-#' Labels are presented to the user when using the RStudio viewer (e.g. via the [utils::View()] function) for convenience.
+#' Labels are presented to the user when using the RStudio viewer (e.g. via the [utils::View()] function) for convenience, if `labelled = TRUE`.
 #'
 #' @details
 #' The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan _et al_. (2005).
