@@ -1,4 +1,8 @@
-# comorbidity (development version)
+# comorbidity 1.0.5
+
+* Adjusted some tests that were spuriously failing on CRAN.
+
+# comorbidity 1.0.4
 
 * Updated maintainer e-mail.
 
@@ -8,7 +12,7 @@
 
 * Fixed broken references to the old vignettes' names (#61, thanks @dsjoho).
 
-* Overall, package documentation has been tidied up here and there.
+* Overall, package documentation has been tidied up a bunch.
 
 * The startup message pointing out changes in the API now appears less often (10% probability).
 
