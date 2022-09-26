@@ -1,6 +1,6 @@
 ## Test environments
 
-* local R installation, R 4.2.1, Intel-based macOS Monterey 12.4
+* local R installation, R 4.2.1, Intel-based macOS Monterey 12.6
 * ubuntu-latest (via GitHub Actions, devel, release, oldrel, 3.5, 3.4)
 * windows-latest (via GitHub Actions, devel, release, oldrel, 3.5, 3.4)
 * macos-latest (via GitHub Actions, release, oldrel)
@@ -10,4 +10,12 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 note
+* checking CRAN incoming feasibility ... [17s] NOTE
+Maintainer: 'Alessandro Gasparini <alessandro@ellessenne.xyz>'
+
+New maintainer:
+  Alessandro Gasparini <alessandro@ellessenne.xyz>
+Old maintainer(s):
+  Alessandro Gasparini <alessandro.gasparini@ki.se>
+  
+This is okay, I just updated my e-mail and will validate the maintainer e-mail change when needed.
