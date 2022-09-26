@@ -1,3 +1,5 @@
+# comorbidity (development version)
+
 # comorbidity 1.0.5
 
 * Adjusted some tests that were spuriously failing on CRAN.
