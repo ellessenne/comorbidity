@@ -201,7 +201,7 @@ test_that("comorbidity domains are 0 or 1", {
   elixhauser10 <- comorbidity(x = dat, id = "record_id", code = "diagnosis_icd_2", map = "elixhauser_icd10_quan", assign0 = TRUE, labelled = FALSE, tidy.codes = FALSE)[, -1]
   expect_true(object = all(elixhauser10 >= 0 & elixhauser10 <= 1))
 
-  for (i in seq(20)) {
+  for (i in seq(10)) {
     x <- data.frame(
       id = sample(1:5, size = 50, replace = TRUE),
       code = sample_diag(50),
@@ -224,7 +224,7 @@ test_that("comorbidity domains are 0 or 1", {
 })
 
 test_that("duplicate codes are not counted twice (or more)", {
-  for (i in seq(20)) {
+  for (i in seq(10)) {
     x <- data.frame(
       id = sample(1:20, size = 50, replace = TRUE),
       code = sample_diag(50),
@@ -263,7 +263,7 @@ test_that("duplicate codes are not counted twice (or more)", {
     expect_true(object = all(ex4[, -1] >= 0 & ex4[, -1] <= 1))
   }
 
-  for (i in seq(20)) {
+  for (i in seq(10)) {
     x <- data.frame(
       id = sample(1:20, size = 50, replace = TRUE),
       code = sample_diag(50),

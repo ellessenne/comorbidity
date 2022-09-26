@@ -1,8 +1,8 @@
 context("issue #55")
 
 test_that("character id is supported", {
-  n <- 15
-  N <- 100
+  n <- 5
+  N <- 10
   x <- data.frame(
     id = rep(x = seq(n), each = N),
     code = sample_diag(N * n)
@@ -16,7 +16,7 @@ test_that("character id is supported", {
 test_that("character vs integer id makes no difference", {
   for (times in seq(50)) {
     n <- 5
-    N <- 50
+    N <- 10
     x <- data.frame(
       id = rep(x = seq(n), each = N),
       code = sample_diag(N * n)
@@ -32,8 +32,8 @@ test_that("character vs integer id makes no difference", {
 })
 
 test_that("character id with extra columns", {
-  n <- 15
-  N <- 100
+  n <- 5
+  N <- 10
   x <- data.frame(
     id = rep(x = seq(n), each = N),
     code = sample_diag(N * n)
