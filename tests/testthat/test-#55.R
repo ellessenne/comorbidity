@@ -4,8 +4,8 @@ test_that("character id is supported", {
   n <- 15
   N <- 100
   x <- data.frame(
-    id = sample(seq(n), size = N, replace = TRUE),
-    code = sample_diag(N)
+    id = rep(x = seq(n), each = N),
+    code = sample_diag(N * n)
   )
   x$id <- as.character(x$id)
   cmb <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
@@ -18,8 +18,8 @@ test_that("character vs integer id makes no difference", {
     n <- 5
     N <- 50
     x <- data.frame(
-      id = sample(seq(n), size = N, replace = TRUE),
-      code = sample_diag(N)
+      id = rep(x = seq(n), each = N),
+      code = sample_diag(N * n)
     )
     cmb1 <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
     x$id <- as.character(x$id)
@@ -35,8 +35,8 @@ test_that("character id with extra columns", {
   n <- 15
   N <- 100
   x <- data.frame(
-    id = sample(seq(n), size = N, replace = TRUE),
-    code = sample_diag(N)
+    id = rep(x = seq(n), each = N),
+    code = sample_diag(N * n)
   )
   x$id <- as.character(x$id)
   cmb <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
