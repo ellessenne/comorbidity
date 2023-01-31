@@ -6,7 +6,7 @@
 There have been a limited number of people who have used this fork in
 their own work since I first created it back in 2020. If anyone finds
 that their code that utlized the `Main` branch of this fork no longer
-functions, please see the `retired` branch. For thos who have been using
+functions, please see the `retired` branch. For those who have been using
 the `updated_elixhauser` branch, you may continue to do so. The `Main`
 branch currently reflects `updated_elixhauser`, but may be changed
 substantiatlly in the future as I attempt to prepare this fork for
