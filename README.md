@@ -1,9 +1,20 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# This is a fork of the {comorbidity} package.
+
+There have been a limited number of people who have used this fork in
+their own work since I first created it back in 2020. If anyone finds
+that their code that utlized the `Main` branch of this fork no longer
+functions, please see the `retired` branch. For thos who have been using
+the `updated_elixhauser` branch, you may continue to do so. The `Main`
+branch currently reflects `updated_elixhauser`, but may be changed
+substantiatlly in the future as I attempt to prepare this fork for
+possible merging with ellessenne’s version.
+
 # The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
-Last updated: 2022-02-15
+Last updated: 2023-01-31
 
 <!-- badges: start -->
 
@@ -11,9 +22,9 @@ Last updated: 2022-02-15
 status](https://github.com/ellessenne/comorbidity/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/comorbidity/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/ellessenne/comorbidity/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ellessenne/comorbidity?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
-[![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![CRAN_Logs_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
+[![CRAN_Logs_Badge_Total](http://cranlogs.r-pkg.org/badges/grand-total/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![JOSS
 DOI](http://joss.theoj.org/papers/10.21105/joss.00648/status.svg)](https://doi.org/10.21105/joss.00648)
 [![PRs
@@ -30,8 +41,8 @@ and 2022 versions of the AHRQ’s ‘Elixhauser Comorbidity Software’
 in R. Simialar to the AHRQ Software, the two following Elixhauser
 Comorbidity Indices refined for ICD-10-CM could be predicted:
 
--   Risk of in-hospital mortality
--   Risk of 30-day, all-cause readmission
+- Risk of in-hospital mortality
+- Risk of 30-day, all-cause readmission
 
 ## Installation
 
@@ -57,9 +68,6 @@ For instance, we could simulate ICD-10 codes:
 ``` r
 # load the comorbidity package
 library(comorbidity)
-## This is {comorbidity} version 1.0.0.
-## A lot has changed since the last release on CRAN, please check-out breaking changes here:
-## -> https://ellessenne.github.io/comorbidity/articles/C-changes.html
 # set a seed for reproducibility
 set.seed(1)
 # simulate 50 ICD-10 codes for 5 individuals
@@ -160,12 +168,12 @@ print(head(x9, n = 15), row.names = FALSE)
 This data set could be used to test the package specifically the AHRQ
 Software oriented features. The data fields of the data set are:
 
--   DischargeFiscalYearNBR (Year of Discharge)
--   QuarterNBR (Year Quarter)
--   MSDRG (MS-DRG)
--   ICD10DiagnosisCD (ICD-10 Code)
--   ICD10DiagnosisSEQ (Sequence of ICD-10 Code)
--   PresentOnAdmissionCD (POA)
+- DischargeFiscalYearNBR (Year of Discharge)
+- QuarterNBR (Year Quarter)
+- MSDRG (MS-DRG)
+- ICD10DiagnosisCD (ICD-10 Code)
+- ICD10DiagnosisSEQ (Sequence of ICD-10 Code)
+- PresentOnAdmissionCD (POA)
 
 ``` r
 x10 <- as.data.frame(
@@ -372,9 +380,9 @@ Comorbidity codes for different versions of the AHRQ’s ‘Elixhauser
 Comorbidity Software’ could be computed. Accordingly, ‘map’ argument
 could take any of the following ones:
 
--   elixhauser\_ahrq\_2020
--   elixhauser\_ahrq\_2021
--   elixhauser\_ahrq\_2022
+- elixhauser_ahrq_2020
+- elixhauser_ahrq_2021
+- elixhauser_ahrq_2022
 
 The following example calculates the comorbidity codes for the 2020
 version.
@@ -392,7 +400,7 @@ elixhauser_ahrq_2020 <- comorbidity(
   year='DischargeFiscalYearNBR',
   quarter='QuarterNBR'
 )
-
+?comorbidity
 elixhauser_ahrq_2020
 ##   ID CHF VALVE PULMCIRC PERIVASC PARA NEURO CHRNLUNG DM DMCX HYPOTHY RENLFAIL LIVER ULCER AIDS
 ## 1  1   0     0        0        0    0     0        0  0    0       1        0     0     0    0

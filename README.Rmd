@@ -13,6 +13,10 @@ knitr::opts_chunk$set(
 options(width = 100)
 ```
 
+# This is a fork of the {comorbidity} package. 
+
+There have been a limited number of people who have used this fork in their own work since I first created it back in 2020. If anyone finds that their code that utlized the `Main` branch of this fork no longer functions, please see the `retired` branch. For thos who have been using the `updated_elixhauser` branch, you may continue to do so. The `Main` branch currently reflects `updated_elixhauser`, but may be changed substantiatlly in the future as I attempt to prepare this fork for possible merging with ellessenne's version.
+
 # The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
 Last updated: `r Sys.Date()`
@@ -223,7 +227,7 @@ elixhauser_ahrq_2020 <- comorbidity(
   year='DischargeFiscalYearNBR',
   quarter='QuarterNBR'
 )
-
+?comorbidity
 elixhauser_ahrq_2020
 ```
 
