@@ -65,6 +65,9 @@ comorbidity(x = sim_data, id = "id", code = "code", score = "charlson", icd = "i
 #> 10    0        0    0     1   1-2      2    1-2
 ```
 
+Note that, as of {comorbidity} version 1.0.4, the `ami` condition has been renamed to `mi`.
+See [#53](https://github.com/ellessenne/comorbidity/issues/53) on GitHub for more details.
+
 Now, we first need to apply the mapping algorithm:
 
 ```{r}
