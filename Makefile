@@ -8,8 +8,8 @@ pre_submission_test:
 	R -e "devtools::check_win_release(quiet = TRUE)"
 	R -e "devtools::check_win_oldrelease(quiet = TRUE)"
 	R -e "devtools::check_mac_release(quiet = TRUE)"
-#	R -e "rhub::check_for_cran()"
-	R -e "rhub::check(platform = 'macos-m1-bigsur-release')"
+	R -e "rhub::check_for_cran()"
+	R -e "rhub::check_on_macos()"
 	make style
 
 docs:
