@@ -3,6 +3,10 @@
 * Adjusted name of weights (leftover from #53, thanks @sciatro for reporting this).
   This bug did not seem to affect any calculation.
 
+* Updated CITATION file to use the new interface.
+
+* Some internal housekeeping (removed old documentation, updated GitHub actions to new version, etc.).
+
 # comorbidity 1.0.5
 
 * Adjusted some tests that were spuriously failing on CRAN.
