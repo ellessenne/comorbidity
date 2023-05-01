@@ -3,7 +3,7 @@
 
 # The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
 
-Last updated: 2023-05-01 17:05:25.057427
+Last updated: 2023-05-01 17:12:07.36043
 
 <!-- badges: start -->
 
@@ -270,7 +270,7 @@ If you find `comorbidity` useful, please cite it in your publications:
 
 ``` r
 citation("comorbidity")
-## To cite the comorbidity package in publications, please use:
+## To cite package 'comorbidity' in publications use:
 ## 
 ##   Gasparini, (2018). comorbidity: An R package for computing comorbidity scores. Journal
 ##   of Open Source Software, 3(23), 648, https://doi.org/10.21105/joss.00648
