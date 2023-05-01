@@ -6,7 +6,7 @@ for (w in names(.maps)) {
     # Charlson-compatible weights:
     # Original Charlson weights
     .weights[[w]][["charlson"]] <- c(
-      ami = 1,
+      mi = 1,
       chf = 1,
       pvd = 1,
       cevd = 1,
@@ -26,7 +26,7 @@ for (w in names(.maps)) {
     )
     # Quan (2011)
     .weights[[w]][["quan"]] <- c(
-      ami = 0,
+      mi = 0,
       chf = 2,
       pvd = 0,
       cevd = 0,
