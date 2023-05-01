@@ -11,7 +11,8 @@
   using ICD-9-CM or ICD-10 codes (Quan, 2005 &lt;doi:10.1097/01.mlr.0000182534.19832.83&gt;).
   Australian and Swedish modifications of the Charlson Comorbidity Index are available
   as well (Sundararajan, 2004 &lt;doi:10.1016/j.jclinepi.2004.03.012&gt; and Ludvigsson, 2021 
-  &lt;doi:10.2147/CLEP.S282475&gt;).">
+  &lt;doi:10.2147/CLEP.S282475&gt;), together with different weighting algorithms for both
+  the Charlson and Elixhauser comorbidity scores.">
 <title>Computing Comorbidity Scores • comorbidity</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +25,8 @@
   using ICD-9-CM or ICD-10 codes (Quan, 2005 &lt;doi:10.1097/01.mlr.0000182534.19832.83&gt;).
   Australian and Swedish modifications of the Charlson Comorbidity Index are available
   as well (Sundararajan, 2004 &lt;doi:10.1016/j.jclinepi.2004.03.012&gt; and Ludvigsson, 2021 
-  &lt;doi:10.2147/CLEP.S282475&gt;).">
+  &lt;doi:10.2147/CLEP.S282475&gt;), together with different weighting algorithms for both
+  the Charlson and Elixhauser comorbidity scores.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -38,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="index.html">comorbidity</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.5.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,7 +85,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="the-comorbidity-package-computing-comorbidity-scores-">The {comorbidity} Package: Computing Comorbidity Scores <img src="reference/figures/hex.png" width="150" align="right"><a class="anchor" aria-label="anchor" href="#the-comorbidity-package-computing-comorbidity-scores-"></a>
 </h1></div>
-<p>Last updated: 2023-05-01 17:12:07.36043</p>
+<p>Last updated: 2023-05-01 17:22:20.216292</p>
 <!-- badges: start -->
 
 <p><code>comorbidity</code> is an R package for computing comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score; both ICD-10 and ICD-9 coding systems are supported.</p>
