@@ -18,7 +18,7 @@ options(width = 100)
 Last updated: `r Sys.time()`
 
 <!-- badges: start -->
-[![R build status](https://github.com/ellessenne/comorbidity/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/comorbidity/actions)
+[![R-CMD-check](https://github.com/ellessenne/comorbidity/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ellessenne/comorbidity/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/ellessenne/comorbidity/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ellessenne/comorbidity?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/comorbidity)](https://cran.r-project.org/package=comorbidity)
 [![CRAN_Logs_Badge](http://cranlogs.r-pkg.org/badges/comorbidity)](https://cran.r-project.org/package=comorbidity)
