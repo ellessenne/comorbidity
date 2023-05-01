@@ -140,20 +140,20 @@ test_that("comorbidity returns a data.frame", {
 })
 
 test_that("comorbidity returns a data.frame with the correct number of rows", {
-  x <- data.frame(
-    id = sample(1:5, size = 10 * 5, replace = TRUE),
-    code = sample_diag(10 * 5),
-    stringsAsFactors = FALSE
-  )
-  cs <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
-  expect_equal(nrow(cs), 5)
-  x <- data.frame(
-    id = sample(1:50, size = 10 * 50, replace = TRUE),
-    code = sample_diag(10 * 50, version = "ICD9_2015"),
-    stringsAsFactors = FALSE
-  )
-  cs <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd9_quan", assign0 = FALSE)
-  expect_equal(nrow(cs), 50)
+  all_hm <- rpois(n = 10, lambda = 10)
+  all_hm <- pmax(5, all_hm)
+  for (hm in all_hm) {
+    nc <- 10
+    x <- data.frame(
+      id = rep(x = seq(hm), each = nc),
+      code = sample_diag(hm * nc),
+      stringsAsFactors = FALSE
+    )
+    cs <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd10_quan", assign0 = FALSE)
+    expect_equal(nrow(cs), hm)
+    cs <- comorbidity(x = x, id = "id", code = "code", map = "charlson_icd9_quan", assign0 = FALSE)
+    expect_equal(nrow(cs), hm)
+  }
 })
 
 test_that("if labelled = TRUE, comorbidity returns variable labels", {

@@ -1,3 +1,7 @@
+# comorbidity 1.0.7
+
+* Identified (and adjusted) some tests that could spuriously fail.
+
 # comorbidity 1.0.6
 
 * Adjusted name of weights (leftover from #53, thanks @sciatro for reporting this).
