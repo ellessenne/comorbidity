@@ -65,23 +65,29 @@
 .maps[[.tmpn]][["aids"]] <- c("B20", "B21", "B22", "B24", "F024", "O987", "R75", "Z114", "Z219", "Z711")
 
 # Charlson score, ICD10, Australian version
+# Chronic condition "U" codes were added if one of the mentioned codes could be mapped to them.
+# Direct maps between U-codes and ICD-10-AM codes are from: https://www.aihw.gov.au/reports/chronic-disease/supplementary-codes-for-chronic-conditions/data
 .tmpn <- "charlson_icd10_am"
 .maps[[.tmpn]] <- list()
 .maps[[.tmpn]][["mi"]] <- c("I21", "I22", "I252")
-.maps[[.tmpn]][["chf"]] <- c("I50")
-.maps[[.tmpn]][["pvd"]] <- c("I71", "I790", "I739", "R02", "Z958", "Z959")
-.maps[[.tmpn]][["cevd"]] <- c("I60", "I61", "I62", "I63", "I65", "I66", "G450", "G451", "G452", "G458", "G459", "G46", "I64", "G454", "I670", "I671", "I672", "I674", "I675", "I676", "I677", "I678", "I679", "I681", "I682", "I688", "I69")
-.maps[[.tmpn]][["dementia"]] <- c("F00", "F01", "F02", "F051")
-.maps[[.tmpn]][["cpd"]] <- c("J40", "J41", "J42", "J44", "J43", "J45", "J46", "J47", "J67", "J44", "J60", "J61", "J62", "J63", "J66", "J64", "J65")
-.maps[[.tmpn]][["rheumd"]] <- c("M32", "M34", "M332", "M053", "M058", "M059", "M060", "M063", "M069", "M050", "M052", "M051", "M353")
+.maps[[.tmpn]][["chf"]] <- c("I50", "U822")
+.maps[[.tmpn]][["pvd"]] <- c("I71", "I739", "I790", "R02", "Z95", "Z958")
+.maps[[.tmpn]][["cevd"]] <- c("G46", "G450", "G451", "G452", "G454", "G458", "G459", "I60", "I61", "I62", "I63", "I64", "I65", "I66", "I69", "I670", "I671", "I672", "I674", "I675", "I676", "I677", "I678", "I679", "I681", "I682", "I688")
+.maps[[.tmpn]][["dementia"]] <- c("F00", "F01", "F02", "F051", "U791")
+# Note for COPD: These U codes are not added to COPD because they specifically mention
+# that they do not include COPD:
+#   - U83.1 ("Emphysema, without mention of chronic obstructive pulmonary disease")
+#   - U83.3 ("Asthma, without mention of chronic obstructive pulmonary disease")
+.maps[[.tmpn]][["cpd"]] <- c("J40", "J41", "J42", "J43", "J44", "J45", "J46", "J47", "J60", "J61", "J62", "J63", "J64", "J65", "J66", "J67", "U832")
+.maps[[.tmpn]][["rheumd"]] <- c("M050", "M051", "M052", "M053", "M058", "M059", "M060", "M063", "M069", "M32", "M332", "M34", "M353", "U861")
 .maps[[.tmpn]][["pud"]] <- c("K25", "K26", "K27", "K28")
-.maps[[.tmpn]][["mld"]] <- c("K702", "K703", "K73", "K717", "K740", "K742", "K746", "K743", "K744", "K745")
-.maps[[.tmpn]][["diab"]] <- c("E109", "E119", "E139", "E149", "E101", "E111", "E131", "E141", "E105", "E115", "E135", "E145")
-.maps[[.tmpn]][["diabwc"]] <- c("E102", "E112", "E132", "E142", "E103", "E113", "E133", "E143", "E104", "E114", "E134", "E144")
-.maps[[.tmpn]][["hp"]] <- c("G81", "G041", "G820", "G821", "G822")
-.maps[[.tmpn]][["rend"]] <- c("N03", "N052", "N053", "N054", "N055", "N056", "N072", "N073", "N074", "N01", "N18", "N19", "N25")
+.maps[[.tmpn]][["mld"]] <- c("K702", "K703", "K717", "K73", "K740", "K742", "K743", "K744", "K745", "K746")
+.maps[[.tmpn]][["diab"]] <- c("E101", "E105", "E109", "E111", "E115", "E119", "E131", "E135", "E139", "E141", "E145", "E149")
+.maps[[.tmpn]][["diabwc"]] <- c("E102", "E103", "E104", "E112", "E113", "E114", "E132", "E133", "E134", "E142", "E143", "E144")
+.maps[[.tmpn]][["hp"]] <- c("G041", "G81", "G820", "G821", "G822", "U805")
+.maps[[.tmpn]][["rend"]] <- c("N01", "N03", "N052", "N053", "N054", "N055", "N056", "N072", "N073", "N074", "N18", "N19", "N25", "U871")
 .maps[[.tmpn]][["canc"]] <- c("C0", "C1", "C2", "C3", "C40", "C41", "C43", "C45", "C46", "C47", "C48", "C49", "C5", "C6", "C70", "C71", "C72", "C73", "C74", "C75", "C76", "C80", "C81", "C82", "C83", "C84", "C85", "C883", "C887", "C889", "C900", "C901", "C91", "C92", "C93", "C940", "C941", "C942", "C943", "C9451", "C947", "C95", "C96")
-.maps[[.tmpn]][["msld"]] <- c("K729", "K766", "K767", "K721")
+.maps[[.tmpn]][["msld"]] <- c("K721", "K729", "K766", "K767", "U843")
 .maps[[.tmpn]][["metacanc"]] <- c("C77", "C78", "C79", "C80")
 .maps[[.tmpn]][["aids"]] <- c("B20", "B21", "B22", "B23", "B24")
 
