@@ -1,3 +1,27 @@
+# library(cropcircles)
+# library(magick)
+# library(tidyverse)
+# library(ggpath)
+# library(ragg)
+# library(glue)
+# library(svglite)
+#
+# x <- image_read("inst/Sticker/this.png")
+# xhex <- hex_crop(x)
+# hex <- ggplot() +
+#   geom_from_path(aes(0.5, 0.5, path = xhex)) +
+#   xlim(0, 1) +
+#   ylim(0, 1) +
+#   theme_void() +
+#   coord_fixed()
+# hex
+#
+# # .png versions
+# dpi <- c(300, 600, 1200)
+# for (this in dpi) {
+#   ggsave(filename = glue("inst/Sticker/comorbidity-v2-{this}.png"), plot = hex, height = 5, width = 5, dpi = this, device = agg_png)
+# }
+
 library(tidyverse)
 library(hexSticker)
 library(sysfonts)
