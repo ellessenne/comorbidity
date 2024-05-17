@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
+# The {comorbidity} Package: Computing Comorbidity Scores in R <img src="man/figures/hex.png" width = "150" align="right" />
 
-Last updated: 2023-05-02 06:21:44.356829
+Last updated: 2024-05-17 15:12:27.630383
 
 <!-- badges: start -->
 
@@ -196,6 +196,9 @@ unw_cci
 ## [1] 2 1 0
 ## attr(,"map")
 ## [1] "charlson_icd10_quan"
+```
+
+``` r
 
 quan_cci <- score(charlson, weights = "quan", assign0 = FALSE)
 quan_cci
@@ -204,6 +207,9 @@ quan_cci
 ## [1] "charlson_icd10_quan"
 ## attr(,"weights")
 ## [1] "quan"
+```
+
+``` r
 
 all.equal(unw_cci, quan_cci)
 ## [1] "Attributes: < Length mismatch: comparison on first 1 components >"
@@ -304,7 +310,6 @@ vignette("B-comorbidity-scores", package = "comorbidity")
 
 ## Copyright
 
-The icon for the hex sticker was made by
-[monkik](https://www.flaticon.com/authors/monkik) from
-[www.flaticon.com](https://www.flaticon.com), and is licensed by
-[Creative Commons BY 3.0](https://creativecommons.org/licenses/by/3.0).
+The icon for the hex sticker was made by [Parzival
+1997](https://www.flaticon.com/authors/parzival-1997) from
+[www.flaticon.com](https://www.flaticon.com).

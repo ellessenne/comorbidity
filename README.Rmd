@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 options(width = 100)
 ```
 
-# The {comorbidity} Package: Computing Comorbidity Scores <img src="man/figures/hex.png" width = "150" align="right" />
+# The {comorbidity} Package: Computing Comorbidity Scores in R <img src="man/figures/hex.png" width = "150" align="right" />
 
 Last updated: `r Sys.time()`
 
@@ -203,4 +203,4 @@ vignette("B-comorbidity-scores", package = "comorbidity")
 
 ## Copyright
 
-The icon for the hex sticker was made by [monkik](https://www.flaticon.com/authors/monkik) from [www.flaticon.com](https://www.flaticon.com), and is licensed by [Creative Commons BY 3.0](https://creativecommons.org/licenses/by/3.0).
+The icon for the hex sticker was made by [Parzival 1997](https://www.flaticon.com/authors/parzival-1997) from [www.flaticon.com](https://www.flaticon.com).

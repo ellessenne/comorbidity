@@ -13,6 +13,15 @@ Australian and Swedish modifications of the Charlson Comorbidity Index are avail
 as well (Sundararajan, 2004 \doi{10.1016/j.jclinepi.2004.03.012} and Ludvigsson, 2021
 \doi{10.2147/CLEP.S282475}).
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://ellessenne.github.io/comorbidity/}
+  \item \url{https://github.com/ellessenne/comorbidity/}
+  \item Report bugs at \url{https://github.com/ellessenne/comorbidity/issues}
+}
+
+}
 \author{
 Alessandro Gasparini (alessandro.gasparini@ki.se)
 }

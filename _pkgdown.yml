@@ -1,5 +1,15 @@
 url: https://ellessenne.github.io/comorbidity
 template:
   bootstrap: 5
-  params:
-    bootswatch: sandstone
+  theme: github-light
+  bslib:
+    base_font: {google: "Atkinson Hyperlegible"}
+    heading_font: {google: "Sofia Sans Condensed"}
+    code_font: {google: "Fira Code"}
+    primary: "#6667AB"
+
+navbar:
+  bg: light
+  
+home:
+  title: Computing Comorbidity Scores in R
