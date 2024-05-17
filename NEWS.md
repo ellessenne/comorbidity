@@ -1,5 +1,7 @@
 # comorbidity (development version)
 
+* Updated hex sticker.
+
 # comorbidity 1.0.7
 
 * Identified (and adjusted) some tests that could spuriously fail.
