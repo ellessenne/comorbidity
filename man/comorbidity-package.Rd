@@ -11,7 +11,7 @@ Computing comorbidity indices and scores such as the weighted Charlson score (Ch
 Useful links:
 \itemize{
   \item \url{https://ellessenne.github.io/comorbidity/}
-  \item \url{https://github.com/ellessenne/comorbidity/}
+  \item \url{https://github.com/ellessenne/comorbidity}
   \item Report bugs at \url{https://github.com/ellessenne/comorbidity/issues}
 }
 
