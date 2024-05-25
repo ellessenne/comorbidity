@@ -1,5 +1,7 @@
 # comorbidity (development version)
 
+* Updated Swedish version of the Charlson comorbidity score according to the corrigendum published at: https://doi.org/10.2147/CLEP.S425901
+
 * Updated hex sticker.
 
 # comorbidity 1.0.7
