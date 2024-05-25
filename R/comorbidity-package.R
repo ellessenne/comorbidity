@@ -1,20 +1,13 @@
-#' @title Computing Comorbidity Scores
-#'
-#' @description Computing comorbidity indices and scores such as the weighted Charlson
-#' score (Charlson, 1987 \doi{10.1016/0021-9681(87)90171-8}) and the Elixhauser
-#' comorbidity score (Elixhauser, 1998 \doi{10.1097/00005650-199801000-00004})
-#' using ICD-9-CM or ICD-10 codes (Quan, 2005 \doi{10.1097/01.mlr.0000182534.19832.83}).
-#' Australian and Swedish modifications of the Charlson Comorbidity Index are available
-#' as well (Sundararajan, 2004 \doi{10.1016/j.jclinepi.2004.03.012} and Ludvigsson, 2021
-#' \doi{10.2147/CLEP.S282475}).
-#'
-#' @name comorbidity-package
-#' @docType package
-#' @author Alessandro Gasparini (alessandro.gasparini@@ki.se)
-NULL
-
+#' @import checkmate data.table stats stringi utils
 #' @keywords internal
-.datatable.aware <- TRUE
+"_PACKAGE"
+
+## usethis namespace: start
+## usethis namespace: end
+NULL
 
 # Quiets concerns of R CMD check re: variable names used internally
 if (getRversion() >= "2.15.1") utils::globalVariables(c(":=", "..mv", "..mvb", "NA", "canc", "diab", "diabc", "diabunc", "diabwc", "hypc", "hypunc", "metacanc", "mld", "msld", "solidtum", "value"))
+
+#' @keywords internal
+.datatable.aware <- TRUE

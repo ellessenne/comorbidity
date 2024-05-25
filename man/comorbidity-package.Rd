@@ -3,15 +3,9 @@
 \docType{package}
 \name{comorbidity-package}
 \alias{comorbidity-package}
-\title{Computing Comorbidity Scores}
+\title{comorbidity: Computing Comorbidity Scores}
 \description{
-Computing comorbidity indices and scores such as the weighted Charlson
-score (Charlson, 1987 \doi{10.1016/0021-9681(87)90171-8}) and the Elixhauser
-comorbidity score (Elixhauser, 1998 \doi{10.1097/00005650-199801000-00004})
-using ICD-9-CM or ICD-10 codes (Quan, 2005 \doi{10.1097/01.mlr.0000182534.19832.83}).
-Australian and Swedish modifications of the Charlson Comorbidity Index are available
-as well (Sundararajan, 2004 \doi{10.1016/j.jclinepi.2004.03.012} and Ludvigsson, 2021
-\doi{10.2147/CLEP.S282475}).
+Computing comorbidity indices and scores such as the weighted Charlson score (Charlson, 1987 \doi{10.1016/0021-9681(87)90171-8}) and the Elixhauser comorbidity score (Elixhauser, 1998 \doi{10.1097/00005650-199801000-00004}) using ICD-9-CM or ICD-10 codes (Quan, 2005 \doi{10.1097/01.mlr.0000182534.19832.83}). Australian and Swedish modifications of the Charlson Comorbidity Index are available as well (Sundararajan, 2004 \doi{10.1016/j.jclinepi.2004.03.012} and Ludvigsson, 2021 \doi{10.2147/CLEP.S282475}), together with different weighting algorithms for both the Charlson and Elixhauser comorbidity scores.
 }
 \seealso{
 Useful links:
@@ -23,5 +17,15 @@ Useful links:
 
 }
 \author{
-Alessandro Gasparini (alessandro.gasparini@ki.se)
+\strong{Maintainer}: Alessandro Gasparini \email{alessandro@ellessenne.xyz} (\href{https://orcid.org/0000-0002-8319-7624}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Hojjat Salmasian \email{hsalmasian@bwh.harvard.edu} (ICD-9-CM scores) [contributor]
+  \item Jonathan Williman \email{jonathan.williman@otago.ac.nz} (\href{https://orcid.org/0000-0001-5080-4435}{ORCID}) [contributor]
+  \item Sing Yi Chia \email{cxycsy@hotmail.com} (\href{https://orcid.org/0000-0002-7591-3141}{ORCID}) [contributor]
+  \item Edmund Teo \email{ed_teo8@yahoo.com.sg} (\href{https://orcid.org/0000-0003-3936-4082}{ORCID}) [contributor]
 }
+
+}
+\keyword{internal}
