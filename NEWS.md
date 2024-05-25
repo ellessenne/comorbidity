@@ -2,6 +2,8 @@
 
 * Updated Swedish version of the Charlson comorbidity score according to the corrigendum published at: https://doi.org/10.2147/CLEP.S425901
 
+* Removed startup message highlighting changes in the package API introduced with {comorbidity} 1.0.0.
+
 * Updated hex sticker.
 
 # comorbidity 1.0.7
