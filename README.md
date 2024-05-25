@@ -3,7 +3,7 @@
 
 # The {comorbidity} Package: Computing Comorbidity Scores in R <img src="man/figures/hex.png" width = "150" align="right" />
 
-Last updated: 2024-05-17 15:20:39.036077
+Last updated: 2024-05-25 14:54:10.228556
 
 <!-- badges: start -->
 
@@ -308,8 +308,32 @@ vignette("A-introduction", package = "comorbidity")
 vignette("B-comorbidity-scores", package = "comorbidity")
 ```
 
+The list of available algorithms can be printed interactively using the
+`available_algorithms()` function:
+
+``` r
+available_algorithms()
+## Supported comorbidity mapping algorithms:
+##  * charlson_icd9_quan 
+##  * charlson_icd10_quan 
+##  * charlson_icd10_se 
+##  * charlson_icd10_am 
+##  * charlson_icd10_am_ucodes 
+##  * elixhauser_icd9_quan 
+##  * elixhauser_icd10_quan 
+## 
+## Supported scoring weights algorithms:
+##  * For charlson_icd9_quan: charlson, quan 
+##  * For charlson_icd10_quan: charlson, quan 
+##  * For charlson_icd10_se: charlson, quan 
+##  * For charlson_icd10_am: charlson, quan 
+##  * For charlson_icd10_am_ucodes: charlson, quan 
+##  * For elixhauser_icd9_quan: vw, swiss 
+##  * For elixhauser_icd10_quan: vw, swiss
+```
+
 ## Copyright
 
-The icon for the hex sticker was made by [Parzival
-1997](https://www.flaticon.com/authors/parzival-1997) from
+The icon for the hex sticker was made by
+[Freepik](https://www.flaticon.com/free-icons/medical-record) from
 [www.flaticon.com](https://www.flaticon.com).

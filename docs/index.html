@@ -74,7 +74,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="the-comorbidity-package-computing-comorbidity-scores-in-r-">The {comorbidity} Package: Computing Comorbidity Scores in R <img src="reference/figures/hex.png" width="150" align="right"><a class="anchor" aria-label="anchor" href="#the-comorbidity-package-computing-comorbidity-scores-in-r-"></a>
 </h1></div>
-<p>Last updated: 2024-05-17 15:20:39.036077</p>
+<p>Last updated: 2024-05-25 14:54:10.228556</p>
 <!-- badges: start -->
 
 <p><code>comorbidity</code> is an R package for computing comorbidity scores such as the weighted Charlson score and the Elixhauser comorbidity score; both ICD-10 and ICD-9 coding systems are supported.</p>
@@ -307,11 +307,31 @@
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"A-introduction"</span>, package <span class="op">=</span> <span class="st">"comorbidity"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"B-comorbidity-scores"</span>, package <span class="op">=</span> <span class="st">"comorbidity"</span><span class="op">)</span></span></code></pre></div>
+<p>The list of available algorithms can be printed interactively using the <code><a href="reference/available_algorithms.html">available_algorithms()</a></code> function:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/available_algorithms.html">available_algorithms</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## Supported comorbidity mapping algorithms:</span></span>
+<span><span class="co">##  * charlson_icd9_quan </span></span>
+<span><span class="co">##  * charlson_icd10_quan </span></span>
+<span><span class="co">##  * charlson_icd10_se </span></span>
+<span><span class="co">##  * charlson_icd10_am </span></span>
+<span><span class="co">##  * charlson_icd10_am_ucodes </span></span>
+<span><span class="co">##  * elixhauser_icd9_quan </span></span>
+<span><span class="co">##  * elixhauser_icd10_quan </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Supported scoring weights algorithms:</span></span>
+<span><span class="co">##  * For charlson_icd9_quan: charlson, quan </span></span>
+<span><span class="co">##  * For charlson_icd10_quan: charlson, quan </span></span>
+<span><span class="co">##  * For charlson_icd10_se: charlson, quan </span></span>
+<span><span class="co">##  * For charlson_icd10_am: charlson, quan </span></span>
+<span><span class="co">##  * For charlson_icd10_am_ucodes: charlson, quan </span></span>
+<span><span class="co">##  * For elixhauser_icd9_quan: vw, swiss </span></span>
+<span><span class="co">##  * For elixhauser_icd10_quan: vw, swiss</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="copyright">Copyright<a class="anchor" aria-label="anchor" href="#copyright"></a>
 </h2>
-<p>The icon for the hex sticker was made by <a href="https://www.flaticon.com/authors/parzival-1997" class="external-link">Parzival 1997</a> from <a href="https://www.flaticon.com" class="external-link">www.flaticon.com</a>.</p>
+<p>The icon for the hex sticker was made by <a href="https://www.flaticon.com/free-icons/medical-record" class="external-link">Freepik</a> from <a href="https://www.flaticon.com" class="external-link">www.flaticon.com</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

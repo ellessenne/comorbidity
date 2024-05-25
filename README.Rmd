@@ -201,6 +201,12 @@ vignette("A-introduction", package = "comorbidity")
 vignette("B-comorbidity-scores", package = "comorbidity")
 ```
 
+The list of available algorithms can be printed interactively using the `available_algorithms()` function:
+
+```{r}
+available_algorithms()
+```
+
 ## Copyright
 
-The icon for the hex sticker was made by [Parzival 1997](https://www.flaticon.com/authors/parzival-1997) from [www.flaticon.com](https://www.flaticon.com).
+The icon for the hex sticker was made by [Freepik](https://www.flaticon.com/free-icons/medical-record) from [www.flaticon.com](https://www.flaticon.com).
