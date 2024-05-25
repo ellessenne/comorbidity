@@ -1,6 +1,6 @@
 # comorbidity (development version)
 
-* Added a second version of the ICD10-AM score including U codes to "increases the capture of some chronic conditions up to 15-fold", [according to the Australian Institute of Health and Welfare](https://www.aihw.gov.au/reports/chronic-disease/supplementary-codes-for-chronic-conditions/summary);
+* Added a second version of the ICD10-AM score including U codes to "increases the capture of some chronic conditions up to 15-fold", [according to the Australian Institute of Health and Welfare](https://www.aihw.gov.au/reports/chronic-disease/supplementary-codes-for-chronic-conditions/summary) (#72, thanks to @DesiQuintans for contributing this);
 
 * Updated Swedish version of the Charlson comorbidity score according to the corrigendum published online at: https://doi.org/10.2147/CLEP.S425901;
 
