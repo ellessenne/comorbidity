@@ -1,8 +1,10 @@
 # comorbidity (development version)
 
-* Updated Swedish version of the Charlson comorbidity score according to the corrigendum published at: https://doi.org/10.2147/CLEP.S425901
+* Added a second version of the ICD10-AM score including U codes to "increases the capture of some chronic conditions up to 15-fold", [according to the Australian Institute of Health and Welfare](https://www.aihw.gov.au/reports/chronic-disease/supplementary-codes-for-chronic-conditions/summary);
 
-* Removed startup message highlighting changes in the package API introduced with {comorbidity} 1.0.0.
+* Updated Swedish version of the Charlson comorbidity score according to the corrigendum published online at: https://doi.org/10.2147/CLEP.S425901;
+
+* Removed startup message highlighting changes in the package API introduced with {comorbidity} 1.0.0;
 
 * Updated hex sticker.
 
