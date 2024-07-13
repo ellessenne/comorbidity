@@ -34,7 +34,10 @@ Authors@R:
              family = "Teo",
              role = "ctb",
              email = "ed_teo8@yahoo.com.sg",
-             comment = c(ORCID = "0000-0003-3936-4082")))
+             comment = c(ORCID = "0000-0003-3936-4082")),
+      person(given = "Desi",
+             family = "Quintans",
+             role = "ctb"))
 URL: https://ellessenne.github.io/comorbidity/, https://github.com/ellessenne/comorbidity
 BugReports: https://github.com/ellessenne/comorbidity/issues
 License: GPL (>= 3)
