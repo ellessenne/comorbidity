@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# The {comorbidity} Package: Computing Comorbidity Scores in R <img src="man/figures/hex.png" width = "150" align="right" />
+# The {comorbidity} Package: Computing Comorbidity Scores in R <img src="man/figures/hex.png" width = "150" align="right" alt="Hex sticker of the {comorbidity} R package."/>
 
-Last updated: 2024-05-25 17:47:40.203954
+Last updated: 2024-07-13 21:03:09.509312
 
 <!-- badges: start -->
 
@@ -196,9 +196,6 @@ unw_cci
 ## [1] 2 1 0
 ## attr(,"map")
 ## [1] "charlson_icd10_quan"
-```
-
-``` r
 
 quan_cci <- score(charlson, weights = "quan", assign0 = FALSE)
 quan_cci
@@ -207,9 +204,6 @@ quan_cci
 ## [1] "charlson_icd10_quan"
 ## attr(,"weights")
 ## [1] "quan"
-```
-
-``` r
 
 all.equal(unw_cci, quan_cci)
 ## [1] "Attributes: < Length mismatch: comparison on first 1 components >"

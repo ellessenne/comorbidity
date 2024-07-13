@@ -115,7 +115,7 @@ This is picked up _auto-magically_ from the internal data structures, so it *sho
 The internal re-writing of the package API allowed optimising code for speed and efficiency.
 We managed to estimate, using simulated data, that the main comorbidity mapping function (e.g. `comorbidity()`) should be approximately twice as fast as version 0.5.3, across a variety of sample sizes:
 
-<img src="https://github.com/ellessenne/comorbidity/raw/master/inst/Timing/plot.png" width="100%">
+<img src="https://github.com/ellessenne/comorbidity/raw/master/inst/Timing/plot.png" width="100%" alt="Plot highlighting the fold improvement in computational speed when running the version 1.0.0 of {comorbidity} compared to version 0.5.3.">
 
 This is the main computational bottleneck, as applying the scoring algorithm should be very fast in general.
 

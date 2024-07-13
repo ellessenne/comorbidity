@@ -8,6 +8,8 @@
 
 * Updated hex sticker.
 
+* Minor improvements to {pkgdown} website accessibility.
+
 # comorbidity 1.0.7
 
 * Identified (and adjusted) some tests that could spuriously fail.

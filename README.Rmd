@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 options(width = 100)
 ```
 
-# The {comorbidity} Package: Computing Comorbidity Scores in R <img src="man/figures/hex.png" width = "150" align="right" />
+# The {comorbidity} Package: Computing Comorbidity Scores in R <img src="man/figures/hex.png" width = "150" align="right" alt="Hex sticker of the {comorbidity} R package."/>
 
 Last updated: `r Sys.time()`
 

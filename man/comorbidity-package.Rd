@@ -25,6 +25,7 @@ Other contributors:
   \item Jonathan Williman \email{jonathan.williman@otago.ac.nz} (\href{https://orcid.org/0000-0001-5080-4435}{ORCID}) [contributor]
   \item Sing Yi Chia \email{cxycsy@hotmail.com} (\href{https://orcid.org/0000-0002-7591-3141}{ORCID}) [contributor]
   \item Edmund Teo \email{ed_teo8@yahoo.com.sg} (\href{https://orcid.org/0000-0003-3936-4082}{ORCID}) [contributor]
+  \item Desi Quintans [contributor]
 }
 
 }
