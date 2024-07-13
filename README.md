@@ -3,7 +3,7 @@
 
 # The {comorbidity} Package: Computing Comorbidity Scores in R <img src="man/figures/hex.png" width = "150" align="right" alt="Hex sticker of the {comorbidity} R package."/>
 
-Last updated: 2024-07-13 21:03:09.509312
+Last updated: 2024-07-13 21:12:35.086616
 
 <!-- badges: start -->
 

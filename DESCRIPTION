@@ -59,4 +59,4 @@ Encoding: UTF-8
 LazyData: true
 ByteCompile: true
 VignetteBuilder: knitr
-Language: en_GB
+Language: en-GB

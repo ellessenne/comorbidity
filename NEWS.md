@@ -6,9 +6,11 @@
 
 * Removed startup message highlighting changes in the package API introduced with {comorbidity} 1.0.0;
 
-* Updated hex sticker.
+* Updated hex sticker;
 
-* Minor improvements to {pkgdown} website accessibility.
+* Minor improvements to {pkgdown} website accessibility;
+
+* Fixed invalid language field in DESCRIPTION file (#75).
 
 # comorbidity 1.0.7
 
