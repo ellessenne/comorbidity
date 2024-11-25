@@ -7,6 +7,9 @@
 #' Possible values for the Charlson index are:
 #' * `charlson`, for the original weights by Charlson et al. (1987);
 #' * `quan`, for the revised weights by Quan et al. (2011).
+#' 
+#' Possible values for the CDMF Charlson index are:
+#' * `cdmf`, for the weights by Glasheen et al. (2019).
 #'
 #' Possible values for the Elixhauser score are:
 #' * `vw`, for the weights by van Walraven et al. (2009);
@@ -17,15 +20,19 @@
 #' @param assign0 A logical value denoting whether to apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0 when calculating the score.
 #' By doing this, a type of comorbidity is not counted more than once in each patient.
 #' If `assign0 = TRUE`, the comorbidities that are affected by this argument are:
-#' * "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`) for the Charlson score;
-#' * "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`) for the Charlson score;
-#' * "Cancer" (`canc`) and "Metastatic solid tumour" (`metacanc`) for the Charlson score;
+#' * "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`) for the Charlson score (including CDMF score);
+#' * "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`) for the Charlson score (including CDMF score);
+#' * "Cancer" (`canc`) and "Metastatic solid tumour" (`metacanc`) for the Charlson score (including CDMF score);
+#' * "Cerebrovascular disease" (`cevd`) and "Hemiplegia/paraplegia (`hp`) for the CDMF Charlson score;
+#' * "Mild or moderate renal disease (`mmrend`) and "Severe renal disease" (`srend`) for the CDMF Charlson score;
+#' * "HIV infection, no AIDS" (`hiv`) and "AIDS (HIV infection with opportunistic infection)" (`aids`) for the CDMF Charlson score;
 #' * "Hypertension, uncomplicated" (`hypunc`) and "Hypertension, complicated" (`hypc`) for the Elixhauser score;
 #' * "Diabetes, uncomplicated" (`diabunc`) and "Diabetes, complicated" (`diabc`) for the Elixhauser score;
 #' * "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`) for the Elixhauser score.
 #'
 #' @references Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
 #' @references Quan H, Li B, Couris CM, et al. _Updating and validating the Charlson Comorbidity Index and Score for risk adjustment in hospital discharge abstracts using data from 6 countries_. American Journal of Epidemiology 2011; 173(6):676-682.
+#' @references Glasheen WP, Cordier T, Gumpina R, Haugh G, Davis J, Renda A. _Charlson Comorbidity Index: ICD-9 Update and ICD-Translation_. American Health & Drug Benefits 2019; 12(4):188-197.
 #' @references van Walraven C, Austin PC, Jennings A, Quan H and Forster AJ. _A modification of the Elixhauser comorbidity measures into a point system for hospital death using administrative data_. Medical Care 2009; 47(6):626-633.
 #' @references Sharma N, Schwendimann R, Endrich O, et al. _Comparing Charlson and Elixhauser comorbidity indices with different weightings to predict in-hospital mortality: an analysis of national inpatient data_. BMC Health Services Research 2021; 21(13).
 #'

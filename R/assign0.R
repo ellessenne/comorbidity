@@ -1,6 +1,20 @@
 #' @keywords internal
 .assign0 <- function(x, map) {
-  if (grepl("charlson", map)) {
+  if (grepl("charlson", map) && grepl("cdmf", map)) {
+    # CDMF-specific hierarchy rules
+    # Hemiplegia/paraplegia (`hp`) trumps cerebrovascular disease (`cevd`)
+    x[hp == 1, cevd := 0]
+    # Liver disease, moderate-severe (`msld`) trumps liver disease, mild (`mld`)
+    x[msld == 1, mld := 0]
+    # Diabetes with complications (`diabwc`) trumps diabetes, uncomplicated (`diab`)
+    x[diabwc == 1, diab := 0]
+    # Renal disease, severe (`srend`) trumps renal disease, mild-moderate (`mmrend`)
+    x[srend == 1, mmrend := 0]
+    # Metastatic solid tumor (`metacanc`) trumps malignancy (`canc`)
+    x[metacanc == 1, canc := 0]
+    # AIDS (`aids`) trumps HIV (`hiv`)
+    x[aids == 1, hiv := 0]
+  } else if (grepl("charlson", map)) {
     # "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`)
     x[msld == 1, mld := 0]
     # data.table version of

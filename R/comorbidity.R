@@ -10,14 +10,18 @@
 #' Codes must be in upper case with no punctuation in order to be properly recognised.
 #' @param map String denoting the mapping algorithm to be used (values are case-insensitive).
 #' Possible values are the Charlson score with either ICD-10 or ICD-9-CM codes (`charlson_icd10_quan`, `charlson_icd9_quan`) and the Elixhauser score, again using either ICD-10 or ICD-9-CM (`elixhauser_icd10_quan`, `elixhauser_icd9_quan`).
-#' These mapping are based on the paper by Quan et al. (2011).
-#' It is also possible to obtain a Swedish (`charlson_icd10_se`) or Australian (`charlson_icd10_am`) modification of the Charlson score using ICD-10 codes.
+#' These mapping are based on the paper by Quan _et al_. (2011).
+#' It is also possible to obtain a Swedish (`charlson_icd10_se`) or Australian (`charlson_icd10_am`) modification of the Charlson score using ICD-10 codes. 
+#' Additionally, it is also possible to obtain the US-specific CDMF Charlson score using ICD-10-CM or ICD-9-CM codes (`charlson_icd10_cdmf`, `charlson_icd9_cdmf`). The CDMF Charlson mapping is based on the paper by Glasheen _et al_. (2019)
 #' @param assign0 Logical value denoting whether to apply a hierarchy of comorbidities: should a comorbidity be present in a patient with different degrees of severity, then the milder form will be assigned a value of 0.
 #' By doing this, a type of comorbidity is not counted more than once in each patient.
 #' If `assign0 = TRUE`, the comorbidities that are affected by this argument are:
-#' * "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`) for the Charlson score;
-#' * "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`) for the Charlson score;
-#' * "Cancer" (`canc`) and "Metastatic solid tumour" (`metacanc`) for the Charlson score;
+#' * "Mild liver disease" (`mld`) and "Moderate/severe liver disease" (`msld`) for the Charlson score (including CDMF score);
+#' * "Diabetes" (`diab`) and "Diabetes with complications" (`diabwc`) for the Charlson score (including CDMF score);
+#' * "Cancer" (`canc`) and "Metastatic solid tumour" (`metacanc`) for the Charlson score (including CDMF score);
+#' * "Cerebrovascular disease" (`cevd`) and "Hemiplegia/paraplegia (`hp`) for the CDMF Charlson score;
+#' * "Mild or moderate renal disease (`mmrend`) and "Severe renal disease" (`srend`) for the CDMF Charlson score;
+#' * "HIV infection, no AIDS" (`hiv`) and "AIDS (HIV infection with opportunistic infection)" (`aids`) for the CDMF Charlson score;
 #' * "Hypertension, uncomplicated" (`hypunc`) and "Hypertension, complicated" (`hypc`) for the Elixhauser score;
 #' * "Diabetes, uncomplicated" (`diabunc`) and "Diabetes, complicated" (`diabc`) for the Elixhauser score;
 #' * "Solid tumour" (`solidtum`) and "Metastatic cancer" (`metacanc`) for the Elixhauser score.
@@ -50,6 +54,28 @@
 #' * `metacanc`, for metastatic solid tumour;
 #' * `aids`, for AIDS/HIV.
 #' Please note that we combine "chronic obstructive pulmonary disease" and "chronic other pulmonary disease" for the Swedish version of the Charlson index, for comparability (and compatibility) with other definitions/implementations.
+#'
+#'#' For the CDMF Charlson score, the following variables are included in the dataset:
+#' * The `id` variable as defined by the user;
+#' * `mi`, for myocardial infarction;
+#' * `chf`, for congestive heart failure;
+#' * `pvd`, for peripheral vascular disease;
+#' * `cevd`, for cerebrovascular disease;
+#' * `dementia`, for dementia;
+#' * `cpd`, for chronic pulmonary disease;
+#' * `rheumd`, for rheumatoid disease;
+#' * `pud`, for peptic ulcer disease;
+#' * `mld`, for mild liver disease;
+#' * `diab`, for diabetes without complications;
+#' * `diabwc`, for diabetes with complications;
+#' * `hp`, for hemiplegia or paraplegia;
+#' * `mmrend`, for mild or moderate renal disease;
+#' * `canc`, for cancer (any malignancy);
+#' * `msld`, for moderate or severe liver disease;
+#' * `srend`, for severe renal disease;
+#' * `metacanc`, for metastatic solid tumour;
+#' * `hiv`, for HIV infection, no AIDS;
+#' * `aids`, for AIDS (HIV infection with opportunistic infection).
 #'
 #' Conversely, for the Elixhauser score the dataset contains the following variables:
 #' * The `id` variable as defined by the user;
@@ -89,11 +115,13 @@
 #'
 #' @details
 #' The ICD-10 and ICD-9-CM coding for the Charlson and Elixhauser scores is based on work by Quan _et al_. (2005).
+#' The ICD-10-CM and ICD-9-CM coding for the CDMF Charlson is based on work by Glasheen _et al_. (2019)
 #' ICD-10 and ICD-9 codes must be in upper case and with alphanumeric characters only in order to be properly recognised; set `tidy.codes = TRUE` to properly tidy the codes automatically (this is the default behaviour).
 #' A message is printed to the R console when non-alphanumeric characters are found.
 #'
 #' @references Quan H, Sundararajan V, Halfon P, Fong A, Burnand B, Luthi JC, et al. _Coding algorithms for defining comorbidities in ICD-9-CM and ICD-10 administrative data_. Medical Care 2005; 43(11):1130-1139.
 #' @references Charlson ME, Pompei P, Ales KL, et al. _A new method of classifying prognostic comorbidity in longitudinal studies: development and validation_. Journal of Chronic Diseases 1987; 40:373-383.
+#' @references Glasheen WP, Cordier T, Gumpina R, Haugh G, Davis J, Renda A. _Charlson Comorbidity Index: ICD-9 Update and ICD-Translation_. American Health & Drug Benefits 2019; 12(4):188-197.
 #' @references Ludvigsson JF, Appelros P, Askling J et al. _Adaptation of the Charlson Comorbidity Index for register-based research in Sweden_. Clinical Epidemiology 2021; 13:21-41.
 #' @references Sundararajan V, Henderson T, Perry C, Muggivan A, Quan H, Ghali WA. _New ICD-10 version of the Charlson comorbidity index predicted in-hospital mortality_. Journal of Clinical Epidemiology 2004; 57(12):1288-1294.
 #' @examples
@@ -183,6 +211,12 @@ comorbidity <- function(x, id, code, map, assign0, labelled = TRUE, tidy.codes =
 
   ### Match comorbidity mapping
   x <- .matchit(x = x, id = id, code = code, regex = regex)
+  
+  ### Implement CDMF-specific logic for aids and hiv
+  if (grepl("cdmf", map)) {
+    # Set aids to 0 when hiv is 0 since aids flag is for opportunistic infections that imply aids (but only when the individual has an hiv diagnosis code)
+    x[aids == 1 & hiv == 0, aids := 0]
+  }
 
   ### Assign zero-values to avoid double-counting comorbidities, if requested
   if (assign0) {

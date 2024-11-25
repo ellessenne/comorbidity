@@ -1,5 +1,7 @@
 # comorbidity (development version)
 
+* Added the US-specific CDMF Charlson algorithm for ICD-9-CM and ICD-10-CM scores, with categories and score weighting based on [Glasheen _et al_. (2019)](https://pmc.ncbi.nlm.nih.gov/articles/PMC6684052) (#79, @kenkomodo);
+
 # comorbidity 1.1.0
 
 * Added a second version of the ICD10-AM score including U codes to "increases the capture of some chronic conditions up to 15-fold", [according to the Australian Institute of Health and Welfare](https://www.aihw.gov.au/reports/chronic-disease/supplementary-codes-for-chronic-conditions/summary) (#72, thanks to @DesiQuintans for contributing this);

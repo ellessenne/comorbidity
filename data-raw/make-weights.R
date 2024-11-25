@@ -2,7 +2,30 @@
 .weights <- list()
 
 for (w in names(.maps)) {
-  if (grepl(pattern = "charlson", x = w)) {
+  if (grepl(pattern = "charlson", x = w) && grepl(pattern = "cdmf", x = w)) {
+    # Apply CDMF-specific weights
+    .weights[[w]][["cdmf"]] <- c(
+      mi = 1,
+      chf = 1,
+      pvd = 1,
+      cevd = 1,
+      dementia = 1,
+      cpd = 1,
+      rheumd = 1,
+      pud = 1,
+      mld = 1,
+      diab = 1,
+      diabwc = 2,
+      hp = 2,
+      mmrend = 1,
+      canc = 2,
+      msld = 3,
+      srend = 3,
+      metacanc = 6,
+      hiv = 3,
+      aids = 6
+    )
+  } else if (grepl(pattern = "charlson", x = w)) {
     # Charlson-compatible weights:
     # Original Charlson weights
     .weights[[w]][["charlson"]] <- c(

@@ -37,7 +37,9 @@ Authors@R:
              comment = c(ORCID = "0000-0003-3936-4082")),
       person(given = "Desi",
              family = "Quintans",
-             role = "ctb"))
+             role = "ctb"),
+      person("Kenneth", "Taylor", role = "ctb",
+           comment = c(ORCID = "0000-0002-3205-9280")))
 URL: https://ellessenne.github.io/comorbidity/, https://github.com/ellessenne/comorbidity
 BugReports: https://github.com/ellessenne/comorbidity/issues
 License: GPL (>= 3)
